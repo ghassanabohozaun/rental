@@ -8,12 +8,24 @@ use Spatie\Translatable\HasTranslations;
 use App\Traits\Dashboard\Filterable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Dashboard\HasCreatedBy;
+use App\Traits\Dashboard\CanBeDeleted;
 
 class Company extends Model
 {
-    use HasFactory, HasTranslations, Filterable, SoftDeletes, HasCreatedBy;
+    use HasFactory, HasTranslations, Filterable, SoftDeletes, HasCreatedBy, CanBeDeleted;
 
     protected $table = 'companies';
+
+    protected $restrictiveRelations = [
+        'users'             => 'companies.cannot_delete_has_users',
+        'bankAccounts'      => 'companies.cannot_delete_has_bank_accounts',
+        'properties'        => 'companies.cannot_delete_has_properties',
+        'departments'       => 'companies.cannot_delete_has_departments',
+        'propertyTypes'     => 'companies.cannot_delete_has_property_types',
+        'propertyStatuses'  => 'companies.cannot_delete_has_property_statuses',
+        'roles'             => 'companies.cannot_delete_has_roles',
+        'guarantors'        => 'companies.cannot_delete_has_guarantors',
+    ];
 
     protected $fillable = [
         'name',
@@ -36,6 +48,36 @@ class Company extends Model
     public function bankAccounts()
     {
         return $this->hasMany(CompanyBankAccount::class);
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
+
+    public function propertyTypes()
+    {
+        return $this->hasMany(PropertyType::class);
+    }
+
+    public function propertyStatuses()
+    {
+        return $this->hasMany(PropertyStatus::class);
+    }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
+
+    public function guarantors()
+    {
+        return $this->hasMany(Guarantor::class);
     }
 
 

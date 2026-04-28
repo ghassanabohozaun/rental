@@ -27,4 +27,12 @@ return [
     'no_companies_found' => 'لا توجد شركات مضافة حالياً.',
     'manage_status' => 'إدارة الحالة',
     'created_by' => 'بواسطة',
+    'cannot_delete_has_users' => 'لا يمكن حذف هذه الشركة لوجود مستخدمين مرتبطين بها حالياً.',
+    'cannot_delete_has_bank_accounts' => 'لا يمكن حذف هذه الشركة لوجود حسابات بنكية مرتبطة بها حالياً.',
+    'cannot_delete_has_properties' => 'لا يمكن حذف هذه الشركة لوجود عقارات مرتبطة بها حالياً.',
+    'cannot_delete_has_departments' => 'لا يمكن حذف هذه الشركة لوجود أقسام مرتبطة بها حالياً.',
+    'cannot_delete_has_property_types' => 'لا يمكن حذف هذه الشركة لوجود أنواع عقارات مرتبطة بها حالياً.',
+    'cannot_delete_has_property_statuses' => 'لا يمكن حذف هذه الشركة لوجود حالات عقارات مرتبطة بها حالياً.',
+    'cannot_delete_has_roles' => 'لا يمكن حذف هذه الشركة لوجود أدوار (Roles) مرتبطة بها حالياً.',
+    'cannot_delete_has_guarantors' => 'لا يمكن حذف هذه الشركة لوجود كفلاء مرتبطين بها حالياً.',
 ];

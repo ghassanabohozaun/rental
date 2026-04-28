@@ -105,6 +105,9 @@ class CompanyService
             return false;
         }
 
+        // Check for restrictive relations (e.g., users, bank accounts)
+        $company->checkRestrictiveRelations();
+
         if ($company->logo) {
             $this->imageManagerUtils->removeImageFromLocal($company->logo, 'companies');
         }

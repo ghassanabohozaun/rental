@@ -125,5 +125,5 @@ return [
     | These configuration options for index page  pagination
     */
 
-    'pagination' => 3,
+    'pagination' => 10,
 ];
