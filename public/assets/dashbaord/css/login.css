@@ -107,7 +107,7 @@ body.fixed-navbar {
 
 /* 1. Visual Content */
 .welcome-side {
-    background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), url('../images/mjk/background.jpg') no-repeat center center;
+    background: url('../images/carbon-fibre.png'), url('../images/mjk/background.jpg') no-repeat center center;
     background-size: auto, cover;
     flex: 1;
     display: none;
