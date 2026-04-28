@@ -1,0 +1,68 @@
+<?php
+
+return [
+    'settings' => 'General Settings',
+    'basic_settings_section' => 'Basic Settings Section',
+    'contact_section' => 'Contact Information',
+    'media_section' => 'Media & Branding',
+    'social_section' => 'Social Media Links',
+
+    // Fields
+    'site_name_ar' => 'Website Name (Arabic)',
+    'site_name_en' => 'Website Name (English)',
+    'address_ar' => 'Website Address (Arabic)',
+    'address_en' => 'Website Address (English)',
+    'description_ar' => 'Website Description (Arabic)',
+    'description_en' => 'Website Description (English)',
+    'keywords_ar' => 'Search Keywords (Arabic)',
+    'keywords_en' => 'Search Keywords (English)',
+    'phone' => 'Phone Number',
+    'mobile' => 'Mobile Number',
+    'whatsapp' => 'WhatsApp Contact',
+    'email' => 'Official Email',
+    'email_support' => 'Technical Support Email',
+    'favicon' => 'Browser Icon (Favicon)',
+    'logo' => 'Official Website Logo',
+
+    'facebook' => 'Facebook Profile',
+    'twitter' => 'Twitter Account (X)',
+    'youtube' => 'YouTube Channel',
+    'instegram' => 'Instagram Account',
+    'gmail' => 'Gmail Account',
+    'linkedin' => 'LinkedIn Profile',
+
+    'language' => 'System Language',
+    'maintenance_message' => 'Maintenance Message Text',
+    'lang_front_button_status' => 'Show Language Switcher Button',
+    'disabled_forms_button' => 'Disable Submit Buttons in Forms',
+    'forms_status' => 'Forms Submission Status',
+    'status' => 'Website Status (Maintenance Mode)',
+    'comments_mailList_status' => 'Comments and Newsletter Status',
+
+    // Placeholders
+    'enter_site_name_ar' => 'Enter Website Name in Arabic',
+    'enter_site_name_en' => 'Enter Website Name in English',
+    'enter_description_ar' => 'Enter Description in Arabic',
+    'enter_description_en' => 'Enter Description in English',
+    'enter_keywords_ar' => 'Enter Keywords in Arabic',
+    'enter_keywords_en' => 'Enter Keywords in English',
+    'enter_address_ar' => 'Enter Website Address in Arabic',
+    'enter_address_en' => 'Enter Website Address in English',
+    'enter_phone' => 'Enter Landline Phone Number',
+    'enter_mobile' => 'Enter Personal Mobile Number',
+    'enter_whatsapp' => 'Enter WhatsApp Number or Link',
+    'enter_email' => 'Enter Official Business Email',
+    'enter_email_support' => 'Enter Technical Support Email',
+    'enter_favicon' => 'Upload Browser Icon (Favicon)',
+    'enter_logo' => 'Upload Official Website Logo',
+
+    'enter_facebook' => 'Enter Facebook Page URL',
+    'enter_twitter' => 'Enter Twitter (X) Account URL',
+    'enter_youtube' => 'Enter YouTube Channel URL',
+    'enter_instegram' => 'Enter Instagram Profile URL',
+    'enter_linkedin' => 'Enter LinkedIn Profile URL',
+
+    'enter_status' => 'Set Website Operational Status',
+    'enter_language' => 'Select Default System Language',
+    'enter_maintenance_message' => 'Enter Message for Maintenance Mode Page',
+];

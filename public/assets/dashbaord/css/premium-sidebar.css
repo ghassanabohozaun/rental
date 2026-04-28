@@ -1,0 +1,209 @@
+/* ========================================================================
+   ULTRA PREMIUM SIDEBAR STYLING
+   Dual-Directional (Supports both LTR & RTL seamlessly)
+======================================================================== */
+
+/* Base Sidebar Background */
+.main-menu.menu-dark {
+    background: #0f172a !important; /* Midnight Navy Slate */
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark {
+    border-right: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Header & Text Base */
+.main-menu.menu-dark .navigation-header {
+    color: rgba(255, 255, 255, 0.3) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+.main-menu.menu-dark .navigation {
+    background: transparent !important;
+}
+
+/* --- MAIN MENU ITEMS --- */
+.main-menu.menu-dark .navigation > li {
+    margin-bottom: 2px !important; /* Spacing between all items */
+}
+
+.main-menu.menu-dark .navigation > li:first-child {
+    margin-bottom: 5px !important; /* Extra spacing below Dashboard */
+}
+
+.main-menu.menu-dark .navigation > li > a {
+    padding: 12px 18px !important;
+    margin: 4px 14px !important;
+    border-radius: 12px !important;
+    color: #94a3b8 !important;
+    border-left: 4px solid transparent;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a {
+    border-left: none;
+    border-right: 4px solid transparent;
+}
+
+/* Icons */
+.main-menu.menu-dark .navigation > li > a > i {
+    font-size: 1.4rem !important;
+    margin-right: 14px !important;
+    color: #64748b !important;
+    vertical-align: middle !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
+    margin-right: 0 !important;
+    margin-left: 14px !important;
+}
+
+/* Menu Text */
+.main-menu.menu-dark .navigation > li > a > span.menu-title {
+    vertical-align: middle !important;
+    display: inline-block !important;
+    padding-top: 2px !important;
+}
+
+/* Hover State */
+.main-menu.menu-dark .navigation > li:hover > a {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #f8fafc !important;
+}
+
+.main-menu.menu-dark .navigation > li:hover > a > i {
+    color: #38bdf8 !important; /* Neon Blue */
+    transform: scale(1.15) !important;
+}
+
+/* Active State */
+.main-menu.menu-dark .navigation > li.active > a {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0.0) 100%) !important;
+    color: #ffffff !important;
+    border-left: 4px solid #38bdf8 !important;
+    font-weight: 600;
+    box-shadow: none !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.active > a {
+    background: linear-gradient(-90deg, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0.0) 100%) !important;
+    border-left: none !important;
+    border-right: 4px solid #38bdf8 !important;
+}
+
+.main-menu.menu-dark .navigation > li.active > a > i {
+    color: #38bdf8 !important;
+}
+
+/* Open State (When submenu is visible) */
+.main-menu.menu-dark .navigation > li.open > a {
+    background: rgba(0, 0, 0, 0.25) !important;
+    color: #ffffff !important;
+}
+
+.main-menu.menu-dark .navigation > li.open > a > i {
+    color: #38bdf8 !important;
+}
+
+/* --- CHEVRON / ARROWS --- */
+.main-menu.menu-dark .navigation > li.has-sub > a::after {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    opacity: 0.6;
+    right: 14px;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.has-sub > a::after {
+    right: auto;
+    left: 14px;
+}
+
+/* Smooth Chevron Rotation */
+.main-menu.menu-dark .navigation > li.has-sub.open > a::after {
+    transform: rotate(90deg) !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.has-sub.open > a::after {
+    transform: rotate(-90deg) !important;
+}
+
+
+/* --- SUBMENUS (Tree Structure) --- */
+.main-menu.menu-dark .navigation > li > ul {
+    background: transparent;
+    margin-left: 34px;
+    margin-right: 14px;
+    border-left: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul {
+    margin-left: 14px;
+    margin-right: 34px;
+    border-left: none;
+    border-right: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Submenu Links */
+.main-menu.menu-dark .navigation > li > ul > li > a {
+    padding: 10px 18px 10px 24px !important;
+    color: #64748b !important;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li > a {
+    padding: 10px 24px 10px 18px !important;
+}
+
+/* Submenu Hover & Active */
+.main-menu.menu-dark .navigation > li > ul > li:hover > a {
+    color: #e2e8f0 !important;
+    transform: translateX(6px) !important;
+    background: transparent !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a {
+    transform: translateX(-6px) !important;
+}
+
+.main-menu.menu-dark .navigation > li > ul > li.active > a {
+    color: #38bdf8 !important;
+    font-weight: 700 !important;
+    background: transparent !important;
+}
+
+/* Tree Connectors (Bullet Lines) */
+.main-menu.menu-dark .navigation > li > ul > li > a::before {
+    content: '';
+    position: absolute;
+    left: -1px; /* Overlaps dashed border */
+    top: 50%;
+    margin-top: -0.5px;
+    width: 12px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li > a::before {
+    left: auto;
+    right: -1px;
+}
+
+/* Highlight tree branch on hover/active */
+.main-menu.menu-dark .navigation > li > ul > li.active > a::before,
+.main-menu.menu-dark .navigation > li > ul > li:hover > a::before {
+    background: #38bdf8;
+    width: 18px;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Logo Area Overrides */
+.header-navbar .navbar-header {
+    background: #0f172a !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}

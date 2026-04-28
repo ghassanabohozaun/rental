@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'guarantors' => 'Guarantors',
+    'guarantor' => 'Guarantor',
+    'name' => 'Name',
+    'phone' => 'Phone Number',
+    'id_number' => 'ID Number',
+    'address' => 'Address',
+    'relationship' => 'Relationship',
+    'notes' => 'Notes',
+    'status' => 'Status',
+    'created_by' => 'Created By',
+    'add_guarantor' => 'Add Guarantor',
+    'edit_guarantor' => 'Edit Guarantor Details',
+    'guarantor_details' => 'Guarantor Details',
+    'delete_guarantor' => 'Delete Guarantor',
+    'company' => 'Related Company',
+    'no_guarantors_found' => 'No Guarantors Found !',
+    'relationships' => [
+        'father' => 'Father',
+        'mother' => 'Mother',
+        'brother' => 'Brother',
+        'sister' => 'Sister',
+        'son' => 'Son',
+        'daughter' => 'Daughter',
+        'spouse' => 'Spouse',
+        'friend' => 'Friend',
+        'relative' => 'Relative',
+        'other' => 'Other',
+    ],
+];

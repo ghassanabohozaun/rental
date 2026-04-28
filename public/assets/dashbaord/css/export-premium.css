@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Employee Export - Professional UI Standardization
+   ========================================================================== */
+
+/* Header Buttons Alignment Fix */
+.export-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 1rem;
+}
+
+/* Premium Buttons Styling */
+.btn-premium-reset, .btn-premium-excel, .btn-premium-blue {
+    border-radius: 10px !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    font-size: 0.9rem !important;
+}
+
+.btn-premium-reset {
+    background: #fff !important;
+    border: 1px solid #ff4961 !important;
+    color: #ff4961 !important;
+}
+
+.btn-premium-reset:hover {
+    background: #fff5f6 !important;
+    box-shadow: 0 4px 12px rgba(255, 73, 97, 0.15) !important;
+    transform: translateY(-1px);
+}
+
+.btn-premium-excel {
+    background: #28a745 !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2) !important;
+}
+
+.btn-premium-excel:hover {
+    background: #218838 !important;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3) !important;
+    transform: translateY(-1px);
+}
+
+/* Premium Switch Box & Label */
+.premium-switch-box {
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #fff !important;
+    transition: all 0.2s ease !important;
+    height: 100%;
+}
+
+.premium-switch-box:hover {
+    border-color: #cbd5e1 !important;
+    background: #f8fafc !important;
+}
+
+.premium-switch-label {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* Modern Switch RTL Support - Corrected Selector */
+[data-textdirection="rtl"] .premium-switch-box {
+    flex-direction: row-reverse !important;
+}
+
+[data-textdirection="rtl"] .premium-switch-label {
+    text-align: right !important;
+}
+
+[data-textdirection="rtl"] .modern-slider:before {
+    left: auto !important;
+    right: 3px !important;
+}
+
+[data-textdirection="rtl"] input:checked + .modern-slider:before {
+    transform: translateX(-18px) !important;
+}
+
+/* Select2 Multi-select Positioning Fix (Universal Trailing Edge) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 3px 12px !important;
+    gap: 0 !important; /* Managed by margins */
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    float: none !important;
+    order: 2 !important; /* Forces X to the end of the text flow */
+    color: #fff !important;
+    opacity: 0.8;
+    font-weight: bold !important;
+    transition: all 0.2s ease;
+    border: none !important;
+}
+
+/* LTR Specifics: X to the Right */
+[data-textdirection="ltr"] .select2-selection__choice__remove {
+    margin-left: 8px !important;
+    margin-right: -4px !important;
+}
+
+/* RTL Specifics: X to the Left */
+[data-textdirection="rtl"] .select2-selection__choice__remove {
+    margin-right: 8px !important;
+    margin-left: -4px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    background: transparent !important;
+}
+
+/* Section Titles Styling */
+.premium-section-title {
+    background-color: #f8fafc !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    color: #1e293b !important;
+}
+
+.premium-section-title-blue { border-left: 5px solid #1e9ff2 !important; }
+.premium-section-title-green { border-left: 5px solid #28d094 !important; }
+
+[data-textdirection="rtl"] .premium-section-title-blue {
+    border-left: none !important;
+    border-right: 5px solid #1e9ff2 !important;
+}
+[data-textdirection="rtl"] .premium-section-title-green {
+    border-left: none !important;
+    border-right: 5px solid #28d094 !important;
+}
+
+/* Utilities */
+.gap-2 { gap: 0.5rem !important; }
+.radius-10 { border-radius: 10px !important; }
+.radius-12 { border-radius: 12px !important; }

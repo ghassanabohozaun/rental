@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'guarantors' => 'الكفلاء',
+    'guarantor' => 'كفيل',
+    'name' => 'الاسم',
+    'phone' => 'رقم الهاتف',
+    'id_number' => 'رقم الهوية',
+    'address' => 'العنوان',
+    'relationship' => 'صلة القرابة',
+    'notes' => 'ملاحظات',
+    'status' => 'الحالة',
+    'created_by' => 'بواسطة',
+    'add_guarantor' => 'إضافة كفيل',
+    'edit_guarantor' => 'تعديل بيانات الكفيل',
+    'guarantor_details' => 'تفاصيل الكفيل',
+    'delete_guarantor' => 'حذف الكفيل',
+    'company' => 'الشركة التابع لها',
+    'no_guarantors_found' => 'لا يوجد كفلاء حالياً !',
+    'relationships' => [
+        'father' => 'أب',
+        'mother' => 'أم',
+        'brother' => 'أخ',
+        'sister' => 'أخت',
+        'son' => 'ابن',
+        'daughter' => 'ابنة',
+        'spouse' => 'زوج/زوجة',
+        'friend' => 'صديق',
+        'relative' => 'قريب',
+        'other' => 'أخرى',
+    ],
+];

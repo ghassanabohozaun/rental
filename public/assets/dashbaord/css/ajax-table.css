@@ -1,0 +1,263 @@
+/* 1. Table Loader Overlay */
+.table-loader-container { position: relative; }
+.table-loader-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10; opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; border-radius: 8px;
+}
+.table-loader-overlay.active { opacity: 1; visibility: visible; }
+
+/* 2. Premium Rotating Loader */
+.premium-loader {
+    width: 45px; height: 45px; border: 3px solid #1F3BB3;
+    border-radius: 50%; display: inline-block; position: relative;
+    animation: rotation 1s linear infinite;
+}
+.premium-loader::after {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%); width: 38px; height: 38px;
+    border-radius: 50%; border: 3px solid transparent; border-bottom-color: #FF3D00;
+}
+@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* 3. Modern Premium Pagination */
+.pagination {
+    gap: 5px;
+    margin-top: 20px;
+}
+.pagination .page-item .page-link {
+    border-radius: 12px !important;
+    border: 1px solid #edf2f7;
+    color: #64748b;
+    padding: 6px 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 700;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+}
+.pagination .page-item .page-link:hover {
+    background-color: #f1f5f9;
+    border-color: #1F3BB3;
+    color: #1F3BB3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(31, 59, 179, 0.15);
+}
+.pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #1F3BB3 0%, #3e59cc 100%) !important;
+    border-color: #1F3BB3 !important;
+    color: #fff !important;
+    box-shadow: 0 6px 20px rgba(31, 59, 179, 0.4);
+    transform: translateY(-1px);
+}
+.pagination .page-item.disabled .page-link {
+    color: #e2e8f0;
+    background-color: #f8fafc;
+    border-color: #f1f5f9;
+    box-shadow: none;
+    transform: none;
+}
+
+/* 4. Details Control Icon */
+.details-control { cursor: pointer; color: #1F3BB3; font-size: 1.5rem; transition: transform 0.2s; display: inline-block; }
+.details-control i { vertical-align: middle; }
+.details-control:hover { transform: scale(1.2); color: #FF3D00; }
+
+/* 5. Premium Modal Styling */
+.modal-details-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fff;
+}
+.premium-modal-header {
+    background: linear-gradient(135deg, #1F3BB3 0%, #3e59cc 100%);
+    height: 100px;
+    width: 100%;
+    position: relative;
+}
+.modal-profile-wrapper {
+    margin-top: -50px;
+    position: relative;
+    z-index: 5;
+    margin-bottom: 20px;
+}
+.modal-profile-img {
+    width: 100px !important;
+    height: 100px !important;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #fff;
+}
+.modal-profile-initials {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 35px !important;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #fff;
+    color: #fff; /* text-white usually sets this, but let's be explicit */
+}
+.modal-name-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1F3BB3;
+    margin-bottom: 5px;
+}
+.modal-role-badge {
+    padding: 6px 15px;
+    border-radius: 20px;
+    background: rgba(31, 59, 179, 0.1);
+    color: #1F3BB3;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+.modal-info-list {
+    padding: 20px;
+}
+.detail-item-modern {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #fcfdfe;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid #f1f3f9;
+}
+.detail-item-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    background: #fff;
+}
+.icon-circle {
+    width: 45px;
+    height: 45px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: #1F3BB3;
+}
+.detail-info-box {
+    flex: 1;
+}
+.detail-info-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+.detail-info-value {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+.modal-member-since-box {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    background: #f8f9fa;
+    color: #777;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+/* Avatar Sizing & Styling */
+.avatar-size-40 {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 14px !important;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    font-weight: 600;
+}
+.avatar-size-100 {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 35px !important;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+}
+/* Avatar Base */
+.avatar-circle {
+    border-radius: 50% !important;
+}
+
+/* Avatar icon: reset inherited float from RTL themes */
+div.avatar-circle i {
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+/* Icon sizes inside avatar */
+.avatar-icon-40  { font-size: 17px !important; }
+.avatar-icon-100 { font-size: 40px !important; }
+
+/* 6. Premium Table Cell Enhancements */
+.user-info-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.user-name-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1F3BB3;
+    line-height: 1.2;
+    transition: all 0.2s;
+}
+.user-info-cell:hover .user-name-text {
+    color: #FF3D00;
+}
+.user-email-text {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+/* Company Chip */
+.company-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background: rgba(31, 59, 179, 0.06);
+    border-radius: 10px;
+    color: #1F3BB3;
+    font-weight: 700;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(31, 59, 179, 0.1);
+}
+.company-chip i {
+    font-size: 16px;
+    opacity: 0.8;
+}
+[data-textdirection="rtl"] .company-chip i { margin-left: 8px; }
+[data-textdirection="ltr"] .company-chip i { margin-right: 8px; }
+
+.company-chip:hover {
+    background: #1F3BB3;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(31, 59, 179, 0.2);
+    border-color: #1F3BB3;
+}
+.company-chip:hover i { opacity: 1; }
+
