@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('address')->nullable();
             $table->string('logo')->nullable();
             $table->string('subscription_plan')->default('Basic');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive'])->default('active')->index();
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();

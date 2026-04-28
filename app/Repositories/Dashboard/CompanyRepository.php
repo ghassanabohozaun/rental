@@ -66,19 +66,34 @@ class CompanyRepository
         if (!empty($searchValue)) {
             $searchTerm = mb_strtolower($searchValue, 'UTF-8');
             $query->where(function ($q) use ($searchTerm) {
-                $q->whereRaw('LOWER(name->"$.en") like ?', ['"%' . $searchTerm . '%"'])
-                  ->orWhereRaw('LOWER(name->"$.ar") like ?', ['"%' . $searchTerm . '%"']);
+                // Multi-field Search: Name (EN/AR), Email, Phone
+                $q->whereRaw('LOWER(name->"$.en") like ?', ['%' . $searchTerm . '%'])
+                  ->orWhereRaw('LOWER(name->"$.ar") like ?', ['%' . $searchTerm . '%'])
+                  ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('phone', 'like', '%' . $searchTerm . '%');
             });
         }
 
-        return $query->orderByDesc('id')
-            ->limit(10)
+        $totalCount = $query->count();
+
+        $results = $query->orderByDesc('id')
+            ->limit(30)
             ->get()
             ->map(function ($company) {
                 return [
-                    'id' => $company->id,
-                    'text' => $company->name,
+                    'id'       => $company->id,
+                    'text'     => $company->name,
+                    'email'    => $company->email,
+                    'phone'    => $company->phone,
+                    'logo'     => $company->logo_url ?: asset('assets/dashbaord/images/logo/logo-placeholder.png'),
+                    'initials' => $company->initials,
+                    'color'    => $company->getAvatarColor(),
                 ];
             });
+
+        return [
+            'results' => $results,
+            'total_count' => $totalCount
+        ];
     }
 }

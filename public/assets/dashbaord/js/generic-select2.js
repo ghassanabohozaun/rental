@@ -11,7 +11,7 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
         placeholder: placeholder,
         allowClear: false, // Disabled native clear to use our custom professional reset icon
         width: '100%',
-        minimumInputLength: 0, 
+        minimumInputLength: 2, 
         ajax: {
             url: url,
             dataType: 'json',
@@ -24,10 +24,15 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
             },
             processResults: function (data, params) {
                 params.page = params.page || 1;
+                
+                // Support both structured {results: [], total_count: 0} and simple array responses
+                let results = data.results ? data.results : data;
+                let totalCount = data.total_count ? data.total_count : results.length;
+
                 return {
-                    results: data,
+                    results: results,
                     pagination: {
-                        more: (params.page * 30) < data.total_count
+                        more: (params.page * 30) < totalCount
                     }
                 };
             },
@@ -39,8 +44,51 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
             errorLoading: function() { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.errorLoading() : 'Error loading results'; },
             inputTooShort: function(args) { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.inputTooShort(args) : 'Please enter more characters'; },
             inputTooLong: function(args) { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.inputTooLong(args) : 'Please delete some characters'; }
-        }
+        },
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection
     };
+
+    /**
+     * Professional Template for Select2 Results
+     */
+    function formatRepo(repo) {
+        if (repo.loading) return repo.text;
+
+        // If it's a simple result without metadata, return text
+        if (!repo.email && !repo.logo && !repo.initials) return repo.text;
+
+        const isRtl = document.documentElement.getAttribute('dir') === 'rtl' || document.documentElement.getAttribute('data-textdirection') === 'rtl';
+
+        // Custom Template logic
+        let $container = $(
+            "<div class='select2-result-repository clearfix'>" +
+                "<div class='select2-result-repository__avatar'>" +
+                    (repo.logo && !repo.logo.includes('placeholder') 
+                        ? "<img src='" + repo.logo + "' />" 
+                        : "<div class='select2-result-avatar-initials' style='background-color:"+repo.color+"'>" + repo.initials + "</div>") +
+                "</div>" +
+                "<div class='select2-result-repository__meta'>" +
+                    "<div class='select2-result-repository__title'></div>" +
+                    "<div class='select2-result-repository__description'></div>" +
+                "</div>" +
+            "</div>"
+        );
+
+        $container.find(".select2-result-repository__title").text(repo.text);
+        
+        let subText = "";
+        if (repo.email) subText += "<span><i class='la la-envelope'></i>" + repo.email + "</span>";
+        if (repo.phone) subText += "<span><i class='la la-phone'></i>" + repo.phone + "</span>";
+        
+        $container.find(".select2-result-repository__description").html(subText);
+
+        return $container;
+    }
+
+    function formatRepoSelection(repo) {
+        return repo.text || repo.id;
+    }
 
     if (dropdownParent) {
         config.dropdownParent = $(dropdownParent);
