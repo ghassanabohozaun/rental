@@ -30,10 +30,10 @@ class PropertyRequest extends FormRequest
             'price' => 'nullable|numeric|min:0|max:999999999999',
             'property_status_id' => 'required|exists:property_statuses,id',
             'description' => 'nullable|string',
-            'property_number' => 'nullable|string|max:255',
-            'title_deed_number' => 'nullable|string|max:255',
-            'electricity_account_number' => 'nullable|string|max:255',
-            'water_account_number' => 'nullable|string|max:255',
+            'property_number' => 'required|string|max:255',
+            'title_deed_number' => 'required|string|max:255',
+            'electricity_account_number' => 'required|string|max:255',
+            'water_account_number' => 'required|string|max:255',
             'owner_id' => 'nullable|exists:users,id',
         ];
 

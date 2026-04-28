@@ -171,7 +171,8 @@
                                                                 <input type="number" step="0.01" id="price"
                                                                     name="price" value="{!! old('price') !!}"
                                                                     class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_price') !!}">
                                                                 <i class="la la-money text-primary"></i>
                                                             </div>
                                                             <span
@@ -186,7 +187,8 @@
                                                                 <input type="text" id="area" name="area"
                                                                     value="{!! old('area') !!}"
                                                                     class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_area') !!}">
                                                                 <i class="la la-expand text-primary"></i>
                                                             </div>
                                                             <span
@@ -214,76 +216,95 @@
                                                     </div>
                                                 </div>
 
-                                                <h5 class="mt-3 mb-2 font-weight-bold text-primary border-bottom pb-1">
-                                                    Additional Details - تفاصيل اضافية
-                                                </h5>
+                                                <div class="premium-mandatory-section mb-4">
+                                                    <div class="premium-mandatory-header">
+                                                        <i class="la la-exclamation-triangle mr-1"></i>
+                                                        {!! __('properties.mandatory_details_title') !!}
+                                                    </div>
+                                                    <div class="premium-mandatory-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="property_number" class="premium-label">
+                                                                        {!! __('properties.property_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="property_number"
+                                                                            name="property_number"
+                                                                            value="{!! old('property_number') !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_property_number') !!}">
+                                                                        <i class="la la-building"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text property_number_error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="title_deed_number" class="premium-label">
+                                                                        {!! __('properties.title_deed_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="title_deed_number"
+                                                                            name="title_deed_number"
+                                                                            value="{!! old('title_deed_number') !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_title_deed_number') !!}">
+                                                                        <i class="la la-certificate"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text title_deed_number_error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="property_number"
-                                                                class="premium-label">{!! __('properties.property_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="property_number"
-                                                                    name="property_number"
-                                                                    value="{!! old('property_number') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
-                                                                <i class="la la-hashtag text-primary"></i>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="electricity_account_number"
+                                                                        class="premium-label">
+                                                                        {!! __('properties.electricity_account_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text"
+                                                                            id="electricity_account_number"
+                                                                            name="electricity_account_number"
+                                                                            value="{!! old('electricity_account_number') !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_electricity_account') !!}">
+                                                                        <i class="la la-bolt"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text electricity_account_number_error"></span>
+                                                                </div>
                                                             </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text property_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="title_deed_number"
-                                                                class="premium-label">{!! __('properties.title_deed_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="title_deed_number"
-                                                                    name="title_deed_number"
-                                                                    value="{!! old('title_deed_number') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
-                                                                <i class="la la-certificate text-primary"></i>
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="water_account_number"
+                                                                        class="premium-label">
+                                                                        {!! __('properties.water_account_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="water_account_number"
+                                                                            name="water_account_number"
+                                                                            value="{!! old('water_account_number') !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_water_account') !!}">
+                                                                        <i class="la la-tint"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text water_account_number_error"></span>
+                                                                </div>
                                                             </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text title_deed_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="electricity_account_number"
-                                                                class="premium-label">{!! __('properties.electricity_account_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="electricity_account_number"
-                                                                    name="electricity_account_number"
-                                                                    value="{!! old('electricity_account_number') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
-                                                                <i class="la la-bolt text-primary"></i>
-                                                            </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text electricity_account_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="water_account_number"
-                                                                class="premium-label">{!! __('properties.water_account_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="water_account_number"
-                                                                    name="water_account_number"
-                                                                    value="{!! old('water_account_number') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off">
-                                                                <i class="la la-tint text-primary"></i>
-                                                            </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text water_account_number_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -293,7 +314,8 @@
                                                         <div class="premium-form-group">
                                                             <label for="description"
                                                                 class="premium-label">{!! __('properties.description') !!}</label>
-                                                            <textarea id="description" name="description" class="form-control shadow-none" rows="3">{!! old('description') !!}</textarea>
+                                                            <textarea id="description" name="description" class="form-control shadow-none" rows="3"
+                                                                placeholder="{!! __('properties.enter_description') !!}">{!! old('description') !!}</textarea>
                                                             <span
                                                                 class="text text-danger small mt-1 d-block error-text description_error"></span>
                                                         </div>

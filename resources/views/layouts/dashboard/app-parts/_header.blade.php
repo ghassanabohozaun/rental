@@ -1,4 +1,5 @@
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-light fixed-top navbar-shadow" style="background: #fff !important;">
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-light fixed-top navbar-shadow"
+    style="background: #fff !important;">
     <div class="navbar-wrapper" style="background: #fff !important;">
         <div class="navbar-header bg-white" style="background: #fff !important;">
             <ul class="nav navbar-nav flex-row">
@@ -14,7 +15,7 @@
                                 if (auth()->check() && auth()->user()->company) {
                                     $brandName = auth()->user()->company->name;
                                 }
-                                
+
                                 $words = explode(' ', $brandName);
                                 $initials = '';
                                 foreach ($words as $w) {
@@ -46,7 +47,6 @@
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
                 </ul>
-
 
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item">

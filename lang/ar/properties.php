@@ -41,8 +41,18 @@ return [
     'enter_location' => 'أدخل عنوان أو موقع العقار...',
     
     // UI Elements
+    'mandatory_details_title' => 'Important Additional Details - تفاصيل إضافة هامة',
     'no_properties_found' => 'لم يتم العثور على عقارات!',
     
+    // Placeholders
+    'enter_price' => 'أدخل القيمة الإيجارية المتوقعة...',
+    'enter_area' => 'أدخل مساحة العقار (مثلاً: 120 متر)...',
+    'enter_description' => 'أدخل وصفاً تفصيلياً للمميزات أو أي ملاحظات إضافية...',
+    'enter_property_number' => 'أدخل الرقم المساحي...',
+    'enter_title_deed_number' => 'أدخل رقم سند الملكية...',
+    'enter_electricity_account' => 'أدخل رقم حساب الكهرباء...',
+    'enter_water_account' => 'أدخل رقم حساب المياه...',
+
     // Errors
     'company_required' => 'يرجى تحديد الشركة',
 ];

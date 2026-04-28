@@ -5,9 +5,8 @@
 
 @section('content')
     <div class="app-content content">
-        <form class="form ajax-form" id='myForm' action="{!! route('dashboard.properties.update', $property->id) !!}" method="post" enctype="multipart/form-data" novalidate
-            data-success-msg="{!! __('general.update_success_message') !!}"
-            data-success-action="redirect"
+        <form class="form ajax-form" id='myForm' action="{!! route('dashboard.properties.update', $property->id) !!}" method="post" enctype="multipart/form-data"
+            novalidate data-success-msg="{!! __('general.update_success_message') !!}" data-success-action="redirect"
             data-redirect-url="{!! route('dashboard.properties.index') !!}">
             @csrf
             @method('PUT')
@@ -44,7 +43,7 @@
                             </button>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <!-- end :content header -->
 
                 <!-- begin: content body -->
@@ -64,44 +63,66 @@
                                         <div class="card-body">
                                             <div class="form-body">
 
-                                                @if(isset($companies))
-                                                <div class="row mb-3">
-                                                    <div class="col-md-12">
-                                                        <div class="premium-form-group">
-                                                            <label for="company_id" class="premium-label">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
-                                                            <div class="premium-input-wrapper">
-                                                                <select id="company_id" name="company_id" class="form-control premium-input shadow-none">
-                                                                    <option value="">{!! __('general.select_company') !!}</option>
-                                                                    @if($property->company_id)
-                                                                        <option value="{{ $property->company_id }}" selected>{{ optional($property->company)->name }}</option>
-                                                                    @endif
-                                                                </select>
+                                                @if (isset($companies))
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12">
+                                                            <div class="premium-form-group">
+                                                                <label for="company_id"
+                                                                    class="premium-label">{!! __('companies.company') !!} <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="premium-input-wrapper">
+                                                                    <select id="company_id" name="company_id"
+                                                                        class="form-control premium-input shadow-none">
+                                                                        <option value="">{!! __('general.select_company') !!}
+                                                                        </option>
+                                                                        @if ($property->company_id)
+                                                                            <option value="{{ $property->company_id }}"
+                                                                                selected>
+                                                                                {{ optional($property->company)->name }}
+                                                                            </option>
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                                <span
+                                                                    class="text text-danger small mt-1 d-block error-text company_id_error"></span>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text company_id_error"></span>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 @endif
 
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="name_ar" class="premium-label">{!! __('properties.name_ar') !!} <span class="text-danger">*</span></label>
+                                                            <label for="name_ar"
+                                                                class="premium-label">{!! __('properties.name_ar') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="text" id="name_ar" name="name[ar]" value="{!! old('name.ar', $property->getTranslation('name', 'ar')) !!}" class="form-control premium-input shadow-none" autocomplete="off" placeholder="{!! __('properties.enter_name_ar') !!}">
+                                                                <input type="text" id="name_ar" name="name[ar]"
+                                                                    value="{!! old('name.ar', $property->getTranslation('name', 'ar')) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_name_ar') !!}">
                                                                 <i class="la la-building text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="name_en" class="premium-label">{!! __('properties.name_en') !!} <span class="text-danger">*</span></label>
+                                                            <label for="name_en"
+                                                                class="premium-label">{!! __('properties.name_en') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="text" id="name_en" name="name[en]" value="{!! old('name.en', $property->getTranslation('name', 'en')) !!}" class="form-control premium-input shadow-none" autocomplete="off" placeholder="{!! __('properties.enter_name_en') !!}">
+                                                                <input type="text" id="name_en" name="name[en]"
+                                                                    value="{!! old('name.en', $property->getTranslation('name', 'en')) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_name_en') !!}">
                                                                 <i class="la la-building text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_en_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text name_en_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,30 +130,43 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="property_type_id" class="premium-label">{!! __('properties.type') !!} <span class="text-danger">*</span></label>
+                                                            <label for="property_type_id"
+                                                                class="premium-label">{!! __('properties.type') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
-                                                                <select id="property_type_id" name="property_type_id" class="form-control premium-input shadow-none select2">
+                                                                <select id="property_type_id" name="property_type_id"
+                                                                    class="form-control premium-input shadow-none select2">
                                                                     <option value="">{!! __('general.select_from_list') !!}</option>
-                                                                    @foreach($property_types as $type)
-                                                                        <option value="{{ $type->id }}" @selected($property->property_type_id == $type->id)>{{ $type->name }}</option>
+                                                                    @foreach ($property_types as $type)
+                                                                        <option value="{{ $type->id }}"
+                                                                            @selected($property->property_type_id == $type->id)>{{ $type->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text property_type_id_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text property_type_id_error"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="property_status_id" class="premium-label">{!! __('properties.status') !!} <span class="text-danger">*</span></label>
+                                                            <label for="property_status_id"
+                                                                class="premium-label">{!! __('properties.status') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
-                                                                <select id="property_status_id" name="property_status_id" class="form-control premium-input shadow-none select2">
-                                                                    <option value="">{!! __('general.select_from_list') !!}</option>
-                                                                    @foreach($property_statuses as $status)
-                                                                        <option value="{{ $status->id }}" @selected($property->property_status_id == $status->id)>{{ $status->name }}</option>
+                                                                <select id="property_status_id" name="property_status_id"
+                                                                    class="form-control premium-input shadow-none select2">
+                                                                    <option value="">{!! __('general.select_from_list') !!}
+                                                                    </option>
+                                                                    @foreach ($property_statuses as $status)
+                                                                        <option value="{{ $status->id }}"
+                                                                            @selected($property->property_status_id == $status->id)>{{ $status->name }}
+                                                                        </option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text property_status_id_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text property_status_id_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,22 +174,34 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="price" class="premium-label">{!! __('properties.price') !!}</label>
+                                                            <label for="price"
+                                                                class="premium-label">{!! __('properties.price') !!}</label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="number" step="0.01" id="price" name="price" value="{!! old('price', $property->price) !!}" class="form-control premium-input shadow-none" autocomplete="off">
+                                                                <input type="number" step="0.01" id="price"
+                                                                    name="price" value="{!! old('price', $property->price) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_price') !!}">
                                                                 <i class="la la-money text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text price_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text price_error"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="area" class="premium-label">{!! __('properties.area') !!}</label>
+                                                            <label for="area"
+                                                                class="premium-label">{!! __('properties.area') !!}</label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="text" id="area" name="area" value="{!! old('area', $property->area) !!}" class="form-control premium-input shadow-none" autocomplete="off">
+                                                                <input type="text" id="area" name="area"
+                                                                    value="{!! old('area', $property->area) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_area') !!}">
                                                                 <i class="la la-expand text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text area_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text area_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,60 +209,111 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="premium-form-group">
-                                                            <label for="location" class="premium-label">{!! __('properties.location') !!}</label>
+                                                            <label for="location"
+                                                                class="premium-label">{!! __('properties.location') !!}</label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="text" id="location" name="location" value="{!! old('location', $property->location) !!}" class="form-control premium-input shadow-none" autocomplete="off" placeholder="{!! __('properties.enter_location') !!}">
+                                                                <input type="text" id="location" name="location"
+                                                                    value="{!! old('location', $property->location) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('properties.enter_location') !!}">
                                                                 <i class="la la-map-marker text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text location_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text location_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <h5 class="mt-3 mb-2 font-weight-bold text-primary border-bottom pb-1">{!! __('general.additional_details') !!}</h5>
+                                                <div class="premium-mandatory-section mb-4">
+                                                    <div class="premium-mandatory-header">
+                                                        <i class="la la-exclamation-triangle mr-1"></i>
+                                                        {!! __('properties.mandatory_details_title') !!}
+                                                    </div>
+                                                    <div class="premium-mandatory-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="property_number" class="premium-label">
+                                                                        {!! __('properties.property_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="property_number"
+                                                                            name="property_number"
+                                                                            value="{!! old('property_number', $property->property_number) !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_property_number') !!}">
+                                                                        <i class="la la-building"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text property_number_error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="title_deed_number" class="premium-label">
+                                                                        {!! __('properties.title_deed_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="title_deed_number"
+                                                                            name="title_deed_number"
+                                                                            value="{!! old('title_deed_number', $property->title_deed_number) !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_title_deed_number') !!}">
+                                                                        <i class="la la-certificate"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text title_deed_number_error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="property_number" class="premium-label">{!! __('properties.property_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="property_number" name="property_number" value="{!! old('property_number', $property->property_number) !!}" class="form-control premium-input shadow-none" autocomplete="off">
-                                                                <i class="la la-hashtag text-primary"></i>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="electricity_account_number"
+                                                                        class="premium-label">
+                                                                        {!! __('properties.electricity_account_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text"
+                                                                            id="electricity_account_number"
+                                                                            name="electricity_account_number"
+                                                                            value="{!! old('electricity_account_number', $property->electricity_account_number) !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_electricity_account') !!}">
+                                                                        <i class="la la-bolt"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text electricity_account_number_error"></span>
+                                                                </div>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text property_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="title_deed_number" class="premium-label">{!! __('properties.title_deed_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="title_deed_number" name="title_deed_number" value="{!! old('title_deed_number', $property->title_deed_number) !!}" class="form-control premium-input shadow-none" autocomplete="off">
-                                                                <i class="la la-certificate text-primary"></i>
+                                                            <div class="col-md-6">
+                                                                <div class="premium-form-group">
+                                                                    <label for="water_account_number"
+                                                                        class="premium-label">
+                                                                        {!! __('properties.water_account_number') !!} <span
+                                                                            class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="premium-input-wrapper">
+                                                                        <input type="text" id="water_account_number"
+                                                                            name="water_account_number"
+                                                                            value="{!! old('water_account_number', $property->water_account_number) !!}"
+                                                                            class="form-control premium-input shadow-none"
+                                                                            autocomplete="off"
+                                                                            placeholder="{!! __('properties.enter_water_account') !!}">
+                                                                        <i class="la la-tint"></i>
+                                                                    </div>
+                                                                    <span
+                                                                        class="text text-danger small mt-1 d-block error-text water_account_number_error"></span>
+                                                                </div>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text title_deed_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="electricity_account_number" class="premium-label">{!! __('properties.electricity_account_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="electricity_account_number" name="electricity_account_number" value="{!! old('electricity_account_number', $property->electricity_account_number) !!}" class="form-control premium-input shadow-none" autocomplete="off">
-                                                                <i class="la la-bolt text-primary"></i>
-                                                            </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text electricity_account_number_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="premium-form-group">
-                                                            <label for="water_account_number" class="premium-label">{!! __('properties.water_account_number') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="water_account_number" name="water_account_number" value="{!! old('water_account_number', $property->water_account_number) !!}" class="form-control premium-input shadow-none" autocomplete="off">
-                                                                <i class="la la-tint text-primary"></i>
-                                                            </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text water_account_number_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,9 +321,12 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="premium-form-group">
-                                                            <label for="description" class="premium-label">{!! __('properties.description') !!}</label>
-                                                            <textarea id="description" name="description" class="form-control shadow-none" rows="3">{!! old('description', $property->description) !!}</textarea>
-                                                            <span class="text text-danger small mt-1 d-block error-text description_error"></span>
+                                                            <label for="description"
+                                                                class="premium-label">{!! __('properties.description') !!}</label>
+                                                            <textarea id="description" name="description" class="form-control shadow-none" rows="3"
+                                                                placeholder="{!! __('properties.enter_description') !!}">{!! old('description', $property->description) !!}</textarea>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text description_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -256,7 +356,7 @@
 
             // Initialize Company Select2 Autocomplete
             if ($('#company_id').length) {
-                initGenericSelect2('#company_id', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("general.select_company") !!}');
+                initGenericSelect2('#company_id', '{!! route('dashboard.companies.autocomplete') !!}', '{!! __('general.select_company') !!}');
             }
         });
     </script>

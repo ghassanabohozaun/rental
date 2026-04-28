@@ -41,7 +41,17 @@ return [
     'enter_location' => 'Enter property address or location...',
     
     // UI Elements
+    'mandatory_details_title' => 'Important Additional Details - تفاصيل إضافة هامة',
     'no_properties_found' => 'No properties found!',
+
+    // Placeholders
+    'enter_price' => 'Enter expected rental price...',
+    'enter_area' => 'Enter property area (e.g. 120 sqm)...',
+    'enter_description' => 'Enter detailed features or additional notes...',
+    'enter_property_number' => 'Enter property number...',
+    'enter_title_deed_number' => 'Enter title deed number...',
+    'enter_electricity_account' => 'Enter electricity account number...',
+    'enter_water_account' => 'Enter water account number...',
     
     // Errors
     'company_required' => 'Please select a company',

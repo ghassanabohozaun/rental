@@ -19,23 +19,44 @@ select {
     appearance: none !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231e9ff2' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
     background-repeat: no-repeat !important;
-    background-position: right 0.75rem center !important;
-    background-size: 1rem !important;
-    padding-right: 2.5rem !important;
+    background-position: right 0.85rem center !important;
+    background-size: 1.1rem !important;
+    padding-right: 2.8rem !important;
+    padding-left: 1.25rem !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
 }
 
-table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
-table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
-    margin-right: .5em;
-    display: inline-block;
-    box-sizing: border-box;
-    content: "";
-    border-top: 5px solid transparent;
-    border-left: 10px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 5px solid transparent;
-    border-right: 0px solid transparent;
+select:focus {
+    border-color: #1e9ff2 !important;
+    box-shadow: 0 0 0 4px rgba(30, 159, 242, 0.1) !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    content: "" !important;
+    width: 14px !important;
+    height: 14px !important;
+    border: none !important;
+    background: transparent !important;
+    margin-right: 8px !important;
+    margin-left: 0 !important;
+    /* Drawing a cleaner triangle */
+    border-top: 5px solid transparent !important;
+    border-bottom: 5px solid transparent !important;
+    border-left: 8px solid rgba(0, 0, 0, 0.4) !important; /* Pointing RIGHT for LTR */
+    border-right: 0 !important;
+    transition: transform 0.2s ease !important;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
+    transform: rotate(90deg) !important; /* Rotate when expanded */
 }
 
 input[type="checkbox"] {
@@ -3941,4 +3962,56 @@ body .select2-results__option--highlighted {
 .select2-results__option {
     background-color: transparent !important;
     padding: 0 !important;
+}
+
+
+/* Premium Mandatory Section Styling */
+.premium-mandatory-section {
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.05);
+    background: #fff;
+    margin-bottom: 2rem;
+}
+
+.premium-mandatory-header {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    padding: 12px 20px;
+    color: #991b1b;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+.premium-mandatory-header i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.premium-mandatory-body {
+    padding: 20px 20px 5px 20px;
+}
+
+/* Icons in mandatory section */
+.premium-mandatory-body .premium-input-wrapper i {
+    color: #b91c1c !important;
+    z-index: 100 !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    left: 1.15rem !important;
+    right: auto !important;
+}
+
+.premium-mandatory-body .premium-input {
+    padding-left: 3.2rem !important;
+    padding-right: 1.25rem !important;
+}
+
+.premium-mandatory-body .premium-input:focus {
+    border-color: #f87171 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
 }
