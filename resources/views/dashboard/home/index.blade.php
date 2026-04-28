@@ -11,37 +11,71 @@
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
-            <!-- begin: content header -->
-            <div class="content-header row">
-                <div class="col-12 welcome-section animate-up">
-                    <div class="d-flex justify-content-between align-items-end flex-wrap gap-4">
-                        <div>
-                            <h1 class="welcome-title">{!! greeting() !!}, <span class="text-warning">{!! user()->name !!}</span>! 👋</h1>
-                            <p class="mt-1 mb-0" style="font-size: 1.1rem; opacity: 0.85;">{!! __('dashboard.overview_of_performance') ?? 'Here is your system overview.' !!}</p>
-                        </div>
-                        <div class="welcome-date mb-1">
-                            <i class="icon-calendar"></i>
-                            {!! date('l, d F Y') !!}
+            <!-- Integrated Company & Welcome Banner -->
+            <div class="row animate-up">
+                <div class="col-12">
+                    <div class="company-identity-banner card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="d-flex align-items-center">
+                                    <div class="company-logo-frame">
+                                        @if (auth()->user()->company && auth()->user()->company->logo_url)
+                                            <img src="{{ auth()->user()->company->logo_url }}" alt="Logo">
+                                        @else
+                                            <span class="company-initials">
+                                                @php
+                                                    $brandName = auth()->user()->company
+                                                        ? auth()->user()->company->name
+                                                        : setting()->site_name;
+                                                    $words = explode(' ', $brandName);
+                                                    $initials = '';
+                                                    foreach ($words as $w) {
+                                                        $initials .= mb_substr($w, 0, 1);
+                                                    }
+                                                    echo mb_strtoupper(mb_substr($initials, 0, 2));
+                                                @endphp
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="company-info ml-3 mr-3">
+                                        <h2 class="welcome-text-premium mb-0" style="font-weight: 800; font-size: 1.6rem;">
+                                            {!! greeting() !!}, <span class="text-primary">{!! user()->name !!}</span>! 👋
+                                        </h2>
+                                        <p class="company-name-subtitle mb-0 text-muted" style="font-size: 1.1rem; font-weight: 500;">
+                                            {{ auth()->user()->company ? auth()->user()->company->name : setting()->site_name }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="welcome-date-section d-none d-md-block">
+                                    <div class="welcome-date mb-0 p-2 px-3">
+                                        <i class="la la-calendar-check-o mr-1"></i>
+                                        {!! date('l, d F Y') !!}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> <!-- end :content header -->
+            </div>
 
             <!-- Premium Tabs Segmented Control -->
             <div class="premium-tabs-wrapper animate-up delay-1 text-center d-flex justify-content-center">
                 <ul class="nav nav-pills custom-pills" id="dashboardTabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="overview-tab" data-toggle="pill" href="#overview" role="tab" aria-controls="overview" aria-selected="true">
+                        <a class="nav-link active" id="overview-tab" data-toggle="pill" href="#overview" role="tab"
+                            aria-controls="overview" aria-selected="true">
                             <i class="la la-pie-chart"></i> {!! __('dashboard.overview') ?? 'Overview' !!}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="activity-tab" data-toggle="pill" href="#activity" role="tab" aria-controls="activity" aria-selected="false">
+                        <a class="nav-link" id="activity-tab" data-toggle="pill" href="#activity" role="tab"
+                            aria-controls="activity" aria-selected="false">
                             <i class="la la-pulse"></i> {!! __('dashboard.activity') ?? 'System Activity' !!}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="reports-tab" data-toggle="pill" href="#reports" role="tab" aria-controls="reports" aria-selected="false">
+                        <a class="nav-link" id="reports-tab" data-toggle="pill" href="#reports" role="tab"
+                            aria-controls="reports" aria-selected="false">
                             <i class="la la-file-text"></i> {!! __('dashboard.reports') ?? 'Reports' !!}
                         </a>
                     </li>
@@ -51,18 +85,18 @@
             <div class="tab-content animate-up delay-2" id="dashboardTabsContent">
                 <!-- Overview Tab -->
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                    
+
                     <!-- Ultra Premium Stats Cards -->
                     <div class="row">
-                        @if($isSuperAdmin)
-                        <div class="col-xl-3 col-lg-6 col-12 mb-2">
-                            <div class="premium-stat-card card-companies">
-                                <div class="stat-icon-blob"></div>
-                                <h3 class="stat-value text-info">{!! $stats['companies_count'] !!}</h3>
-                                <h6 class="stat-title">{!! __('companies.companies') !!}</h6>
-                                <i class="icon-briefcase stat-icon-floating text-info"></i>
+                        @if ($isSuperAdmin)
+                            <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                                <div class="premium-stat-card card-companies">
+                                    <div class="stat-icon-blob"></div>
+                                    <h3 class="stat-value text-info">{!! $stats['companies_count'] !!}</h3>
+                                    <h6 class="stat-title">{!! __('companies.companies') !!}</h6>
+                                    <i class="icon-briefcase stat-icon-floating text-info"></i>
+                                </div>
                             </div>
-                        </div>
                         @endif
 
                         <div class="col-xl-3 col-lg-6 col-12 mb-2">
@@ -98,7 +132,8 @@
                         <div class="col-12">
                             <div class="card premium-chart-card">
                                 <div class="card-header">
-                                    <h4 class="card-title"><i class="la la-line-chart text-primary"></i> {!! __('dashboard.system_statistics') ?? 'Activity Trend' !!}</h4>
+                                    <h4 class="card-title"><i class="la la-line-chart text-primary"></i>
+                                        {!! __('dashboard.system_statistics') ?? 'Activity Trend' !!}</h4>
                                     <p class="text-muted mb-0 mt-1">{!! __('dashboard.monthly_overview') ?? 'Monthly system activity and engagement overview' !!}</p>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                 </div>
@@ -147,13 +182,15 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var isRtl = $('html').attr('data-textdirection') === 'rtl';
-            
+
             // Premium Smooth Area Chart Options
             var options = {
                 chart: {
                     type: 'area',
                     height: 380,
-                    toolbar: { show: false },
+                    toolbar: {
+                        show: false
+                    },
                     animations: {
                         enabled: true,
                         easing: 'easeinout',
@@ -170,7 +207,9 @@
                     fontFamily: 'Cairo, sans-serif'
                 },
                 colors: ['#4361ee', '#2ecc71'],
-                dataLabels: { enabled: false },
+                dataLabels: {
+                    enabled: false
+                },
                 stroke: {
                     curve: 'smooth',
                     width: 3,
@@ -194,32 +233,62 @@
                 },
                 xaxis: {
                     categories: {!! json_encode($chartData['categories']) !!},
-                    axisBorder: { show: false },
-                    axisTicks: { show: false },
-                    labels: { style: { colors: '#a1aab2' } }
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        style: {
+                            colors: '#a1aab2'
+                        }
+                    }
                 },
                 yaxis: {
                     labels: {
-                        style: { colors: '#a1aab2' },
+                        style: {
+                            colors: '#a1aab2'
+                        },
                         offsetX: isRtl ? -15 : 0
                     }
                 },
                 grid: {
                     borderColor: 'rgba(0,0,0,0.05)',
                     strokeDashArray: 4,
-                    yaxis: { lines: { show: true } },
-                    xaxis: { lines: { show: false } },
-                    padding: { top: 0, right: 0, bottom: 0, left: 10 }
+                    yaxis: {
+                        lines: {
+                            show: true
+                        }
+                    },
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    },
+                    padding: {
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 10
+                    }
                 },
                 legend: {
                     position: 'top',
                     horizontalAlign: 'right',
                     offsetY: -20,
-                    itemMargin: { horizontal: 10, vertical: 0 }
+                    itemMargin: {
+                        horizontal: 10,
+                        vertical: 0
+                    }
                 },
                 tooltip: {
                     theme: 'light',
-                    y: { formatter: function (val) { return val + " " + "{!! __('dashboard.records') ?? 'Records' !!}" } }
+                    y: {
+                        formatter: function(val) {
+                            return val + " " + "{!! __('dashboard.records') ?? 'Records' !!}"
+                        }
+                    }
                 }
             };
 

@@ -1,7 +1,18 @@
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow expanded" data-scroll-to-active="true">
         <div class="main-menu-content">
+            {{-- Search Bar --}}
+            <div class="sidebar-search-wrapper">
+                <div class="sidebar-search-container">
+                    <i class="la la-search sidebar-search-icon"></i>
+                    <input type="text" class="sidebar-search-input" id="sidebar-menu-search" 
+                        placeholder="{!! Lang() == 'ar' ? 'البحث في القائمة...' : 'Search menu...' !!}">
+                </div>
+            </div>
 
-            <ul class="navigation navigation-main mt-3" id="main-menu-navigation" data-menu="menu-navigation">
+            <ul class="navigation navigation-main mt-1" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class="navigation-header">
+                    <span>{!! Lang() == 'ar' ? 'القائمة الرئيسية' : 'Main Navigation' !!}</span>
+                </li>
                 <!-- begin: Dashboard -->
                 <li class=" nav-item @if (Request::is('*welcome*')) active @endif">
                     <a href="{!! route('dashboard.index') !!}">
@@ -183,5 +194,32 @@
                 <!-- end: settings -->
 
             </ul>
-        </div>
     </div>
+    
+    @push('js')
+    <script>
+        (function() {
+            const searchInput = document.getElementById('sidebar-menu-search');
+            if (!searchInput) return;
+            
+            searchInput.addEventListener('keyup', function() {
+                let filter = this.value.toLowerCase();
+                let menuItems = document.querySelectorAll('#main-menu-navigation li.nav-item');
+                
+                menuItems.forEach(function(item) {
+                    let text = item.innerText.toLowerCase();
+                    if (text.includes(filter)) {
+                        item.style.display = "";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+                
+                // Show/hide headers based on search
+                let headers = document.querySelectorAll('#main-menu-navigation li.navigation-header');
+                headers.forEach(h => h.style.display = filter ? "none" : "");
+            });
+        })();
+    </script>
+    @endpush
+</div>

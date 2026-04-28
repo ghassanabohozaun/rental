@@ -16,13 +16,81 @@ html[data-textdirection="rtl"] .main-menu.menu-dark {
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* --- SIDEBAR SEARCH --- */
+.sidebar-search-wrapper {
+    padding: 20px 14px 10px 14px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.sidebar-search-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-search-container:hover,
+.sidebar-search-container:focus-within {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+.sidebar-search-icon {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 12px;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 1.2rem;
+    pointer-events: none;
+    transition: color 0.3s;
+}
+
+.sidebar-search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 10px 10px 10px 38px;
+    color: #f8fafc;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.sidebar-search-input::placeholder {
+    color: #cbd5e1;
+    opacity: 0.9;
+}
+
+html[data-textdirection="rtl"] .sidebar-search-input {
+    padding: 10px 38px 10px 10px;
+}
+
+.sidebar-search-container:focus-within .sidebar-search-icon {
+    color: #38bdf8;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Header & Text Base */
 .main-menu.menu-dark .navigation-header {
-    color: rgba(255, 255, 255, 0.3) !important;
+    padding: 18px 24px 8px 24px !important;
+    color: #94a3b8 !important;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.8rem;
-    margin-top: 1rem;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation-header {
+    font-family: 'Tajawal', sans-serif !important;
+    font-size: 1.05rem !important;
+    letter-spacing: 0;
 }
 
 .main-menu.menu-dark .navigation {
@@ -202,8 +270,29 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
     box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
-/* Logo Area Overrides */
-.header-navbar .navbar-header {
-    background: #0f172a !important;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+/* Logo Area Overrides - COMPLETE RESET */
+.header-navbar .navbar-header,
+.header-navbar .navbar-header.expanded,
+.header-navbar .navbar-header.fixed,
+.navbar-header.bg-white {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    box-shadow: none !important;
+}
+
+.header-navbar .navbar-header .navbar-brand {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* Remove any potential separator line */
+.header-navbar .navbar-header::after,
+.header-navbar .navbar-header::before {
+    display: none !important;
 }

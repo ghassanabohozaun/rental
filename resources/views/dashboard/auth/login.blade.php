@@ -16,10 +16,12 @@
             <div class="welcome-content-premium">
                 <span class="badge-welcome">MJK-ALTHANI GROUP</span>
                 <h1 class="welcome-title">
-                    {!! __('auth.welcome_title') !!}
+                    {!! Lang() == 'ar' ? 'التميز في الاستثمار' : 'Excellence in Investment' !!}
                 </h1>
                 <p class="welcome-text">
-                    {!! __('auth.welcome_desc') !!}
+                    {!! Lang() == 'ar'
+                        ? 'رؤية طموحة لمستقبل واعد. نحن نبني النجاح معاً من خلال الالتزام والابتكار.'
+                        : 'An ambitious vision for a promising future. We build success together through commitment and innovation.' !!}
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
