@@ -26,4 +26,5 @@ return [
     'global_role' => 'Global Role (All Companies)',
     'global_role_note' => 'Leave blank if you want to make this role global and available to all companies.',
     'cannot_delete_role_linked_to_users' => 'Cannot delete this role because it is linked to active users.',
+    'cannot_delete_system_role' => 'System protected roles cannot be deleted as they are core system templates.',
 ];

@@ -74,6 +74,11 @@ class RoleService
             throw new \Exception(__('general.no_record_found'));
         }
 
+        // Protect System/Global Roles from deletion
+        if ($role->isSystemRole()) {
+            throw new \App\Exceptions\DeleteRestrictionException(__('roles.cannot_delete_system_role'));
+        }
+
         // check if any admins has role
         $role->checkRestrictiveRelations();
 

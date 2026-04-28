@@ -67,6 +67,9 @@ class PropertyStatusService
             return false;
         }
 
+        // Check for restrictive relations (e.g., properties)
+        $propertyStatus->checkRestrictiveRelations();
+
         $propertyStatus = $this->propertyStatusRepository->destroy($propertyStatus);
         if (!$propertyStatus) {
             return false;

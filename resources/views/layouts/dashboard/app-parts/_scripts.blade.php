@@ -22,6 +22,7 @@
             common: {
                 access_denied: "{{ __('dashboard.access_denied') }}",
                 error: "{{ __('general.error') }}",
+                ok: "{{ __('general.ok') }}",
                 something_went_wrong: "{{ __('general.try_catch_error_message') }}"
             }
         };

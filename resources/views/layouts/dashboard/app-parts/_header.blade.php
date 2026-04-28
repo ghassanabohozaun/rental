@@ -23,7 +23,29 @@
         <div class="navbar-container content">
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
+                    <li class="nav-item d-none d-lg-block">
+                        <div class="company-header-brand">
+                            @php
+                                $userCompany = auth()->user()->company;
+                            @endphp
+                            @if ($userCompany)
+                                <div class="brand-pill">
+                                    <div class="brand-avatar">
+                                        @if ($userCompany->logo_url)
+                                            <img src="{{ $userCompany->logo_url }}" alt="logo">
+                                        @else
+                                            <span class="initials" style="background: {{ $userCompany->getAvatarColor() }}">
+                                                {{ $userCompany->initials }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <span class="brand-text">{{ $userCompany->getTranslation('name', app()->getLocale()) }}</span>
+                                </div>
+                            @endif
+                        </div>
+                    </li>
                 </ul>
+
 
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item">

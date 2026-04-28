@@ -85,3 +85,15 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
         toggleReset();
     }
 }
+
+// Auto-initialize elements with .select2-autocomplete class on page load
+$(document).ready(function() {
+    $('.select2-autocomplete').each(function() {
+        var $el = $(this);
+        var url = $el.data('url');
+        var placeholder = $el.data('placeholder') || 'Select...';
+        if (url) {
+            initGenericSelect2($el, url, placeholder);
+        }
+    });
+});

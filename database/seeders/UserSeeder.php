@@ -11,9 +11,8 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $mainCompany = Company::where('name->en', 'Main Rental Company')->first();
         $superRole = Role::where('name->en', 'Super User')->first();
-        $adminRole = Role::where('name->en', 'Company Admin')->first();
+        $adminRole = Role::where('name->en' , 'Company Manager')->first();
 
         // 1. Super Admin
         User::firstOrCreate(
@@ -24,7 +23,7 @@ class UserSeeder extends Seeder
                     'ar' => 'المستخدم الرئيسي',
                 ],
                 'password' => bcrypt('123456'),
-                'company_id' => $mainCompany->id,
+                'company_id' => 1,
                 'role_id' => $superRole->id,
                 'status' => true,
             ]

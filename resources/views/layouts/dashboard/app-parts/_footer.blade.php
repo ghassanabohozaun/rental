@@ -2,7 +2,7 @@
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
         <span class="float-md-left d-block d-md-inline-block">{!! __('dashboard.copyright') !!} &copy; {!! date('Y') !!}
             <a href="javascript:void(0)" class="text-bold-800 grey darken-2">
-                {!! setting()->site_name !!}
+                {!! auth()->user()->company->name ?? setting()->site_name !!}
             </a>,
             {!! __('dashboard.all_rights_reserved') !!}. </span>
     </p>

@@ -42,6 +42,10 @@ class PropertyTypeService
     public function destroy($id)
     {
         $propertyType = $this->getOne($id);
+        
+        // Check for restrictive relations (e.g., properties)
+        $propertyType->checkRestrictiveRelations();
+        
         return $this->repository->destroy($propertyType);
     }
 

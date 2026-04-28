@@ -16,4 +16,5 @@ return [
     'color' => 'Color',
     'no_property_statuses_found' => 'No property statuses found',
     'company' => 'Company',
+    'cannot_delete_property_status_linked_to_properties' => 'Cannot delete this property status because it is linked to existing properties.',
 ];

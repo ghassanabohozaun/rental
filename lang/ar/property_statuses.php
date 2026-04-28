@@ -16,4 +16,5 @@ return [
     'color' => 'اللون',
     'no_property_statuses_found' => 'لم يتم العثور على حالات عقارات',
     'company' => 'الشركة',
+    'cannot_delete_property_status_linked_to_properties' => 'لا يمكن حذف حالة العقار هذه لأنها مرتبطة بعقارات موجودة حالياً.',
 ];

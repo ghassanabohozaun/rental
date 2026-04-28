@@ -11,13 +11,11 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $mainCompany = Company::where('name->en', 'Main Rental Company')->first();
-
-        // 1. Super User (System Admin) - Assigned to Main Company for isolation
+        // 1. Super User (System Admin) - Assigned to Company 1 (Main) for isolation
         $superRole = Role::firstOrCreate(
             ['name->en' => 'Super User'],
             [
-                'company_id' => $mainCompany->id, // Private to System Company
+                'company_id' => 1, // Private to System Company
                 'name' => [
                     'en' => 'Super User',
                     'ar' => 'المستخدم الرئيسي',
@@ -30,13 +28,13 @@ class RoleSeeder extends Seeder
         $allPermissions = Permission::all();
         $superRole->permissions()->sync($allPermissions->pluck('id'));
 
-        // 2. Company Admin - Global (Visible to all companies)
+        // 2. Company Manager - Global (Visible to all companies)
         $adminRole = Role::firstOrCreate(
-            ['name->en' => 'Company Admin'],
+            ['name->en' => 'Company Manager'],
             [
                 'company_id' => null, // Global Role
                 'name' => [
-                    'en' => 'Company Admin',
+                    'en' => 'Company Manager',
                     'ar' => 'مدير الشركة',
                 ],
                 'description' => 'Full access to company modules except company management',

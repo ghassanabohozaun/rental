@@ -148,7 +148,12 @@ $(document).ready(function () {
                                 $('#loading-indicator').hide();
                             }
                             // Show server message if available, otherwise show generic error
-                            swal("Error!", data.message || "Something went wrong.", "error");
+                            swal({
+                                title: window.PTC_I18N.common.error,
+                                text: data.message || window.PTC_I18N.common.something_went_wrong,
+                                icon: "error",
+                                button: window.PTC_I18N.common.ok
+                            });
                         }
                     },
                     error: function (xhr) {
@@ -163,9 +168,19 @@ $(document).ready(function () {
                         }
 
                         if (xhr.status === 403) {
-                            swal(window.PTC_I18N.common.access_denied, "", "error");
+                            swal({
+                                title: window.PTC_I18N.common.access_denied,
+                                text: "",
+                                icon: "error",
+                                button: window.PTC_I18N.common.ok
+                            });
                         } else {
-                            swal(window.PTC_I18N.common.error, errorMessage, "error");
+                            swal({
+                                title: window.PTC_I18N.common.error,
+                                text: errorMessage,
+                                icon: "error",
+                                button: window.PTC_I18N.common.ok
+                            });
                         }
                     },
                 });

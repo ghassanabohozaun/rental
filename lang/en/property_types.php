@@ -14,4 +14,5 @@ return [
     'manage_status' => 'Manage Status',
     'created_by' => 'Created By',
     'no_property_types_found' => 'No property types found',
+    'cannot_delete_property_type_linked_to_properties' => 'Cannot delete this property type because it is linked to existing properties.',
 ];

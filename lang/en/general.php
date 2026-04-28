@@ -222,4 +222,5 @@ return [
     'max' => 'Max',
     'all' => 'Show All',
     'selected_color' => 'Selected Color',
+    'ok' => 'Ok',
 ];

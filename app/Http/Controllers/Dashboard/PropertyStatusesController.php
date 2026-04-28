@@ -8,7 +8,7 @@ use App\Services\Dashboard\PropertyStatusService;
 use App\Services\Dashboard\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-
+use App\Exceptions\DeleteRestrictionException;
 class PropertyStatusesController extends Controller
 {
     protected $propertyStatusService, $companyService;
@@ -87,6 +87,11 @@ class PropertyStatusesController extends Controller
                     'status' => true,
                     'message' => __('general.delete_success_message')
                 ], 200);
+            } catch (DeleteRestrictionException $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage()
+                ], 422);
             } catch (\Exception $e) {
                 return response()->json([
                     'status' => false,

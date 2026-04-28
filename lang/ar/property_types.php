@@ -14,4 +14,5 @@ return [
     'manage_status' => 'إدارة الحالة',
     'created_by' => 'بواسطة',
     'no_property_types_found' => 'لم يتم العثور على أنواع عقارات',
+    'cannot_delete_property_type_linked_to_properties' => 'لا يمكن حذف نوع العقار هذا لأنه مرتبط بعقارات موجودة حالياً.',
 ];

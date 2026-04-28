@@ -16,7 +16,7 @@ class CompanySeeder extends Seeder
             [
                 'name' => [
                     'en' => 'Main Rental Company',
-                    'ar' => 'الشركة الرئيسية',
+                    'ar' => 'شركة الايجارات الرئيسية',
                 ],
                 'subscription_plan' => 'Basic',
                 'status' => 'active',

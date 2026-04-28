@@ -109,10 +109,13 @@
                                                             <div class="premium-form-group">
                                                                 <label for="company_id"
                                                                     class="premium-label">{!! __('companies.company') !!}</label>
-                                                                <div class="premium-input-wrapper">
+                                                                <div class="premium-input-wrapper" @if($role->isSystemRole()) style="cursor: not-allowed;" @endif>
                                                                     <select id="company_id" name="company_id"
-                                                                        class="form-control premium-input shadow-none"
-                                                                        @disabled($role->id === 1)>
+                                                                        class="form-control premium-input shadow-none select2-autocomplete"
+                                                                        @disabled($role->isSystemRole())
+                                                                        @if($role->isSystemRole()) style="cursor: not-allowed;" @endif
+                                                                        data-url="{!! route('dashboard.companies.autocomplete') !!}"
+                                                                        data-placeholder="{!! __('roles.global_role') !!}">
                                                                         <option value="">{!! __('roles.global_role') !!}
                                                                         </option>
                                                                         @if ($role->company_id)
@@ -295,11 +298,6 @@
                 let allChecked = $('.' + moduleClass).length === $('.' + moduleClass + ':checked').length;
                 $('.select-all-module[data-module="' + moduleClass + '"]').prop('checked', allChecked);
             });
-
-            // Initialize Company Select2 Autocomplete
-            if ($('#company_id').length) {
-                initGenericSelect2('#company_id', '{!! route('dashboard.companies.autocomplete') !!}', '{!! __('roles.global_role') !!}');
-            }
         });
     </script>
 @endpush

@@ -8,6 +8,7 @@ use App\Services\Dashboard\PropertyTypeService;
 use App\Services\Dashboard\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Exceptions\DeleteRestrictionException;
 
 class PropertyTypesController extends Controller
 {
@@ -87,6 +88,11 @@ class PropertyTypesController extends Controller
                     'status' => true,
                     'message' => __('general.delete_success_message')
                 ], 200);
+            } catch (DeleteRestrictionException $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage()
+                ], 422);
             } catch (\Exception $e) {
                 return response()->json([
                     'status' => false,
