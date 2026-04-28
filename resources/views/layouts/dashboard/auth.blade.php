@@ -35,7 +35,9 @@
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css/pages/login-register.css">
     @endif
 
+    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/login.css') }}">
     <link rel="stylesheet" type="text/css" href="{!! asset(path: 'assets/dashbaord/css/my-style.css') . '?v=1.0.1' !!}">
+    <link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
 
     @stack('style')
 </head>
@@ -72,6 +74,7 @@
     <script src="{!! asset('assets/dashbaord') !!}/js/scripts/forms/form-login-register.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
 
+    <script src="{!! asset('vendor/flasher/flasher.min.js') !!}" type="text/javascript"></script>
     @stack('js')
 </body>
 

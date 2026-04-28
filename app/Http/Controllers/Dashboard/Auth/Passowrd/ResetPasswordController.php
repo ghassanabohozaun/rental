@@ -33,6 +33,6 @@ class ResetPasswordController extends Controller
 
         return redirect()
             ->route('dashboard.get.login')
-            ->with(['success' => __('auth.your_password_update_successfully')]);
+            ->with(['success' => __('auth.your_password_updated_successfully')]);
     }
 }

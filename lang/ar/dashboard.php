@@ -74,4 +74,5 @@ return [
     'reports_empty' => 'سيتم توليد التقارير والإحصاءات هنا.',
     'records' => 'سجل',
     'statistics' => 'الإحصائيات',
+    'secured_session' => 'جلسة مؤمنة',
 ];

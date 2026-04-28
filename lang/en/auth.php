@@ -65,4 +65,8 @@ return [
     'personal_id' => 'Personal ID',
     'welcome_title' => 'Excellence in Investment',
     'welcome_desc' => 'An ambitious vision for a promising future. We build success together through commitment and innovation.',
+    'enter_password_to_unlock' => 'Enter your password to unlock the screen',
+    'login_success' => 'Login Successfully',
+    'login_failed' => 'Login failed, please check your credentials.',
+    'account_disabled_contact_admin' => 'Your account is currently disabled, please contact administration.',
 ];

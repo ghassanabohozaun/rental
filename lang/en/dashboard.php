@@ -75,4 +75,5 @@ return [
     'reports_empty' => 'Reports and analytics will be generated here.',
     'records' => 'Record',
     'statistics' => 'Statistics',
+    'secured_session' => 'Secured Session',
 ];

@@ -42,7 +42,7 @@ class AuthController extends Controller implements HasMiddleware
         $checkLogin = $this->authService->login($credinatioals, $remmber, 'employee');
 
         if (!$checkLogin) {
-            flash()->error(__('general.login_faild'));
+            flash()->error(__('auth.login_failed'));
             return redirect()->back();
         } else {
             $employeeID = employee()->user()->id;
@@ -53,7 +53,7 @@ class AuthController extends Controller implements HasMiddleware
                 return redirect()->back();
             }
 
-            flash()->success(__('general.login_success'));
+            flash()->success(__('auth.login_success'));
             return redirect()->route('employees.overview');
         }
     }

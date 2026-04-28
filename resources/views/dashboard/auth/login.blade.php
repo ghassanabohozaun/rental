@@ -4,7 +4,6 @@
     {!! setting()->site_name !!} {!! __('auth.login') !!}
 @endsection
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/login.css') }}">
 @endpush
 
 @section('content')

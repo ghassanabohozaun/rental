@@ -41,7 +41,7 @@ return [
     'enter_password' => 'ادخل كلمة المرور',
     'enter_confirm_password' => 'ادخل تأكيد كلمة المرور',
     'try_again_later' => 'حاول مرة اخري لاحقاً',
-    'your_password_update_successfully' => 'تم تعديل كلمة مرورك بنجاح',
+    'your_password_updated_successfully' => 'تم تعديل كلمة مرورك بنجاح',
     'dont_have_account' => 'هل تمتلك حساب لدينا ؟',
     'sign_up' => 'يمكنك التسجيل معنا',
     'already_have_an_account' => 'أمتلك حساب مسبقاً',
@@ -65,4 +65,8 @@ return [
     'personal_id' => 'رقم هوية الموظف',
     'welcome_title' => 'التميز في الاستثمار',
     'welcome_desc' => 'رؤية طموحة لمستقبل واعد. نحن نبني النجاح معاً من خلال الالتزام والابتكار.',
+    'enter_password_to_unlock' => 'أدخل كلمة المرور لفتح الشاشة',
+    'login_success' => 'تم تسجيل الدخول بنجاح.',
+    'login_failed' => 'فشل تسجيل الدخول، يرجى التأكد من البيانات.',
+    'account_disabled_contact_admin' => 'حسابك معطل حالياً، يرجى التواصل مع الإدارة.',
 ];

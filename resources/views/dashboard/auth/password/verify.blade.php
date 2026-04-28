@@ -4,81 +4,97 @@
     {!! __('auth.confirm') !!}
 @endsection
 
-@push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/login-modern.css') }}">
-@endpush
-
 @section('content')
-    <div class="login-page" dir="{{ Config::get('app.locale') == 'ar' ? 'rtl' : 'ltr' }}"
+    <div class="login-main-wrapper" dir="{{ Config::get('app.locale') == 'ar' ? 'rtl' : 'ltr' }}"
         data-textdirection="{{ Config::get('app.locale') == 'ar' ? 'rtl' : 'ltr' }}">
 
-        <!-- Language Toggle -->
-        <div class="lang-toggle-wrapper">
-            @php
-                $currentLocale = Lang();
-                $targetLocale = $currentLocale == 'ar' ? 'en' : 'ar';
-                $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
-            @endphp
-            <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="enterprise-lang-toggle"
-                id="login-rtl-toggle">
-                <i class="la la-language" style="font-size: 1.2rem;"></i>
-                <span>{{ $targetNative }}</span>
-            </a>
+        <!-- 1. Visual/Welcome Side -->
+        <div class="welcome-side">
+            <div class="welcome-content-premium">
+                <span class="badge-welcome">MJK-ALTHANI GROUP</span>
+                <h1 class="welcome-title">
+                    {!! __('auth.welcome_title') !!}
+                </h1>
+                <p class="welcome-text">
+                    {!! __('auth.welcome_desc') !!}
+                </p>
+                <div class="welcome-footer">
+                    <div class="footer-stats">
+                        <span class="stat-item"><i class="la la-shield-check"></i> {!! __('auth.verify_password') !!}</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="login-container">
-            <div class="login-card">
-                <div class="login-header">
-                    <div class="login-logo">
-                        @if (setting()->logo)
-                            <img src="{!! asset('uploads/settings/' . setting()->logo) !!}" alt="{{ setting()->site_name }}">
-                        @else
-                            <h2 class="login-title" style="font-weight: bolder;">{!! setting()->site_name !!}</h2>
-                        @endif
-                    </div>
-                    <h1 class="login-title">{!! __('auth.verify_password') !!}</h1>
-                    <p class="login-subtitle">{!! __('auth.reset_password_verification_code') !!}</p>
+        <!-- 2. Form Side -->
+        <div class="form-side">
+            <!-- Language Toggle -->
+            <div class="lang-toggle-container">
+                @php
+                    $currentLocale = Lang();
+                    $targetLocale = $currentLocale == 'ar' ? 'en' : 'ar';
+                    $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
+                @endphp
+                <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="btn-lang-toggle">
+                    <i class="la la-language"></i>
+                    <span>{{ $targetNative }}</span>
+                </a>
+            </div>
+
+            <div class="login-form-box">
+                <!-- Brand logo -->
+                <div class="brand-logo-modern">
+                    @if (setting()->logo)
+                        <img src="{!! asset('uploads/settings/' . setting()->logo) !!}" alt="{{ setting()->site_name }}">
+                    @else
+                        <img src="{{ asset('assets/dashbaord/images/mjk/logo.png') }}" alt="MJK-ALTHANI">
+                    @endif
+                </div>
+
+                <div class="form-header-modern">
+                    <h2>{!! __('auth.verify_password') !!}</h2>
+                    <p>{!! __('auth.reset_password_verification_code') !!}</p>
                 </div>
 
                 @if ($errors->has('error'))
-                    <div class="alert-modern alert-danger-modern">
-                        <i class="la la-exclamation-circle"></i>
-                        <span>{!! $errors->first('error') !!}</span>
+                    <div class="alert alert-danger mb-4 py-3"
+                        style="font-size: 0.82rem; border-radius: 12px; border: none; background: #fff1f2; color: #be123c;">
+                        <i class="la la-exclamation-triangle me-2"></i> {!! $errors->first('error') !!}
                     </div>
                 @endif
 
-                <form action="{!! route('dashboard.password.post.verify') !!}" method="post" class="modern-form" novalidate autocomplete="off">
+                <form action="{!! route('dashboard.password.post.verify') !!}" method="post" class="modern-form" autocomplete="off">
                     @csrf
 
-                    <div class="form-group">
-                        <label class="form-label">{!! __('auth.you_email_address') !!}</label>
-                        <div class="input-wrapper">
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">{!! __('auth.you_email_address') !!}</label>
+                        <div class="input-container-modern">
                             <input type="email" class="form-control-modern" id="email" name="email"
-                                placeholder="email@example.com" autocomplete="off">
-                            <i class="la la-envelope input-icon"></i>
+                                value="{{ $email }}" readonly autocomplete="off">
+                            <i class="la la-envelope input-icon-modern"></i>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">{!! __('auth.enter_reset_code') !!}</label>
-                        <div class="input-wrapper">
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">{!! __('auth.enter_reset_code') !!}</label>
+                        <div class="input-container-modern">
                             <input type="text" class="form-control-modern @error('code') is-invalid @enderror"
                                 id="code" name="code" placeholder="123456" required autofocus autocomplete="off">
-                            <i class="la la-key input-icon"></i>
+                            <i class="la la-key input-icon-modern"></i>
                         </div>
                         @error('code')
-                            <span class="error-text">{{ $message }}</span>
+                            <span style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <button type="submit" class="login-btn">
+                    <button type="submit" class="btn-login-modern">
                         <span>{!! __('auth.verify_password') !!}</span>
                         <i class="la la-shield-alt"></i>
                     </button>
 
                     <div style="text-align: center; margin-top: 24px;">
-                        <a href="{!! route('dashboard.get.login') !!}" class="forgot-password">
-                            {!! __('auth.login') !!}
+                        <a href="{!! route('dashboard.get.login') !!}" class="forgot-modern">
+                            {!! __('auth.login') !!} <i class="la la-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
                         </a>
                     </div>
                 </form>

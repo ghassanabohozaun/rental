@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Auth;
 
-use App\Models\Admin;
+use App\Models\User;
 use Ichtrojan\Otp\Otp;
 
 class PasswordRepository
@@ -18,7 +18,7 @@ class PasswordRepository
 
     public function getAdminByEmail($email)
     {
-        $admin = Admin::where('email', $email)->first();
+        $admin = User::where('email', $email)->first();
         return $admin;
     }
     public function verifyOTP($data)
@@ -29,7 +29,7 @@ class PasswordRepository
 
     public function resetPasword($email, $password)
     {
-        $admin = Admin::where('email', $email)->first();
+        $admin = User::where('email', $email)->first();
         $adminUpdate = $admin->update([
             'password' => bcrypt($password),
         ]);
