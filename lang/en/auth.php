@@ -63,4 +63,6 @@ return [
     'unlock_success' => 'Session unlocked successfully.',
     'sign_in_different_account' => 'Sign in with a different account',
     'personal_id' => 'Personal ID',
+    'welcome_title' => 'Excellence in Investment',
+    'welcome_desc' => 'An ambitious vision for a promising future. We build success together through commitment and innovation.',
 ];

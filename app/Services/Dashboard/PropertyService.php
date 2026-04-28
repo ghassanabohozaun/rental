@@ -25,9 +25,14 @@ class PropertyService
 
     public function store(array $data)
     {
-        // Ensure company_id is set for regular users
+        // Logic: The owner of the property is the company itself
         if (!isset($data['company_id'])) {
+            // For regular users, use their own company
             $data['company_id'] = user()->company_id;
+            $data['owner_id'] = user()->company_id;
+        } else {
+            // For Super Admin, use the selected company as the owner
+            $data['owner_id'] = $data['company_id'];
         }
 
         return $this->repository->create($data);
@@ -35,6 +40,13 @@ class PropertyService
 
     public function update($id, array $data)
     {
+        // Keep owner_id synced with company_id on update
+        if (isset($data['company_id'])) {
+            $data['owner_id'] = $data['company_id'];
+        } else {
+            $data['owner_id'] = user()->company_id;
+        }
+
         return $this->repository->update($id, $data);
     }
 

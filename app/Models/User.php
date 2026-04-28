@@ -13,6 +13,7 @@ use App\Traits\Dashboard\Filterable;
 use App\Contracts\MustBelongToCompany;
 use App\Traits\BelongsToCompany;
 use App\Traits\Dashboard\HasCreatedBy;
+use App\Traits\Dashboard\CanBeDeleted;
 
 class User extends Authenticatable implements MustBelongToCompany
 {

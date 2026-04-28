@@ -9,7 +9,29 @@
                         @if (setting()->logo != null)
                             <img class="brand-logo" alt="" src="{!! asset('uploads/settings/' . setting()->logo) !!}">
                         @else
-                            {{-- <h4 class="brand-text">{!! setting()->site_name !!}</h4> --}}
+                            @php
+                                $brandName = setting()->site_name;
+                                if (auth()->check() && auth()->user()->company) {
+                                    $brandName = auth()->user()->company->name;
+                                }
+                                
+                                $words = explode(' ', $brandName);
+                                $initials = '';
+                                foreach ($words as $w) {
+                                    $initials .= mb_substr($w, 0, 1);
+                                }
+                                $displayInitials = mb_strtoupper(mb_substr($initials, 0, 2));
+                            @endphp
+                            <div class="company-header-brand">
+                                <div class="brand-pill">
+                                    <div class="brand-avatar">
+                                        <span class="initials" style="background: #5A8DEE">
+                                            {{ $displayInitials }}
+                                        </span>
+                                    </div>
+                                    <span class="brand-text">{{ $brandName }}</span>
+                                </div>
+                            </div>
                         @endif
                     </a>
                 </li>
@@ -23,27 +45,6 @@
         <div class="navbar-container content">
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
-                    <li class="nav-item d-none d-lg-block">
-                        <div class="company-header-brand">
-                            @php
-                                $userCompany = auth()->user()->company;
-                            @endphp
-                            @if ($userCompany)
-                                <div class="brand-pill">
-                                    <div class="brand-avatar">
-                                        @if ($userCompany->logo_url)
-                                            <img src="{{ $userCompany->logo_url }}" alt="logo">
-                                        @else
-                                            <span class="initials" style="background: {{ $userCompany->getAvatarColor() }}">
-                                                {{ $userCompany->initials }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <span class="brand-text">{{ $userCompany->getTranslation('name', app()->getLocale()) }}</span>
-                                </div>
-                            @endif
-                        </div>
-                    </li>
                 </ul>
 
 
