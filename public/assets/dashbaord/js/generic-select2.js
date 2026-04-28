@@ -11,7 +11,7 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
         placeholder: placeholder,
         allowClear: false, // Disabled native clear to use our custom professional reset icon
         width: '100%',
-        minimumInputLength: 2, 
+        minimumInputLength: 0, 
         ajax: {
             url: url,
             dataType: 'json',

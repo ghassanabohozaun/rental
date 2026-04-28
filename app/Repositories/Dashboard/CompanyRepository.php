@@ -74,9 +74,10 @@ class CompanyRepository
         }
 
         $totalCount = $query->count();
+        $limit = empty($searchValue) ? 5 : 30;
 
         $results = $query->orderByDesc('id')
-            ->limit(30)
+            ->limit($limit)
             ->get()
             ->map(function ($company) {
                 return [
