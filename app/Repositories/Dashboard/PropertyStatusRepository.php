@@ -76,10 +76,9 @@ class PropertyStatusRepository
         $query = $this->model->query()->active();
 
         if (!empty($searchValue)) {
-            $searchTerm = mb_strtolower($searchValue, 'UTF-8');
-            $query->where(function ($q) use ($searchTerm) {
-                $q->whereRaw('LOWER(name->"$.en") like ?', ['"%' . $searchTerm . '%"'])
-                  ->orWhereRaw('LOWER(name->"$.ar") like ?', ['"%' . $searchTerm . '%"']);
+            $query->where(function ($q) use ($searchValue) {
+                $q->where('name->en', 'like', '%' . $searchValue . '%')
+                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%');
             });
         }
 

@@ -64,13 +64,12 @@ class CompanyRepository
         $query = $this->model->query()->where('status', 'active');
 
         if (!empty($searchValue)) {
-            $searchTerm = mb_strtolower($searchValue, 'UTF-8');
-            $query->where(function ($q) use ($searchTerm) {
-                // Multi-field Search: Name (EN/AR), Email, Phone
-                $q->whereRaw('LOWER(name->"$.en") like ?', ['%' . $searchTerm . '%'])
-                  ->orWhereRaw('LOWER(name->"$.ar") like ?', ['%' . $searchTerm . '%'])
-                  ->orWhere('email', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('phone', 'like', '%' . $searchTerm . '%');
+            $query->where(function ($q) use ($searchValue) {
+                // Use Laravel's native JSON search for cross-database compatibility (MySQL, MariaDB, etc.)
+                $q->where('name->en', 'like', '%' . $searchValue . '%')
+                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
+                  ->orWhere('email', 'like', '%' . $searchValue . '%')
+                  ->orWhere('phone', 'like', '%' . $searchValue . '%');
             });
         }
 
