@@ -162,40 +162,39 @@
 
                                                         <div class="permissions-grid">
                                                             @foreach (config('global.modules') as $moduleKey => $moduleLangKey)
-                                                                <div class="permission-card">
-                                                                    <div class="permission-card-header">
-                                                                        <div class="permission-card-title">
-                                                                            <i
-                                                                                class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
-                                                                            {!! __($moduleLangKey) !!}
-                                                                        </div>
-                                                                        <label class="modern-switch"
-                                                                            style="transform: scale(0.8);">
-                                                                            <input type="checkbox" class="select-all-module"
-                                                                                data-module="module-{{ $moduleKey }}">
-                                                                            <span class="modern-slider"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="permission-card-body">
-                                                                        @foreach (config('global.crud_operations') as $opKey => $opLangKey)
-                                                                            <div class="permission-item">
-                                                                                <div class="permission-info">
-                                                                                    <label
-                                                                                        class="permission-label">{!! __($opLangKey) !!}</label>
-                                                                                    <p class="permission-desc">
-                                                                                        {!! __($opLangKey . '_desc') !!}</p>
-                                                                                </div>
-                                                                                <label class="modern-switch">
-                                                                                    <input type="checkbox"
-                                                                                        class="permission-checkbox module-{{ $moduleKey }}"
-                                                                                        name="permissions[]"
-                                                                                        value="{{ $moduleKey }}_{{ $opKey }}">
-                                                                                    <span class="modern-slider"></span>
-                                                                                </label>
+                                                                {{-- Check if user has ANY permission in this module or is Super Admin --}}
+                                                                @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || Gate::allows($moduleKey))
+                                                                    <div class="permission-card">
+                                                                        <div class="permission-card-header">
+                                                                            <div class="permission-card-title">
+                                                                                <i class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
+                                                                                {!! __($moduleLangKey) !!}
                                                                             </div>
-                                                                        @endforeach
+                                                                            <label class="modern-switch" style="transform: scale(0.8);">
+                                                                                <input type="checkbox" class="select-all-module" data-module="module-{{ $moduleKey }}">
+                                                                                <span class="modern-slider"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="permission-card-body">
+                                                                            @foreach (config('global.crud_operations') as $opKey => $opLangKey)
+                                                                                @php $permName = $moduleKey . '_' . $opKey; @endphp
+                                                                                {{-- Only show permission if the current user HAS it --}}
+                                                                                @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility($permName))
+                                                                                    <div class="permission-item">
+                                                                                        <div class="permission-info">
+                                                                                            <label class="permission-label">{!! __($opLangKey) !!}</label>
+                                                                                            <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
+                                                                                        </div>
+                                                                                        <label class="modern-switch">
+                                                                                            <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}">
+                                                                                            <span class="modern-slider"></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                         <span class="text text-danger small mt-1 d-block error-text permissions_error"></span>

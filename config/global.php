@@ -2,11 +2,11 @@
 return [
     // Define the core modules that support CRUD permissions
     'modules' => [
+        'companies' => 'global.companies',
         'settings' => 'global.settings',
         'roles' => 'global.roles',
         'users' => 'global.users',
         'departments' => 'global.departments',
-        'companies' => 'global.companies',
         'bank_accounts' => 'global.bank_accounts',
         'properties' => 'global.properties',
         'property_types' => 'global.property_types',

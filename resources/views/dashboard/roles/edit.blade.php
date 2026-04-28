@@ -5,9 +5,8 @@
 
 @section('content')
     <div class="app-content content">
-        <form class="form ajax-form" id="myForm" action="{!! route('dashboard.roles.update', $role->id) !!}" method="post" enctype="multipart/form-data" novalidate
-            data-success-msg="{!! __('general.update_success_message') !!}"
-            data-success-action="redirect"
+        <form class="form ajax-form" id="myForm" action="{!! route('dashboard.roles.update', $role->id) !!}" method="post" enctype="multipart/form-data"
+            novalidate data-success-msg="{!! __('general.update_success_message') !!}" data-success-action="redirect"
             data-redirect-url="{!! route('dashboard.roles.index') !!}">
             @csrf
             @method('PUT')
@@ -41,7 +40,7 @@
                     <!-- begin: content header right-->
                     <div class="content-header-right col-md-6 col-12">
                         <div class="float-md-right mb-1">
-                            @if($role->id !== 1)
+                            @if ($role->id !== 1)
                                 <button class="btn btn-premium-save" type="submit" id="saveBtn">
                                     <i class="la la-save"></i>
                                     {!! __('general.update') !!}
@@ -63,7 +62,8 @@
                                 <div class="card premium-card shadow-lg border-0">
                                     <!-- begin: card header -->
                                     <div class="card-header border-0 pb-0">
-                                        <h4 class="card-title text-primary font-weight-bold" id="basic-layout-colored-form-control">
+                                        <h4 class="card-title text-primary font-weight-bold"
+                                            id="basic-layout-colored-form-control">
                                             <i class="la la-edit mr-1"></i> {!! __('roles.update_role') !!}
                                         </h4>
                                     </div>
@@ -75,9 +75,10 @@
 
 
                                             <div class="form-body">
-                                                @if($role->id === 1)
+                                                @if ($role->id === 1)
                                                     <!-- begin: Administrative Security Protocol -->
-                                                    <div class="alert alert-icon-left alert-arrow-left alert-primary mb-3 shadow-sm border-0" role="alert" style="border-radius: 12px;">
+                                                    <div class="alert alert-icon-left alert-arrow-left alert-primary mb-3 shadow-sm border-0"
+                                                        role="alert" style="border-radius: 12px;">
                                                         <span class="alert-icon"><i class="la la-info-circle"></i></span>
                                                         <h5 class="alert-heading font-weight-bold mb-1">
                                                             {!! __('roles.system_role_protected') !!}</h5>
@@ -88,61 +89,83 @@
                                                     <!-- end: Administrative Security Protocol -->
                                                 @endif
 
-                                                @if(isset($companies) && $role->id !== 1)
-                                                <!-- begin: Global Role Note -->
-                                                <div class="alert alert-icon-left alert-arrow-left alert-info mb-3 shadow-sm border-0" role="alert" style="border-radius: 12px;">
-                                                    <span class="alert-icon"><i class="la la-info-circle"></i></span>
-                                                    <h6 class="alert-heading font-weight-bold mb-1">{!! __('general.pro_tip') !!}</h6>
-                                                    <p class="mb-0" style="font-size: 1.1rem;">
-                                                        {!! __('roles.global_role_note') !!}
-                                                    </p>
-                                                </div>
-                                                <!-- end: Global Role Note -->
+                                                @if (isset($companies) && $role->id !== 1)
+                                                    <!-- begin: Global Role Note -->
+                                                    <div class="alert alert-icon-left alert-arrow-left alert-info mb-3 shadow-sm border-0"
+                                                        role="alert" style="border-radius: 12px;">
+                                                        <span class="alert-icon"><i class="la la-info-circle"></i></span>
+                                                        <h6 class="alert-heading font-weight-bold mb-1">
+                                                            {!! __('general.pro_tip') !!}</h6>
+                                                        <p class="mb-0" style="font-size: 1.1rem;">
+                                                            {!! __('roles.global_role_note') !!}
+                                                        </p>
+                                                    </div>
+                                                    <!-- end: Global Role Note -->
                                                 @endif
 
-                                                @if(isset($companies))
-                                                <div class="row mb-3">
-                                                    <div class="col-md-12">
-                                                        <div class="premium-form-group">
-                                                            <label for="company_id" class="premium-label">{!! __('companies.company') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <select id="company_id" name="company_id" class="form-control premium-input shadow-none" @disabled($role->id === 1)>
-                                                                    <option value="">{!! __('roles.global_role') !!}</option>
-                                                                    @if($role->company_id)
-                                                                        <option value="{{ $role->company_id }}" selected>{{ optional($role->company)->name }}</option>
-                                                                    @endif
-                                                                </select>
+                                                @if (isset($companies))
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12">
+                                                            <div class="premium-form-group">
+                                                                <label for="company_id"
+                                                                    class="premium-label">{!! __('companies.company') !!}</label>
+                                                                <div class="premium-input-wrapper">
+                                                                    <select id="company_id" name="company_id"
+                                                                        class="form-control premium-input shadow-none"
+                                                                        @disabled($role->id === 1)>
+                                                                        <option value="">{!! __('roles.global_role') !!}
+                                                                        </option>
+                                                                        @if ($role->company_id)
+                                                                            <option value="{{ $role->company_id }}"
+                                                                                selected>
+                                                                                {{ optional($role->company)->name }}
+                                                                            </option>
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                                <span
+                                                                    class="text text-danger small mt-1 d-block error-text company_id_error"></span>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text company_id_error"></span>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 @endif
 
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="name_ar" class="premium-label">{!! __('roles.role_ar') !!} <span class="text-danger">*</span></label>
+                                                            <label for="name_ar"
+                                                                class="premium-label">{!! __('roles.role_ar') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
                                                                 <input type="text" id="name_ar" name="name[ar]"
-                                                                    value="{!! old('name.ar', $role->getTranslation('name', 'ar')) !!}" class="form-control premium-input shadow-none"
-                                                                    autocomplete="off" placeholder="{!! __('roles.enter_role_ar') !!}" @disabled($role->id === 1)>
-                                                                 <i class="la la-shield text-primary"></i>
+                                                                    value="{!! old('name.ar', $role->getTranslation('name', 'ar')) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('roles.enter_role_ar') !!}"
+                                                                    @disabled($role->id === 1)>
+                                                                <i class="la la-shield text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="premium-form-group">
-                                                            <label for="name_en" class="premium-label">{!! __('roles.role_en') !!} <span class="text-danger">*</span></label>
+                                                            <label for="name_en"
+                                                                class="premium-label">{!! __('roles.role_en') !!} <span
+                                                                    class="text-danger">*</span></label>
                                                             <div class="premium-input-wrapper">
                                                                 <input type="text" id="name_en" name="name[en]"
-                                                                    value="{!! old('name.en', $role->getTranslation('name', 'en')) !!}" class="form-control premium-input shadow-none"
-                                                                    autocomplete="off" placeholder="{!! __('roles.enter_role_en') !!}" @disabled($role->id === 1)>
-                                                                 <i class="la la-shield text-primary"></i>
+                                                                    value="{!! old('name.en', $role->getTranslation('name', 'en')) !!}"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    autocomplete="off"
+                                                                    placeholder="{!! __('roles.enter_role_en') !!}"
+                                                                    @disabled($role->id === 1)>
+                                                                <i class="la la-shield text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_en_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text name_en_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,17 +174,19 @@
                                                 <div class="row mt-2">
                                                     <div class="col-md-12">
                                                         <div class="premium-form-group">
-                                                            <label for="description" class="premium-label">{!! __('roles.description') !!}</label>
+                                                            <label for="description"
+                                                                class="premium-label">{!! __('roles.description') !!}</label>
                                                             <div class="premium-input-wrapper">
-                                                                <input type="text" id="description" name="description" 
-                                                                    value="{!! old('description', $role->description) !!}" 
-                                                                    class="form-control premium-input shadow-none" 
+                                                                <input type="text" id="description" name="description"
+                                                                    value="{!! old('description', $role->description) !!}"
+                                                                    class="form-control premium-input shadow-none"
                                                                     autocomplete="off"
-                                                                    placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}" 
+                                                                    placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}"
                                                                     @disabled($role->id === 1)>
                                                                 <i class="la la-info-circle text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text description_error"></span>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text description_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -171,46 +196,61 @@
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
                                                         <h5 class="mb-3 text-primary font-weight-bold">
-                                                            <i class="la la-key mr-1"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                            <i class="la la-key mr-1"></i> {!! __('roles.permissions') !!} <span
+                                                                class="text-danger">*</span>
                                                         </h5>
-                                                        
+
                                                         <div class="permissions-grid">
-                                                            @foreach(config('global.modules') as $moduleKey => $moduleLangKey)
-                                                            <div class="permission-card {{ $role->id === 1 ? 'disabled-card' : '' }}">
-                                                                <div class="permission-card-header">
-                                                                    <div class="permission-card-title">
-                                                                        <i class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
-                                                                        {!! __($moduleLangKey) !!}
-                                                                    </div>
-                                                                    <label class="modern-switch" style="transform: scale(0.8);">
-                                                                        <input type="checkbox" class="select-all-module" data-module="module-{{ $moduleKey }}" @disabled($role->id === 1)>
-                                                                        <span class="modern-slider"></span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="permission-card-body">
-                                                                    @php
-                                                                        $rolePermissions = $role->permissions->pluck('name')->toArray();
-                                                                    @endphp
-                                                                    @foreach(config('global.crud_operations') as $opKey => $opLangKey)
-                                                                        @php $permName = $moduleKey . '_' . $opKey; @endphp
-                                                                        <div class="permission-item">
-                                                                            <div class="permission-info">
-                                                                                <label class="permission-label">{!! __($opLangKey) !!}</label>
-                                                                                <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
-                                                                            </div>
-                                                                            <label class="modern-switch">
-                                                                                <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}" 
-                                                                                    @checked($role->id === 1 || in_array($permName, $rolePermissions)) 
-                                                                                    @disabled($role->id === 1)>
-                                                                                <span class="modern-slider"></span>
-                                                                            </label>
+                                                            @foreach (config('global.modules') as $moduleKey => $moduleLangKey)
+                                                                <div
+                                                                    class="permission-card {{ $role->id === 1 ? 'disabled-card' : '' }}">
+                                                                    <div class="permission-card-header">
+                                                                        <div class="permission-card-title">
+                                                                            <i
+                                                                                class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
+                                                                            {!! __($moduleLangKey) !!}
                                                                         </div>
-                                                                    @endforeach
+                                                                        <label class="modern-switch"
+                                                                            style="transform: scale(0.8);">
+                                                                            <input type="checkbox"
+                                                                                class="select-all-module"
+                                                                                data-module="module-{{ $moduleKey }}"
+                                                                                @disabled($role->id === 1)>
+                                                                            <span class="modern-slider"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="permission-card-body">
+                                                                        @php
+                                                                            $rolePermissions = $role->permissions
+                                                                                ->pluck('name')
+                                                                                ->toArray();
+                                                                        @endphp
+                                                                        @foreach (config('global.crud_operations') as $opKey => $opLangKey)
+                                                                            @php $permName = $moduleKey . '_' . $opKey; @endphp
+                                                                            <div class="permission-item">
+                                                                                <div class="permission-info">
+                                                                                    <label
+                                                                                        class="permission-label">{!! __($opLangKey) !!}</label>
+                                                                                    <p class="permission-desc">
+                                                                                        {!! __($opLangKey . '_desc') !!}</p>
+                                                                                </div>
+                                                                                <label class="modern-switch">
+                                                                                    <input type="checkbox"
+                                                                                        class="permission-checkbox module-{{ $moduleKey }}"
+                                                                                        name="permissions[]"
+                                                                                        value="{{ $permName }}"
+                                                                                        @checked($role->id === 1 || in_array($permName, $rolePermissions))
+                                                                                        @disabled($role->id === 1)>
+                                                                                    <span class="modern-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
                                                                 </div>
-                                                            </div>
                                                             @endforeach
                                                         </div>
-                                                        <span class="text text-danger small mt-1 d-block error-text permissions_error"></span>
+                                                        <span
+                                                            class="text text-danger small mt-1 d-block error-text permissions_error"></span>
                                                     </div>
                                                 </div>
                                                 <!-- end: Premium Permissions Grid -->
@@ -235,7 +275,8 @@
             function updateSelectAllSwitches() {
                 $('.select-all-module').each(function() {
                     let moduleClass = $(this).data('module');
-                    let allChecked = $('.' + moduleClass).length > 0 && $('.' + moduleClass).length === $('.' + moduleClass + ':checked').length;
+                    let allChecked = $('.' + moduleClass).length > 0 && $('.' + moduleClass).length === $(
+                        '.' + moduleClass + ':checked').length;
                     $(this).prop('checked', allChecked);
                 });
             }
@@ -257,7 +298,7 @@
 
             // Initialize Company Select2 Autocomplete
             if ($('#company_id').length) {
-                initGenericSelect2('#company_id', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("roles.global_role") !!}');
+                initGenericSelect2('#company_id', '{!! route('dashboard.companies.autocomplete') !!}', '{!! __('roles.global_role') !!}');
             }
         });
     </script>

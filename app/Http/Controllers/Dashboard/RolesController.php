@@ -86,12 +86,22 @@ class RolesController extends Controller
             return redirect()->route('dashboard.roles.index');
         }
 
-        return view('dashboard.roles.edit', compact('role', 'title'));
+        $this->authorize('update', $role);
+
+        $companies = null;
+        if (auth()->user()->company_id == 1 || auth()->user()->role_id == 1) {
+            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+        }
+
+        return view('dashboard.roles.edit', compact('role', 'title', 'companies'));
     }
 
     public function update(RoleRequest $request, string $id)
     {
-        Gate::authorize('roles_update');
+        $role = $this->roleService->getRole($id);
+        if ($role) {
+            $this->authorize('update', $role);
+        }
 
         try {
             $this->roleService->updateRole($request, $id);
@@ -113,7 +123,10 @@ class RolesController extends Controller
 
     public function destroy(Request $request)
     {
-        Gate::authorize('roles_delete');
+        $role = $this->roleService->getRole($request->id);
+        if ($role) {
+            $this->authorize('delete', $role);
+        }
 
         if ($request->ajax()) {
             try {

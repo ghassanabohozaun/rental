@@ -39,4 +39,26 @@ class Role extends Model implements MustBelongToCompany
     {
         return $this->belongsTo(Company::class, 'company_id');
     }
+
+    /**
+     * Check if the role is a system (global) role.
+     */
+    public function isSystemRole(): bool
+    {
+        return $this->company_id === null;
+    }
+
+    /**
+     * Check if the role can be modified by the given user.
+     */
+    public function isEditableBy($user): bool
+    {
+        // If it's a system role, only real super admins (ID 1 or Role 1) can edit it
+        if ($this->isSystemRole()) {
+            return $user->id === 1 || $user->role_id === 1;
+        }
+
+        // Otherwise, it's editable if it's within the same company context
+        return $this->company_id === $user->company_id;
+    }
 }
