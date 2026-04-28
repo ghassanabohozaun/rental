@@ -296,3 +296,92 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
 .header-navbar .navbar-header::before {
     display: none !important;
 }
+
+/* Mobile Header & Responsive Fixes */
+@media (max-width: 767px) {
+    .header-navbar .navbar-header {
+        height: 70px !important;
+        padding: 0 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        background: #fff !important;
+    }
+
+    .header-navbar .navbar-header .nav.navbar-nav {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: 100% !important;
+    }
+
+    .header-navbar .navbar-header .navbar-brand {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+    }
+
+    .header-navbar .navbar-header .navbar-brand img {
+        max-height: 40px !important;
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    .header-navbar .navbar-header .nav-link {
+        padding: 0.5rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Fix for the breadcrumb/home icon overlap if any */
+    .content-header-left {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* Table Disaster Fix */
+.card-content .table-responsive,
+.table-responsive {
+    border-radius: 15px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: none !important;
+}
+
+.table-premium,
+.table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 10px !important;
+}
+
+@media (max-width: 767px) {
+    .table thead th {
+        font-size: 0.8rem !important;
+        padding: 10px 8px !important;
+        white-space: nowrap !important;
+    }
+    
+    .table tbody td {
+        font-size: 0.85rem !important;
+        padding: 12px 8px !important;
+        vertical-align: middle !important;
+    }
+
+    /* Force certain buttons to be smaller on mobile */
+    .btn-sm, .btn-group-sm > .btn {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.75rem !important;
+    }
+}
