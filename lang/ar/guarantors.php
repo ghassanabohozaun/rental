@@ -16,7 +16,7 @@ return [
     'guarantor_details' => 'تفاصيل الكفيل',
     'delete_guarantor' => 'حذف الكفيل',
     'company' => 'الشركة التابع لها',
-    'no_guarantors_found' => 'لا يوجد كفلاء حالياً !',
+    'no_guarantors_found' => 'عذراً، لم يتم العثور على أي كفلاء!',
     'relationships' => [
         'father' => 'أب',
         'mother' => 'أم',
@@ -29,4 +29,5 @@ return [
         'relative' => 'قريب',
         'other' => 'أخرى',
     ],
+    'cannot_delete_has_customers' => 'لا يمكن حذف الكفيل لأنه مرتبط بعملاء حاليين.',
 ];

@@ -11,4 +11,6 @@ return [
     'property_types' => 'إدارة أنواع العقارات',
     'property_statuses' => 'إدارة حالات العقارات',
     'guarantors' => 'إدارة الكفلاء',
+    'customers' => 'إدارة العملاء',
+    'maintenances' => 'إدارة الصيانة',
 ];

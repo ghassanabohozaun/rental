@@ -3,6 +3,7 @@
 namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\RoleRepository;
+use App\Exceptions\DeleteRestrictionException;
 
 class RoleService
 {
@@ -76,7 +77,7 @@ class RoleService
 
         // Protect System/Global Roles from deletion
         if ($role->isSystemRole()) {
-            throw new \App\Exceptions\DeleteRestrictionException(__('roles.cannot_delete_system_role'));
+            throw new DeleteRestrictionException(__('roles.cannot_delete_system_role'));
         }
 
         // check if any admins has role

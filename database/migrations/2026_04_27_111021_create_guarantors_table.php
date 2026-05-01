@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->string('relationship')->nullable();
             $table->text('notes')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->boolean('status')->default(1);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();

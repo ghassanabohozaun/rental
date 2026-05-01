@@ -4,7 +4,7 @@
             <div class="sidebar-search-wrapper">
                 <div class="sidebar-search-container">
                     <i class="la la-search sidebar-search-icon"></i>
-                    <input type="text" class="sidebar-search-input" id="sidebar-menu-search" 
+                    <input type="text" class="sidebar-search-input" id="sidebar-menu-search"
                         placeholder="{!! Lang() == 'ar' ? 'البحث في القائمة...' : 'Search menu...' !!}">
                 </div>
             </div>
@@ -60,7 +60,10 @@
 
                 <!-- begin: properties -->
                 @php
-                    $isPropertiesActive = Request::routeIs('dashboard.properties.*') || Request::routeIs('dashboard.property_types.*') || Request::routeIs('dashboard.property_statuses.*');
+                    $isPropertiesActive =
+                        Request::routeIs('dashboard.properties.*') ||
+                        Request::routeIs('dashboard.property_types.*') ||
+                        Request::routeIs('dashboard.property_statuses.*');
                 @endphp
                 <li class="nav-item has-sub @if ($isPropertiesActive) open @endif">
                     <a href="#">
@@ -153,6 +156,8 @@
                 @endcan
                 <!-- end: users -->
 
+
+
                 <!-- begin: guarantors -->
                 @can('guarantors_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.guarantors.*')) open @endif">
@@ -172,6 +177,44 @@
                     </li>
                 @endcan
                 <!-- end: guarantors -->
+
+                <!-- begin: customers -->
+                @can('customers_read')
+                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.customers.*')) open @endif">
+                        <a href="javascript:void(0)">
+                            <i class="la la-users"></i>
+                            <span class="menu-title" data-i18n="nav.dash.customers">{!! __('customers.customers') !!}</span>
+                        </a>
+                        <!-- begin: customers -->
+                        <ul class="menu-content">
+                            <li class="@if (Request::routeIs('dashboard.customers.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.customers.index') !!}" data-i18n="nav.dash.customers">
+                                    {!! __('customers.customers') !!}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- end: customers -->
+                    </li>
+                @endcan
+                <!-- end: customers -->
+
+                <!-- begin: maintenances -->
+                @can('maintenances_read')
+                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.maintenances.*')) open @endif">
+                        <a href="javascript:void(0)">
+                            <i class="la la-wrench"></i>
+                            <span class="menu-title" data-i18n="nav.dash.maintenances">{!! __('maintenances.maintenances') !!}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="@if (Request::routeIs('dashboard.maintenances.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.maintenances.index') !!}" data-i18n="nav.dash.maintenances">
+                                    {!! __('maintenances.maintenances') !!}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+                <!-- end: maintenances -->
 
                 <!-- begin: settings -->
                 @can('settings_read')
@@ -194,32 +237,32 @@
                 <!-- end: settings -->
 
             </ul>
+        </div>
+
+        @push('js')
+            <script>
+                (function() {
+                    const searchInput = document.getElementById('sidebar-menu-search');
+                    if (!searchInput) return;
+
+                    searchInput.addEventListener('keyup', function() {
+                        let filter = this.value.toLowerCase();
+                        let menuItems = document.querySelectorAll('#main-menu-navigation li.nav-item');
+
+                        menuItems.forEach(function(item) {
+                            let text = item.innerText.toLowerCase();
+                            if (text.includes(filter)) {
+                                item.style.display = "";
+                            } else {
+                                item.style.display = "none";
+                            }
+                        });
+
+                        // Show/hide headers based on search
+                        let headers = document.querySelectorAll('#main-menu-navigation li.navigation-header');
+                        headers.forEach(h => h.style.display = filter ? "none" : "");
+                    });
+                })();
+            </script>
+        @endpush
     </div>
-    
-    @push('js')
-    <script>
-        (function() {
-            const searchInput = document.getElementById('sidebar-menu-search');
-            if (!searchInput) return;
-            
-            searchInput.addEventListener('keyup', function() {
-                let filter = this.value.toLowerCase();
-                let menuItems = document.querySelectorAll('#main-menu-navigation li.nav-item');
-                
-                menuItems.forEach(function(item) {
-                    let text = item.innerText.toLowerCase();
-                    if (text.includes(filter)) {
-                        item.style.display = "";
-                    } else {
-                        item.style.display = "none";
-                    }
-                });
-                
-                // Show/hide headers based on search
-                let headers = document.querySelectorAll('#main-menu-navigation li.navigation-header');
-                headers.forEach(h => h.style.display = filter ? "none" : "");
-            });
-        })();
-    </script>
-    @endpush
-</div>

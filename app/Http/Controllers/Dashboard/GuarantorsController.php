@@ -8,7 +8,7 @@ use App\Services\Dashboard\GuarantorService;
 use App\Services\Dashboard\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-
+use App\Exceptions\DeleteRestrictionException;
 class GuarantorsController extends Controller
 {
     protected $guarantorService, $companyService;
@@ -22,7 +22,7 @@ class GuarantorsController extends Controller
     public function index(Request $request)
     {
         Gate::authorize('guarantors_read');
-        
+
         $title = __('guarantors.guarantors');
         $guarantors = $this->guarantorService->getAll($request);
         $companies = null;
@@ -41,11 +41,11 @@ class GuarantorsController extends Controller
     public function store(GuarantorRequest $request)
     {
         Gate::authorize('guarantors_create');
-        
+
         try {
             $guarantor = $this->guarantorService->store($request->validated());
             return response()->json([
-                'status' => true, 
+                'status' => true,
                 'message' => __('general.add_success_message'),
                 'data' => $guarantor
             ], 200);
@@ -60,7 +60,7 @@ class GuarantorsController extends Controller
     public function update(GuarantorRequest $request, string $id)
     {
         Gate::authorize('guarantors_update');
-        
+
         try {
             $this->guarantorService->update($id, $request->validated());
             $guarantor = $this->guarantorService->getOne($id);
@@ -81,7 +81,7 @@ class GuarantorsController extends Controller
     public function destroy(Request $request)
     {
         Gate::authorize('guarantors_delete');
-        
+
         if ($request->ajax()) {
             try {
                 $this->guarantorService->delete($request->id);
@@ -89,6 +89,11 @@ class GuarantorsController extends Controller
                     'status' => true,
                     'message' => __('general.delete_success_message')
                 ], 200);
+            } catch (DeleteRestrictionException $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage()
+                ], 422);
             } catch (\Exception $e) {
                 return response()->json([
                     'status' => false,
@@ -101,12 +106,12 @@ class GuarantorsController extends Controller
     public function changeStatus(Request $request)
     {
         Gate::authorize('guarantors_update');
-        
+
         try {
             $this->guarantorService->changeStatus($request->id, $request->statusSwitch);
             $guarantor = $this->guarantorService->getOne($request->id);
             return response()->json([
-                'status' => true, 
+                'status' => true,
                 'message' => __('general.change_status_success_message'),
                 'data' => $guarantor
             ], 201);

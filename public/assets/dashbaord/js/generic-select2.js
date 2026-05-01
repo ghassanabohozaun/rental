@@ -7,6 +7,9 @@
  * @param {string} dropdownParent - Optional ID of the parent modal to fix z-index issues (e.g. '#createUserModal')
  */
 function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
+    const $select = typeof selector === 'string' ? $(selector) : selector;
+    const isSimple = $select.data('simple') === true || $select.data('simple') === 'true';
+
     let config = {
         placeholder: placeholder,
         allowClear: false, // Disabled native clear to use our custom professional reset icon
@@ -44,10 +47,15 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
             errorLoading: function() { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.errorLoading() : 'Error loading results'; },
             inputTooShort: function(args) { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.inputTooShort(args) : 'Please enter more characters'; },
             inputTooLong: function(args) { return window.PTC_I18N && window.PTC_I18N.select2 ? window.PTC_I18N.select2.inputTooLong(args) : 'Please delete some characters'; }
-        },
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection
+        }
     };
+
+    if (!isSimple) {
+        config.dropdownCssClass = 'premium-ajax-dropdown';
+        config.selectionCssClass = 'premium-ajax-selection';
+        config.templateResult = formatRepo;
+        config.templateSelection = formatRepoSelection;
+    }
 
     /**
      * Professional Template for Select2 Results
@@ -87,6 +95,26 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
     }
 
     function formatRepoSelection(repo) {
+        if (!repo.email && !repo.logo && !repo.initials) {
+            return repo.text || repo.id;
+        }
+
+        let avatarHtml = '';
+        if (repo.logo && !repo.logo.includes('placeholder')) {
+            avatarHtml = "<img src='" + repo.logo + "' class='select2-selection-avatar' />";
+        } else if (repo.initials) {
+            avatarHtml = "<div class='select2-selection-avatar-initials' style='background-color:"+repo.color+"'>" + repo.initials + "</div>";
+        }
+
+        if (avatarHtml) {
+            return $(
+                "<div class='select2-selected-repo'>" +
+                    avatarHtml +
+                    "<span class='select2-selected-repo__text'>" + repo.text + "</span>" +
+                "</div>"
+            );
+        }
+
         return repo.text || repo.id;
     }
 
@@ -98,7 +126,6 @@ function initGenericSelect2(selector, url, placeholder, dropdownParent = null) {
     config.dir = dir;
 
     // Initialize Select2
-    const $select = $(selector);
     $select.select2(config);
 
     // --- Professional Reset Logic ---

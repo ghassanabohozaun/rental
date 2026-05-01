@@ -10,6 +10,7 @@ use App\Models\PropertyStatus;
 use App\Services\Dashboard\PropertyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Exceptions\DeleteRestrictionException;
 
 class PropertyController extends Controller
 {
@@ -120,7 +121,6 @@ class PropertyController extends Controller
         }
     }
 
-    //destroy
     public function destroy(Request $request)
     {
         Gate::authorize('properties_delete');
@@ -131,11 +131,22 @@ class PropertyController extends Controller
                 'status' => true,
                 'message' => __('general.delete_success_message')
             ]);
+        } catch (DeleteRestrictionException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => __('general.delete_error_message')
             ], 500);
         }
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $data = $this->service->autocomplete($request->get('q'));
+        return response()->json($data);
     }
 }

@@ -25,8 +25,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        // Dynamic Flasher Position
-        $position = app()->getLocale() == 'ar' ? 'top-left' : 'top-right';
+        // Dynamic Flasher Position (Check URL segment as fallback if locale is not yet set by middleware)
+        $currentLocale = request()->segment(1);
+        if (!in_array($currentLocale, ['ar', 'en'])) {
+            $currentLocale = app()->getLocale();
+        }
+
+        $position = $currentLocale == 'ar' ? 'top-left' : 'top-right';
 
         // Update configuration for multiple adapters
         config([
@@ -34,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             'flasher.options.position' => $position,
 
             // SweetAlert2
-            'flasher.plugins.sweetalert.position' => $position == 'top-left' ? 'top-start' : 'top-end',
+            'flasher.plugins.sweetalert.position' => $currentLocale == 'ar' ? 'top-start' : 'top-end',
 
             // Toastr (if used)
             'flasher.plugins.toastr.positionClass' => 'toast-' . $position,

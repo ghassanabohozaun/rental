@@ -14,9 +14,8 @@ class GuarantorRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('guarantor');
-        $isSuper = user()->company_id == 1;
 
-        return [
+        $rules = [
             'name.ar' => 'required|string|max:255',
             'name.en' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
@@ -24,7 +23,12 @@ class GuarantorRequest extends FormRequest
             'address' => 'nullable|string|max:255',
             'relationship' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
-            'company_id' => $isSuper ? 'required|exists:companies,id' : 'nullable|exists:companies,id',
         ];
+
+        if (user()->company_id == 1) {
+            $rules['company_id'] = 'required|exists:companies,id';
+        }
+
+        return $rules;
     }
 }

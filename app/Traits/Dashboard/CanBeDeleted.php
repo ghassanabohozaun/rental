@@ -7,6 +7,16 @@ use App\Exceptions\DeleteRestrictionException;
 trait CanBeDeleted
 {
     /**
+     * Boot the trait and register the deleting event listener.
+     */
+    public static function bootCanBeDeleted()
+    {
+        static::deleting(function ($model) {
+            $model->checkRestrictiveRelations();
+        });
+    }
+
+    /**
      * Check if the model has any restrictive relationships that prevent deletion.
      *
      * @return bool

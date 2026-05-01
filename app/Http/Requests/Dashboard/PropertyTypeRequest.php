@@ -22,9 +22,14 @@ class PropertyTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name.*' => ['required', 'string', 'max:100', UniqueTranslationRule::for('property_types')->ignore($this->id)],
-            'company_id' => ['nullable', 'exists:companies,id'],
         ];
+
+        if (user()->company_id == 1) {
+            $rules['company_id'] = ['required', 'exists:companies,id'];
+        }
+
+        return $rules;
     }
 }

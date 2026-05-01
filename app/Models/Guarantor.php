@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\BelongsToCompany;
 use App\Traits\Dashboard\Filterable;
 use App\Traits\Dashboard\HasCreatedBy;
+use App\Traits\Dashboard\CanBeDeleted;
 use App\Contracts\MustBelongToCompany;
 use Spatie\Translatable\HasTranslations;
 
 class Guarantor extends Model implements MustBelongToCompany
 {
-    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations;
+    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations, CanBeDeleted;
+
+    protected $restrictiveRelations = [
+        'customers' => 'guarantors.cannot_delete_has_customers',
+    ];
 
     protected $fillable = ['company_id', 'name', 'phone', 'id_number', 'address', 'relationship',
     'notes', 'status', 'created_by'];
@@ -34,5 +39,13 @@ class Guarantor extends Model implements MustBelongToCompany
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Get the customers associated with the guarantor.
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
     }
 }

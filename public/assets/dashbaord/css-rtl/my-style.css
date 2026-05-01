@@ -4586,3 +4586,100 @@ body .select2-results__option--highlighted {
     border-color: #f87171 !important;
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
 }
+
+/* ================================================================
+   Simple Premium Effect — Static Select2 (non-AJAX) - RTL
+   Targets options WITHOUT the company avatar template safely.
+   Does NOT affect company/property/maintenance AJAX select2.
+   ================================================================ */
+
+/* Base State */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option {
+    padding: 12px 16px !important;
+    font-size: 1.05rem !important;
+    color: #475569 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    margin: 0 !important;
+    text-align: right !important;
+}
+
+/* Remove bottom border from last child */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option:last-child {
+    border-bottom: none !important;
+}
+
+/* Hover State (Prevents Jitter and Color Loss) */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option--highlighted[aria-selected],
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option--highlighted {
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    background-color: #f1f5f9 !important;
+    color: #1e9ff2 !important;
+}
+
+/* Selected State */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option[aria-selected="true"] {
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    font-weight: 600 !important;
+}
+
+/* ================================================================
+   Premium Select2 Selected Item (Avatar + Text)
+   ================================================================ */
+/* Fix the left/right padding inherited from premium-input */
+body .premium-input-wrapper .select2-container .select2-selection--single.premium-ajax-selection {
+    padding-right: 12px !important; /* Removes the huge gap on the right of the border in RTL */
+    padding-left: 12px !important;
+}
+body .select2-container .select2-selection--single.premium-ajax-selection .select2-selection__rendered {
+    padding-right: 0 !important; 
+    padding-left: 30px !important; /* Keeps space for the dropdown arrow on the left in RTL */
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+.select2-selected-repo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+.select2-selection-avatar {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    object-fit: cover !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+}
+.select2-selection-avatar-initials {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.select2-selection-avatar-initials::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%) !important;
+    pointer-events: none;
+}
+.select2-selected-repo__text {
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 0.95rem !important;
+}
+

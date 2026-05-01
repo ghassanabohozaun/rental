@@ -35,4 +35,5 @@ return [
     'cannot_delete_has_property_statuses' => 'Cannot delete this company because it has property statuses linked to it.',
     'cannot_delete_has_roles' => 'Cannot delete this company because it has roles linked to it.',
     'cannot_delete_has_guarantors' => 'Cannot delete this company because it has guarantors linked to it.',
+    'cannot_delete_has_maintenances' => 'Cannot delete this company because it has maintenance requests linked to it.',
 ];

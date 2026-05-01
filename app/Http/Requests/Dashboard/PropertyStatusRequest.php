@@ -22,10 +22,15 @@ class PropertyStatusRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name.*' => ['required', 'string', 'max:100', UniqueTranslationRule::for('property_statuses')->ignore($this->id)],
-            'company_id' => ['nullable', 'exists:companies,id'],
             'color' => ['nullable', 'string', 'max:20'],
         ];
+
+        if (user()->company_id == 1) {
+            $rules['company_id'] = ['required', 'exists:companies,id'];
+        }
+
+        return $rules;
     }
 }

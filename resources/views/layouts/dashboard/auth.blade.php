@@ -16,7 +16,10 @@
 
     <link rel="apple-touch-icon" href="{!! asset('uploads/settings/' . setting()->favicon) !!}">
     <link rel="shortcut icon" type="image/x-icon" href="{!! asset('uploads/settings/' . setting()->favicon) !!}">
-    <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/fonts/line-awesome/css/line-awesome.min.css">
+    <link href="{!! asset('assets/dashbaord/fonts/google/font.css') !!}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/line-awesome/css/line-awesome.min.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/fontawesome/css/all.min.css') !!}">
+    
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/vendors/css/forms/icheck/icheck.css">
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/vendors/css/forms/icheck/custom.css">
     <link rel="stylesheet" type="text/css"
@@ -28,15 +31,16 @@
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css-rtl/custom-rtl.css">
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css-rtl/core/colors/palette-gradient.css">
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css-rtl/pages/login-register.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css-rtl/my-style.css') }}">
     @else
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css/vendors.css">
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css/app.css">
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css/core/colors/palette-gradient.css">
         <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord') !!}/css/pages/login-register.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/my-style.css') }}">
     @endif
 
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/login.css') }}">
-    <link rel="stylesheet" type="text/css" href="{!! asset(path: 'assets/dashbaord/css/my-style.css') . '?v=1.0.1' !!}">
     <link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
 
     @stack('style')
@@ -62,6 +66,7 @@
 
     <!-- BEGIN VENDOR JS-->
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/vendors.min.js" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord') !!}/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
     <!-- BEGIN PAGE VENDOR JS-->
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/forms/validation/jqBootstrapValidation.js" type="text/javascript">
     </script>
@@ -72,6 +77,7 @@
     <script src="{!! asset('assets/dashbaord') !!}/js/scripts/customizer.js" type="text/javascript"></script>
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{!! asset('assets/dashbaord') !!}/js/scripts/forms/form-login-register.js" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord') !!}/js/scripts/extensions/sweet-alerts.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
 
     <script src="{!! asset('vendor/flasher/flasher.min.js') !!}" type="text/javascript"></script>

@@ -63,7 +63,13 @@ $(document).ready(function() {
                         form[0].reset();
                         // Reset Select2 if exists
                         if (typeof $.fn.select2 !== 'undefined') {
-                            form.find('select').val(null).trigger('change');
+                            form.find('select').each(function() {
+                                if ($(this).hasClass('js-autocomplete')) {
+                                    $(this).val(null).empty().trigger('change');
+                                } else {
+                                    $(this).trigger('change');
+                                }
+                            });
                         }
                     }
 
@@ -176,7 +182,13 @@ $(document).ready(function() {
 
             // Reset Select2 if exists
             if (typeof $.fn.select2 !== 'undefined') {
-                form.find('select').val(null).trigger('change');
+                form.find('select').each(function() {
+                    if ($(this).hasClass('js-autocomplete')) {
+                        $(this).val(null).empty().trigger('change');
+                    } else {
+                        $(this).trigger('change');
+                    }
+                });
             }
 
             form.find('.error-text, .error-message-premium strong').text('');

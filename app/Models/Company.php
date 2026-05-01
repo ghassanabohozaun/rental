@@ -20,11 +20,13 @@ class Company extends Model
         'users'             => 'companies.cannot_delete_has_users',
         'bankAccounts'      => 'companies.cannot_delete_has_bank_accounts',
         'properties'        => 'companies.cannot_delete_has_properties',
+        'maintenances'      => 'companies.cannot_delete_has_maintenances',
         'departments'       => 'companies.cannot_delete_has_departments',
         'propertyTypes'     => 'companies.cannot_delete_has_property_types',
         'propertyStatuses'  => 'companies.cannot_delete_has_property_statuses',
         'roles'             => 'companies.cannot_delete_has_roles',
         'guarantors'        => 'companies.cannot_delete_has_guarantors',
+        'customers'         => 'companies.cannot_delete_has_customers',
     ];
 
     protected $fillable = [
@@ -78,6 +80,16 @@ class Company extends Model
     public function guarantors()
     {
         return $this->hasMany(Guarantor::class);
+    }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
     }
 
 

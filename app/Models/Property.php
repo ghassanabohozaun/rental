@@ -10,10 +10,15 @@ use App\Contracts\MustBelongToCompany;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Dashboard\HasCreatedBy;
+use App\Traits\Dashboard\CanBeDeleted;
 
 class Property extends Model implements MustBelongToCompany
 {
-    use HasFactory, BelongsToCompany, Filterable, HasTranslations, SoftDeletes, HasCreatedBy;
+    use HasFactory, BelongsToCompany, Filterable, HasTranslations, SoftDeletes, HasCreatedBy, CanBeDeleted;
+
+    protected $restrictiveRelations = [
+        'maintenances' => 'properties.cannot_delete_has_maintenances',
+    ];
 
     protected $fillable = ['company_id', 'owner_id', 'name', 'location',
      'property_type_id', 'property_status_id', 'area', 'price', 'description', 'property_number', 'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by'];
@@ -42,5 +47,13 @@ class Property extends Model implements MustBelongToCompany
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    /**
+     * Get the maintenances for the property.
+     */
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class, 'property_id');
     }
 }

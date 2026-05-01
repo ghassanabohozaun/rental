@@ -35,4 +35,5 @@ return [
     'cannot_delete_has_property_statuses' => 'لا يمكن حذف هذه الشركة لوجود حالات عقارات مرتبطة بها حالياً.',
     'cannot_delete_has_roles' => 'لا يمكن حذف هذه الشركة لوجود أدوار (Roles) مرتبطة بها حالياً.',
     'cannot_delete_has_guarantors' => 'لا يمكن حذف هذه الشركة لوجود كفلاء مرتبطين بها حالياً.',
+    'cannot_delete_has_maintenances' => 'لا يمكن حذف هذه الشركة لوجود طلبات صيانة مرتبطة بها حالياً.',
 ];

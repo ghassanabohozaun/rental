@@ -2,7 +2,7 @@
 
 return [
     'please_wait' => 'الرجاء الانتظار ...',
-    'no_record_found' => 'لايوجد اي سجل',
+    'no_record_found' => 'لا يوجد سجلات !',
     'page_not_found' => 'عذراً الصفحة غير متاحة حالياً',
     'no_photo' => 'لا يوجد صورة',
     'no_image' => 'لا يوجد صورة',
@@ -223,4 +223,5 @@ return [
     'all'=>'عرض الكل',
     'selected_color' => 'اللون المختار',
     'ok' => 'موافق',
+    'no_data_found' => 'لا يوجد بيانات !',
 ];

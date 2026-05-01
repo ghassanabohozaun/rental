@@ -42,7 +42,7 @@ return [
     
     // UI Elements
     'mandatory_details_title' => 'Important Additional Details - تفاصيل إضافة هامة',
-    'no_properties_found' => 'No properties found!',
+    'no_properties_found' => 'No Properties Found !',
 
     // Placeholders
     'enter_price' => 'Enter expected rental price...',
@@ -55,4 +55,5 @@ return [
     
     // Errors
     'company_required' => 'Please select a company',
+    'cannot_delete_has_maintenances' => 'Cannot delete this property because it has maintenance requests linked to it.',
 ];

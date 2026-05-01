@@ -2,7 +2,8 @@
 
 return [
     'please_wait' => 'Please Wait ...',
-    'no_record_found' => 'No records found',
+    'no_record_found' => 'No Records Found !',
+    'no_data_found' => 'No Data Found !',
     'page_not_found' => 'Sorry , Page Not Found',
     'no_photo' => 'No Photo',
     'no_image' => 'No Image',

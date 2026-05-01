@@ -3,7 +3,7 @@
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ResetPasswordController;
-use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, GuarantorsController};
+use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, GuarantorsController, CustomersController, MaintenancesController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -76,7 +76,6 @@ Route::group(
                 Route::post('/departments/status', [DepartmentsController::class, 'changeStatus'])->name('departments.change.status');
             });
 
-
             ########################################### companies routes  ##############################################################
             Route::group(['middleware' => 'can:companies_read'], function () {
                 Route::resource('companies', CompaniesController::class);
@@ -85,18 +84,19 @@ Route::group(
                 Route::get('/companies-autocomplete', [CompaniesController::class, 'autocomplete'])->name('companies.autocomplete');
             });
             ########################################### bank accounts routes #############################################################
-            Route::group(['middleware' => 'can:bank_accounts_read'], function () { 
+            Route::group(['middleware' => 'can:bank_accounts_read'], function () {
                 Route::resource('bank-accounts', CompanyBankAccountController::class);
                 Route::post('/bank-accounts/destroy', [CompanyBankAccountController::class, 'destroy'])->name('bank-accounts.destroy');
             });
             ########################################### properties routes #############################################################
-            Route::group(['middleware' => 'can:properties_read'], function () { 
+            Route::group(['middleware' => 'can:properties_read'], function () {
                 Route::resource('properties', PropertyController::class);
                 Route::post('/properties/destroy', [PropertyController::class, 'destroy'])->name('properties.destroy');
+                Route::get('/properties-autocomplete', [PropertyController::class, 'autocomplete'])->name('properties.autocomplete');
             });
 
             ########################################### property types routes #############################################################
-            Route::group(['middleware' => 'can:property_types_read'], function () { 
+            Route::group(['middleware' => 'can:property_types_read'], function () {
                 Route::resource('property_types', PropertyTypesController::class);
                 Route::post('/property_types/destroy', [PropertyTypesController::class, 'destroy'])->name('property_types.destroy');
                 Route::post('/property_types/status', [PropertyTypesController::class, 'changeStatus'])->name('property_types.change.status');
@@ -104,7 +104,7 @@ Route::group(
             });
 
             ########################################### property statuses routes #############################################################
-            Route::group(['middleware' => 'can:property_statuses_read'], function () { 
+            Route::group(['middleware' => 'can:property_statuses_read'], function () {
                 Route::resource('property_statuses', PropertyStatusesController::class);
                 Route::post('/property_statuses/destroy', [PropertyStatusesController::class, 'destroy'])->name('property_statuses.destroy');
                 Route::post('/property_statuses/status', [PropertyStatusesController::class, 'changeStatus'])->name('property_statuses.change.status');
@@ -112,11 +112,26 @@ Route::group(
             });
 
             ########################################### guarantors routes #############################################################
-            Route::group(['middleware' => 'can:guarantors_read'], function () { 
+            Route::group(['middleware' => 'can:guarantors_read'], function () {
                 Route::resource('guarantors', GuarantorsController::class);
                 Route::post('/guarantors/destroy', [GuarantorsController::class, 'destroy'])->name('guarantors.destroy');
                 Route::post('/guarantors/status', [GuarantorsController::class, 'changeStatus'])->name('guarantors.change.status');
                 Route::get('/guarantors-autocomplete', [GuarantorsController::class, 'autocomplete'])->name('guarantors.autocomplete');
+            });
+
+            ########################################### customers routes #############################################################
+            Route::group(['middleware' => 'can:customers_read'], function () {
+                Route::resource('customers', CustomersController::class);
+                Route::post('/customers/destroy', [CustomersController::class, 'destroy'])->name('customers.destroy');
+                Route::post('/customers/status', [CustomersController::class, 'changeStatus'])->name('customers.change.status');
+                Route::get('/customers-autocomplete', [CustomersController::class, 'autocomplete'])->name('customers.autocomplete');
+            });
+
+            ########################################### maintenances routes #############################################################
+            Route::group(['middleware' => 'can:maintenances_read'], function () {
+                Route::resource('maintenances', MaintenancesController::class);
+                Route::post('/maintenances/destroy', [MaintenancesController::class, 'destroy'])->name('maintenances.destroy');
+                Route::post('/maintenances/status', [MaintenancesController::class, 'changeStatus'])->name('maintenances.change.status');
             });
         });
     },

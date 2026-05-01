@@ -40,7 +40,7 @@
                 <div class="ptc-query-panel shadow-lg border-0" id="status_search_popover" style="border-radius: 16px; min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.status') !!}</label>
-                        <div class="premium-input-wrapper">
+                        <div class="premium-input-wrapper no-icon">
                             <select name="property_status_id" id="filter_status" 
                                 class="form-control premium-input shadow-none js-select2 js-autocomplete"
                                 data-url="{!! route('dashboard.property_statuses.autocomplete') !!}"
@@ -71,7 +71,7 @@
                 <div class="ptc-query-panel shadow-lg border-0" id="type_search_popover" style="border-radius: 16px; min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property_type') !!}</label>
-                        <div class="premium-input-wrapper">
+                        <div class="premium-input-wrapper no-icon">
                             <select name="property_type_id" id="filter_type" 
                                 class="form-control premium-input shadow-none js-select2 js-autocomplete"
                                 data-url="{!! route('dashboard.property_types.autocomplete') !!}"
@@ -159,7 +159,7 @@
                 <div class="ptc-query-panel shadow-lg border-0" id="company_search_popover" style="border-radius: 16px; min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
-                        <div class="premium-input-wrapper">
+                        <div class="premium-input-wrapper no-icon">
                             <select name="company_id" id="filter_company_id" 
                                 class="form-control premium-input shadow-none js-select2 js-autocomplete"
                                 data-url="{!! route('dashboard.companies.autocomplete') !!}"

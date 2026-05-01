@@ -42,7 +42,7 @@ return [
     
     // UI Elements
     'mandatory_details_title' => 'Important Additional Details - تفاصيل إضافة هامة',
-    'no_properties_found' => 'لم يتم العثور على عقارات!',
+    'no_properties_found' => 'لا يوجد عقارات !',
     
     // Placeholders
     'enter_price' => 'أدخل القيمة الإيجارية المتوقعة...',
@@ -55,4 +55,5 @@ return [
 
     // Errors
     'company_required' => 'يرجى تحديد الشركة',
+    'cannot_delete_has_maintenances' => 'لا يمكن حذف هذا العقار لوجود طلبات صيانة مرتبطة به حالياً.',
 ];

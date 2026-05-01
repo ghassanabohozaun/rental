@@ -12,6 +12,8 @@ return [
         'property_types' => 'global.property_types',
         'property_statuses' => 'global.property_statuses',
         'guarantors' => 'global.guarantors',
+        'customers' => 'global.customers',
+        'maintenances' => 'global.maintenances',
     ],
 
     // Define icons for each module to keep Blade files clean
@@ -26,6 +28,8 @@ return [
         'property_types' => 'la-tags',
         'property_statuses' => 'la-info-circle',
         'guarantors' => 'la-shield',
+        'customers' => 'la-users',
+        'maintenances' => 'la-wrench',
     ],
 
     // Define the CRUD operations available for these modules

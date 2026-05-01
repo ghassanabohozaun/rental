@@ -7,8 +7,8 @@ use App\Http\Requests\Dashboard\RoleRequest;
 use App\Services\Dashboard\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-
 use App\Services\Dashboard\CompanyService;
+use App\Exceptions\DeleteRestrictionException;
 
 class RolesController extends Controller
 {
@@ -132,7 +132,7 @@ class RolesController extends Controller
             try {
                 $this->roleService->destroyRole($request->id);
                 return response()->json(['status' => true, 'message' => __('general.delete_success_message')], 200);
-            } catch (\App\Exceptions\DeleteRestrictionException $e) {
+            } catch (DeleteRestrictionException $e) {
                 return response()->json(['status' => false, 'message' => $e->getMessage()], 422);
             } catch (\Exception $e) {
                 return response()->json(['status' => false, 'message' => __('general.delete_error_message')], 500);

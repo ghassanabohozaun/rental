@@ -16,7 +16,7 @@ return [
     'guarantor_details' => 'Guarantor Details',
     'delete_guarantor' => 'Delete Guarantor',
     'company' => 'Related Company',
-    'no_guarantors_found' => 'No Guarantors Found !',
+    'no_guarantors_found' => 'Sorry, no guarantors found!',
     'relationships' => [
         'father' => 'Father',
         'mother' => 'Mother',
@@ -29,4 +29,5 @@ return [
         'relative' => 'Relative',
         'other' => 'Other',
     ],
+    'cannot_delete_has_customers' => 'Cannot delete the guarantor because they are associated with existing customers.',
 ];

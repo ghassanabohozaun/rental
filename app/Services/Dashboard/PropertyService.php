@@ -52,6 +52,19 @@ class PropertyService
 
     public function delete($id)
     {
+        $property = $this->repository->find($id);
+        if (!$property) {
+            return false;
+        }
+
+        // Check for restrictive relations (e.g., maintenances)
+        $property->checkRestrictiveRelations();
+
         return $this->repository->delete($id);
+    }
+
+    public function autocomplete($search)
+    {
+        return $this->repository->autocomplete($search);
     }
 }

@@ -53,4 +53,27 @@ class PropertyRepository
         $property = $this->find($id);
         return $property->delete();
     }
+
+    public function autocomplete($searchValue)
+    {
+        $query = $this->model->query();
+
+        if (!empty($searchValue)) {
+            $query->where(function ($q) use ($searchValue) {
+                $q->where('name->en', 'like', '%' . $searchValue . '%')
+                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
+                  ->orWhere('property_number', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        return $query->orderByDesc('id')
+            ->limit(10)
+            ->get()
+            ->map(function ($property) {
+                return [
+                    'id' => $property->id,
+                    'text' => $property->name,
+                ];
+            });
+    }
 }

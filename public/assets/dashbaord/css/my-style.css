@@ -1649,8 +1649,8 @@ input:checked + .modern-slider:before {
 [data-textdirection="ltr"] .form-label {
     font-size: 0.85rem !important;
 }
-[dir="ltr"] .premium-input,
-[data-textdirection="ltr"] .premium-input,
+[dir="ltr"] .premium-input:not(textarea),
+[data-textdirection="ltr"] .premium-input:not(textarea),
 [dir="ltr"] .premium-textarea,
 [data-textdirection="ltr"] .premium-textarea {
     font-size: 1.25rem !important;
@@ -1733,7 +1733,7 @@ input:checked + .modern-slider:before {
     display: block; opacity: 0.85;
 }
 
-.premium-input {
+.premium-input:not(textarea) {
     height: 3rem !important;
     appearance: none !important;
     -webkit-appearance: none !important;
@@ -1767,8 +1767,8 @@ select.form-control.premium-input {
     color: #1e293b !important;
 }
 
-input.premium-input,
-.form-control.premium-input:not(select) {
+input.premium-input:not(textarea),
+.form-control.premium-input:not(select):not(textarea) {
     background: #ffffff !important;
     background-image: none !important; /* No arrow for text inputs */
     padding-left: 3.2rem !important; /* Space for icon on the left in LTR */
@@ -2465,7 +2465,6 @@ html:not([data-textdirection="rtl"]) .premium-input-wrapper .premium-input {
 }
 
 .premium-textarea-md {
-    min-height: 120px !important;
     border-radius: 12px !important;
 }
 
@@ -2490,9 +2489,29 @@ html:not([data-textdirection="rtl"]) .premium-input-wrapper .premium-input {
     border: 1px solid #d1d5db !important;
 }
 
+/* LTR: push rendered text to the right of the icon */
+html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single {
+    padding-left: 3.2rem !important;
+}
+html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single {
+    padding-left: 0.8rem !important;
+}
+
+/* RTL: push rendered text to the left of the icon */
+html[data-textdirection="rtl"] .premium-input-wrapper .select2-container--default .select2-selection--single {
+    padding-right: 3.2rem !important;
+    padding-left: 0.5rem !important;
+}
+html[data-textdirection="rtl"] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single {
+    padding-right: 0.8rem !important;
+    padding-left: 0.5rem !important;
+}
+
 .premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
     padding-left: 0 !important;
+    padding-right: 0 !important;
     line-height: normal !important;
+    color: #3d3d3d !important;
 }
 
 .premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -2508,6 +2527,8 @@ html:not([data-textdirection="rtl"]) .premium-input-wrapper .premium-input {
 
 [dir='rtl'] .premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
     padding-right: 0 !important;
+    padding-left: 0 !important;
+    color: #3d3d3d !important;
 }
 
 /* Textarea Placeholder alignment fix */
@@ -3243,10 +3264,17 @@ html:not([data-textdirection="rtl"]) .premium-input-wrapper .premium-input {
     padding: 10px 15px !important;
     font-size: 0.9rem !important;
     transition: all 0.2s ease !important;
+    color: #3d3d3d !important;
+    background-color: #fff !important;
 }
 .select2-results__option--highlighted[aria-selected] {
     background-color: #666ee8 !important;
     color: #fff !important;
+}
+.select2-results__option[aria-selected="true"] {
+    background-color: #eef2ff !important;
+    color: #4f46e5 !important;
+    font-weight: 600 !important;
 }
 .select2-container--default .select2-search--dropdown .select2-search__field {
     border-radius: 10px !important;
@@ -3682,24 +3710,7 @@ html:not([data-textdirection="rtl"]) .premium-input-wrapper .premium-input {
 }
 
 
-/* Textarea Improvements */
-textarea.premium-input {
-    height: auto !important;
-    padding-top: 14px !important;
-    line-height: 1.6 !important;
-    resize: none !important;
-}
 
-
-/* Ultimate Fix for Textarea Height */
-textarea.form-control.premium-input {
-    height: auto !important;
-    min-height: 120px !important;
-    padding-top: 14px !important;
-    padding-bottom: 14px !important;
-    line-height: 1.6 !important;
-    display: block !important;
-}
 
 /* ==========================================================================
    Dynamic Company Header Branding
@@ -4014,4 +4025,141 @@ body .select2-results__option--highlighted {
 .premium-mandatory-body .premium-input:focus {
     border-color: #f87171 !important;
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* ====== FORCE SELECT2 DROPDOWN OPTION TEXT BLACK ====== */
+.select2-container .select2-results__option,
+.select2-container--default .select2-results__option,
+.select2-dropdown .select2-results__option,
+ul.select2-results__options li.select2-results__option {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container .select2-results__option--highlighted[aria-selected] {
+    background-color: #666ee8 !important;
+    color: #ffffff !important;
+}
+
+/* ================================================================
+   Simple Premium Effect — Static Select2 (non-AJAX)
+   Targets options WITHOUT the company avatar template safely.
+   Does NOT affect company/property/maintenance AJAX select2.
+   ================================================================ */
+
+/* Base State */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option {
+    padding: 12px 16px !important;
+    font-size: 1.05rem !important;
+    color: #475569 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    margin: 0 !important;
+}
+
+/* Remove bottom border from last child */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option:last-child {
+    border-bottom: none !important;
+}
+
+/* Hover State (Prevents Jitter and Color Loss) */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option--highlighted[aria-selected],
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option--highlighted {
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    background-color: #f1f5f9 !important;
+    color: #1e9ff2 !important;
+}
+
+/* Selected State */
+body .select2-dropdown:not(.premium-ajax-dropdown) .select2-results__option[aria-selected="true"] {
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    font-weight: 600 !important;
+}
+
+/* ================================================================
+   Premium Select2 Selected Item (Avatar + Text)
+   ================================================================ */
+/* Fix the left/right padding inherited from premium-input */
+html[data-textdirection="ltr"] body .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection,
+body .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
+    padding-left: 12px !important; /* Removes the huge gap on the left of the border */
+}
+body .select2-container .select2-selection--single.premium-ajax-selection .select2-selection__rendered {
+    padding-left: 0 !important;
+    padding-right: 30px !important; /* Keeps space for the dropdown arrow on the right */
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+.select2-selected-repo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+.select2-selection-avatar {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    object-fit: cover !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+}
+.select2-selection-avatar-initials {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.select2-selection-avatar-initials::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%) !important;
+    pointer-events: none;
+}
+.select2-selected-repo__text {
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 0.95rem !important;
+}
+/* =====================================================
+   NO-ICON: Remove extra padding from Select2 (LTR/RTL)
+   Must be at the END of file to override all other rules
+   ===================================================== */
+body .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single,
+html .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single,
+html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single,
+[dir='ltr'] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single {
+    padding-left: 0.8rem !important;
+    padding-right: 2rem !important;
+}
+/* Textarea Improvements */
+textarea.premium-input {
+    height: auto !important;
+    padding-top: 14px !important;
+    line-height: 1.6 !important;
+    resize: none !important;
+}
+
+/* Ultimate Fix for Textarea Height */
+textarea.form-control.premium-input {
+    height: auto !important;
+    min-height: 120px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    line-height: 1.6 !important;
+    display: block !important;
 }
