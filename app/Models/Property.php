@@ -18,6 +18,7 @@ class Property extends Model implements MustBelongToCompany
 
     protected $restrictiveRelations = [
         'maintenances' => 'properties.cannot_delete_has_maintenances',
+        'contracts' => 'properties.cannot_delete_has_contracts',
     ];
 
     protected $fillable = ['company_id', 'owner_id', 'name', 'location',
@@ -55,5 +56,13 @@ class Property extends Model implements MustBelongToCompany
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class, 'property_id');
+    }
+
+    /**
+     * Get the contracts for the property.
+     */
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'property_id');
     }
 }

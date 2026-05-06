@@ -9,11 +9,11 @@
             @method('PUT')
             <div class="modal-content border-0">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold text-dark" id="editCompanyModalLabel">
-                        <i class="la la-edit mr-1 text-primary" style="font-size: 22px;"></i> {!! __('companies.update_company') !!}
-                    </h5>
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="editCompanyModalLabel">
+                        <i class="fas fa-edit text-primary mr-2 icon-size-18"></i> {!! __('companies.update_company') !!}
+                    </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
 
@@ -28,7 +28,7 @@
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="name_ar_edit" name="name[ar]" class="form-control premium-input shadow-none" 
                                         autocomplete="off" placeholder="{!! __('companies.enter_name_ar') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_ar_error text-danger small"></span>
                             </div>
@@ -40,7 +40,7 @@
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="name_en_edit" name="name[en]" class="form-control premium-input shadow-none" 
                                         autocomplete="off" placeholder="{!! __('companies.enter_name_en') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_en_error text-danger small"></span>
                             </div>
@@ -55,7 +55,7 @@
                                         <option value="Premium">Premium</option>
                                         <option value="Enterprise">Enterprise</option>
                                     </select>
-                                    <i class="la la-gem text-primary"></i>
+                                    <i class="fas fa-gem text-primary"></i>
                                 </div>
                                 <span class="error-text subscription_plan_error text-danger small"></span>
                             </div>
@@ -70,7 +70,7 @@
                                 <div class="premium-input-wrapper">
                                     <input type="email" id="email_edit" name="email" class="form-control premium-input shadow-none" 
                                         autocomplete="off" placeholder="{!! __('companies.enter_email') !!}">
-                                    <i class="la la-envelope text-primary"></i>
+                                    <i class="fas fa-envelope text-primary"></i>
                                 </div>
                                 <span class="error-text email_error text-danger small"></span>
                             </div>
@@ -82,7 +82,7 @@
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="phone_edit" name="phone" class="form-control premium-input shadow-none" 
                                         autocomplete="off" placeholder="{!! __('companies.enter_phone') !!}">
-                                    <i class="la la-phone text-primary"></i>
+                                    <i class="fas fa-phone text-primary"></i>
                                 </div>
                                 <span class="error-text phone_error text-danger small"></span>
                             </div>
@@ -96,7 +96,7 @@
                                         <option value="active">{!! __('general.active') !!}</option>
                                         <option value="inactive">{!! __('general.inactive') !!}</option>
                                     </select>
-                                    <i class="la la-check-circle text-primary"></i>
+                                    <i class="fas fa-check-circle text-primary"></i>
                                 </div>
                                 <span class="error-text status_error text-danger small"></span>
                             </div>
@@ -111,7 +111,7 @@
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="address_edit" name="address" class="form-control premium-input shadow-none" 
                                         autocomplete="off" placeholder="{!! __('companies.enter_address') !!}">
-                                    <i class="la la-map-marker text-primary"></i>
+                                    <i class="fas fa-map-marker text-primary"></i>
                                 </div>
                                 <span class="error-text address_error text-danger small"></span>
                             </div>
@@ -133,12 +133,12 @@
                 </div>
 
                 <div class="modal-footer border-0 pt-0">
-                    <button type="submit" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {!! __('general.update') !!}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                    <button type="submit" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                        <i class="fas fa-save"></i> {!! __('general.update') !!}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10" data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {!! __('general.cancel') !!}
+                        <i class="fas fa-times-circle mr-1"></i> {!! __('general.cancel') !!}
                     </button>
                 </div>
             </div>

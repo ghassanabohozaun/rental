@@ -156,6 +156,10 @@ html[data-textdirection="rtl"] .stat-icon-blob {
     margin-bottom: 0.5rem;
 }
 
+.stat-value.money {
+    font-size: 1.8rem;
+}
+
 .stat-title {
     font-size: 1.1rem;
     font-weight: 600;

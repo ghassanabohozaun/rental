@@ -14,12 +14,7 @@
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/line-awesome/css/line-awesome.min.css') !!}">
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/fontawesome/css/all.min.css') !!}">
 
-<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/weather-icons/climacons.min.css') !!}">
-<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/meteocons/style.css') !!}">
-<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/css/charts/morris.css') !!}">
-<link rel="stylesheet" type="text/css" href="{!! asset(path: 'assets/dashbaord/fonts/simple-line-icons/style.css') !!}">
 <link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
-<link href="{!! asset('vendor/summernote/summernote-bs4.css') !!}" rel="stylesheet">
 
 <!-- BEGIN: Dashboard Core CSS -->
 <!-- Vendor Assets (Load first to allow overrides) -->
@@ -27,7 +22,7 @@
 <link rel="stylesheet"
     href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}?v={{ time() }}">
 <link rel="stylesheet" href="{!! asset('vendor/fileInput/css/fileinput.min.css') !!}?v={{ time() }}">
 
 <!-- Select2 Vendor CSS -->
@@ -70,3 +65,5 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v={{ time() }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}?v={{ time() }}">
 <!-- END: Core CSS -->
+
+

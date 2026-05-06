@@ -91,7 +91,7 @@
                 <div class="modal-footer">
                     <button type="submit" id="create_role_btn" class="btn btn-info font-weight-bold ">
                         {{ trans('general.save') }}
-                        <i class="la la-refresh spinner spinner_loading d-none">
+                        <i class="fas fa-sync spinner spinner_loading d-none">
                         </i>
                     </button>
 

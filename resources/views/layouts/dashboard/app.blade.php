@@ -28,7 +28,18 @@
     <script>
         window.LockScreenConfig = {
             lock_route: "{{ route('dashboard.lock.screen') }}",
-            idle_limit: 300 // 5 minutes
+            idle_limit: 900 // 15 minutes
+        };
+
+        window.PremiumSettings = {
+            messages: {
+                success: "{{ __('general.success') }}",
+                error: "{{ __('general.error') }}",
+                add_success: "{{ __('general.add_success_message') }}",
+                update_success: "{{ __('general.update_success_message') }}",
+                validation_error: "{{ __('general.validation_error_message') }}",
+                access_denied: "{{ __('general.access_denied_msg') }}"
+            }
         };
     </script>
     <script src="{{ asset('assets/dashbaord/js/lock-screen-modern.js') }}"></script>

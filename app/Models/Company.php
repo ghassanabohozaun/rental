@@ -12,7 +12,7 @@ use App\Traits\Dashboard\CanBeDeleted;
 
 class Company extends Model
 {
-    use HasFactory, HasTranslations, Filterable, SoftDeletes, HasCreatedBy, CanBeDeleted;
+    use HasFactory, HasTranslations, Filterable, SoftDeletes, HasCreatedBy, CanBeDeleted, \App\Traits\Dashboard\HasAvatar;
 
     protected $table = 'companies';
 
@@ -41,6 +41,11 @@ class Company extends Model
     ];
 
     public array $translatable = ['name'];
+ 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 
     public function users()
     {
@@ -103,20 +108,4 @@ class Company extends Model
         return null;
     }
 
-    public function getInitialsAttribute()
-    {
-        $name = $this->getTranslation('name', app()->getLocale()) ?: $this->name;
-        $words = explode(' ', $name);
-        if (count($words) >= 2) {
-            return mb_strtoupper(mb_substr($words[0], 0, 1) . mb_substr($words[1], 0, 1));
-        }
-        return mb_strtoupper(mb_substr($name, 0, 1));
-    }
-
-    public function getAvatarColor()
-    {
-        $colors = ['#5A8DEE', '#FDAC41', '#FF5B5C', '#39DA8A', '#00CFDD', '#7117EA', '#272727'];
-        $charIndex = abs(crc32($this->name)) % count($colors);
-        return $colors[$charIndex];
-    }
 }

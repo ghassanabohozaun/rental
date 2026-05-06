@@ -28,7 +28,7 @@ class GuarantorsController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+            $companies = $this->companyService->getAll(new Request());
         }
 
         if ($request->ajax()) {

@@ -1,3 +1,4 @@
+<input type="hidden" id="bank_accounts-total-count" value="{!! $bankAccounts->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -19,7 +20,7 @@
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
-                            <i class="la la-plus-circle text-primary" style="font-size: 22px;"></i>
+                            <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
                         </span>
 
                         <!-- Hidden Row Details for AJAX Modal -->
@@ -31,7 +32,7 @@
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
                                         <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
-                                            <i class="la la-bank font-40"></i>
+                                            <i class="fas fa-university font-40"></i>
                                         </div>
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{!! $account->bank_name !!}</h4>
@@ -41,7 +42,7 @@
                                 <!-- Detail Items List -->
                                 <div class="modal-info-list mt-2">
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-fingerprint"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-fingerprint"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.system_id') !!}</span>
                                             <span class="detail-info-value text-muted"># {!! $account->id !!}</span>
@@ -49,7 +50,7 @@
                                     </div>
                                     
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-user"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('bank_accounts.account_holder_name') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $account->account_holder_name !!}</span>
@@ -58,7 +59,7 @@
 
                                     @if($account->iban)
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-barcode"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-barcode"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('bank_accounts.iban') !!}</span>
                                             <span class="detail-info-value text-muted" dir="ltr">{!! $account->formatted_iban !!}</span>
@@ -67,7 +68,7 @@
                                     @endif
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-briefcase"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value text-muted small">
@@ -77,7 +78,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-star"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-star"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('bank_accounts.is_default') !!}</span>
                                             <div class="detail-info-value mt-1">
@@ -91,7 +92,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-user-plus"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('departments.created_by') !!}</span>
                                             <span class="detail-info-value">{!! $account->creator->name ?? '---' !!}</span>
@@ -105,7 +106,7 @@
                     <!-- Desktop ID Badge -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="badge badge-info badge-pill badge-glow premium-badge-circle">
-                            {!! $loop->iteration !!}
+                            {!! $loop->iteration + ($bankAccounts->currentPage() - 1) * $bankAccounts->perPage() !!}
                         </span>
                     </td>
 
@@ -121,16 +122,16 @@
                     <!-- Company -->
                     <td class="text-center align-middle">
                         <span class="badge badge-light-primary border-0">
-                            <i class="la la-briefcase mr-25"></i> {!! $account->company->name ?? '---' !!}
+                            <i class="fas fa-briefcase mr-25"></i> {!! $account->company->name ?? '---' !!}
                         </span>
                     </td>
                     
                     <!-- Is Default -->
                     <td class="text-center align-middle">
                         @if ($account->is_default)
-                            <i class="la la-star text-warning font-large-1" title="{!! __('bank_accounts.is_default') !!}"></i>
+                            <i class="fas fa-star text-warning font-large-1" title="{!! __('bank_accounts.is_default') !!}"></i>
                         @else
-                            <i class="la la-star-o text-muted font-large-1"></i>
+                            <i class="fas fa-star-o text-muted font-large-1"></i>
                         @endif
                     </td>
 

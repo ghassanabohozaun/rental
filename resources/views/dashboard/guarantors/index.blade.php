@@ -13,15 +13,15 @@
     <div class="app-content content">
         <div class="content-wrapper">
             <!-- begin: content header -->
-            <div class="content-header row align-items-center mb-2">
+            <div class="content-header row">
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb premium-breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{!! route('dashboard.index') !!}" class="text-muted">
-                                        <i class="la la-home"></i> {!! __('dashboard.home') !!}
+                                    <a href="{!! route('dashboard.index') !!}">
+                                        <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active font-weight-bold">
@@ -39,7 +39,7 @@
                         @can('guarantors_create')
                             <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                                 data-target="#createModal">
-                                <i class="la la-plus-circle"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 {!! __('guarantors.add_guarantor') !!}
                             </button>
                         @endcan
@@ -58,17 +58,16 @@
                             <div class="card premium-card">
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="la la-shield text-primary mr-2" style="font-size: 24px;"></i>
+                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                        <i class="fas fa-shield-alt text-primary mr-2 icon-size-16"></i>
                                         {!! __('guarantors.guarantors') !!}
-                                        <span class="badge badge-primary badge-pill badge-glow ml-2"
-                                            style="font-size: 11px;">{!! $guarantors->total() !!}</span>
-                                    </h4>
+                                        <span id="guarantorsCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $guarantors->total() !!}</span>
+                                    </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="la la-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="la la-refresh"></i></a></li>
-                                            <li><a data-action="expand"><i class="la la-expand"></i></a></li>
+                                            <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="fas fa-sync"></i></a></li>
+                                            <li><a data-action="expand"><i class="fas fa-expand"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -96,11 +95,10 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
-    
+
     @include('dashboard.guarantors.modals.create')
     @include('dashboard.guarantors.modals.edit')
     @include('dashboard.guarantors.modals.details')
-
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/dashbaord/js/ajax-table.js') }}"></script>

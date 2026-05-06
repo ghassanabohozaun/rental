@@ -1,31 +1,40 @@
 (function () {
-    // 1. Idle Timer Logic (Global)
-    let idleTime = 0;
+    // 1. Idle Timer Logic (Global & Multi-tab Sync)
+    const STORAGE_KEY = "lock_screen_last_activity";
     const config = window.LockScreenConfig || {
-        idle_limit: 60,
+        idle_limit: 300,
         lock_route: "#",
     };
     const idleLimit = config.idle_limit;
 
     function resetTimer() {
-        idleTime = 0;
+        localStorage.setItem(STORAGE_KEY, Date.now().toString());
     }
 
-    // Only start timer if we are authenticated and not already on the lock screen
+    // Initialize last activity if not set
+    if (!localStorage.getItem(STORAGE_KEY)) {
+        resetTimer();
+    }
+
+    // Only start monitoring if we are NOT already on the lock screen
     if (!window.location.href.includes("lock-screen")) {
         setInterval(() => {
-            idleTime++;
-            if (idleTime >= idleLimit) {
+            const lastActivity = parseInt(localStorage.getItem(STORAGE_KEY) || Date.now());
+            const secondsSinceLastActivity = Math.floor((Date.now() - lastActivity) / 1000);
+
+            if (secondsSinceLastActivity >= idleLimit) {
                 window.location.href = config.lock_route;
             }
         }, 1000);
 
-        window.onload = resetTimer;
-        window.onmousemove = resetTimer;
-        window.onmousedown = resetTimer;
-        window.ontouchstart = resetTimer;
-        window.onclick = resetTimer;
-        window.onkeypress = resetTimer;
+        // Listen for activity on current window
+        window.addEventListener('load', resetTimer);
+        window.addEventListener('mousemove', resetTimer);
+        window.addEventListener('mousedown', resetTimer);
+        window.addEventListener('touchstart', resetTimer);
+        window.addEventListener('click', resetTimer);
+        window.addEventListener('keypress', resetTimer);
+        window.addEventListener('scroll', resetTimer);
     }
 
     // 2. Unlock AJAX Handler (Lock Screen Only)

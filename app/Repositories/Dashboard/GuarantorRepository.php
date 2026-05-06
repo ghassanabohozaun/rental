@@ -70,15 +70,18 @@ class GuarantorRepository
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
+                // Merging native Laravel JSON search with standard columns for case-insensitivity
                 $q->where('name->en', 'like', '%' . $searchValue . '%')
-                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
-                  ->orWhere('phone', 'like', '%' . $searchValue . '%')
-                  ->orWhere('id_number', 'like', '%' . $searchValue . '%');
+                    ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
+                    ->orWhere('phone', 'like', '%' . $searchValue . '%')
+                    ->orWhere('id_number', 'like', '%' . $searchValue . '%');
             });
         }
 
-        return $query->orderByDesc('id')
-            ->limit(10)
+        $totalCount = $query->count();
+
+        $results = $query->orderByDesc('id')
+            ->limit(30)
             ->get()
             ->map(function ($guarantor) {
                 return [
@@ -86,5 +89,10 @@ class GuarantorRepository
                     'text' => $guarantor->name . ' - ' . $guarantor->phone,
                 ];
             });
+
+        return [
+            'results' => $results,
+            'total_count' => $totalCount
+        ];
     }
 }

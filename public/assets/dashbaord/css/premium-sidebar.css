@@ -408,3 +408,12 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
         font-size: 0.75rem !important;
     }
 }
+
+/* ── Guarantors: shift text 10px from right edge in RTL only ── */
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.nav-item-guarantors > a {
+    padding-right: 28px !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.nav-item-guarantors > ul > li > a {
+    padding-right: 34px !important;
+}

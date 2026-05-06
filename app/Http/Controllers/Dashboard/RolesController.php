@@ -26,10 +26,10 @@ class RolesController extends Controller
 
         $title = __('roles.roles');
         $roles = $this->roleService->getRoles($request);
-
         $companies = null;
+
         if (auth()->user()->company_id == 1) {
-            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+            $companies = $this->companyService->getAll(new Request());
         }
 
         if ($request->ajax()) {
@@ -46,7 +46,7 @@ class RolesController extends Controller
 
         $companies = null;
         if (auth()->user()->company_id == 1) {
-            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+            $companies = $this->companyService->getAll(new Request());
         }
 
         return view('dashboard.roles.create', compact('title', 'companies'));
@@ -90,7 +90,7 @@ class RolesController extends Controller
 
         $companies = null;
         if (auth()->user()->company_id == 1 || auth()->user()->role_id == 1) {
-            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+            $companies = $this->companyService->getAll(new Request());
         }
 
         return view('dashboard.roles.edit', compact('role', 'title', 'companies'));

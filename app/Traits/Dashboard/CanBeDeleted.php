@@ -4,6 +4,10 @@ namespace App\Traits\Dashboard;
 
 use App\Exceptions\DeleteRestrictionException;
 
+/**
+ * @mixin \Illuminate\Database\Eloquent\Model
+ * @property array $restrictiveRelations
+ */
 trait CanBeDeleted
 {
     /**

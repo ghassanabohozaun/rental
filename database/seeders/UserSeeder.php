@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('123456'),
                 'company_id' => 1,
                 'role_id' => $superRole->id,
-                'status' => true,
+                'status' => true
             ]
         );
 

@@ -33,4 +33,7 @@ return [
 
     'no_users_found' => 'No Users Found !',
     'login_success' => 'Users Login Successfully',
+    'active_users' => 'Active Users',
+    'managers' => 'Managers',
+    'super_users' => 'Super Users',
 ];

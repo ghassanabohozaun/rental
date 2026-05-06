@@ -56,4 +56,15 @@ return [
     // Errors
     'company_required' => 'Please select a company',
     'cannot_delete_has_maintenances' => 'Cannot delete this property because it has maintenance requests linked to it.',
+    'view_property' => 'View Property',
+    'available_properties' => 'Available Properties',
+    'rented' => 'Rented',
+    'available' => 'Available',
+    'basic_info' => 'Basic Property Information',
+    'specs_and_price' => 'Specifications & Rental Price',
+    'property_details' => 'Property Details',
+    'basic_information' => 'Basic Information',
+    'property_name' => 'Property Name',
+    'legal_utility_info' => 'Legal & Utility Information',
+    'sq_m' => 'sqm',
 ];

@@ -4,10 +4,11 @@ namespace Database\Factories;
 
 use App\Models\City;
 use App\Models\Governorate;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Employee>
  */
 class EmployeeFactory extends Factory
 {

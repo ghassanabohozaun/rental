@@ -7,29 +7,21 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-    <style>
-        textarea.premium-input {
-            height: auto !important;
-            min-height: 45px !important;
-            padding-top: 10px !important;
-            padding-bottom: 10px !important;
-        }
-    </style>
 @endpush
 
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <!-- begin: content header -->
-            <div class="content-header row align-items-center mb-2">
+            <div class="content-header row">
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb premium-breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{!! route('dashboard.index') !!}" class="text-muted">
-                                        <i class="la la-home"></i> {!! __('dashboard.home') !!}
+                                    <a href="{!! route('dashboard.index') !!}">
+                                        <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active font-weight-bold">
@@ -47,7 +39,7 @@
                         @can('customers_create')
                             <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                                 data-target="#createModal">
-                                <i class="la la-plus-circle"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 {!! __('customers.add_customer') !!}
                             </button>
                         @endcan
@@ -58,6 +50,78 @@
 
             <!-- begin: content body -->
             <div class="content-body">
+                <!-- begin: stats cards -->
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-12">
+                        <div class="card premium-card premium-stat-card mb-2">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="stat-value text-primary font-weight-bold mb-0">
+                                            {{ $stats['total_customers'] }}
+                                        </h3>
+                                        <span class="stat-label text-muted">{!! __('customers.customers') !!}</span>
+                                    </div>
+                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(30, 159, 242, 0.1);">
+                                        <i class="fas fa-users text-primary font-large-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12">
+                        <div class="card premium-card premium-stat-card mb-2">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="stat-value text-success font-weight-bold mb-0">
+                                            {{ $stats['active_customers'] }}
+                                        </h3>
+                                        <span class="stat-label text-muted">{!! __('customers.active_customers') !!}</span>
+                                    </div>
+                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(40, 208, 148, 0.1);">
+                                        <i class="fas fa-user-check text-success font-large-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12">
+                        <div class="card premium-card premium-stat-card mb-2">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="stat-value text-info font-weight-bold mb-0">
+                                            {{ $stats['active_tenants'] }}
+                                        </h3>
+                                        <span class="stat-label text-muted">{!! __('customers.active_tenants') !!}</span>
+                                    </div>
+                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(0, 207, 221, 0.1);">
+                                        <i class="fas fa-key text-info font-large-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12">
+                        <div class="card premium-card premium-stat-card mb-2">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body text-left">
+                                        <h3 class="stat-value text-warning font-weight-bold mb-0">
+                                            {{ $stats['corporate_customers'] }}
+                                        </h3>
+                                        <span class="stat-label text-muted">{!! __('customers.corporate_customers') !!}</span>
+                                    </div>
+                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 145, 73, 0.1);">
+                                        <i class="fas fa-building text-warning font-large-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end: stats cards -->
                 @include('dashboard.customers.partials._search')
 
                 <section id="basic-form-layouts">
@@ -66,17 +130,16 @@
                             <div class="card premium-card">
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="la la-users text-primary mr-2" style="font-size: 24px;"></i>
+                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                        <i class="fas fa-users text-primary mr-2 icon-size-16"></i>
                                         {!! __('customers.customers') !!}
-                                        <span class="badge badge-primary badge-pill badge-glow ml-2"
-                                            style="font-size: 11px;">{!! $customers->total() !!}</span>
-                                    </h4>
+                                        <span id="customersCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $customers->total() !!}</span>
+                                    </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="la la-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="la la-refresh"></i></a></li>
-                                            <li><a data-action="expand"><i class="la la-expand"></i></a></li>
+                                            <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="fas fa-sync"></i></a></li>
+                                            <li><a data-action="expand"><i class="fas fa-expand"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -126,6 +189,25 @@
             if (typeof initFilterSystem === "function") {
                 initFilterSystem();
             }
+
+            // Initialize Standard Select2
+            $('.js-select2:not(.select2-autocomplete):not(.js-autocomplete)').each(function() {
+                var $el = $(this);
+                var parent = $el.data('parent');
+                $el.select2({
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr',
+                    dropdownParent: parent ? $(parent) : null
+                });
+            });
+
+            // Global fix for Select2 search focus issue in Bootstrap Modals
+            $(document).on('select2:open', function(e) {
+                const searchField = document.querySelector('.select2-search__field');
+                if (searchField) {
+                    searchField.focus();
+                }
+            });
 
             // Status Change Handler (preserving existing logic)
             $('body').on('change', '.change_status', function(e) {

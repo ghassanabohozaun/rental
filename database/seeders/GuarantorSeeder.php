@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Guarantor;
 
 class GuarantorSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class GuarantorSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Guarantor::factory()->count(50)->create();
+        Guarantor::factory()->count(50)->create();
     }
 }

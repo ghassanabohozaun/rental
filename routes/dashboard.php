@@ -3,7 +3,7 @@
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ResetPasswordController;
-use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, GuarantorsController, CustomersController, MaintenancesController};
+use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, GuarantorsController, CustomersController, MaintenancesController, ContractsController, ChequesController, PaymentsController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -132,6 +132,32 @@ Route::group(
                 Route::resource('maintenances', MaintenancesController::class);
                 Route::post('/maintenances/destroy', [MaintenancesController::class, 'destroy'])->name('maintenances.destroy');
                 Route::post('/maintenances/status', [MaintenancesController::class, 'changeStatus'])->name('maintenances.change.status');
+            });
+
+            ########################################### contracts routes #############################################################
+            Route::group(['middleware' => 'can:contracts_read'], function () {
+                Route::resource('contracts', ContractsController::class);
+                Route::post('/contracts/destroy', [ContractsController::class, 'destroy'])->name('contracts.destroy');
+                Route::get('/contracts-autocomplete', [ContractsController::class, 'autocomplete'])->name('contracts.autocomplete');
+                Route::get('/contracts/{id}/payments', [ContractsController::class, 'getPayments'])->name('contracts.payments');
+                Route::get('/contracts/{id}/cheques', [ContractsController::class, 'getCheques'])->name('contracts.cheques');
+            });
+
+            ########################################### cheques routes #############################################################
+            Route::group(['middleware' => 'can:cheques_read'], function () {
+                Route::resource('cheques', ChequesController::class);
+                Route::post('/cheques/destroy', [ChequesController::class, 'destroy'])->name('cheques.destroy');
+                Route::get('/cheques-autocomplete', [ChequesController::class, 'autocomplete'])->name('cheques.autocomplete');
+                Route::get('/cheques/contract-details/{id}', [ChequesController::class, 'getContractDetails'])->name('cheques.contract-details');
+                Route::post('/cheques/{id}/return', [ChequesController::class, 'returnCheque'])->name('cheques.return');
+                Route::post('/cheques/{id}/cash', [ChequesController::class, 'cashCheque'])->name('cheques.cash');
+            });
+
+            ########################################### payments routes #############################################################
+            Route::group(['middleware' => 'can:payments_read'], function () {
+                Route::resource('payments', PaymentsController::class);
+                Route::post('/payments/destroy', [PaymentsController::class, 'destroy'])->name('payments.destroy');
+                Route::get('/payments/contract-details/{id}', [PaymentsController::class, 'getContractDetails'])->name('payments.contract-details');
             });
         });
     },

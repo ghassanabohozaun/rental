@@ -333,5 +333,23 @@ return [
         'id_number' => 'ID Number',
         'relationship' => 'Relationship',
         'notes' => 'Notes',
+
+        // Contracts
+        'property_id' => 'Property',
+        'customer_id' => 'Customer',
+        'rent_amount' => 'Rent Amount',
+        'deposit_amount' => 'Deposit Amount',
+        'deposit_type' => 'Deposit Type',
+        'deposit_status' => 'Deposit Status',
+        'payment_cycle' => 'Payment Cycle',
+        'contract_text' => 'Contract Text',
+        
+        // Contracts - Insurance Cheque
+        'deposit_cheque_number' => 'Insurance Cheque Number',
+        'deposit_bank_name.ar' => 'Bank Name (Arabic)',
+        'deposit_bank_name.en' => 'Bank Name (English)',
+        'deposit_cheque_owner_name.ar' => 'Cheque Owner Name (Arabic)',
+        'deposit_cheque_owner_name.en' => 'Cheque Owner Name (English)',
+        'deposit_issue_date' => 'Cheque Issue Date',
     ],
 ];

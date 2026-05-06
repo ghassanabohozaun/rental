@@ -91,4 +91,8 @@ class UserService
 
         return $this->userRepository->changeStatusUser($user, $status);
     }
+    public function getStats()
+    {
+        return $this->userRepository->getStats();
+    }
 }

@@ -38,11 +38,20 @@ class PropertyController extends Controller
         $property_types = PropertyType::active()->get();
         $property_statuses = PropertyStatus::active()->get();
 
+        // Calculate counts for stats cards
+        $total_count = $this->service->getTotalCount();
+        $available_count = $this->service->getCountByStatus(1); // Available
+        $rented_count = $this->service->getCountByStatus(2);    // Rented
+        $maintenance_count = $this->service->getCountByStatus(4); // Maintenance
+
         if ($request->ajax() || $request->has('_ajax')) {
             return view('dashboard.properties.partials._table', compact('properties', 'companies'))->render();
         }
 
-        return view('dashboard.properties.index', compact('properties', 'title', 'companies', 'property_types', 'property_statuses'));
+        return view('dashboard.properties.index', compact(
+            'properties', 'title', 'companies', 'property_types', 
+            'property_statuses', 'total_count', 'available_count', 'rented_count', 'maintenance_count'
+        ));
     }
 
     // create
@@ -78,10 +87,20 @@ class PropertyController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-               // 'message' => $e->getMessage()
                 'message' => __('general.add_error_message')
             ], 500);
         }
+    }
+
+    // show
+    public function show($id)
+    {
+        Gate::authorize('properties_read');
+
+        $property = $this->service->find($id);
+        $title = __('properties.property_details') . ' - ' . $property->name;
+
+        return view('dashboard.properties.show', compact('property', 'title'));
     }
 
         public function edit($id)
@@ -146,7 +165,11 @@ class PropertyController extends Controller
 
     public function autocomplete(Request $request)
     {
-        $data = $this->service->autocomplete($request->get('q'));
+        $data = $this->service->autocomplete(
+            $request->get('q'),
+            $request->get('company_id'),
+            $request->get('only_available', false)
+        );
         return response()->json($data);
     }
 }

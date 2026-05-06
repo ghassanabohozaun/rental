@@ -55,8 +55,12 @@ class CustomerService
         return $this->repository->changeStatus($id, $status);
     }
 
-    public function autocomplete($searchValue)
+    public function autocomplete($searchValue, $companyId = null)
     {
-        return $this->repository->autocomplete($searchValue);
+        return $this->repository->autocomplete($searchValue, $companyId);
+    }
+    public function getStats()
+    {
+        return $this->repository->getStats();
     }
 }

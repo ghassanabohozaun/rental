@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Company;
-use App\Models\Department;
-use App\Models\Role;
+use App\Models\Property;
+use App\Models\Contract;
+use App\Models\Payment;
+use App\Models\Cheque;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -16,50 +18,92 @@ class DashboardController extends Controller
     public function index()
     {
         $title = __('dashboard.dashboard');
-        
         $companyId = user()->company_id;
         $isSuperAdmin = $companyId == 1;
 
-        // Base queries
-        $usersQuery = User::query();
-        $departmentsQuery = Department::query();
-        $rolesQuery = Role::query();
+        // --- 1. Base Queries with Multi-tenancy ---
+        $propertiesQuery = Property::query();
+        $contractsQuery = Contract::query();
+        $paymentsQuery = Payment::query();
+        $chequesQuery = Cheque::query();
 
-        // Apply Multi-tenant Isolation
         if (!$isSuperAdmin) {
-            $usersQuery->where('company_id', $companyId);
-            $departmentsQuery->where('company_id', $companyId);
-            $rolesQuery->where('company_id', $companyId);
+            $propertiesQuery->where('company_id', $companyId);
+            $contractsQuery->where('company_id', $companyId);
+            $paymentsQuery->where('company_id', $companyId);
+            $chequesQuery->where('company_id', $companyId);
         }
 
-        // Get Counts (Clone queries to reuse them for chart data)
+        // --- 2. Statistics Cards ---
         $stats = [
-            'users_count' => (clone $usersQuery)->count(),
-            'departments_count' => (clone $departmentsQuery)->count(),
-            'roles_count' => (clone $rolesQuery)->count(),
-            'companies_count' => $isSuperAdmin ? Company::count() : 0,
+            'companies_count'   => $isSuperAdmin ? Company::count() : 0,
+            'properties_count'  => (clone $propertiesQuery)->count(),
+            'active_contracts'  => (clone $contractsQuery)->where('status', 'active')->count(),
+            'total_payments'    => (clone $paymentsQuery)->whereIn('status', ['paid', 'pending'])->sum('amount'),
+            'pending_cheques_value' => (clone $chequesQuery)->where('status', 'pending')->sum('amount'),
+            'users_count'       => User::when(!$isSuperAdmin, fn($q) => $q->where('company_id', $companyId))->count(),
         ];
 
-        // Fetch Real Chart Data (Last 12 Months)
-        $months = [];
-        $usersChart = [];
-        $departmentsChart = [];
+        // --- 3. Charts Data ---
+        // A. Occupancy (Rented vs Available)
+        // A property is rented if it has at least one 'active' contract
+        $rentedCount = (clone $propertiesQuery)->whereHas('contracts', function($q) {
+            $q->where('status', 'active');
+        })->count();
+        $availableCount = max(0, $stats['properties_count'] - $rentedCount);
 
+        $occupancyChart = [
+            'series' => [$rentedCount, $availableCount],
+            'labels' => [__('properties.rented'), __('properties.available')]
+        ];
+
+        // B. Financial Trend (Last 12 Months)
+        $months = [];
+        $collections = [];
         for ($i = 11; $i >= 0; $i--) {
             $date = Carbon::now()->subMonths($i);
-            $months[] = $date->format('M'); // e.g. Jan, Feb
+            $months[] = $date->translatedFormat('M Y');
             
-            $usersChart[] = (clone $usersQuery)->whereYear('created_at', $date->year)->whereMonth('created_at', $date->month)->count();
-            $departmentsChart[] = (clone $departmentsQuery)->whereYear('created_at', $date->year)->whereMonth('created_at', $date->month)->count();
+            $collections[] = (clone $paymentsQuery)
+                ->whereIn('status', ['paid', 'pending'])
+                ->whereYear('payment_date', $date->year)
+                ->whereMonth('payment_date', $date->month)
+                ->sum('amount');
         }
 
-        $chartData = [
+        $financialChart = [
             'categories' => $months,
-            'users'      => $usersChart,
-            'departments'=> $departmentsChart,
+            'data'       => $collections,
         ];
 
-        return view('dashboard.home.index', compact('title', 'stats', 'isSuperAdmin', 'chartData'));
+        // --- 4. Alerts & Lists (Recent/Upcoming) ---
+        // A. Expiring Contracts (Next 30 Days)
+        $expiringContracts = (clone $contractsQuery)
+            ->with(['customer', 'property'])
+            ->where('status', 'active')
+            ->whereBetween('end_date', [Carbon::now(), Carbon::now()->addDays(30)])
+            ->orderBy('end_date', 'asc')
+            ->limit(5)
+            ->get();
+
+        // B. Upcoming Cheques (Next 7 Days)
+        $upcomingCheques = (clone $chequesQuery)
+            ->with(['customer', 'contract.property'])
+            ->where('status', 'pending')
+            ->whereBetween('due_date', [Carbon::now(), Carbon::now()->addDays(7)])
+            ->orderBy('due_date', 'asc')
+            ->limit(5)
+            ->get();
+
+        return view('dashboard.home.index', compact(
+            'title', 
+            'stats', 
+            'isSuperAdmin', 
+            'occupancyChart', 
+            'financialChart',
+            'expiringContracts',
+            'upcomingCheques'
+        ));
     }
 }
 

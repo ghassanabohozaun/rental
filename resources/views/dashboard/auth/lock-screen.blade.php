@@ -24,7 +24,7 @@
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
-                        <span class="stat-item"><i class="la la-shield-alt"></i> {!! __('dashboard.secured_session') ?? 'Secured Session' !!}</span>
+                        <span class="stat-item"><i class="fas fa-shield-alt"></i> {!! __('dashboard.secured_session') ?? 'Secured Session' !!}</span>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
                 @endphp
                 <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="btn-lang-toggle">
-                    <i class="la la-language"></i>
+                    <i class="fas fa-language"></i>
                     <span>{{ $targetNative }}</span>
                 </a>
             </div>
@@ -85,18 +85,18 @@
                         <div class="input-container-modern">
                             <input type="password" class="form-control-modern" name="password" id="lock-password"
                                 placeholder="••••••••" required autofocus autocomplete="new-password">
-                            <i class="la la-lock input-icon-modern"></i>
+                            <i class="fas fa-lock input-icon-modern"></i>
                         </div>
                         <div id="lock-error" class="text-danger small mt-2 d-none"></div>
                     </div>
 
                     <button type="submit" id="unlock-btn" class="btn-login-modern">
                         <span>{!! __('auth.unlock') !!}</span>
-                        <i class="la la-key"></i>
+                        <i class="fas fa-key"></i>
                     </button>
 
                     <a href="{{ route('dashboard.logout') }}" class="different-account">
-                        <i class="la la-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt"></i>
                         {!! __('auth.sign_in_different_account') !!}
                     </a>
                 </form>

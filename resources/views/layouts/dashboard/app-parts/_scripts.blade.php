@@ -29,11 +29,6 @@
     </script>
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
 
-    <!-- BEGIN PAGE VENDOR JS-->
-    <script src="{!! asset('assets/dashbaord/vendors/js/charts/apexcharts.min.js') !!}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/vendors/js/charts/raphael-min.js') !!}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/vendors/js/charts/morris.min.js') !!}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/vendors/js/timeline/horizontal-timeline.js') !!}" type="text/javascript"></script>
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN MODERN JS-->
     <script src="{!! asset('assets/dashbaord') !!}/js/core/app-menu.js" type="text/javascript"></script>
@@ -45,7 +40,6 @@
     <script src="{!! asset('assets/dashbaord') !!}/js/scripts/extensions/sweet-alerts.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/js/scripts/my-scripts.js" type="text/javascript"></script>
     <script src="{!! asset('vendor/flasher/flasher.min.js') !!}" type="text/javascript"></script>
-    <script src="{!! asset('vendor/summernote/summernote.js') !!}"></script>
 
     <!-- Bootstrap Datepicker JS [NEW SYSTEM STANDARD] -->
     <script src="{{ asset('assets/dashbaord/vendors/js/pickers/bootstrap-datepicker/bootstrap-datepicker.min.js') }}">
@@ -115,3 +109,5 @@
             }
         });
     </script>
+
+

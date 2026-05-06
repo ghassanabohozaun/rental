@@ -3,6 +3,10 @@
     {!! $title !!}
 @endsection
 
+@push('style')
+    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}?v={{ time() }}">
+@endpush
+
 @section('content')
     <div class="app-content content">
         <form class="form ajax-form" id='myForm' action="{!! route('dashboard.roles.store') !!}" method="post" enctype="multipart/form-data" novalidate
@@ -11,16 +15,14 @@
             data-redirect-url="{!! route('dashboard.roles.index') !!}">
             @csrf
             <div class="content-wrapper">
-                <!-- begin: content header -->
                 <div class="content-header row">
-                    <!-- begin: content header left-->
                     <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                         <div class="row breadcrumbs-top">
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb premium-breadcrumb">
                                     <li class="breadcrumb-item">
                                         <a href="{!! route('dashboard.index') !!}">
-                                            <i class="la la-home"></i> {!! __('dashboard.home') !!}
+                                            <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
@@ -28,28 +30,27 @@
                                             {!! __('roles.roles') !!}
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item active">
+                                    <li class="breadcrumb-item active font-weight-bold">
                                         {!! __('roles.create_new_role') !!}
                                     </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    <!-- end: content header left-->
-
-                    <!-- begin: content header right-->
-                    <div class="content-header-right col-md-6 col-12">
-                        <div class="float-md-right mb-1">
-                            <button class="btn btn-premium-save" type="submit" id="saveBtn">
-                                <i class="la la-save"></i>
+                    <div class="content-header-right col-md-6 col-12 text-md-right">
+                        <div class="d-flex align-items-center justify-content-end mb-1">
+                            <a href="{!! route('dashboard.roles.index') !!}" class="btn-premium-back mr-1">
+                                <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
+                            </a>
+                            <button class="btn btn-premium-save shadow-pulse" type="submit" id="saveBtn">
+                                <i class="fas fa-save"></i>
                                 {!! __('general.save') !!}
-                                <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                                <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                             </button>
                         </div>
                     </div>
-                    <!-- end: content header right-->
-
-                </div> <!-- end :content header -->
+                </div>
+                <!-- end :content header -->
 
                 <!-- begin: content body -->
                 <div class="content-body">
@@ -60,10 +61,10 @@
                                 <div class="card premium-card shadow-lg border-0">
                                     <!-- begin: card header -->
                                     <div class="card-header border-0 pb-0">
-                                        <h4 class="card-title text-primary font-weight-bold"
-                                            id="basic-layout-colored-form-control">
-                                            <i class="la la-plus-circle mr-1"></i> {!! __('roles.create_new_role') !!}
-                                        </h4>
+                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                            <i class="fas fa-plus-circle text-primary mr-2 icon-size-16"></i> 
+                                            {!! __('roles.create_new_role') !!}
+                                        </h6>
                                     </div>
                                     <!-- end: card header -->
 
@@ -75,7 +76,7 @@
                                                 @if(isset($companies))
                                                 <!-- begin: Global Role Note -->
                                                 <div class="alert alert-icon-left alert-arrow-left alert-info mb-3 shadow-sm border-0" role="alert" style="border-radius: 12px;">
-                                                    <span class="alert-icon"><i class="la la-info-circle"></i></span>
+                                                    <span class="alert-icon"><i class="fas fa-info-circle"></i></span>
                                                     <h6 class="alert-heading font-weight-bold mb-1">{!! __('general.pro_tip') !!}</h6>
                                                     <p class="mb-0" style="font-size: 1.1rem;">
                                                         {!! __('roles.global_role_note') !!}
@@ -88,10 +89,13 @@
                                                         <div class="premium-form-group">
                                                             <label for="company_id" class="premium-label">{!! __('companies.company') !!}</label>
                                                             <div class="premium-input-wrapper">
-                                                                <select id="company_id" name="company_id" class="form-control premium-input shadow-none">
+                                                                <select id="company_id" name="company_id" class="form-control premium-input shadow-none select2">
                                                                     <option value="">{!! __('roles.global_role') !!}</option>
-                                                                    <!-- Options will be loaded via Select2 Autocomplete -->
+                                                                    @foreach ($companies as $company)
+                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                                    @endforeach
                                                                 </select>
+                                                                <i class="fas fa-briefcase text-primary"></i>
                                                             </div>
                                                             <span class="text text-danger small mt-1 d-block error-text company_id_error"></span>
                                                         </div>
@@ -110,7 +114,7 @@
                                                                     class="form-control premium-input shadow-none"
                                                                     autocomplete="off"
                                                                     placeholder="{!! __('roles.enter_role_ar') !!}">
-                                                                <i class="la la-shield text-primary"></i>
+                                                                <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
                                                             <span class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
                                                         </div>
@@ -126,7 +130,7 @@
                                                                     class="form-control premium-input shadow-none"
                                                                     autocomplete="off"
                                                                     placeholder="{!! __('roles.enter_role_en') !!}">
-                                                                <i class="la la-shield text-primary"></i>
+                                                                <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
                                                             <span class="text text-danger small mt-1 d-block error-text name_en_error"></span>
                                                         </div>
@@ -145,7 +149,7 @@
                                                                     class="form-control premium-input shadow-none"
                                                                     autocomplete="off"
                                                                     placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}">
-                                                                <i class="la la-info-circle text-primary"></i>
+                                                                <i class="fas fa-info-circle text-primary"></i>
                                                             </div>
                                                             <span class="text text-danger small mt-1 d-block error-text description_error"></span>
                                                         </div>
@@ -156,8 +160,8 @@
                                                 <!-- begin: Premium Permissions Grid -->
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <h5 class="mb-3 text-primary font-weight-bold">
-                                                            <i class="la la-key mr-1"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                        <h5 class="premium-section-title">
+                                                            <i class="fas fa-key"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
                                                         </h5>
 
                                                         <div class="permissions-grid">
@@ -232,9 +236,12 @@
                 $('.select-all-module[data-module="' + moduleClass + '"]').prop('checked', allChecked);
             });
 
-            // Initialize Company Select2 Autocomplete
+            // Initialize Company Select2 Standard
             if ($('#company_id').length) {
-                initGenericSelect2('#company_id', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("roles.global_role") !!}');
+                $('#company_id').select2({
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
             }
         });
     </script>

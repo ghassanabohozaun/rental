@@ -10,18 +10,18 @@
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
-            <div class="content-header row align-items-center mb-2">
+            <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
+                            <ol class="breadcrumb premium-breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}">
-                                        <i class="la la-home mr-1"></i> {!! __('dashboard.home') !!}
+                                        <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item active">
-                                    <i class="la la-briefcase mr-1 pointer-events-none"></i> {!! __('departments.departments') !!}
+                                <li class="breadcrumb-item active font-weight-bold">
+                                    {!! __('departments.departments') !!}
                                 </li>
                             </ol>
                         </div>
@@ -30,9 +30,9 @@
 
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-premium-add shadow-pulse h-42 radius-10" data-toggle="modal"
+                        <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                             data-target="#createDepartmentModal">
-                            <i class="la la-plus-circle mr-1"></i>
+                            <i class="fas fa-plus-circle"></i>
                             {!! __('departments.create_new_department') !!}
                         </button>
                     </div>
@@ -50,17 +50,17 @@
                             <div class="card premium-card">
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="la la-briefcase text-primary mr-2 font-24"></i>
+                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                        <i class="fas fa-briefcase text-primary mr-2 icon-size-16"></i>
                                         {!! __('departments.departments') !!}
-                                        <span
+                                        <span id="departmentsCountBadge"
                                             class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $departments->total() !!}</span>
-                                    </h4>
+                                    </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="la la-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="la la-refresh"></i></a></li>
-                                            <li><a data-action="expand"><i class="la la-expand"></i></a></li>
+                                            <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="fas fa-sync"></i></a></li>
+                                            <li><a data-action="expand"><i class="fas fa-expand"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

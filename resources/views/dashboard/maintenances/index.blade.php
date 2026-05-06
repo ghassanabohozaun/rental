@@ -13,15 +13,15 @@
     <div class="app-content content">
         <div class="content-wrapper">
             <!-- begin: content header -->
-            <div class="content-header row align-items-center mb-2">
+            <div class="content-header row">
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb premium-breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{!! route('dashboard.index') !!}" class="text-muted">
-                                        <i class="la la-home"></i> {!! __('dashboard.home') !!}
+                                    <a href="{!! route('dashboard.index') !!}">
+                                        <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active font-weight-bold">
@@ -39,7 +39,7 @@
                         @can('maintenances_create')
                             <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                                 data-target="#createModal">
-                                <i class="la la-plus-circle"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 {!! __('maintenances.add_maintenance') !!}
                             </button>
                         @endcan
@@ -57,18 +57,17 @@
                         <div class="col-md-12">
                             <div class="card premium-card">
                                 <!-- begin: card header -->
-                                <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="la la-wrench text-primary mr-2" style="font-size: 24px;"></i>
-                                        {!! __('maintenances.maintenances') !!}
-                                        <span class="badge badge-primary badge-pill badge-glow ml-2"
-                                            style="font-size: 11px;">{!! $maintenances->total() !!}</span>
-                                    </h4>
+                                    <div class="card-header border-0 pb-0">
+                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                            <i class="fas fa-wrench text-primary mr-2 icon-size-16"></i>
+                                            {!! __('maintenances.maintenances') !!}
+                                            <span id="maintenancesCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $maintenances->total() !!}</span>
+                                        </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="la la-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="la la-refresh"></i></a></li>
-                                            <li><a data-action="expand"><i class="la la-expand"></i></a></li>
+                                            <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="fas fa-sync"></i></a></li>
+                                            <li><a data-action="expand"><i class="fas fa-expand"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -96,11 +95,10 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
-    
+
     @include('dashboard.maintenances.modals.create')
     @include('dashboard.maintenances.modals.edit')
     @include('dashboard.maintenances.modals.details')
-
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/dashbaord/js/ajax-table.js') }}"></script>
@@ -120,6 +118,54 @@
                 initFilterSystem();
             }
 
+            // Initialize Standard Select2 for Modals (Non-AJAX)
+            function initMaintenanceSelects(modalSelector) {
+                $(modalSelector + ' .js-select2:not(.select2-autocomplete):not(.js-autocomplete)').each(function() {
+                    var $el = $(this);
+                    var parent = $el.data('parent');
+                    $el.select2({
+                        dropdownParent: parent ? $(parent) : null,
+                        width: '100%',
+                        dir: $('html').attr('data-textdirection') || 'ltr'
+                    });
+                });
+            }
+
+            initMaintenanceSelects('#createModal');
+            initMaintenanceSelects('#editModal');
+
+            // --- Dependency Logic: Company -> Property ---
+            function handleCompanyChange(companySelect, propertySelect, modalId) {
+                $(document).on('change', companySelect, function(e, extra) {
+                    const companyId = $(this).val();
+                    const $propertySelect = $(propertySelect);
+
+                    // Skip reset if this is an initial population (e.g. when opening edit modal)
+                    if (!(extra && extra.initial)) {
+                        $propertySelect.val(null).trigger('change');
+                    }
+
+                    if (!companyId) {
+                        $propertySelect.prop('disabled', true);
+                    } else {
+                        $propertySelect.prop('disabled', false);
+                        
+                        // Update AJAX URL for the autocomplete
+                        const baseUrl = "{!! route('dashboard.properties.autocomplete') !!}";
+                        const newUrl = baseUrl + (baseUrl.includes('?') ? '&' : '?') + "company_id=" + companyId;
+                        $propertySelect.attr('data-url', newUrl);
+
+                        // Re-initialize Select2 Autocomplete with new URL
+                        if (typeof initGenericSelect2 === "function") {
+                            initGenericSelect2($propertySelect, newUrl, $propertySelect.data('placeholder'), modalId);
+                        }
+                    }
+                });
+            }
+
+            handleCompanyChange('#company_id_create', '#property_id_create', '#createModal');
+            handleCompanyChange('#edit_company_id', '#edit_property_id', '#editModal');
+
             // Status Change Handler
             $('body').on('change', '.change_status', function(e) {
                 e.preventDefault();
@@ -136,17 +182,18 @@
                     dataType: 'JSON',
                     success: function(data) {
                         $('.maintenance_status_' + data.data.id).empty();
-                        $('.maintenance_status_' + data.data.id).removeClass('badge-danger badge-warning badge-success');
-                        
+                        $('.maintenance_status_' + data.data.id).removeClass(
+                            'badge-danger badge-warning badge-success');
+
                         let badgeClass = 'badge-warning';
-                        let statusText = '{!! __("maintenances.pending") !!}';
-                        
+                        let statusText = '{!! __('maintenances.pending') !!}';
+
                         if (data.data.status === 'done') {
                             badgeClass = 'badge-success';
-                            statusText = '{!! __("maintenances.done") !!}';
+                            statusText = '{!! __('maintenances.done') !!}';
                         } else if (data.data.status === 'in_progress') {
                             badgeClass = 'badge-primary';
-                            statusText = '{!! __("maintenances.in_progress") !!}';
+                            statusText = '{!! __('maintenances.in_progress') !!}';
                         }
 
                         $('.maintenance_status_' + data.data.id)
@@ -156,7 +203,7 @@
                                 'padding': '4px 10px'
                             })
                             .text(statusText);
-                            
+
                         if (data.status === true) {
                             flasher.success("{!! __('general.change_status_success_message') !!}");
                         } else {

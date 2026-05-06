@@ -1,0 +1,232 @@
+/* ========================================================================
+   SETTINGS PREMIUM STYLING - V1.0 (PLATINUM DASHBOARD)
+   ======================================================================== */
+
+:root {
+    --premium-primary: #3b82f6;
+    --premium-primary-soft: rgba(59, 130, 246, 0.1);
+    --premium-success: #10b981;
+    --premium-success-soft: rgba(16, 185, 129, 0.1);
+    --premium-warning: #f59e0b;
+    --premium-warning-soft: rgba(245, 158, 11, 0.1);
+    --premium-danger: #ef4444;
+    --premium-danger-soft: rgba(239, 68, 68, 0.1);
+    --premium-info: #06b6d4;
+    --premium-info-soft: rgba(6, 182, 212, 0.1);
+    --premium-slate: #1e293b;
+    --premium-slate-light: #64748b;
+}
+
+/* Base Card Enhancements */
+.premium-card {
+    background: #ffffff;
+    border-radius: 20px !important;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.premium-mandatory-header {
+    background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    color: #1e293b !important;
+    padding: 20px 25px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--premium-primary);
+    position: relative;
+    z-index: 2;
+}
+
+/* Input Fields Headers */
+.field-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.field-header i {
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 8px;
+    color: var(--premium-primary);
+    transition: all 0.3s ease;
+}
+
+.premium-form-group:hover .field-header i {
+    background: var(--premium-primary);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.field-header label {
+    margin: 0 !important;
+    font-weight: 700;
+    color: var(--premium-slate);
+    font-size: 0.95rem;
+}
+
+/* Form Controls */
+.form-control-custom {
+    border-radius: 12px !important;
+    height: 50px !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 10px 18px !important;
+    font-size: 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    color: var(--premium-slate) !important;
+}
+
+.form-control-custom:focus {
+    background-color: #fff !important;
+    border-color: var(--premium-primary) !important;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Sidebar Styling (Identity Card) */
+.identity-summary-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.identity-summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--premium-primary);
+}
+
+html[dir="rtl"] .identity-summary-card::before {
+    left: auto;
+    right: 0;
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #f8fafc;
+    padding-bottom: 18px;
+}
+
+.summary-header i {
+    font-size: 24px;
+    color: var(--premium-primary);
+    background: var(--premium-primary-soft);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.summary-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--premium-slate);
+}
+
+/* Tips Card */
+.tip-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: var(--premium-slate);
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 25px;
+    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.1);
+    border: 1px solid #bae6fd;
+}
+
+.tip-card h6 {
+    color: #0369a1;
+    font-weight: 800;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.tip-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tip-list li {
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.tip-list li i {
+    color: #0ea5e9;
+    margin-top: 4px;
+}
+
+/* Premium Animations */
+.premium-fade-in {
+    animation: premiumFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes premiumFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Social Icon Colors */
+.field-header i.fa-facebook { color: #1877F2; background: rgba(24, 119, 242, 0.1); }
+.field-header i.fa-twitter { color: #1DA1F2; background: rgba(29, 161, 242, 0.1); }
+.field-header i.fa-instagram { color: #E4405F; background: rgba(228, 64, 95, 0.1); }
+.field-header i.fa-youtube { color: #FF0000; background: rgba(255, 0, 0, 0.1); }
+.field-header i.fa-whatsapp { color: #25D366; background: rgba(37, 211, 102, 0.1); }
+
+/* Save Button */
+.btn-premium-save {
+    background: var(--premium-primary);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-premium-save:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.3);
+    color: #fff;
+}

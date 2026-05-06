@@ -63,8 +63,18 @@ class PropertyService
         return $this->repository->delete($id);
     }
 
-    public function autocomplete($search)
+    public function autocomplete($search, $companyId = null, $onlyAvailable = false)
     {
-        return $this->repository->autocomplete($search);
+        return $this->repository->autocomplete($search, $companyId, $onlyAvailable);
+    }
+
+    public function getCountByStatus($statusId)
+    {
+        return $this->repository->getCountByStatus($statusId);
+    }
+
+    public function getTotalCount()
+    {
+        return $this->repository->getTotalCount();
     }
 }

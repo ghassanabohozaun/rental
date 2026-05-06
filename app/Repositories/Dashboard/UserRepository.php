@@ -79,4 +79,20 @@ class UserRepository
     {
         return $user->update(['status' => $status]);
     }
+    public function getStats()
+    {
+        $baseQuery = $this->model->query();
+
+        $total_users = $baseQuery->count();
+        $active_users = $this->model->where('status', 1)->count();
+        $managers = $this->model->where('role_id', 2)->count();
+        $super_users = $this->model->where('role_id', 1)->count();
+
+        return [
+            'total_users' => $total_users,
+            'active_users' => $active_users,
+            'managers' => $managers,
+            'super_users' => $super_users,
+        ];
+    }
 }

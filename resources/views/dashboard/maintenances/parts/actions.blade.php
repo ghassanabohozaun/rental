@@ -15,7 +15,7 @@
                 data-company_id="{!! $maintenance->company_id !!}" 
                 data-company="{!! optional($maintenance->company)->name !!}"
                 data-toggle="modal" data-target="#editModal">
-                <i class="la la-edit"></i>
+                <i class="fas fa-edit"></i>
             </a>
         @endcan
 
@@ -26,7 +26,7 @@
                 data-confirm-btn="{!! __('general.yes') !!}" data-cancel-btn="{!! __('general.no') !!}"
                 data-success-title="{!! __('general.deleted') !!}"
                 data-success-text="{!! __('general.delete_success_message') !!}" title="{!! __('general.delete') !!}">
-                <i class="la la-trash"></i>
+                <i class="fas fa-trash-alt"></i>
             </a>
         @endcan
     </div>

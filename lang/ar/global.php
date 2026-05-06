@@ -13,4 +13,7 @@ return [
     'guarantors' => 'إدارة الكفلاء',
     'customers' => 'إدارة العملاء',
     'maintenances' => 'إدارة الصيانة',
+    'contracts' => 'إدارة العقود',
+    'cheques' => 'إدارة الشيكات',
+    'payments' => 'إدارة الدفعات',
 ];

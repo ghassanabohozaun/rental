@@ -10,7 +10,7 @@
             user-company-id="{!! $user->company_id !!}" user-company-name="{!! optional($user->company)->name !!}"
             user-photo="{!! $user->photo !!}" user-photo-url="{!! $user->userPhoto() !!}"
             data-toggle="modal" data-target="#updateUserModal">
-            <i class="la la-edit"></i>
+            <i class="fas fa-edit"></i>
         </a>
 
         {{-- delete --}}
@@ -21,12 +21,12 @@
                 data-confirm-btn="{!! __('general.yes') !!}" data-cancel-btn="{!! __('general.no') !!}"
                 data-success-title="{!! __('general.deleted') !!}"
                 data-success-text="{!! __('general.delete_success_message') !!}" title="{!! __('general.delete') !!}">
-                <i class="la la-trash"></i>
+                <i class="fas fa-trash-alt"></i>
             </a>
         @else
             <button type="button" class="btn-premium-action btn-premium-action-danger disabled"
                 style="opacity: 0.5; cursor: not-allowed;" title="{!! __('general.prevent_delete') !!}">
-                <i class="la la-trash"></i>
+                <i class="fas fa-trash-alt"></i>
             </button>
         @endif
 

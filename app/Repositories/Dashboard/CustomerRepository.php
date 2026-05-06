@@ -19,8 +19,8 @@ class CustomerRepository
     public function getAll($request)
     {
         $query = $this->model
-            ->with(['company', 'creator', 'guarantor'])
-            ->filter($request->only(['keyword', 'company_id']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id'])
+            ->with(['company', 'creator', 'guarantor', 'nationality'])
+            ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type'])
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query);
@@ -64,9 +64,18 @@ class CustomerRepository
         return $customer;
     }
 
-    public function autocomplete($searchValue)
+    public function autocomplete($searchValue, $companyId = null)
     {
+        // Prevent Super Admin from loading all customers across all companies if no company is selected
+        if (user() && user()->company_id == 1 && (empty($companyId) || $companyId === 'null' || $companyId === 'undefined')) {
+            return [];
+        }
+
         $query = $this->model->query()->active();
+
+        if ($companyId) {
+            $query->where('company_id', $companyId);
+        }
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
@@ -86,5 +95,26 @@ class CustomerRepository
                     'text' => $customer->name . ' - ' . $customer->phone,
                 ];
             });
+    }
+    public function getStats()
+    {
+        $baseQuery = $this->model->query();
+
+        $total_customers = $baseQuery->count();
+        $active_customers = $this->model->active()->count();
+        
+        // Customers with at least one active contract
+        $active_tenants = $this->model->whereHas('contracts', function($q) {
+            $q->where('status', 'active');
+        })->count();
+
+        $corporate_customers = $this->model->where('tenant_type', 'company')->count();
+
+        return [
+            'total_customers' => $total_customers,
+            'active_customers' => $active_customers,
+            'active_tenants' => $active_tenants,
+            'corporate_customers' => $corporate_customers,
+        ];
     }
 }

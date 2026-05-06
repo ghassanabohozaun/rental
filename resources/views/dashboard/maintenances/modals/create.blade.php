@@ -9,12 +9,12 @@
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold text-dark" id="createModalLabel">
-                        <i class="la la-plus-circle mr-1 text-primary" style="font-size: 22px;"></i>
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="createModalLabel">
+                        <i class="fas fa-plus-circle text-primary mr-2 icon-size-18"></i>
                         {!! __('maintenances.add_maintenance') !!}
-                    </h5>
+                    </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <!--end::modal header-->
@@ -24,17 +24,18 @@
                     <div class="row">
                         <!-- Company -->
                         @if (user()->company_id == 1)
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-1">
                                 <div class="premium-form-group">
                                     <label for="company_id_create">{!! __('companies.company') !!} <span
                                             class="text-danger">*</span></label>
                                     <div class="premium-input-wrapper">
-                                        <select
-                                            class="form-control premium-input shadow-none js-select2 js-autocomplete"
-                                            id='company_id_create' name="company_id" data-url="{!! route('dashboard.companies.autocomplete') !!}"
-                                            data-placeholder="{!! __('general.select_company') !!}" data-parent="#createModal">
-                                            <option></option>
+                                        <select class="form-control premium-input shadow-none js-select2" id='company_id_create' name="company_id" data-parent="#createModal">
+                                            <option value="">{!! __('general.select_from_list') !!}</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
                                         </select>
+                                        <i class="fas fa-briefcase text-primary"></i>
                                     </div>
                                     <span class="error-text company_id_error text-danger small"></span>
                                 </div>
@@ -42,7 +43,7 @@
                         @endif
 
                         <!-- Property -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="property_id_create">{!! __('maintenances.property') !!} <span
                                         class="text-danger">*</span></label>
@@ -50,17 +51,17 @@
                                     <select class="form-control premium-input shadow-none js-select2 js-autocomplete"
                                         id="property_id_create" name="property_id" data-url="{!! route('dashboard.properties.autocomplete') !!}"
                                         data-simple="true" data-placeholder="{!! __('general.select_from_list') !!}"
-                                        data-parent="#createModal">
+                                        data-parent="#createModal" {{ user()->company_id == 1 ? 'disabled' : '' }}>
                                         <option value="" disabled selected></option>
                                     </select>
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text property_id_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Status -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="status_create">{!! __('maintenances.status') !!} <span
                                         class="text-danger">*</span></label>
@@ -71,14 +72,14 @@
                                         <option value="in_progress">{!! __('maintenances.in_progress') !!}</option>
                                         <option value="done">{!! __('maintenances.done') !!}</option>
                                     </select>
-                                    <i class="la la-check-circle text-primary"></i>
+                                    <i class="fas fa-check-circle text-primary"></i>
                                 </div>
                                 <span class="error-text status_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Date -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="date_create">{!! __('maintenances.date') !!}</label>
                                 <div class="premium-input-wrapper">
@@ -86,28 +87,28 @@
                                         class="form-control premium-input shadow-none text-left ptc-datepicker"
                                         id="date_create" name="date" placeholder="{!! __('maintenances.date') !!}"
                                         autocomplete="off">
-                                    <i class="la la-calendar text-primary"></i>
+                                    <i class="fas fa-calendar-alt text-primary"></i>
                                 </div>
                                 <span class="error-text date_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Cost -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="cost_create">{!! __('maintenances.cost') !!}</label>
                                 <div class="premium-input-wrapper">
                                     <input type="number" step="0.01" class="form-control premium-input shadow-none"
                                         id="cost_create" name="cost" placeholder="{!! __('maintenances.cost') !!}"
                                         autocomplete="off">
-                                    <i class="la la-money text-primary"></i>
+                                    <i class="fas fa-money-bill-wave text-primary"></i>
                                 </div>
                                 <span class="error-text cost_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Description AR -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="description_ar_create">{!! __('maintenances.description') !!}
                                     ({!! __('general.ar') !!})</label>
@@ -120,7 +121,7 @@
                         </div>
 
                         <!-- Description EN -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="description_en_create">{!! __('maintenances.description') !!}
                                     ({!! __('general.en') !!})</label>
@@ -137,14 +138,14 @@
 
                 <div class="modal-footer border-0 pt-0">
                     <button type="submit" id="saveBtn"
-                        class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {{ __('general.save') }}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                        class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                        <i class="fas fa-save"></i> {{ __('general.save') }}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
                         data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->

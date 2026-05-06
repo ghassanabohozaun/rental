@@ -22,7 +22,7 @@
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
-                        <span class="stat-item"><i class="la la-briefcase"></i> MJK-ALTHANI Portal</span>
+                        <span class="stat-item"><i class="fas fa-briefcase"></i> MJK-ALTHANI Portal</span>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
                 @endphp
                 <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="btn-lang-toggle">
-                    <i class="la la-language"></i>
+                    <i class="fas fa-language"></i>
                     <span>{{ $targetNative }}</span>
                 </a>
             </div>
@@ -61,14 +61,14 @@
                 @if (session('success'))
                     <div class="alert alert-success mb-4 py-3"
                         style="font-size: 0.82rem; border-radius: 12px; border: none; background: #ecfdf5; color: #065f46;">
-                        <i class="la la-check-circle me-2"></i> {{ session('success') }}
+                        <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger mb-4 py-3"
                         style="font-size: 0.82rem; border-radius: 12px; border: none; background: #fff1f2; color: #be123c;">
-                        <i class="la la-exclamation-triangle me-2"></i> {{ session('error') }}
+                        <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
                     </div>
                 @endif
 
@@ -82,7 +82,7 @@
                             <input type="text" class="form-control-modern @error('email') is-invalid @enderror"
                                 name="email" id="email" placeholder="email@example.com" required autofocus
                                 autocomplete="off">
-                            <i class="la la-envelope input-icon-modern"></i>
+                            <i class="fas fa-envelope input-icon-modern"></i>
                         </div>
                         @error('email')
                             <span
@@ -96,7 +96,7 @@
                         <div class="input-container-modern">
                             <input type="password" class="form-control-modern @error('password') is-invalid @enderror"
                                 name="password" id="password" placeholder="••••••••" required autocomplete="new-password">
-                            <i class="la la-lock input-icon-modern"></i>
+                            <i class="fas fa-lock input-icon-modern"></i>
                         </div>
                         @error('password')
                             <span
@@ -116,7 +116,7 @@
 
                     <button type="submit" class="btn-login-modern">
                         <span>{!! __('auth.login') !!}</span>
-                        <i class="la la-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
+                        <i class="fas fa-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
                     </button>
                 </form>
             </div>

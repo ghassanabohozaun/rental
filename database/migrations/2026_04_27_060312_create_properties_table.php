@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->foreignId('owner_id')->nullable()->constrained('users')->onDelete('set null');
-
             $table->string('name');
             $table->string('location')->nullable();
             $table->foreignId('property_type_id')->nullable()->constrained('property_types')->onDelete('set null');

@@ -34,4 +34,7 @@ return [
     'no_users_found' => 'لا يوجد مستخدمين حالياً !',
     'login_success'=>'تم تسجيل الدخول بنجاح',
     'cannot_delete_owner_linked_to_properties' => 'لا يمكن حذف هذا المستخدم لأنه مسجل كمالك لعقارات حالياً. يرجى نقل الملكية أولاً.',
+    'active_users' => 'المستخدمون النشطون',
+    'managers' => 'المدراء',
+    'super_users' => 'مديرو النظام',
 ];

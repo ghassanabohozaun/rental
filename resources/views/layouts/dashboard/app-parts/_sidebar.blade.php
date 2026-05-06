@@ -3,7 +3,7 @@
             {{-- Search Bar --}}
             <div class="sidebar-search-wrapper">
                 <div class="sidebar-search-container">
-                    <i class="la la-search sidebar-search-icon"></i>
+                    <i class="fas fa-search sidebar-search-icon"></i>
                     <input type="text" class="sidebar-search-input" id="sidebar-menu-search"
                         placeholder="{!! Lang() == 'ar' ? 'البحث في القائمة...' : 'Search menu...' !!}">
                 </div>
@@ -16,7 +16,7 @@
                 <!-- begin: Dashboard -->
                 <li class=" nav-item @if (Request::is('*welcome*')) active @endif">
                     <a href="{!! route('dashboard.index') !!}">
-                        <i class="icon-home"></i>
+                        <i class="{{ config('global.module_icons.dashboard') }}"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{!! __('dashboard.dashboard') !!}</span>
                     </a>
                 </li>
@@ -26,7 +26,7 @@
                 @can('companies_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.companies.*')) open @endif">
                         <a href="#">
-                            <i class="icon-briefcase"></i>
+                            <i class="{{ config('global.module_icons.companies') }}"></i>
                             <span class="menu-title">{!! __('companies.companies') !!}</span>
                         </a>
                         <ul class="menu-content">
@@ -44,7 +44,7 @@
                 @can('bank_accounts_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.bank-accounts.*')) open @endif">
                         <a href="#">
-                            <i class="la la-bank"></i>
+                            <i class="{{ config('global.module_icons.bank_accounts') }}"></i>
                             <span class="menu-title">{!! __('bank_accounts.bank_accounts') !!}</span>
                         </a>
                         <ul class="menu-content">
@@ -67,7 +67,7 @@
                 @endphp
                 <li class="nav-item has-sub @if ($isPropertiesActive) open @endif">
                     <a href="#">
-                        <i class="la la-building"></i>
+                        <i class="{{ config('global.module_icons.properties') }}"></i>
                         <span class="menu-title">{!! __('properties.properties') !!}</span>
                     </a>
                     <ul class="menu-content">
@@ -100,7 +100,7 @@
                 @can('departments_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.departments.*')) open @endif">
                         <a href="#">
-                            <i class="la la-sitemap"></i>
+                            <i class="{{ config('global.module_icons.departments') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.departments">{!! __('dashboard.departments') !!}</span>
                         </a>
                         <!-- begin: departments -->
@@ -120,7 +120,7 @@
                 @can('roles_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.roles.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="icon-lock"></i>
+                            <i class="{{ config('global.module_icons.roles') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">{!! __('dashboard.roles') !!}</span>
                         </a>
                         <!-- begin: roles -->
@@ -140,7 +140,7 @@
                 @can('users_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.users.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="icon-user"></i>
+                            <i class="{{ config('global.module_icons.users') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.users">{!! __('dashboard.users') !!}</span>
                         </a>
                         <!-- begin: users -->
@@ -160,9 +160,9 @@
 
                 <!-- begin: guarantors -->
                 @can('guarantors_read')
-                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.guarantors.*')) open @endif">
+                    <li class="nav-item-guarantors nav-item has-sub @if (Request::routeIs('dashboard.guarantors.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="la la-shield"></i>
+                            <i class="{{ config('global.module_icons.guarantors') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.guarantors">{!! __('guarantors.guarantors') !!}</span>
                         </a>
                         <!-- begin: guarantors -->
@@ -182,7 +182,7 @@
                 @can('customers_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.customers.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="la la-users"></i>
+                            <i class="{{ config('global.module_icons.customers') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.customers">{!! __('customers.customers') !!}</span>
                         </a>
                         <!-- begin: customers -->
@@ -198,11 +198,67 @@
                 @endcan
                 <!-- end: customers -->
 
+                <!-- begin: contracts -->
+                @can('contracts_read')
+                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.contracts.*')) open @endif">
+                        <a href="javascript:void(0)">
+                            <i class="{{ config('global.module_icons.contracts') }}"></i>
+                            <span class="menu-title" data-i18n="nav.dash.contracts">{!! __('contracts.contracts') !!}</span>
+                        </a>
+                        <!-- begin: contracts -->
+                        <ul class="menu-content">
+                            <li class="@if (Request::routeIs('dashboard.contracts.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.contracts.index') !!}" data-i18n="nav.dash.contracts">
+                                    {!! __('contracts.contracts') !!}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- end: contracts -->
+                    </li>
+                @endcan
+                <!-- end: contracts -->
+
+                <!-- begin: cheques -->
+                @can('cheques_read')
+                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.cheques.*')) open @endif">
+                        <a href="javascript:void(0)">
+                            <i class="{{ config('global.module_icons.cheques') }}"></i>
+                            <span class="menu-title" data-i18n="nav.dash.cheques">{!! __('cheques.cheques') !!}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="@if (Request::routeIs('dashboard.cheques.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.cheques.index') !!}" data-i18n="nav.dash.cheques">
+                                    {!! __('cheques.cheques') !!}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+                <!-- end: cheques -->
+
+                <!-- begin: payments -->
+                @can('payments_read')
+                    <li class="nav-item has-sub @if (Request::routeIs('dashboard.payments.*')) open @endif">
+                        <a href="javascript:void(0)">
+                            <i class="{{ config('global.module_icons.payments') }}"></i>
+                            <span class="menu-title" data-i18n="nav.dash.payments">{!! __('payments.payments') !!}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="@if (Request::routeIs('dashboard.payments.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.payments.index') !!}" data-i18n="nav.dash.payments">
+                                    {!! __('payments.payments') !!}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+                <!-- end: payments -->
+
                 <!-- begin: maintenances -->
                 @can('maintenances_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.maintenances.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="la la-wrench"></i>
+                            <i class="{{ config('global.module_icons.maintenances') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.maintenances">{!! __('maintenances.maintenances') !!}</span>
                         </a>
                         <ul class="menu-content">
@@ -220,7 +276,7 @@
                 @can('settings_read')
                     <li class="nav-item has-sub @if (Request::routeIs('dashboard.settings.*')) open @endif">
                         <a href="javascript:void(0)">
-                            <i class="icon-settings"></i>
+                            <i class="{{ config('global.module_icons.settings') }}"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">{!! __('dashboard.settings') !!}</span>
                         </a>
                         <!-- begin: settings -->

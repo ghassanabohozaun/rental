@@ -14,7 +14,7 @@
             data-company_name="{!! $account->company->name ?? '' !!}"
             class="btn-premium-action btn-premium-action-edit mr-1 editBankAccountBtn"
             title="{!! __('general.edit') !!}">
-            <i class="la la-edit"></i>
+            <i class="fas fa-edit"></i>
         </a>
 
         <!-- Delete -->
@@ -26,7 +26,7 @@
             data-text="{!! __('general.delete_warning_text') !!}" data-confirm-btn="{!! __('general.yes') !!}"
             data-cancel-btn="{!! __('general.no') !!}" data-success-title="{!! __('general.deleted') !!}"
             data-success-text="{!! __('general.delete_success_message') !!}" title="{!! __('general.delete') !!}">
-            <i class="la la-trash"></i>
+            <i class="fas fa-trash-alt"></i>
         </a>
         @endcan
     </div>

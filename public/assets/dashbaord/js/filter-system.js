@@ -107,10 +107,14 @@ $(document).ready(function() {
 
                 const $select = $panel.find('.js-select2');
                 if ($select.length && !$select.hasClass("select2-hidden-accessible")) {
+                    const dir = document.documentElement.getAttribute("data-textdirection") || 
+                              document.documentElement.getAttribute("dir") || "ltr";
+                              
                     $select.select2({
                         dropdownParent: $panel,
                         width: '100%',
-                        placeholder: $select.attr('placeholder') || 'Select...'
+                        dir: dir,
+                        placeholder: $select.data('placeholder') || $select.attr('placeholder') || 'Select...'
                     });
                 }
                 
@@ -122,6 +126,14 @@ $(document).ready(function() {
                 }, 100);
             } else {
                 closeAll();
+            }
+        });
+
+        // Handle Enter key inside panels to trigger apply button
+        $panels.off('keypress').on('keypress', 'input', function(e) {
+            if (e.which === 13) { // 13 is Enter
+                e.preventDefault();
+                $(this).closest('.ptc-query-panel').find('.js-apply-filter').trigger('click');
             }
         });
 
@@ -228,6 +240,15 @@ $(document).ready(function() {
                 $(targetContainer).html(response);
                 $(targetContainer).css('opacity', '1');
                 $(targetLoader).removeClass('active');
+
+                // Update total count badges if they exist
+                ['contracts', 'properties', 'customers', 'maintenances', 'guarantors', 'users', 'roles', 'departments', 'property_types', 'property_statuses', 'bank_accounts', 'companies'].forEach(module => {
+                    const total = $(`#${module}-total-count`).val();
+                    if (total !== undefined) {
+                        $(`#${module}CountBadge`).text(total);
+                        $(`#${module}ChipCount`).text(total);
+                    }
+                });
                 
                 // Update URL without refresh
                 window.history.pushState(null, "", fullUrl);

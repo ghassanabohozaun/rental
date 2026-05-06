@@ -1,0 +1,706 @@
+@extends('layouts.dashboard.app')
+@section('title')
+    {!! $title !!}
+@endsection
+
+@section('content')
+    <div class="app-content content">
+        <form class="form ajax-form" id='myForm' action="{!! route('dashboard.payments.update', $payment->id) !!}" method="post" novalidate
+            data-success-msg="{!! __('general.update_success_message') !!}" data-success-action="redirect"
+            data-redirect-url="{!! route('dashboard.payments.index') !!}">
+            @csrf
+            @method('PUT')
+            <div class="content-wrapper">
+                <!-- begin: content header -->
+                <div class="content-header row">
+                    <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
+                        <div class="row breadcrumbs-top">
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb premium-breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{!! route('dashboard.index') !!}">
+                                            <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{!! route('dashboard.payments.index') !!}">
+                                            {!! __('payments.payments') !!}
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        {!! __('payments.edit_payment') !!}
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-header-right col-md-6 col-12">
+                        <div class="float-md-right mb-1">
+                            <button class="btn btn-premium-save" type="submit" id="saveBtn">
+                                <i class="fas fa-save"></i>
+                                {!! __('general.save') !!}
+                                <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end :content header -->
+
+                <!-- begin: content body -->
+                <div class="content-body">
+                    <section id="basic-form-layouts">
+                        <div class="row match-height">
+                            <div class="col-md-12">
+                                <div class="card premium-card shadow-lg border-0">
+                                    <div class="card-header border-0 pb-0">
+                                        <h4 class="card-title text-primary font-weight-bold">
+                                            <i class="fas fa-edit mr-1"></i> {!! __('payments.edit_payment') !!}
+                                        </h4>
+                                    </div>
+
+                                    <div class="card-content collapse show">
+                                        <div class="card-body">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    @if (user()->company_id == 1)
+                                                        <div class="col-md-12 mb-1">
+                                                            <div class="premium-form-group">
+                                                                <label for="company_id">{!! __('companies.company') !!} <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="premium-input-wrapper">
+                                                                    <select
+                                                                        class="form-control premium-input shadow-none js-select2"
+                                                                        id='company_id' name="company_id">
+                                                                        <option value="">{!! __('general.select_from_list') !!}
+                                                                        </option>
+                                                                        @foreach ($companies as $company)
+                                                                            <option value="{{ $company->id }}"
+                                                                                {{ $payment->company_id == $company->id ? 'selected' : '' }}>
+                                                                                {{ $company->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <i class="fas fa-briefcase text-primary"></i>
+                                                                </div>
+                                                                <span
+                                                                    class="error-text company_id_error text-danger small"></span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+                                                    <input type="hidden" name="customer_id" id="customer_id_hidden"
+                                                        value="{{ $payment->customer_id }}">
+
+                                                    <!-- Integrated Contract & Balance Section -->
+                                                    <div class="col-md-12 mb-4">
+                                                        <div class="premium-mandatory-section">
+                                                            <div class="premium-mandatory-header">
+                                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                                {!! __('payments.contract_details_title') !!}
+                                                            </div>
+                                                            <div class="premium-mandatory-body">
+                                                                <!-- Contract Selection Row -->
+                                                                <div class="row">
+                                                                    <div class="col-md-12 mb-3">
+                                                                        <div class="premium-form-group">
+                                                                            <label for="contract_id"
+                                                                                class="premium-label">{!! __('payments.contract') !!}
+                                                                                <span class="text-danger">*</span></label>
+                                                                            <div class="premium-input-wrapper">
+                                                                                <select
+                                                                                    class="form-control premium-input shadow-none js-select2 js-contract-select"
+                                                                                    id='contract_id' name="contract_id">
+                                                                                    <option value="">
+                                                                                        {!! __('contracts.select_contract') !!}</option>
+                                                                                    @foreach ($contracts as $contract)
+                                                                                        <option value="{{ $contract->id }}"
+                                                                                            {{ $payment->contract_id == $contract->id ? 'selected' : '' }}>
+                                                                                            {{ __('contracts.contract') . ' #' . $contract->id . ' - ' . optional($contract->customer)->name . ' (' . optional($contract->property)->name . ')' }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                <i
+                                                                                    class="fas fa-file-invoice text-danger"></i>
+                                                                            </div>
+                                                                            <span
+                                                                                class="error-text contract_id_error text-danger small"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Integrated Balance Details Section -->
+                                                                <div class="js-balance-wrapper"
+                                                                    style="display: none; border-top: 1px dashed #e4e6ef; padding-top: 15px;">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('contracts.total_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input js-total-amount bg-light font-weight-bold text-primary"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-money-bill-wave text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.paid_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input js-paid-amount bg-light font-weight-bold text-success"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-money-bill-wave text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.remaining_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input js-remaining-amount bg-light font-weight-bold text-danger"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-money-bill-wave text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.pending_cheques') !!}
+                                                                                    <span
+                                                                                        class="js-pending-cheques-count text-muted"></span></label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input js-pending-cheques-total bg-light font-weight-bold text-warning"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-money-bill-wave text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Row 1: Method & Payment Date -->
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="method"
+                                                                class="font-weight-bold">{!! __('payments.method') !!} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="premium-input-wrapper">
+                                                                <select
+                                                                    class="form-control premium-input shadow-none js-method-select js-select2"
+                                                                    id="method" name="method" disabled>
+                                                                    @foreach (__('payments.methods') as $key => $value)
+                                                                        <option value="{!! $key !!}"
+                                                                            {{ $payment->method == $key ? 'selected' : '' }}>
+                                                                            {!! $value !!}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <i class="fas fa-credit-card text-danger"></i>
+                                                            </div>
+                                                            <span class="error-text method_error text-danger small"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="payment_date"
+                                                                class="font-weight-bold">{!! __('payments.payment_date') !!} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="premium-input-wrapper">
+                                                                <input type="text"
+                                                                    class="form-control premium-input shadow-none ptc-datepicker"
+                                                                    id="payment_date" name="payment_date"
+                                                                    autocomplete="off"
+                                                                    value="{{ $payment->payment_date ? $payment->payment_date->format('Y-m-d') : '' }}"
+                                                                    placeholder="YYYY-MM-DD" disabled>
+                                                                <i class="fas fa-calendar-alt text-danger"></i>
+                                                            </div>
+                                                            <span
+                                                                class="text text-danger small mt-1 d-block error-text payment_date_error"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Cheque (Visible if method is cheque) -->
+                                                    <div
+                                                        class="col-md-12 mb-1 js-cheque-wrapper {{ $payment->method === 'cheque' ? 'd-block' : 'cheque-wrapper-hidden' }}">
+                                                        <div class="premium-form-group">
+                                                            <label for="cheque_id"
+                                                                class="font-weight-bold">{!! __('payments.cheque') !!} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="premium-input-wrapper">
+                                                                <select
+                                                                    class="form-control premium-input shadow-none js-select2 js-cheque-select"
+                                                                    id='cheque_id' name="cheque_id" disabled>
+                                                                    <option value="">{!! __('cheques.select_cheque') !!}
+                                                                    </option>
+                                                                    @foreach ($cheques as $cheque)
+                                                                        <option value="{{ $cheque->id }}"
+                                                                            {{ $payment->cheque_id == $cheque->id ? 'selected' : '' }}
+                                                                            data-amount="{{ $cheque->amount }}"
+                                                                            data-used="{{ $cheque->used_amount }}"
+                                                                            data-remaining="{{ $cheque->remaining_amount }}">
+                                                                            {{ $cheque->cheque_number . ' - ' . $cheque->bank_name . ' (' . number_format($cheque->remaining_amount, 2) . ')' }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <i class="fas fa-university text-danger"></i>
+                                                            </div>
+                                                            <div
+                                                                class="js-cheque-info-container cheque-info-card-container {{ $payment->cheque_id ? 'd-block' : '' }}">
+                                                                @if ($payment->cheque_id && $payment->cheque)
+                                                                    @php
+                                                                        $cheque = $payment->cheque;
+                                                                        $original = $cheque->amount;
+                                                                        // For the initial display, we want to show used amount MINUS this payment
+                                                                        $currentUsed =
+                                                                            $cheque->used_amount - $payment->amount;
+                                                                        $currentRemaining =
+                                                                            $cheque->remaining_amount +
+                                                                            $payment->amount;
+                                                                    @endphp
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_original_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input bg-light font-weight-bold text-dark"
+                                                                                        value="{{ number_format($original, 2) }}"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-money-check-alt text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_used_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input bg-light font-weight-bold text-danger"
+                                                                                        value="{{ number_format($currentUsed, 2) }}"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-minus-circle text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 mb-1">
+                                                                            <div class="premium-form-group">
+                                                                                <label
+                                                                                    class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_remaining_amount') !!}</label>
+                                                                                <div class="premium-input-wrapper">
+                                                                                    <input type="text"
+                                                                                        class="form-control premium-input bg-light font-weight-bold text-success"
+                                                                                        value="{{ number_format($currentRemaining, 2) }}"
+                                                                                        readonly>
+                                                                                    <i
+                                                                                        class="fas fa-check-circle text-danger"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <span
+                                                                class="error-text cheque_id_error text-danger small"></span>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <!-- Row 2: Amount & Status -->
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="amount"
+                                                                class="font-weight-bold">{!! __('payments.amount') !!} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="js-balance-warning d-none mb-1">
+                                                                <i
+                                                                    class="fas fa-exclamation-triangle text-danger mr-1"></i>
+                                                                <span
+                                                                    class="js-warning-text text-danger small font-weight-bold"></span>
+                                                            </div>
+                                                            <div class="js-cheque-warning d-none mb-1">
+                                                                <i
+                                                                    class="fas fa-exclamation-triangle text-danger mr-1"></i>
+                                                                <span
+                                                                    class="text-danger small font-weight-bold">{!! __('payments.amount_exceeds_cheque') !!}</span>
+                                                            </div>
+                                                            <div class="premium-input-wrapper">
+                                                                <input type="number" step="1"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    id="amount" name="amount"
+                                                                    value="{{ round($payment->amount, 0) }}"
+                                                                    placeholder="{!! __('payments.amount') !!}"
+                                                                    autocomplete="off" disabled>
+                                                                <i class="fas fa-money-bill-wave text-danger"></i>
+                                                            </div>
+                                                            <span class="error-text amount_error text-danger small"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="status"
+                                                                class="font-weight-bold">{!! __('payments.status') !!} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="premium-input-wrapper">
+                                                                <select
+                                                                    class="form-control premium-input shadow-none js-select2"
+                                                                    id="status" name="status" disabled>
+                                                                    @foreach (__('payments.statuses') as $key => $value)
+                                                                        <option value="{!! $key !!}"
+                                                                            {{ $payment->status == $key ? 'selected' : '' }}>
+                                                                            {!! $value !!}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <i class="fas fa-info-circle text-danger"></i>
+                                                            </div>
+                                                            <span class="error-text status_error text-danger small"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Reference Number -->
+                                                    <div class="col-md-12 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="reference_number"
+                                                                class="font-weight-bold">{!! __('payments.reference_number') !!}</label>
+                                                            <div class="premium-input-wrapper">
+                                                                <input type="text"
+                                                                    class="form-control premium-input shadow-none"
+                                                                    id="reference_number" name="reference_number"
+                                                                    value="{{ $payment->reference_number }}"
+                                                                    placeholder="{!! __('payments.reference_number') !!}"
+                                                                    autocomplete="off" disabled>
+                                                                <i class="fas fa-barcode text-danger"></i>
+                                                            </div>
+                                                            <span
+                                                                class="error-text reference_number_error text-danger small"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Notes -->
+                                                    <div class="col-md-12 mb-1">
+                                                        <div class="premium-form-group">
+                                                            <label for="notes"
+                                                                class="font-weight-bold">{!! __('payments.notes') !!}</label>
+                                                            <div class="premium-input-wrapper no-icon">
+                                                                <textarea class="form-control premium-input shadow-none" id="notes" name="notes" rows="2"
+                                                                    placeholder="{!! __('payments.notes') !!}" disabled>{{ $payment->notes }}</textarea>
+                                                            </div>
+                                                            <span class="error-text notes_error text-danger small"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </form>
+    </div>
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/dashbaord/vendors/js/pickers/bootstrap-datepicker/bootstrap-datepicker.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/dashbaord/js/datepicker-initializer.js') }}"></script>
+    <script src="{{ asset('assets/dashbaord/js/generic-select2.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            let remainingAmount = 0;
+            const currentChequeId = "{{ $payment->cheque_id }}";
+
+            // Initialize Standard Select2 (for non-autocomplete)
+            $('.js-select2:not(.select2-autocomplete)').select2({
+                width: '100%',
+                dir: $('html').attr('data-textdirection') || 'ltr'
+            });
+
+            let isInitialLoad = true;
+
+            // Contract Selection Logic -> Fetch Balance & Filter Cheques
+            $('.js-contract-select').on('change', function() {
+                const contractId = $(this).val();
+
+                // If user manually changes contract, reset and Disable fields below
+                if (!isInitialLoad) {
+                    $('#amount, .js-method-select, .js-cheque-select, #payment_date, #status, #reference_number, #notes')
+                        .val('').prop('disabled', true);
+                    $('.js-method-select').val('cash').trigger('change');
+                    $('.js-cheque-select').empty().append(
+                        '<option value="">{!! __('cheques.select_cheque') !!}</option>').trigger('change');
+                    $('#status').val('paid').trigger('change');
+                    $('.js-balance-warning').addClass('d-none');
+                    $('.error-text').text(''); // Clear all validation errors
+                    $('.form-control').removeClass('is-invalid');
+                }
+
+                if (!contractId) {
+                    $('.js-balance-wrapper').slideUp(200);
+                    return;
+                }
+
+                // AJAX to get contract details
+                $.ajax({
+                    url: "{!! route('dashboard.payments.contract-details', '') !!}/" + contractId +
+                        "?payment_id={{ $payment->id }}",
+                    type: "GET",
+                    success: function(response) {
+                        if (response.success) {
+                            remainingAmount = response.data.remaining;
+
+                            // In Edit Mode, we might want to add the current payment amount back to remaining for validation
+                            const currentPaymentAmount = parseFloat(
+                                "{{ $payment->amount }}") || 0;
+                            const validationRemaining = remainingAmount + currentPaymentAmount;
+
+                            // Update Balance Info
+                            $('.js-total-amount').val(parseFloat(response.data.total_amount)
+                                .toLocaleString(undefined, {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }));
+                            $('.js-paid-amount').val(parseFloat(response.data.total_paid)
+                                .toLocaleString(undefined, {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }));
+                            $('.js-remaining-amount').val(parseFloat(remainingAmount)
+                                .toLocaleString(undefined, {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }));
+                            const availableCheques = parseFloat(response.data
+                                .pending_cheques_total || 0);
+                            const originalCheques = parseFloat(response.data
+                                .pending_cheques_original_total || 0);
+                            $('.js-pending-cheques-total').val(
+                                availableCheques.toLocaleString(undefined, {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                }) + ' / ' +
+                                originalCheques.toLocaleString(undefined, {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                })
+                            );
+                            $('.js-pending-cheques-count').text(
+                                `(${response.data.pending_cheques_count || 0})`);
+
+                            // Set hidden customer ID
+                            $('#customer_id_hidden').val(response.data.customer_id);
+
+                            // Slide down if hidden
+                            if ($('.js-balance-wrapper').is(':hidden')) {
+                                $('.js-balance-wrapper').slideDown(250);
+                            }
+                            $('#amount, .js-method-select, .js-cheque-select, #payment_date, #status, #reference_number, #notes')
+                                .prop('disabled', false);
+
+                            // Filter Cheques
+                            const chequeSelect = $('.js-cheque-select');
+                            chequeSelect.empty().append(
+                                '<option value="">{!! __('cheques.select_cheque') !!}</option>');
+
+                            response.data.cheques.forEach(function(cheque) {
+                                const selected = (cheque.id == currentChequeId) ?
+                                    'selected' : '';
+                                chequeSelect.append(
+                                    `<option value="${cheque.id}"
+                                     data-amount="${cheque.amount}"
+                                     data-used="${cheque.used_amount}"
+                                     data-remaining="${cheque.remaining_amount}"
+                                     data-bank="${cheque.bank_name}"
+                                     data-owner="${cheque.owner_name}"
+                                     data-issue="${cheque.issue_date}"
+                                     data-due="${cheque.due_date}"
+                                     ${selected}>${cheque.cheque_number} - ${cheque.bank_name} (${parseFloat(cheque.remaining_amount).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})} / ${parseFloat(cheque.amount).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})})</option>`
+                                    );
+                            });
+                            chequeSelect.trigger('change.select2'); // update select2 visual
+                            chequeSelect.trigger(
+                            'change'); // trigger our custom change logic to show card
+
+                            // Reset initial load flag after everything is populated
+                            setTimeout(() => {
+                                isInitialLoad = false;
+                            }, 100);
+                        }
+                    }
+                });
+            });
+
+            // Trigger initial load for Edit Mode
+            if ($('.js-contract-select').val()) {
+                $('.js-contract-select').trigger('change');
+            } else {
+                isInitialLoad = false;
+            }
+
+            // Method Change Logic -> Auto Status & Amount Readonly state
+            $('.js-method-select').on('change', function() {
+                const method = $(this).val();
+                const wrapper = $('.js-cheque-wrapper');
+                const statusSelect = $('#status');
+                const amountInput = $('#amount');
+
+                if (!isInitialLoad) {
+                    amountInput.val('').trigger('keyup');
+                }
+
+                if (method === 'cheque') {
+                    wrapper.slideDown(250);
+                    statusSelect.val('pending').trigger('change');
+                    // In "Tank" approach, amount is editable
+                    amountInput.prop('readonly', false).removeClass('bg-light');
+                } else {
+                    wrapper.slideUp(250);
+                    $('.js-cheque-info-container').slideUp(250).empty();
+                    amountInput.prop('readonly', false).removeClass('bg-light');
+
+                    if (!isInitialLoad) {
+                        $('#cheque_id').val('').trigger('change');
+                        if (method === 'cash' || method === 'online') {
+                            statusSelect.val('paid').trigger('change');
+                        }
+                    }
+                }
+            });
+
+            // Cheque Selection Logic -> Update Info
+            $('.js-cheque-select').on('change', function() {
+                const option = $(this).find(':selected');
+                const infoContainer = $('.js-cheque-info-container');
+                const method = $('.js-method-select').val();
+
+                if (!$(this).val() || method !== 'cheque') {
+                    infoContainer.slideUp(250, function() {
+                        $(this).empty();
+                    });
+                    return;
+                }
+
+                const original = parseFloat(option.data('amount') || 0);
+                const used = parseFloat(option.data('used') || 0);
+                const remaining = parseFloat(option.data('remaining') || 0);
+
+                // In edit mode, the "remaining" from backend already considers this payment's current amount as "used".
+                const isCurrentCheque = (option.val() == "{{ $payment->cheque_id }}");
+                const currentPaymentValue = isCurrentCheque ? parseFloat("{{ $payment->amount }}") : 0;
+                const effectiveRemaining = remaining + currentPaymentValue;
+
+                const infoHtml = `
+                    <div class="row mt-5">
+                        <div class="col-md-4 mb-1">
+                            <div class="premium-form-group">
+                                <label class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_original_amount') !!}</label>
+                                <div class="premium-input-wrapper">
+                                    <input type="text" class="form-control premium-input bg-light font-weight-bold text-dark" value="${original.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}" readonly>
+                                    <i class="fas fa-money-check-alt text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="premium-form-group">
+                                <label class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_used_amount') !!}</label>
+                                <div class="premium-input-wrapper">
+                                    <input type="text" class="form-control premium-input bg-light font-weight-bold text-danger" value="${(used - currentPaymentValue).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}" readonly>
+                                    <i class="fas fa-minus-circle text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-1">
+                            <div class="premium-form-group">
+                                <label class="premium-label text-uppercase text-muted font-weight-bold small">{!! __('payments.cheque_remaining_amount') !!} ({!! __('general.available') !!} / {!! __('general.all') !!})</label>
+                                <div class="premium-input-wrapper">
+                                    <input type="text" class="form-control premium-input bg-light font-weight-bold text-success" value="${effectiveRemaining.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})} / ${original.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}" readonly>
+                                    <i class="fas fa-check-circle text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                infoContainer.html(infoHtml);
+                if (infoContainer.is(':hidden')) {
+                    infoContainer.slideDown(250);
+                }
+
+                if (!isInitialLoad) {
+                    $('#amount').val(effectiveRemaining).trigger('keyup');
+                }
+            });
+
+            // Real-time Amount Validation
+            $('#amount').on('keyup change', function() {
+                const amount = parseFloat($(this).val()) || 0;
+                const method = $('.js-method-select').val();
+                let hasError = false;
+
+                // 1. Contract Balance Validation
+                const currentPaymentAmount = parseFloat("{{ $payment->amount }}") || 0;
+                const validationRemaining = remainingAmount + currentPaymentAmount;
+
+                if (amount > validationRemaining) {
+                    const formattedRem = validationRemaining.toLocaleString(undefined, {
+                        minimumFractionDigits: 2
+                    });
+                    const msg = "{!! __('payments.amount_exceeds_remaining') !!} (" + formattedRem + ")";
+                    $('.js-warning-text').text(msg);
+                    $('.js-balance-warning').removeClass('d-none');
+                    $(this).addClass('is-invalid');
+                    hasError = true;
+                } else {
+                    $('.js-balance-warning').addClass('d-none');
+                    $(this).removeClass('is-invalid');
+                }
+
+                // 2. Cheque Balance Validation
+                if (method === 'cheque') {
+                    const option = $('.js-cheque-select').find(':selected');
+                    const remaining = parseFloat(option.data('remaining') || 0);
+                    const isCurrentCheque = (option.val() == "{{ $payment->cheque_id }}");
+                    const currentPaymentValue = isCurrentCheque ? parseFloat("{{ $payment->amount }}") : 0;
+                    const effectiveRemaining = remaining + currentPaymentValue;
+
+                    if (amount > effectiveRemaining) {
+                        $('.js-cheque-warning').removeClass('d-none');
+                        $(this).addClass('is-invalid');
+                        hasError = true;
+                    } else {
+                        $('.js-cheque-warning').addClass('d-none');
+                        if (amount <= validationRemaining) {
+                            $(this).removeClass('is-invalid');
+                        }
+                    }
+                } else {
+                    $('.js-cheque-warning').addClass('d-none');
+                }
+
+                $('#saveBtn').prop('disabled', hasError);
+            });
+
+
+        });
+    </script>
+@endpush

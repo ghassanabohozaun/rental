@@ -20,7 +20,7 @@
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
-                        <span class="stat-item"><i class="la la-lock-open"></i> {!! __('auth.reset_password') !!}</span>
+                        <span class="stat-item"><i class="fas fa-lock-open"></i> {!! __('auth.reset_password') !!}</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
                 @endphp
                 <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="btn-lang-toggle">
-                    <i class="la la-language"></i>
+                    <i class="fas fa-language"></i>
                     <span>{{ $targetNative }}</span>
                 </a>
             </div>
@@ -59,7 +59,7 @@
                 @if (session('error'))
                     <div class="alert alert-danger mb-4 py-3"
                         style="font-size: 0.82rem; border-radius: 12px; border: none; background: #fff1f2; color: #be123c;">
-                        <i class="la la-exclamation-triangle me-2"></i> {{ session('error') }}
+                        <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
                     </div>
                 @endif
 
@@ -71,7 +71,7 @@
                         <div class="input-container-modern">
                             <input type="email" class="form-control-modern @error('email') is-invalid @enderror"
                                 id="email" name="email" value="{{ $email }}" readonly autocomplete="off">
-                            <i class="la la-envelope input-icon-modern"></i>
+                            <i class="fas fa-envelope input-icon-modern"></i>
                         </div>
                         @error('email')
                             <span style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
@@ -83,7 +83,7 @@
                         <div class="input-container-modern">
                             <input type="password" class="form-control-modern @error('password') is-invalid @enderror"
                                 id="password" name="password" placeholder="••••••••" required autocomplete="new-password">
-                            <i class="la la-lock input-icon-modern"></i>
+                            <i class="fas fa-lock input-icon-modern"></i>
                         </div>
                         @error('password')
                             <span style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
@@ -97,7 +97,7 @@
                                 class="form-control-modern @error('confirm_password') is-invalid @enderror"
                                 id="confirm_password" name="confirm_password" placeholder="••••••••" required
                                 autocomplete="new-password">
-                            <i class="la la-check-double input-icon-modern"></i>
+                            <i class="fas fa-check-double input-icon-modern"></i>
                         </div>
                         @error('confirm_password')
                             <span style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
@@ -106,12 +106,12 @@
 
                     <button type="submit" class="btn-login-modern">
                         <span>{!! __('auth.reset_password') !!}</span>
-                        <i class="la la-key"></i>
+                        <i class="fas fa-key"></i>
                     </button>
 
                     <div style="text-align: center; margin-top: 24px;">
                         <a href="{!! route('dashboard.get.login') !!}" class="forgot-modern">
-                            {!! __('auth.login') !!} <i class="la la-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
+                            {!! __('auth.login') !!} <i class="fas fa-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
                         </a>
                     </div>
                 </form>

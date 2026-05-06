@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Scopes\CompanyScope;
 use App\Services\TenantService;
+use App\Models\Company;
 use Exception;
 
 trait BelongsToCompany
@@ -49,6 +50,6 @@ trait BelongsToCompany
      */
     public function company()
     {
-        return $this->belongsTo(\App\Models\Company::class);
+        return $this->belongsTo(Company::class);
     }
 }

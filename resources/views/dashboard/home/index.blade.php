@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="welcome-date-section d-none d-md-block">
                                     <div class="welcome-date mb-0 p-2 px-3">
-                                        <i class="la la-calendar-check-o mr-1"></i>
+                                        <i class="fas fa-calendar-check mr-1"></i>
                                         {!! date('l, d F Y') !!}
                                     </div>
                                 </div>
@@ -59,27 +59,21 @@
             </div>
 
             <!-- Premium Tabs Segmented Control -->
-            <div class="premium-tabs-wrapper animate-up delay-1 text-center d-flex justify-content-center">
-                <ul class="nav nav-pills custom-pills" id="dashboardTabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="overview-tab" data-toggle="pill" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">
-                            <i class="la la-pie-chart"></i> {!! __('dashboard.overview') ?? 'Overview' !!}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="activity-tab" data-toggle="pill" href="#activity" role="tab"
-                            aria-controls="activity" aria-selected="false">
-                            <i class="la la-pulse"></i> {!! __('dashboard.activity') ?? 'System Activity' !!}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="reports-tab" data-toggle="pill" href="#reports" role="tab"
-                            aria-controls="reports" aria-selected="false">
-                            <i class="la la-file-text"></i> {!! __('dashboard.reports') ?? 'Reports' !!}
-                        </a>
-                    </li>
-                </ul>
+            <div class="animate-up delay-1 text-center d-flex justify-content-center mb-3">
+                <div class="premium-segmented-control">
+                    <button type="button" class="premium-tab-btn active" id="overview-tab"
+                        onclick="switchDashTab('overview')">
+                        <i class="fas fa-chart-pie"></i> {!! __('dashboard.overview') ?? 'Overview' !!}
+                    </button>
+                    <button type="button" class="premium-tab-btn" id="activity-tab"
+                        onclick="switchDashTab('activity')">
+                        <i class="fas fa-chart-line"></i> {!! __('dashboard.activity') ?? 'System Activity' !!}
+                    </button>
+                    <button type="button" class="premium-tab-btn" id="reports-tab"
+                        onclick="switchDashTab('reports')">
+                        <i class="fas fa-file-invoice"></i> {!! __('dashboard.reports') ?? 'Reports' !!}
+                    </button>
+                </div>
             </div>
 
             <div class="tab-content animate-up delay-2" id="dashboardTabsContent">
@@ -87,55 +81,65 @@
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
 
                     <!-- Ultra Premium Stats Cards -->
-                    <div class="row">
+                    <div class="row d-flex align-items-stretch">
                         @if ($isSuperAdmin)
                             <div class="col-xl-3 col-lg-6 col-12 mb-2">
-                                <div class="premium-stat-card card-companies">
+                                <div class="premium-stat-card h-100 card-companies">
                                     <div class="stat-icon-blob"></div>
                                     <h3 class="stat-value text-info">{!! $stats['companies_count'] !!}</h3>
                                     <h6 class="stat-title">{!! __('companies.companies') !!}</h6>
-                                    <i class="icon-briefcase stat-icon-floating text-info"></i>
+                                    <i class="fas fa-briefcase stat-icon-floating text-info"></i>
                                 </div>
                             </div>
                         @endif
 
                         <div class="col-xl-3 col-lg-6 col-12 mb-2">
-                            <div class="premium-stat-card card-users">
+                            <div class="premium-stat-card h-100 card-users">
                                 <div class="stat-icon-blob"></div>
-                                <h3 class="stat-value text-success">{!! $stats['users_count'] !!}</h3>
-                                <h6 class="stat-title">{!! __('users.users') !!}</h6>
-                                <i class="icon-user stat-icon-floating text-success"></i>
+                                <h3 class="stat-value text-success">{!! $stats['properties_count'] !!}</h3>
+                                <h6 class="stat-title">{!! __('properties.properties') !!}</h6>
+                                <i class="fas fa-home stat-icon-floating text-success"></i>
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 mb-2">
-                            <div class="premium-stat-card card-departments">
+                            <div class="premium-stat-card h-100 card-departments">
                                 <div class="stat-icon-blob"></div>
-                                <h3 class="stat-value text-warning">{!! $stats['departments_count'] !!}</h3>
-                                <h6 class="stat-title">{!! __('departments.departments') !!}</h6>
-                                <i class="icon-layers stat-icon-floating text-warning"></i>
+                                <h3 class="stat-value text-warning">{!! $stats['active_contracts'] !!}</h3>
+                                <h6 class="stat-title">{!! __('contracts.contracts') !!}</h6>
+                                <i class="fas fa-file-contract stat-icon-floating text-warning"></i>
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-lg-6 col-12 mb-2">
-                            <div class="premium-stat-card card-roles">
+                            <div class="premium-stat-card h-100 card-roles">
                                 <div class="stat-icon-blob"></div>
-                                <h3 class="stat-value text-danger">{!! $stats['roles_count'] !!}</h3>
-                                <h6 class="stat-title">{!! __('roles.roles') !!}</h6>
-                                <i class="icon-lock stat-icon-floating text-danger"></i>
+                                <h3 class="stat-value text-danger">{!! number_format($stats['total_payments'], 0) !!}</h3>
+                                <h6 class="stat-title">{!! __('contracts.paid_amount') !!}</h6>
+                                <i class="fas fa-wallet stat-icon-floating text-danger"></i>
                             </div>
                         </div>
+
+                        @if (!$isSuperAdmin)
+                            <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                                <div class="premium-stat-card h-100 card-companies">
+                                    <div class="stat-icon-blob"></div>
+                                    <h3 class="stat-value text-info">{!! number_format($stats['pending_cheques_value'], 0) !!}</h3>
+                                    <h6 class="stat-title">{!! __('cheques.pending_cheques') !!}</h6>
+                                    <i class="fas fa-credit-card stat-icon-floating text-info"></i>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Premium Chart Row -->
                     <div class="row mt-3 animate-up delay-3">
-                        <div class="col-12">
-                            <div class="card premium-chart-card">
+                        <div class="col-lg-8">
+                            <div class="card premium-chart-card h-100">
                                 <div class="card-header">
-                                    <h4 class="card-title"><i class="la la-line-chart text-primary"></i>
-                                        {!! __('dashboard.system_statistics') ?? 'Activity Trend' !!}</h4>
-                                    <p class="text-muted mb-0 mt-1">{!! __('dashboard.monthly_overview') ?? 'Monthly system activity and engagement overview' !!}</p>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <h4 class="card-title"><i class="fas fa-chart-line text-primary"></i>
+                                        {!! __('dashboard.financial_trend') ?? 'Financial Trend' !!}</h4>
+                                    <p class="text-muted mb-0 mt-1">{!! __('dashboard.monthly_collections') ?? 'Monthly rent collections overview' !!}</p>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body pt-0">
@@ -144,18 +148,106 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            <div class="card premium-chart-card h-100">
+                                <div class="card-header">
+                                    <h4 class="card-title"><i class="fas fa-chart-pie text-success"></i>
+                                        {!! __('dashboard.occupancy_rate') ?? 'Occupancy Rate' !!}</h4>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body pt-0 d-flex flex-column align-items-center justify-content-center">
+                                        <div id="occupancy-donut-chart" class="height-300"></div>
+                                        <div class="mt-2 text-center">
+                                            <span class="badge badge-pill badge-glow badge-success px-3 py-1 mr-1">{!! $occupancyChart['series'][0] !!} {!! __('properties.rented') !!}</span>
+                                            <span class="badge badge-pill badge-glow badge-secondary px-3 py-1">{!! $occupancyChart['series'][1] !!} {!! __('properties.available') !!}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
 
-                <!-- Activity Tab (Placeholder) -->
+                <!-- Activity Tab (Lists & Task Alerts) -->
                 <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
-                    <div class="card premium-card border-0 shadow-sm mt-3">
-                        <div class="card-body text-center p-5">
-                            <div class="mb-3">
-                                <i class="icon-graph text-muted" style="font-size: 6rem; opacity: 0.3;"></i>
+                    <div class="row mt-3">
+                        {{-- Expiring Contracts --}}
+                        <div class="col-md-6">
+                            <div class="card premium-card border-0 shadow-sm">
+                                <div class="card-header bg-light-warning border-0 d-flex align-items-center">
+                                    <div class="icon-circle bg-warning text-white mr-2"><i class="fas fa-clock"></i></div>
+                                    <h4 class="card-title mb-0 font-weight-bold">{!! __('dashboard.expiring_contracts') ?? 'Expiring Contracts' !!}</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="bg-white">
+                                                <tr>
+                                                    <th>{!! __('customers.customer') !!}</th>
+                                                    <th>{!! __('properties.property') !!}</th>
+                                                    <th class="text-center">{!! __('contracts.end_date') !!}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($expiringContracts as $contract)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="font-weight-bold">{!! optional($contract->customer)->name !!}</div>
+                                                            <small class="text-muted">{!! optional($contract->customer)->phone !!}</small>
+                                                        </td>
+                                                        <td>{!! optional($contract->property)->name !!}</td>
+                                                        <td class="text-center">
+                                                            <span class="badge badge-pill badge-light-danger">{!! $contract->end_date->format('Y-m-d') !!}</span>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr><td colspan="3" class="text-center p-4 text-muted">{!! __('dashboard.no_expiring_contracts') ?? 'No contracts expiring soon' !!}</td></tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <h4 class="text-muted">{!! __('dashboard.no_recent_activity') !!}</h4>
+                        </div>
+
+                        {{-- Upcoming Cheques --}}
+                        <div class="col-md-6">
+                            <div class="card premium-card border-0 shadow-sm">
+                                <div class="card-header bg-light-info border-0 d-flex align-items-center">
+                                    <div class="icon-circle bg-info text-white mr-2"><i class="fas fa-money-bill-wave"></i></div>
+                                    <h4 class="card-title mb-0 font-weight-bold">{!! __('dashboard.upcoming_cheques') ?? 'Upcoming Cheques' !!}</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="bg-white">
+                                                <tr>
+                                                    <th>{!! __('cheques.cheque_number') !!}</th>
+                                                    <th>{!! __('cheques.amount') !!}</th>
+                                                    <th class="text-center">{!! __('cheques.due_date') !!}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($upcomingCheques as $cheque)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="font-weight-bold">#{!! $cheque->cheque_number !!}</div>
+                                                            <small class="text-muted">{!! $cheque->bank_name !!}</small>
+                                                        </td>
+                                                        <td><span class="text-success font-weight-bold">{!! number_format($cheque->amount, 2) !!}</span></td>
+                                                        <td class="text-center">
+                                                            <span class="badge badge-pill badge-light-primary">{!! $cheque->due_date->format('Y-m-d') !!}</span>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr><td colspan="3" class="text-center p-4 text-muted">{!! __('dashboard.no_upcoming_cheques') ?? 'No cheques due soon' !!}</td></tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,12 +257,13 @@
                     <div class="card premium-card border-0 shadow-sm mt-3">
                         <div class="card-body text-center p-5">
                             <div class="mb-3">
-                                <i class="icon-docs text-muted" style="font-size: 6rem; opacity: 0.3;"></i>
+                                <i class="fas fa-file-pdf text-muted" style="font-size: 6rem; opacity: 0.3;"></i>
                             </div>
-                            <h4 class="text-muted">{!! __('dashboard.reports_empty') !!}</h4>
+                            <h4 class="text-muted">{!! __('dashboard.reports_module_ready') ?? 'Reports module is being prepared with full financial audits.' !!}</h4>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
 
@@ -179,48 +272,32 @@
 @endsection
 
 @push('scripts')
+    <!-- ApexCharts Vendor JS -->
+    <script src="{!! asset('assets/dashbaord/vendors/js/charts/apexcharts.min.js') !!}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             var isRtl = $('html').attr('data-textdirection') === 'rtl';
 
-            // Premium Smooth Area Chart Options
-            var options = {
+            // 1. Financial Trend Area Chart
+            var financialOptions = {
                 chart: {
                     type: 'area',
                     height: 380,
-                    toolbar: {
-                        show: false
-                    },
+                    toolbar: { show: false },
                     animations: {
                         enabled: true,
                         easing: 'easeinout',
-                        speed: 1200,
-                        animateGradually: {
-                            enabled: true,
-                            delay: 150
-                        },
-                        dynamicAnimation: {
-                            enabled: true,
-                            speed: 350
-                        }
+                        speed: 1200
                     },
                     fontFamily: 'Cairo, sans-serif'
                 },
-                colors: ['#4361ee', '#2ecc71'],
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth',
-                    width: 3,
-                    lineCap: 'round'
-                },
+                colors: ['#4361ee'],
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth', width: 3 },
                 series: [{
-                    name: "{!! __('users.users') !!}",
-                    data: {!! json_encode($chartData['users']) !!}
-                }, {
-                    name: "{!! __('departments.departments') !!}",
-                    data: {!! json_encode($chartData['departments']) !!}
+                    name: "{!! __('contracts.paid_amount') !!}",
+                    data: {!! json_encode($financialChart['data']) !!}
                 }],
                 fill: {
                     type: 'gradient',
@@ -232,68 +309,87 @@
                     }
                 },
                 xaxis: {
-                    categories: {!! json_encode($chartData['categories']) !!},
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    labels: {
-                        style: {
-                            colors: '#a1aab2'
-                        }
+                    categories: {!! json_encode($financialChart['categories']) !!},
+                    labels: { 
+                        style: { colors: '#a1aab2' },
+                        rotate: -45,
+                        rotateAlways: false
                     }
                 },
                 yaxis: {
-                    labels: {
-                        style: {
-                            colors: '#a1aab2'
-                        },
-                        offsetX: isRtl ? -15 : 0
+                    labels: { 
+                        style: { colors: '#a1aab2' }, 
+                        offsetX: isRtl ? -15 : 0,
+                        formatter: function(val) {
+                            return val.toLocaleString();
+                        }
                     }
                 },
                 grid: {
                     borderColor: 'rgba(0,0,0,0.05)',
-                    strokeDashArray: 4,
-                    yaxis: {
-                        lines: {
-                            show: true
-                        }
-                    },
-                    xaxis: {
-                        lines: {
-                            show: false
-                        }
-                    },
-                    padding: {
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        left: 10
-                    }
+                    strokeDashArray: 4
                 },
-                legend: {
-                    position: 'top',
-                    horizontalAlign: 'right',
-                    offsetY: -20,
-                    itemMargin: {
-                        horizontal: 10,
-                        vertical: 0
-                    }
-                },
-                tooltip: {
-                    theme: 'light',
-                    y: {
-                        formatter: function(val) {
-                            return val + " " + "{!! __('dashboard.records') ?? 'Records' !!}"
-                        }
-                    }
-                }
+                tooltip: { theme: 'light' }
             };
 
-            var chart = new ApexCharts(document.querySelector("#premium-area-chart"), options);
-            chart.render();
+            if (document.querySelector("#premium-area-chart")) {
+                var financialChart = new ApexCharts(document.querySelector("#premium-area-chart"), financialOptions);
+                financialChart.render();
+            }
+
+            // 2. Occupancy Donut Chart
+            var occupancyOptions = {
+                chart: {
+                    type: 'donut',
+                    height: 320,
+                    fontFamily: 'Cairo, sans-serif'
+                },
+                colors: ['#2ecc71', '#e0e6ed'],
+                series: {!! json_encode($occupancyChart['series']) !!},
+                labels: {!! json_encode($occupancyChart['labels']) !!},
+                legend: { position: 'bottom' },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '75%',
+                            labels: {
+                                show: true,
+                                name: { show: true },
+                                value: { 
+                                    show: true,
+                                    formatter: function(val) { return val; }
+                                },
+                                total: {
+                                    show: true,
+                                    label: "{!! __('properties.properties') !!}",
+                                    formatter: function(w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                dataLabels: { enabled: false }
+            };
+
+            if (document.querySelector("#occupancy-donut-chart")) {
+                var occupancyChart = new ApexCharts(document.querySelector("#occupancy-donut-chart"), occupancyOptions);
+                occupancyChart.render();
+            }
         });
+
+        function switchDashTab(tabId) {
+            // Update button states
+            $('.premium-tab-btn').removeClass('active');
+            $('#' + tabId + '-tab').addClass('active');
+
+            // Show/hide tab panes
+            $('.tab-pane').removeClass('show active');
+            $('#' + tabId).addClass('show active');
+            
+            // Trigger resize to fix ApexCharts rendering inside tabs
+            window.dispatchEvent(new Event('resize'));
+        }
     </script>
 @endpush

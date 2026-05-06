@@ -1,16 +1,17 @@
 <?php
-
 return [
     'customers' => 'Customers',
     'customer' => 'Customer',
     'add_customer' => 'Add Customer',
     'edit_customer' => 'Edit Customer',
-    'delete_customer' => 'Delete Customer',
+    'customer_list' => 'Customer List',
     'customer_details' => 'Customer Details',
     
     // Attributes
-    'name_ar' => 'Name (Arabic)',
-    'name_en' => 'Name (English)',
+    'name_ar' => 'Name',
+    'name_en' => 'Name',
+    'full_name' => 'Full Name',
+    'personal_id' => 'Personal ID',
     'phone' => 'Phone',
     'email' => 'Email',
     'id_number' => 'ID Number / CR Number',
@@ -20,11 +21,22 @@ return [
     'guarantor' => 'Guarantor',
     'notes' => 'Notes',
     'status' => 'Status',
-    'created_by' => 'Created By',
-    'created_at' => 'Created At',
+    'id_card' => 'ID Card',
+    'company' => 'Company',
+    'no_guarantor' => 'No Guarantor',
 
     // Enums
+    'type_individual' => 'Individual',
+    'type_company' => 'Company',
     'individual' => 'Individual',
     'company' => 'Company',
     'no_customers_found' => 'No Customers Found !',
+    'active_customers' => 'Active Customers',
+    'active_tenants' => 'Active Tenants',
+    'corporate_customers' => 'Corporate Customers',
+    'view_customer' => 'View Customer',
+    'personal_info' => 'Personal Information',
+    'identity_info' => 'Identity Information',
+    'contact_info' => 'Contact Information',
+    'customer_type' => 'Customer Type',
 ];

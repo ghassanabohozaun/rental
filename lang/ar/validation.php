@@ -167,6 +167,27 @@ return [
             'required' => 'يرجى التأكد من أنك لست روبوتًا.',
             'captcha' => 'خطأ في الكابتشا! حاول مرة أخرى لاحقًا أو اتصل بمسؤول الموقع.',
         ],
+        'id_number' => [
+            'unique' => 'رقم الهوية / السجل التجاري مسجل مسبقاً لعميل آخر !',
+        ],
+        'deposit_bank_name.ar' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'deposit_bank_name.en' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'deposit_cheque_number' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'deposit_issue_date' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'deposit_cheque_owner_name.ar' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'deposit_cheque_owner_name.en' => [
+            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
     ],
 
     /*
@@ -201,8 +222,8 @@ return [
         'code' => 'كود الكوبون',
         'discount' => 'الخصم',
         'discount_percentage' => 'الخصم بالنسبة المئوية',
-        'start_date' => 'تاريخ بداية الكوبون',
-        'end_date' => 'تاريخ نهاية الكوبون',
+        'start_date' => 'تاريخ البدء',
+        'end_date' => 'تاريخ الانتهاء',
         'limit' => 'حدود الاستخدام',
         'time_used' => 'عدد مرات الاستخدام',
         'is_active' => 'فعال؟',
@@ -369,5 +390,38 @@ return [
         'id_number' => 'رقم الهوية',
         'relationship' => 'صلة القرابة',
         'notes' => 'ملاحظات',
+
+        // Contracts
+        'property_id' => 'العقار',
+        'customer_id' => 'المستأجر',
+        'rent_amount' => 'قيمة الإيجار',
+        'deposit_amount' => 'قيمة التأمين',
+        'deposit_type' => 'نوع التأمين',
+        'deposit_status' => 'حالة التأمين',
+        'payment_cycle' => 'دورة الدفع',
+        'contract_text' => 'نص العقد',
+        
+        // Payments
+        'contract_id'  => 'العقد',
+        'payment_date' => 'تاريخ الدفع',
+        'method'       => 'وسيلة الدفع',
+        'cheque_id'    => 'الشيك المرتبط',
+        'amount'       => 'المبلغ',
+
+        // Cheques
+        'cheque_number' => 'رقم الشيك',
+        'cheque_owner_name.ar' => 'اسم صاحب الشيك بالعربية',
+        'cheque_owner_name.en' => 'اسم صاحب الشيك بالإنجليزية',
+        'issue_date' => 'تاريخ الإصدار',
+        'due_date' => 'تاريخ الاستحقاق',
+        'is_deposit' => 'نوع الشيك',
+        
+        // Contracts - Insurance Cheque
+        'deposit_cheque_number' => 'رقم شيك التأمين',
+        'deposit_bank_name.ar' => 'اسم البنك (لشيك التأمين) بالعربية',
+        'deposit_bank_name.en' => 'اسم البنك (لشيك التأمين) بالإنجليزية',
+        'deposit_cheque_owner_name.ar' => 'اسم صاحب الشيك (لشيك التأمين) بالعربية',
+        'deposit_cheque_owner_name.en' => 'اسم صاحب الشيك (لشيك التأمين) بالإنجليزية',
+        'deposit_issue_date' => 'تاريخ إصدار شيك التأمين',
     ],
 ];

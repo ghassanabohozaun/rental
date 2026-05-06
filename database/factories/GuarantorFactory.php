@@ -3,9 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Guarantor;
+use App\Models\Company;
+use App\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Guarantor>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Guarantor>
  */
 class GuarantorFactory extends Factory
 {
@@ -19,7 +22,7 @@ class GuarantorFactory extends Factory
         $relationships = ['أب', 'أخ', 'صديق', 'قريب', 'ابن عم', 'جار'];
         
         return [
-            'company_id' => \App\Models\Company::inRandomOrder()->first()->id ?? 1,
+            'company_id' => Company::inRandomOrder()->first()->id ?? 1,
             'name' => [
                 'ar' => $this->faker->name('male'),
                 'en' => $this->faker->name('male'),
@@ -30,7 +33,7 @@ class GuarantorFactory extends Factory
             'relationship' => $this->faker->randomElement($relationships),
             'notes' => $this->faker->sentence(),
             'status' => 1,
-            'created_by' => \App\Models\User::inRandomOrder()->first()->id ?? 1,
+            'created_by' => User::inRandomOrder()->first()->id ?? 1,
         ];
     }
 }

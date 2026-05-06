@@ -10,11 +10,21 @@ class PropertyStatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
-            ['en' => 'Available', 'ar' => 'متاح', 'color' => '#28C76F'], // Success Green
-            ['en' => 'Rented', 'ar' => 'مؤجر', 'color' => '#00CFE8'],    // Info Cyan
-            ['en' => 'Sold', 'ar' => 'مباع', 'color' => '#7367F0'],      // Primary Purple
-            ['en' => 'Maintenance', 'ar' => 'صيانة', 'color' => '#FF9F43'], // Warning Orange
-            ['en' => 'Reserved', 'ar' => 'محجوز', 'color' => '#EA5455'],  // Danger Red
+            [
+                'en' => 'Available', 
+                'ar' => 'متاح', 
+                'color' => '#10B981' // Emerald Green - Modern & Fresh
+            ],
+            [
+                'en' => 'Rented', 
+                'ar' => 'مؤجر', 
+                'color' => '#3B82F6' // Royal Blue - Professional & Clear
+            ],
+            [
+                'en' => 'Maintenance', 
+                'ar' => 'صيانة', 
+                'color' => '#F59E0B' // Amber/Orange - Warm & Noticeable
+            ],
         ];
 
         foreach ($statuses as $status) {

@@ -3,7 +3,7 @@
         <div class="modal-content premium-modal">
             <div class="modal-header bg-premium-blue text-white">
                 <h5 class="modal-title" id="showModalLabel">
-                    <i class="la la-user-shield"></i> {{ __('guarantors.guarantor_details') }}
+                    <i class="fas fa-user-shield"></i> {{ __('guarantors.guarantor_details') }}
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -55,7 +55,7 @@
 
             <div class="modal-footer bg-light border-top-0">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                    <i class="la la-times"></i> {{ __('general.close') }}
+                    <i class="fas fa-times"></i> {{ __('general.close') }}
                 </button>
             </div>
         </div>
@@ -76,12 +76,12 @@
             var creator = $(this).data('creator');
 
             $('#show_name').html(name);
-            $('#show_phone').html(phone !== '<span class="text-muted">-</span>' ? '<span class="badge badge-light-primary"><i class="la la-phone"></i> ' + phone + '</span>' : phone);
+            $('#show_phone').html(phone !== '<span class="text-muted">-</span>' ? '<span class="badge badge-light-primary"><i class="fas fa-phone"></i> ' + phone + '</span>' : phone);
             $('#show_id_number').html(id_number);
             $('#show_address').html(address);
             $('#show_relationship').html(relationship);
             $('#show_notes').html(notes);
-            $('#show_creator').html('<span class="badge badge-light-info"><i class="la la-user"></i> ' + creator + '</span>');
+            $('#show_creator').html('<span class="badge badge-light-info"><i class="fas fa-user"></i> ' + creator + '</span>');
             
             @if(user()->company_id == 1)
                 var company = $(this).data('company') || '<span class="badge badge-light-secondary">{{ __('general.all_companies') }}</span>';

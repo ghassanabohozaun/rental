@@ -76,4 +76,12 @@ return [
     'records' => 'Record',
     'statistics' => 'Statistics',
     'secured_session' => 'Secured Session',
+    'financial_trend' => 'Financial Trend Analysis',
+    'monthly_collections' => 'Monthly revenue collections overview',
+    'occupancy_rate' => 'Unit Occupancy Rate',
+    'expiring_contracts' => 'Expiring Contracts (30 Days)',
+    'no_expiring_contracts' => 'No contracts expiring soon.',
+    'upcoming_cheques' => 'Upcoming Cheque Collections (7 Days)',
+    'no_upcoming_cheques' => 'No cheques due soon.',
+    'reports_module_ready' => 'Reports module is being prepared with full financial audits.',
 ];

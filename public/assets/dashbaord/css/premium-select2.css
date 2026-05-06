@@ -4,21 +4,22 @@
     border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
     padding: 6px 12px;
-    background-color: #ffffff;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: transparent !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .select2-container--default.select2-container--focus .select2-selection--single,
 .select2-container--default.select2-container--open .select2-selection--single {
     border-color: #667eea !important;
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15) !important;
+    transform: translateY(-1px);
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 28px !important;
     color: #475569 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-left: 3rem !important;
+    padding-right: 2.5rem !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -34,7 +35,6 @@
 /* LTR Support (Default) */
 html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__rendered {
     text-align: left;
-    padding-right: 65px !important; /* Increased space to prevent overlapping with custom clear icon */
 }
 html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     right: 12px !important;
@@ -51,14 +51,59 @@ html[data-textdirection="ltr"] .select2-results__option {
     text-align: left;
 }
 
+/* RTL Global Fix */
+[data-textdirection="rtl"] .select2-container {
+    direction: rtl;
+}
+
 /* RTL Support */
 html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__rendered {
     text-align: right;
-    padding-left: 65px !important; /* Increased space to prevent overlapping with custom clear icon */
+    padding-right: 3rem !important; /* Synced with LTR (48px) */
+    padding-left: 2.5rem !important;
+    font-size: 1rem !important; /* Increased font size for RTL by ~1px */
+}
+
+/* ================================================================
+   NO ICON Adjustments
+   ================================================================ */
+/* LTR No Icon */
+html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-selection__rendered {
+    padding-left: 12px !important;
+}
+/* RTL No Icon */
+html[data-textdirection="rtl"] .premium-input-wrapper.no-icon .select2-selection__rendered {
+    padding-right: 12px !important;
 }
 html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     left: 12px !important;
     right: auto !important;
+}
+
+/* Premium Input Wrapper Icon Positioning */
+.premium-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.premium-input-wrapper > i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    z-index: 10000 !important; /* Ultimate high z-index to stay above everything */
+    pointer-events: none;
+}
+
+html[data-textdirection="ltr"] .premium-input-wrapper > i {
+    left: 0.9rem !important;
+    right: auto !important;
+}
+
+html[data-textdirection="rtl"] .premium-input-wrapper > i {
+    right: 0.9rem !important;
+    left: auto !important;
 }
 html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__clear {
     position: absolute !important;
@@ -155,3 +200,93 @@ html[data-textdirection="ltr"] .premium-input-wrapper .select2-custom-reset {
 html[data-textdirection="rtl"] .premium-input-wrapper .select2-custom-reset {
     left: 3.2rem; /* Positioned further away from the dropdown arrow for a clean look */
 }
+
+/* ================================================================
+   Premium Select2 Selected Item (Avatar + Text) - NUCLEAR FIX
+   This must be here to override all inherited paddings
+   ================================================================ */
+.premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    border: 1px solid #e2e8f0 !important;
+    background-color: #ffffff !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* LTR Adjustments for Ajax Select2 with Avatar */
+html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
+    padding-left: 6px !important;
+    padding-right: 0 !important;
+}
+html[data-textdirection="ltr"] .premium-ajax-selection .select2-selection__rendered {
+    padding-left: 0 !important;
+    text-align: left !important;
+}
+
+/* RTL Adjustments for Ajax Select2 with Avatar */
+html[data-textdirection="rtl"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
+    padding-right: 6px !important;
+    padding-left: 0 !important;
+}
+html[data-textdirection="rtl"] .premium-ajax-selection .select2-selection__rendered {
+    padding-right: 0 !important;
+    text-align: right !important;
+}
+
+.premium-ajax-selection .select2-selection__rendered {
+    margin: 0 !important;
+    line-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.select2-selected-repo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+
+.select2-selection-avatar,
+.select2-selection-avatar-initials {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 7px !important;
+    object-fit: cover !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+    animation: avatarScaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.select2-selection-avatar-initials {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.select2-selection-avatar-initials::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%) !important;
+    pointer-events: none;
+}
+
+@keyframes avatarScaleIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.select2-selected-repo__text {
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 0.95rem !important;
+}
+

@@ -23,11 +23,15 @@ $(document).ready(function() {
         let redirectUrl = form.data('redirect-url') || '';
         let tableId = form.data('table-id') || '#table_data';
         
-        // Custom Messages
-        let successMsg = form.data('success-msg') || "Operation completed successfully.";
-        let errorMsg = form.data('error-msg') || "An error occurred.";
-        let validationMsg = form.data('validation-msg') || "Please check the form for errors.";
-        let accessDeniedMsg = form.data('access-denied-msg') || "Access Denied.";
+        // Custom Messages with Global Fallbacks
+        let successMsg = form.data('success-msg') || 
+                        (window.PremiumSettings ? window.PremiumSettings.messages.success : "Operation completed successfully.");
+        let errorMsg = form.data('error-msg') || 
+                      (window.PremiumSettings ? window.PremiumSettings.messages.error : "An error occurred.");
+        let validationMsg = form.data('validation-msg') || 
+                           (window.PremiumSettings ? window.PremiumSettings.messages.validation_error : "Please check the form for errors.");
+        let accessDeniedMsg = form.data('access-denied-msg') || 
+                             (window.PremiumSettings ? window.PremiumSettings.messages.access_denied : "Access Denied.");
         
         // Auto-detect if form is inside a modal
         let modal = form.closest('.modal');

@@ -13,10 +13,10 @@
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
                     <h5 class="modal-title font-weight-bold text-dark" id="createproperty_statusModalLabel">
-                        <i class="la la-plus-circle mr-1 text-primary" style="font-size: 22px;"></i> {!! __('property_statuses.create_new_property_status') !!}
+                        <i class="fas fa-plus-circle mr-1 text-primary" style="font-size: 22px;"></i> {!! __('property_statuses.create_new_property_status') !!}
                     </h5>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <!--end::modal header-->
@@ -32,7 +32,7 @@
                                     <input type="text" id="name_ar_create" name="name[ar]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('property_statuses.enter_name_ar') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_ar_error text-danger small"></span>
                             </div>
@@ -46,7 +46,7 @@
                                     <input type="text" id="name_en_create" name="name[en]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('property_statuses.enter_name_en') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_en_error text-danger small"></span>
                             </div>
@@ -95,7 +95,7 @@
                                         <div class="color-chip" style="--chip-color: #babfc7;" data-color="#babfc7" title="Gray"></div>
                                         
                                         <div class="advanced-picker-trigger" id="advancedPickerBtn" title="Custom Color">
-                                            <i class="la la-cog"></i>
+                                            <i class="fas fa-cog"></i>
                                             <input type="color" id="color_create_picker" value="#1e9ff2" class="d-none">
                                         </div>
                                     </div>
@@ -116,13 +116,13 @@
                 <!--begin::modal footer-->
                 <div class="modal-footer border-0 pt-0">
                     <button type="submit" id="saveBtn" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {{ __('general.save') }}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                        <i class="fas fa-save mr-1"></i> {{ __('general.save') }}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
                         data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->

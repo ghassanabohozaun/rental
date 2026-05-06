@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('id_number')->nullable();
             $table->string('address')->nullable();
-            $table->string('nationality')->nullable();
+            $table->foreignId('nationality_id')->nullable()->constrained('nationalities')->nullOnDelete();
             $table->enum('tenant_type', ['individual', 'company'])->default('individual');
             $table->foreignId('guarantor_id')->nullable()->constrained('guarantors')->nullOnDelete();
             $table->text('notes')->nullable();

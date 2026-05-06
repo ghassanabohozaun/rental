@@ -4,8 +4,8 @@
  */
 
 $(document).ready(function () {
-    const isRtl = $('html').attr('dir') === 'rtl' || $('html').attr('lang') === 'ar' || $('html').attr('data-textdirection') === 'rtl';
-    const currentLoc = isRtl ? 'ar' : 'en';
+    const isRtl = $('html').attr('dir') === 'rtl' || $('html').attr('data-textdirection') === 'rtl' || $('html').attr('lang') === 'ar';
+    const currentLoc = ($('html').attr('lang') === 'ar' || isRtl) ? 'ar' : 'en';
 
     /**
      * Core Initialization Function for PTC Dashboard UI

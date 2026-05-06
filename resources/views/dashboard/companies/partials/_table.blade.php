@@ -1,3 +1,4 @@
+<input type="hidden" id="companies-total-count" value="{!! $companies->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id="myTable">
         <thead class="bg-white">
@@ -24,7 +25,7 @@
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
-                            <i class="la la-plus-circle text-primary" style="font-size: 22px;"></i>
+                            <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
                         </span>
 
                         <!-- Hidden Row Details for AJAX Modal -->
@@ -41,28 +42,28 @@
 
                                 <div class="modal-info-list mt-2">
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-user-plus"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.created_by') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $company->creator->name ?? '---' !!}</span>
                                         </div>
                                     </div>
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-envelope"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-envelope"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.email') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $company->email ?? '---' !!}</span>
                                         </div>
                                     </div>
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-phone"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-phone"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.phone') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $company->phone ?? '---' !!}</span>
                                         </div>
                                     </div>
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-map-marker"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-map-marker"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.address') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $company->address ?? '---' !!}</span>
@@ -76,7 +77,7 @@
                     <!-- Desktop ID Badge -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="badge badge-info badge-pill badge-glow premium-badge-circle">
-                            {!! $loop->iteration !!}
+                            {!! $loop->iteration + ($companies->currentPage() - 1) * $companies->perPage() !!}
                         </span>
                     </td>
 

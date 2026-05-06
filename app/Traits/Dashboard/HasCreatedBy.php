@@ -3,6 +3,7 @@
 namespace App\Traits\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 trait HasCreatedBy
 {
@@ -27,6 +28,6 @@ trait HasCreatedBy
      */
     public function creator()
     {
-        return $this->belongsTo(\App\Models\User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

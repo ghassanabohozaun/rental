@@ -1,0 +1,450 @@
+.cheque-status-lg {
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+.cheque-num-badge-sm {
+    font-size: 10px !important;
+}
+.icon-size-16 { font-size: 16px !important; pointer-events: none; }
+.icon-size-22 { font-size: 22px !important; pointer-events: none; }
+.icon-size-24 { font-size: 24px !important; pointer-events: none; }
+.font-11 { font-size: 11px !important; }
+
+/* Cheque Info Card Container (Create/Edit) */
+.cheque-info-card-container {
+    border-top: 1px dashed rgb(228, 230, 239);
+    border-bottom: 1px dashed rgb(228, 230, 239);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+/* Cheques Table Progress Bar */
+.cheque-table-progress-thin {
+    height: 4px !important;
+    background-color: #f0f0f0;
+    margin-top: 2px;
+}
+
+/* Cheques Table Availability Text Container */
+.cheque-table-available-container {
+    margin-top: -2px;
+}
+
+/* Cheques Table Availability Text */
+.cheque-table-available-text {
+    font-size: 0.75rem !important;
+    white-space: nowrap;
+}
+
+/* Segmented Tab Control - Premium Style (matches contracts-premium) */
+.premium-segmented-control {
+    display: flex;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 6px;
+    gap: 5px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.premium-tab-btn {
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 20px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.premium-tab-btn i {
+    font-size: 15px;
+}
+
+.premium-tab-btn.active {
+    background: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    font-weight: 700;
+}
+
+.premium-tab-btn:hover:not(.active) {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* --- Two-Column Sidebar & Summary Layout --- */
+@media (min-width: 992px) {
+    .sticky-sidebar {
+        position: sticky;
+        top: 2rem;
+        z-index: 10;
+    }
+}
+
+.premium-summary-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eef0f7;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.summary-header {
+    background: linear-gradient(135deg, #f8f9fc 0%, #f1f4f9 100%);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #eef0f7;
+}
+
+.summary-header h5 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-body {
+    padding: 1.5rem;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-item .item-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.summary-item .item-value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.summary-item.total { border-right: 4px solid #ef4444; background: rgba(239, 68, 68, 0.02); }
+.summary-item.paid { border-right: 4px solid #10b981; background: rgba(16, 185, 129, 0.02); }
+.summary-item.remaining { border-right: 4px solid #ef4444; background: rgba(239, 68, 68, 0.02); }
+.summary-item.pending { border-right: 4px solid #f59e0b; background: rgba(245, 158, 11, 0.02); }
+
+/* New Premium Summary Card Style (Matches Image) */
+.cheque-summary-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+    border-left: 5px solid #ef4444; /* Added red left border */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+    padding: 24px;
+}
+
+.cheque-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.cheque-summary-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.cheque-summary-icon-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.cheque-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.cheque-summary-item:hover {
+    background: #f1f5f9;
+}
+
+.cheque-summary-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.cheque-summary-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.cheque-summary-footer {
+    border-top: 2px solid #f1f5f9;
+    margin-top: 15px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Compact Cheque Info Card */
+.compact-cheque-card {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+}
+
+.compact-cheque-card .cheque-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.cheque-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.cheque-info-grid.single-column {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.cheque-info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.cheque-info-label {
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* --- Premium Card System (V2.0 Standard) --- */
+.premium-card {
+    background: #ffffff;
+    border-radius: 20px !important;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.premium-mandatory-header {
+    background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    color: #1e293b !important;
+    padding: 20px 25px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #ef4444; /* Red accent for cheques */
+    position: relative;
+    z-index: 2;
+}
+
+.premium-card .card-body {
+    padding-top: 25px !important;
+}
+
+/* Premium Animations */
+.premium-fade-in {
+    animation: premiumFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes premiumFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pulseRed {
+    0% { 
+        background-color: #ffffff;
+        border-color: #f1f5f9;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        transform: scale(1);
+    }
+    10% { transform: translateX(-2px); }
+    20% { transform: translateX(2px); }
+    30% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    50% { 
+        background-color: #fee2e2;
+        border-color: #ef4444;
+        box-shadow: 0 0 60px rgba(239, 68, 68, 0.35), inset 0 0 30px rgba(239, 68, 68, 0.15);
+        transform: scale(1.01) translateX(0);
+    }
+    100% { 
+        background-color: #ffffff;
+        border-color: #f1f5f9;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        transform: scale(1);
+    }
+}
+
+.pulse-red {
+    animation: pulseRed 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 3px solid #ef4444 !important;
+    border-left-width: 15px !important;
+    position: relative;
+    z-index: 100;
+}
+
+.pulse-red .cheque-summary-title {
+    color: #b91c1c !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+}
+
+.pulse-red .cheque-summary-icon-box {
+    background: #b91c1c !important;
+    color: #fff !important;
+    box-shadow: 0 0 25px rgba(185, 28, 28, 0.6);
+    animation: iconPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1) rotate(0); }
+    50% { transform: scale(1.2) rotate(10deg); }
+}
+
+.pulse-red .cheque-summary-value {
+    color: #7f1d1d !important;
+    font-size: 1.25rem !important;
+}
+
+.pulse-red .cheque-summary-item {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.pulse-red .cheque-summary-label {
+    color: #991b1b !important;
+}
+
+.pulse-red span {
+    color: inherit !important;
+}
+
+/* --- Premium Modern Select Styling (Livewire Optimized) --- */
+.js-select2:not(.select2-hidden-accessible) {
+    opacity: 0 !important;
+    height: 48px !important;
+    display: block !important;
+}
+
+.premium-input-wrapper {
+    position: relative;
+    min-height: 48px;
+}
+
+.js-select2 + .select2-container--default .select2-selection--single {
+    background-color: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    height: 52px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.js-select2 + .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    background-color: #fff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #1e293b;
+    font-weight: 600;
+    padding-right: 45px !important;
+    padding-left: 15px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 50px;
+    right: 15px;
+}
+
+.select2-dropdown {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    margin-top: 5px;
+}
+
+.select2-results__option--highlighted[aria-selected] {
+    background-color: #3b82f6 !important;
+}
+
+.select2-results__option {
+    padding: 12px 15px;
+    font-size: 0.95rem;
+}
+
+/* Disabled State */
+.premium-input:disabled, .select2-container--disabled .select2-selection--single {
+    background-color: #f1f5f9 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

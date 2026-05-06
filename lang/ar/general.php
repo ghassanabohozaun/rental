@@ -24,6 +24,15 @@ return [
     'good_night' => 'تصبح على خير',
     'your_performance_summary_this_week'=>'ملخص أدائك هذا الأسبوع',
 
+    'duration' => 'المدة',
+    'sar' => 'ريال سعودي',
+    'year' => 'سنة',
+    'years' => 'سنوات',
+    'month' => 'شهر',
+    'months' => 'شهور',
+    'days' => 'أيام',
+    'and' => 'و',
+
     'first' => 'الأول',
     'prev' => 'السابق',
     'next' => 'التالي',
@@ -54,6 +63,7 @@ return [
     'open' => 'مفتوح',
     'close' => 'اغلاق',
     'cancel' => 'الغاء',
+    'back' => 'رجوع',
     'copy' => 'نسخ',
     'copied' => 'تم النسخ',
     'ar' => 'العربية',
@@ -69,6 +79,7 @@ return [
     'write_here' => 'اكتب هنا ....',
     'filters' => 'الفلترة حسب المعايير',
     'status' => 'الحالة',
+    'date' => 'التاريخ',
 
     'not_found' => 'غير متاحة',
     'example' => 'مثال',
@@ -115,6 +126,7 @@ return [
     'login_success' => 'تم تسجيل الدخول بنجاح.',
     'login_failed' => 'فشل تسجيل الدخول، يرجى التأكد من البيانات.',
     'account_disabled_contact_admin' => 'حسابك معطل حالياً، يرجى التواصل مع الإدارة.',
+    'add_success_message' => 'تمت عملية الحفظ بنجاح',
     'add_error_message' => 'لم تتم عملية الحفظ',
     'delete_success_message' => 'تمت عملية الحذف بنجاح',
     'delete_error_message' => 'لم تتم عملية الحذف',
@@ -130,6 +142,7 @@ return [
     'upload_error_message' => 'لم تتم عملية الرفع ',
     'send_success_message' => 'تمت عملية الارسال بنجاح',
     'send_error_message' => 'لم تتم عملية الارسال',
+    'access_denied_msg' => 'عذراً، ليس لديك صلاحية للقيام بهذا الإجراء.',
 
     'internal_server_error_message' => 'عذراً , خطأ داخلي في الخادم ',
     'try_catch_error_message' => 'عذراً , هتالك خطأ ما يرجي المحاولة فيما بعد  ',
@@ -165,6 +178,7 @@ return [
     'processing' => 'جار التحميل...',
     'loadingRecords' => 'جار جلب البيانات...',
     'comments' => 'التعليقات',
+    'tax' => 'الضريبة',
     'captcha' => 'الرجاء التاكد من كلمة التحقق ',
 
     ///////////////////////////////////////////////////////
@@ -224,4 +238,13 @@ return [
     'selected_color' => 'اللون المختار',
     'ok' => 'موافق',
     'no_data_found' => 'لا يوجد بيانات !',
+    'created_by' => 'بواسطة',
+    'notes' => 'ملاحظات',
+    'no_notes' => 'لا توجد ملاحظات إضافية.',
+    'available' => 'متاح',
+    'verified' => 'تم السداد',
+    'quick_tips' => 'توجيهات سريعة',
+    'system' => 'النظام',
+    'view_all' => 'عرض الكل',
+    'currency' => 'ريال',
 ];

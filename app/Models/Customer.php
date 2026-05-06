@@ -14,15 +14,15 @@ use Spatie\Translatable\HasTranslations;
 
 class Customer extends Model implements MustBelongToCompany
 {
-    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations, CanBeDeleted;
+    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations, CanBeDeleted, \App\Traits\Dashboard\HasAvatar;
 
     protected $restrictiveRelations = [
-        // 'contracts' => 'customers.cannot_delete_has_contracts',
+        'contracts' => 'customers.cannot_delete_has_contracts',
     ];
 
     protected $fillable = [
         'company_id', 'name', 'phone', 'email', 'id_number', 
-        'address', 'nationality', 'tenant_type', 'guarantor_id', 
+        'address', 'nationality_id', 'tenant_type', 'guarantor_id', 
         'notes', 'status', 'created_by'
     ];
 
@@ -50,5 +50,21 @@ class Customer extends Model implements MustBelongToCompany
     public function guarantor()
     {
         return $this->belongsTo(Guarantor::class);
+    }
+
+    /**
+     * Get the contracts for the customer.
+     */
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'customer_id');
+    }
+
+    /**
+     * Get the nationality of the customer.
+     */
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
     }
 }

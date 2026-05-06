@@ -65,35 +65,24 @@ class CompanyRepository
 
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
-                // Use Laravel's native JSON search for cross-database compatibility (MySQL, MariaDB, etc.)
                 $q->where('name->en', 'like', '%' . $searchValue . '%')
-                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
-                  ->orWhere('email', 'like', '%' . $searchValue . '%')
-                  ->orWhere('phone', 'like', '%' . $searchValue . '%');
+                  ->orWhere('name->ar', 'like', '%' . $searchValue . '%');
             });
         }
 
-        $totalCount = $query->count();
         $limit = empty($searchValue) ? 5 : 30;
+        $paginator = $query->orderByDesc('id')->paginate($limit);
 
-        $results = $query->orderByDesc('id')
-            ->limit($limit)
-            ->get()
-            ->map(function ($company) {
-                return [
-                    'id'       => $company->id,
-                    'text'     => $company->name,
-                    'email'    => $company->email,
-                    'phone'    => $company->phone,
-                    'logo'     => $company->logo_url ?: asset('assets/dashbaord/images/logo/logo-placeholder.png'),
-                    'initials' => $company->initials,
-                    'color'    => $company->getAvatarColor(),
-                ];
-            });
+        $results = $paginator->map(function ($company) {
+            return [
+                'id'       => $company->id,
+                'text'     => $company->name,
+            ];
+        });
 
         return [
             'results' => $results,
-            'total_count' => $totalCount
+            'total_count' => $paginator->total()
         ];
     }
 }

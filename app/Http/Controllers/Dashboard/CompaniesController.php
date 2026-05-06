@@ -8,6 +8,7 @@ use App\Services\Dashboard\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Exceptions\DeleteRestrictionException;
+use App\Models\Company;
 
 class CompaniesController extends Controller
 {
@@ -24,13 +25,14 @@ class CompaniesController extends Controller
         abort_if(user()->company_id != 1, 403);
         
         $companies = $this->service->getAll($request);
+        $all_companies = user()->company_id == 1 ? Company::active()->get() : null;
         $title = __('companies.companies');
 
         if ($request->ajax() || $request->has('_ajax')) {
             return view('dashboard.companies.partials._table', compact('companies'))->render();
         }
 
-        return view('dashboard.companies.index', compact('companies', 'title'));
+        return view('dashboard.companies.index', compact('companies', 'all_companies', 'title'));
     }
 
     public function store(CompanyRequest $request)

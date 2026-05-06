@@ -20,7 +20,7 @@
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
-                        <span class="stat-item"><i class="la la-key"></i> {!! __('auth.recover_password') !!}</span>
+                        <span class="stat-item"><i class="fas fa-key"></i> {!! __('auth.recover_password') !!}</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
                 @endphp
                 <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="btn-lang-toggle">
-                    <i class="la la-language"></i>
+                    <i class="fas fa-language"></i>
                     <span>{{ $targetNative }}</span>
                 </a>
             </div>
@@ -59,7 +59,7 @@
                 @if ($errors->has('error'))
                     <div class="alert alert-danger mb-4 py-3"
                         style="font-size: 0.82rem; border-radius: 12px; border: none; background: #fff1f2; color: #be123c;">
-                        <i class="la la-exclamation-triangle me-2"></i> {!! $errors->first('error') !!}
+                        <i class="fas fa-exclamation-triangle me-2"></i> {!! $errors->first('error') !!}
                     </div>
                 @endif
 
@@ -72,7 +72,7 @@
                             <input type="email" class="form-control-modern @error('email') is-invalid @enderror"
                                 id="email" name="email" placeholder="email@example.com" required autofocus
                                 autocomplete="off">
-                            <i class="la la-envelope input-icon-modern"></i>
+                            <i class="fas fa-envelope input-icon-modern"></i>
                         </div>
                         @error('email')
                             <span style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
@@ -81,12 +81,12 @@
 
                     <button type="submit" class="btn-login-modern">
                         <span>{!! __('auth.recover_password') !!}</span>
-                        <i class="la la-paper-plane"></i>
+                        <i class="fas fa-paper-plane"></i>
                     </button>
 
                     <div style="text-align: center; margin-top: 24px;">
                         <a href="{!! route('dashboard.get.login') !!}" class="forgot-modern">
-                             {!! __('auth.login') !!} <i class="la la-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
+                             {!! __('auth.login') !!} <i class="fas fa-arrow-{{ Config::get('app.locale') == 'ar' ? 'left' : 'right' }}"></i>
                         </a>
                     </div>
                 </form>

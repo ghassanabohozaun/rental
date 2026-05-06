@@ -13,4 +13,7 @@ return [
     'guarantors' => 'Guarantors Management',
     'customers' => 'Customers Management',
     'maintenances' => 'Maintenance Management',
+    'contracts' => 'Contracts Management',
+    'cheques' => 'Cheques Management',
+    'payments' => 'Payments Management',
 ];

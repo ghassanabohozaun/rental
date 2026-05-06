@@ -33,6 +33,15 @@ window.initIndexTable = function (options = {}) {
                 $(settings.container).html(data);
                 $(settings.container).css("opacity", "1");
                 $loader.removeClass("active");
+
+                // Update total count badges if they exist
+                ['contracts', 'properties', 'customers', 'maintenances', 'guarantors', 'users', 'roles', 'departments', 'property_types', 'property_statuses', 'bank_accounts', 'companies'].forEach(module => {
+                    const total = $(`#${module}-total-count`).val();
+                    if (total !== undefined) {
+                        $(`#${module}CountBadge`).text(total);
+                        $(`#${module}ChipCount`).text(total);
+                    }
+                });
                 
                 // Update URL without refresh
                 window.history.pushState(null, "", href);

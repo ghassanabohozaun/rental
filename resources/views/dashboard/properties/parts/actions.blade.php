@@ -1,16 +1,16 @@
 <div class="d-flex align-items-center justify-content-center">
     {{-- Show --}}
-    <a href="javascript:void(0)" 
-       class="btn-premium-action btn-premium-action-info mr-1 details-control" 
+    <a href="{!! route('dashboard.properties.show', $property->id) !!}" 
+       class="btn-premium-action btn-premium-action-info mr-1" 
        title="{!! __('general.show') !!}">
-        <i class="la la-eye"></i>
+        <i class="fas fa-eye"></i>
     </a>
 
     {{-- Edit --}}
     <a href="{!! route('dashboard.properties.edit', $property->id) !!}" 
        class="btn-premium-action btn-premium-action-edit mr-1" 
        title="{!! __('general.edit') !!}">
-        <i class="la la-edit"></i>
+        <i class="fas fa-edit"></i>
     </a>
 
     {{-- Delete --}}
@@ -25,6 +25,6 @@
        data-success-title="{!! __('general.deleted') !!}" 
        data-success-text="{!! __('general.delete_success_message') !!}"
        title="{!! __('general.delete') !!}">
-        <i class="la la-trash"></i>
+        <i class="fas fa-trash-alt"></i>
     </a>
 </div>

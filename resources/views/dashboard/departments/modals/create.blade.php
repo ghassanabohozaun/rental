@@ -12,11 +12,11 @@
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold text-dark" id="createDepartmentModalLabel">
-                        <i class="la la-plus-circle mr-1 text-primary" style="font-size: 22px;"></i> {!! __('departments.create_new_department') !!}
-                    </h5>
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="createDepartmentModalLabel">
+                        <i class="fas fa-plus-circle text-primary mr-2 icon-size-18"></i> {!! __('departments.create_new_department') !!}
+                    </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <!--end::modal header-->
@@ -32,7 +32,7 @@
                                     <input type="text" id="name_ar_create" name="name[ar]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('departments.enter_name_ar') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_ar_error text-danger small"></span>
                             </div>
@@ -46,7 +46,7 @@
                                     <input type="text" id="name_en_create" name="name[en]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('departments.enter_name_en') !!}">
-                                    <i class="la la-building text-primary"></i>
+                                    <i class="fas fa-building text-primary"></i>
                                 </div>
                                 <span class="error-text name_en_error text-danger small"></span>
                             </div>
@@ -57,12 +57,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="premium-form-group">
-                                <label for="company_id_dept_create">{!! __('companies.company') !!}</label>
+                                <label for="company_id_dept_create">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <select class="form-control premium-input shadow-none" id='company_id_dept_create' name="company_id">
-                                        <option value="">{!! __('roles.global_role') !!}</option>
-                                        <!-- Options will be loaded dynamically via AJAX -->
+                                        <option value="">{!! __('general.select_from_list') !!}</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
                                     </select>
+                                    <i class="fas fa-briefcase text-primary"></i>
                                 </div>
                                 <span class="error-text company_id_error text-danger small"></span>
                             </div>
@@ -74,14 +77,14 @@
 
                 <!--begin::modal footer-->
                 <div class="modal-footer border-0 pt-0">
-                    <button type="submit" id="saveBtn" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {{ __('general.save') }}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                    <button type="submit" id="saveBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                        <i class="fas fa-save"></i> {{ __('general.save') }}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
                         data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -95,7 +98,11 @@
     <script>
         $(document).ready(function() {
             if ($('#company_id_dept_create').length) {
-                initGenericSelect2('#company_id_dept_create', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("general.select_from_list") !!}', '#createDepartmentModal');
+                $('#company_id_dept_create').select2({
+                    dropdownParent: $('#createDepartmentModal'),
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
             }
         });
     </script>

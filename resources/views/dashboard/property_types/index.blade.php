@@ -17,11 +17,11 @@
                             <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}">
-                                        <i class="la la-home mr-1"></i> {!! __('dashboard.home') !!}
+                                        <i class="fas fa-home mr-1"></i> {!! __('dashboard.home') !!}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <i class="la la-briefcase mr-1 pointer-events-none"></i> {!! __('property_types.property_types') !!}
+                                    <i class="fas fa-briefcase mr-1 pointer-events-none"></i> {!! __('property_types.property_types') !!}
                                 </li>
                             </ol>
                         </div>
@@ -32,7 +32,7 @@
                     <div class="mb-1">
                         <button type="button" class="btn btn-premium-add shadow-pulse h-42 radius-10" data-toggle="modal"
                             data-target="#createproperty_typeModal">
-                            <i class="la la-plus-circle mr-1"></i>
+                            <i class="fas fa-plus-circle mr-1"></i>
                             {!! __('property_types.create_new_property_type') !!}
                         </button>
                     </div>
@@ -51,16 +51,16 @@
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
                                     <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="la la-briefcase text-primary mr-2 font-24"></i>
+                                        <i class="fas fa-briefcase text-primary mr-2 font-24"></i>
                                         {!! __('property_types.property_types') !!}
-                                        <span
+                                        <span id="property_typesCountBadge"
                                             class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $property_types->total() !!}</span>
                                     </h4>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="la la-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="la la-refresh"></i></a></li>
-                                            <li><a data-action="expand"><i class="la la-expand"></i></a></li>
+                                            <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="fas fa-sync"></i></a></li>
+                                            <li><a data-action="expand"><i class="fas fa-expand"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

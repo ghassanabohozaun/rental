@@ -1,10 +1,11 @@
+<input type="hidden" id="property_statuses-total-count" value="{!! $property_statuses->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.name') !!}</th>
+                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('property_statuses.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('property_statuses.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.status') !!}</th>
@@ -18,7 +19,7 @@
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
-                            <i class="la la-plus-circle text-primary" style="font-size: 22px;"></i>
+                            <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
                         </span>
 
                         <!-- Hidden Row Details for AJAX Modal -->
@@ -30,7 +31,7 @@
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
                                         <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
-                                            <i class="la la-briefcase font-40"></i>
+                                            <i class="fas fa-briefcase font-40"></i>
                                         </div>
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">
@@ -43,7 +44,7 @@
                                 <!-- Detail Items List -->
                                 <div class="modal-info-list mt-2">
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-fingerprint"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-fingerprint"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.system_id') !!}</span>
                                             <span class="detail-info-value text-muted"># {!! $property_status->id !!}</span>
@@ -51,7 +52,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-briefcase"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value text-muted small">
@@ -65,7 +66,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-check-circle"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-check-circle"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('property_statuses.status') !!}</span>
                                             <div class="detail-info-value mt-1">
@@ -79,7 +80,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-user-plus"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('property_statuses.created_by') !!}</span>
                                             <span class="detail-info-value">{!! $property_status->creator->name ?? '---' !!}</span>
@@ -93,25 +94,27 @@
                     <!-- Desktop ID Badge -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="badge badge-info badge-pill badge-glow premium-badge-circle">
-                            {!! $loop->iteration !!}
+                            {!! $loop->iteration + ($property_statuses->currentPage() - 1) * $property_statuses->perPage() !!}
                         </span>
                     </td>
 
                     <!-- Name -->
-                    <td class="text-center align-middle font-weight-bold text-primary">
-                        <span class="d-inline-block rounded-circle mr-1" style="width: 10px; height: 10px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
-                        {!! $property_status->name !!}
+                    <td class="align-middle font-weight-bold text-primary property-info-td">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <span class="d-inline-block rounded-circle mr-1" style="min-width: 10px; height: 10px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
+                            <span class="ml-1">{!! $property_status->name !!}</span>
+                        </div>
                     </td>
 
                     <!-- Company -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         @if($property_status->company_id)
                             <span class="badge badge-light-primary border-0">
-                                <i class="la la-briefcase mr-25"></i> {!! optional($property_status->company)->name !!}
+                                <i class="fas fa-briefcase mr-25"></i> {!! optional($property_status->company)->name !!}
                             </span>
                         @else
                             <span class="badge badge-light-warning border-0">
-                                <i class="la la-globe mr-25"></i> {!! __('roles.global_role') !!}
+                                <i class="fas fa-globe mr-25"></i> {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>

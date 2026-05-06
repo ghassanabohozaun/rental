@@ -15,11 +15,11 @@
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold text-dark" id="editBankAccountModalLabel">
-                        <i class="la la-edit mr-1 text-primary" style="font-size: 22px;"></i> {!! __('bank_accounts.update_bank_account') !!}
-                    </h5>
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="editBankAccountModalLabel">
+                        <i class="fas fa-edit text-primary mr-2 icon-size-18"></i> {!! __('bank_accounts.update_bank_account') !!}
+                    </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <!--end::modal header-->
@@ -35,7 +35,7 @@
                                     <input type="text" id="bank_name_ar_edit" name="bank_name[ar]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_bank_name_ar') !!}">
-                                    <i class="la la-bank text-primary"></i>
+                                    <i class="fas fa-university text-primary"></i>
                                 </div>
                                 <span class="error-text bank_name_ar_error text-danger small"></span>
                             </div>
@@ -49,7 +49,7 @@
                                     <input type="text" id="bank_name_en_edit" name="bank_name[en]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_bank_name_en') !!}">
-                                    <i class="la la-bank text-primary"></i>
+                                    <i class="fas fa-university text-primary"></i>
                                 </div>
                                 <span class="error-text bank_name_en_error text-danger small"></span>
                             </div>
@@ -63,7 +63,7 @@
                                     <input type="text" id="account_holder_name_ar_edit" name="account_holder_name[ar]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_account_holder_name_ar') !!}">
-                                    <i class="la la-user text-primary"></i>
+                                    <i class="fas fa-user text-primary"></i>
                                 </div>
                                 <span class="error-text account_holder_name_ar_error text-danger small"></span>
                             </div>
@@ -77,7 +77,7 @@
                                     <input type="text" id="account_holder_name_en_edit" name="account_holder_name[en]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_account_holder_name_en') !!}">
-                                    <i class="la la-user text-primary"></i>
+                                    <i class="fas fa-user text-primary"></i>
                                 </div>
                                 <span class="error-text account_holder_name_en_error text-danger small"></span>
                             </div>
@@ -91,7 +91,7 @@
                                     <input type="text" id="account_number_edit" name="account_number"
                                         class="form-control premium-input shadow-none" autocomplete="off" dir="ltr"
                                         placeholder="{!! __('bank_accounts.enter_account_number') !!}">
-                                    <i class="la la-hashtag text-primary"></i>
+                                    <i class="fas fa-hashtag text-primary"></i>
                                 </div>
                                 <span class="error-text account_number_error text-danger small"></span>
                             </div>
@@ -105,7 +105,7 @@
                                     <input type="text" id="iban_edit" name="iban"
                                         class="form-control premium-input shadow-none" autocomplete="off" dir="ltr"
                                         placeholder="{!! __('bank_accounts.enter_iban') !!}">
-                                    <i class="la la-barcode text-primary"></i>
+                                    <i class="fas fa-barcode text-primary"></i>
                                 </div>
                                 <span class="error-text iban_error text-danger small"></span>
                             </div>
@@ -120,8 +120,11 @@
                                 <div class="premium-input-wrapper">
                                     <select class="form-control premium-input shadow-none" id='company_id_bank_edit' name="company_id">
                                         <option value="">{!! __('general.select_from_list') !!}</option>
-                                        <!-- Options will be loaded dynamically via AJAX -->
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
                                     </select>
+                                    <i class="fas fa-briefcase text-primary"></i>
                                 </div>
                                 <span class="error-text company_id_error text-danger small"></span>
                             </div>
@@ -134,7 +137,7 @@
                             <label for="is_default_edit" class="d-flex align-items-center justify-content-between p-3 w-100 cursor-pointer mb-0" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; transition: all 0.3s ease;">
                                 <div class="d-flex align-items-center">
                                     <div class="d-flex align-items-center justify-content-center text-warning shadow-sm bg-white" style="width: 45px; height: 45px; border-radius: 10px; margin-inline-end: 15px;">
-                                        <i class="la la-star" style="font-size: 24px;"></i>
+                                        <i class="fas fa-star" style="font-size: 24px;"></i>
                                     </div>
                                     <div>
                                         <h6 class="font-weight-bold mb-1 text-dark" style="font-size: 1rem; cursor: pointer;">{!! __('bank_accounts.is_default') !!}</h6>
@@ -153,14 +156,14 @@
 
                 <!--begin::modal footer-->
                 <div class="modal-footer border-0 pt-0 mt-3">
-                    <button type="submit" id="updateBtn" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {{ __('general.save') }}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                    <button type="submit" id="updateBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                        <i class="fas fa-save"></i> {{ __('general.save') }}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
                         data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -174,7 +177,11 @@
     <script>
         $(document).ready(function() {
             if ($('#company_id_bank_edit').length) {
-                initGenericSelect2('#company_id_bank_edit', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("general.select_from_list") !!}', '#editBankAccountModal');
+                $('#company_id_bank_edit').select2({
+                    dropdownParent: $('#editBankAccountModal'),
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
             }
 
             $(document).on('click', '.editBankAccountBtn', function(e) {
@@ -206,8 +213,7 @@
 
                 if ($('#company_id_bank_edit').length) {
                     if (company_id) {
-                        var newOption = new Option(company_name, company_id, true, true);
-                        $('#company_id_bank_edit').append(newOption).trigger('change');
+                        $('#company_id_bank_edit').val(company_id).trigger('change');
                     } else {
                         $('#company_id_bank_edit').val(null).trigger('change');
                     }

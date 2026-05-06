@@ -1,11 +1,13 @@
+<input type="hidden" id="users-total-count" value="{!! $users->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.photo') !!}
                 </th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('users.users') !!}</th>
+                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('users.users') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.role_id') !!}
                 </th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}
@@ -24,7 +26,7 @@
                 <tr id="row{{ $user->id }}">
                     <td class="text-center d-lg-none align-middle">
                         <span class="details-control pointer">
-                            <i class="la la-plus-circle text-primary" style="font-size: 22px;"></i>
+                            <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
                         </span>
                         <!-- Hidden Row Details -->
                         <div class="row-details d-none">
@@ -42,7 +44,7 @@
                                     <span class="modal-role-badge">{!! optional($user->role)->name !!}</span>
 
                                     <div class="modal-member-since-box">
-                                        <i class="la la-calendar small mr-1"></i>
+                                        <i class="fas fa-calendar-alt small mr-1"></i>
                                         {!! __('general.created_at') !!}: {!! is_string($user->created_at) ? $user->created_at : $user->created_at->format('Y-m-d') !!}
                                     </div>
                                 </div>
@@ -50,7 +52,7 @@
                                 <!-- Detail Items List -->
                                 <div class="modal-info-list mt-2">
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-fingerprint"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-fingerprint"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.system_id') !!}</span>
                                             <span class="detail-info-value text-muted"># {!! $user->id !!}</span>
@@ -58,7 +60,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-envelope"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-envelope"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('users.email') !!}</span>
                                             <span class="detail-info-value">{!! $user->email !!}</span>
@@ -66,7 +68,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-shield"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('users.role_id') !!}</span>
                                             <span
@@ -75,7 +77,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-briefcase"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value">{!! optional($user->company)->name !!}</span>
@@ -83,7 +85,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-check-circle"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-check-circle"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('users.status') !!}</span>
                                             <div class="detail-info-value mt-1">
@@ -99,7 +101,7 @@
                                     </div>
 
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-user-plus"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('users.created_by') !!}</span>
                                             <span class="detail-info-value">{!! $user->creator->name ?? '---' !!}</span>
@@ -109,14 +111,19 @@
                             </div>
                         </div>
                     </td>
+                    <td class="text-center align-middle d-none d-lg-table-cell">
+                        <span class="badge badge-info badge-pill badge-glow premium-badge-circle">
+                            {!! $loop->iteration + ($users->currentPage() - 1) * $users->perPage() !!}
+                        </span>
+                    </td>
                     <td class="text-center d-none d-lg-table-cell align-middle">
                         <div class="d-flex justify-content-center">
                             @include('dashboard.users.parts.photo')
                         </div>
                     </td>
-                    <td class="text-center align-middle">
+                    <td class="align-middle property-info-td">
                         <div class="user-info-cell">
-                            <span class="user-name-text">{!! $user->name !!}</span>
+                            <span class="user-name-text font-weight-bold">{!! $user->name !!}</span>
                             <span class="user-email-text">{!! $user->email !!}</span>
                         </div>
                     </td>
@@ -128,7 +135,7 @@
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <div class="company-chip">
-                            <i class="la la-briefcase"></i>
+                            <i class="fas fa-briefcase"></i>
                             <span>{!! optional($user->company)->name ?? __('general.all_companies') !!}</span>
                         </div>
                     </td>
@@ -147,7 +154,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center p-3 text-muted">
+                    <td colspan="9" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('users.no_users_found') !!}
                     </td>
                 </tr>

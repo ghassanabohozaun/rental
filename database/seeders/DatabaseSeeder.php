@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             PropertyStatusSeeder::class,
             PropertyTypeSeeder::class,
+            NationalitySeeder::class,
         ]);
     }
 }

@@ -31,14 +31,16 @@ class UsersController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = $this->companyService->getAll(new Request())->where('id', '!=', 1);
+            $companies = $this->companyService->getAll(new Request());
         }
+
+        $stats = $this->userService->getStats();
 
         if ($request->ajax()) {
             return view('dashboard.users.partials._table', compact('users', 'roles', 'companies'))->render();
         }
 
-        return view('dashboard.users.index', compact('title', 'users', 'roles', 'companies'));
+        return view('dashboard.users.index', compact('title', 'users', 'roles', 'companies', 'stats'));
     }
 
     public function store(UserRequest $request)

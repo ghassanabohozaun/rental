@@ -75,4 +75,12 @@ return [
     'records' => 'سجل',
     'statistics' => 'الإحصائيات',
     'secured_session' => 'جلسة مؤمنة',
+    'financial_trend' => 'تحليل التدفق المالي',
+    'monthly_collections' => 'نظرة عامة على التحصيلات الشهرية للشركة',
+    'occupancy_rate' => 'نسبة إشغال الوحدات',
+    'expiring_contracts' => 'عقود تنتهي قريباً (30 يوم)',
+    'no_expiring_contracts' => 'لا يوجد عقود أوشكت على الانتهاء.',
+    'upcoming_cheques' => 'شيكات تستحق التحصيل (7 أيام)',
+    'no_upcoming_cheques' => 'لا يوجد شيكات مستحقة قريباً.',
+    'reports_module_ready' => 'نظام التقارير قيد التجهيز مع كافة التدقيقات المالية.',
 ];

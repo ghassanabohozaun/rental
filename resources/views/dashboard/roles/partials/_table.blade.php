@@ -1,3 +1,4 @@
+<input type="hidden" id="roles-total-count" value="{!! $roles->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -17,7 +18,7 @@
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
-                            <i class="la la-plus-circle text-primary" style="font-size: 22px;"></i>
+                            <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
                         </span>
 
                         <!-- Hidden Row Details for AJAX Modal -->
@@ -29,7 +30,7 @@
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
                                         <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-premium-gradient">
-                                            <i class="la la-shield font-40"></i>
+                                            <i class="fas fa-shield-alt font-40"></i>
                                         </div>
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{!! $role->name !!}</h4>
@@ -39,7 +40,7 @@
                                 <!-- Detail Items List -->
                                 <div class="modal-info-list mt-2">
                                     <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="la la-fingerprint"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-fingerprint"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.system_id') !!}</span>
                                             <span class="detail-info-value text-muted"># {!! $role->id !!}</span>
@@ -47,7 +48,7 @@
                                     </div>
 
                                     <div class="detail-item-modern mt-1">
-                                        <div class="icon-circle"><i class="la la-briefcase"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value">
@@ -61,7 +62,7 @@
                                     </div>
 
                                     <div class="detail-item-modern mt-1">
-                                        <div class="icon-circle"><i class="la la-info-circle"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-info-circle"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('roles.description') !!}</span>
                                             <span class="detail-info-value text-muted small">{!! $role->description ?? '---' !!}</span>
@@ -69,14 +70,14 @@
                                     </div>
 
                                     <div class="detail-item-modern mt-1">
-                                        <div class="icon-circle"><i class="la la-user-plus"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('roles.created_by') !!}</span>
                                             <span class="detail-info-value">{!! $role->creator->name ?? '---' !!}</span>
                                         </div>
                                     </div>
                                     <div class="detail-item-modern mt-1">
-                                        <div class="icon-circle"><i class="la la-calendar"></i></div>
+                                        <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.created_at') !!}</span>
                                             <span class="detail-info-value text-muted">{!! $role->created_at->format('Y-m-d') !!}</span>
@@ -98,7 +99,7 @@
                     <!-- Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">
                         <div class="d-flex align-items-center justify-content-center">
-                            <i class="la la-shield mr-1 d-none d-md-inline"></i>
+                            <i class="fas fa-shield-alt mr-1 d-none d-md-inline"></i>
                             {!! $role->name !!}
                         </div>
                     </td>
@@ -107,24 +108,24 @@
                     <td class="text-center align-middle">
                         @if($role->company_id)
                             <span class="badge badge-light-primary border-0">
-                                <i class="la la-briefcase mr-25"></i> {!! optional($role->company)->name !!}
+                                <i class="fas fa-briefcase mr-25"></i> {!! optional($role->company)->name !!}
                             </span>
                         @else
                             <span class="badge badge-light-warning border-0">
-                                <i class="la la-globe mr-25"></i> {!! __('roles.global_role') !!}
+                                <i class="fas fa-globe mr-25"></i> {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-muted small">{!! $role->creator->name ?? '---' !!}</span>
+                        <span class="text-muted">{!! $role->creator->name ?? '---' !!}</span>
                     </td>
 
                     <!-- Description (Desktop Only) -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         @if($role->description)
-                            <span class="text-muted small">{!! Str::limit($role->description, 30) !!}</span>
+                            <span class="text-muted">{!! Str::limit($role->description, 30) !!}</span>
                         @else
-                            <span class="text-muted small">---</span>
+                            <span class="text-muted">---</span>
                         @endif
                     </td>
 

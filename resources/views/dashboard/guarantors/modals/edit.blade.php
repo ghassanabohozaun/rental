@@ -13,11 +13,11 @@
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold text-dark" id="editModalLabel">
-                        <i class="la la-edit mr-1 text-primary" style="font-size: 22px;"></i> {!! __('guarantors.edit_guarantor') !!}
-                    </h5>
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="editModalLabel">
+                        <i class="fas fa-edit text-primary mr-2 icon-size-18"></i> {!! __('guarantors.edit_guarantor') !!}
+                    </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <!--end::modal header-->
@@ -29,16 +29,17 @@
                     <div class="row">
                         <!-- Company -->
                         @if(user()->company_id == 1)
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-1">
                                 <div class="premium-form-group">
                                     <label for="edit_company_id">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
                                     <div class="premium-input-wrapper">
-                                        <select class="form-control premium-input shadow-none js-select2 js-autocomplete" id='edit_company_id' name="company_id"
-                                            data-url="{!! route('dashboard.companies.autocomplete') !!}"
-                                            data-placeholder="{!! __('general.select_company') !!}"
-                                            data-parent="#editModal">
-                                            <option></option>
+                                        <select class="form-control premium-input shadow-none" id='edit_company_id' name="company_id">
+                                            <option value="">{!! __('general.select_from_list') !!}</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
                                         </select>
+                                        <i class="fas fa-briefcase text-primary"></i>
                                     </div>
                                     <span class="error-text company_id_error text-danger small"></span>
                                 </div>
@@ -46,59 +47,59 @@
                         @endif
 
                         <!-- Name AR -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_name_ar">{!! __('guarantors.name') !!} ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" class="form-control premium-input shadow-none" id="edit_name_ar"
                                     name="name[ar]" placeholder="{!! __('guarantors.name') !!} ({!! __('general.ar') !!})" autocomplete="off">
-                                    <i class="la la-user text-primary"></i>
+                                    <i class="fas fa-user text-primary"></i>
                                 </div>
                                 <span class="error-text name_ar_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Name EN -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_name_en">{!! __('guarantors.name') !!} ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" class="form-control premium-input shadow-none" id="edit_name_en"
                                     name="name[en]" placeholder="{!! __('guarantors.name') !!} ({!! __('general.en') !!})" autocomplete="off">
-                                    <i class="la la-user text-primary"></i>
+                                    <i class="fas fa-user text-primary"></i>
                                 </div>
                                 <span class="error-text name_en_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Phone -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_phone">{!! __('guarantors.phone') !!}</label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" class="form-control premium-input shadow-none text-left" id="edit_phone"
                                     name="phone" placeholder="{!! __('guarantors.phone') !!}" dir="ltr" autocomplete="off">
-                                    <i class="la la-phone text-primary"></i>
+                                    <i class="fas fa-phone text-primary"></i>
                                 </div>
                                 <span class="error-text phone_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- ID Number -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_id_number">{!! __('guarantors.id_number') !!}</label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" class="form-control premium-input shadow-none" id="edit_id_number"
                                     name="id_number" placeholder="{!! __('guarantors.id_number') !!}" autocomplete="off">
-                                    <i class="la la-credit-card text-primary"></i>
+                                    <i class="fas fa-credit-card text-primary"></i>
                                 </div>
                                 <span class="error-text id_number_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Relationship -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_relationship">{!! __('guarantors.relationship') !!}</label>
                                 <div class="premium-input-wrapper">
@@ -108,27 +109,27 @@
                                             <option value="{!! $value !!}">{!! $value !!}</option>
                                         @endforeach
                                     </select>
-                                    <i class="la la-users text-primary"></i>
+                                    <i class="fas fa-users text-primary"></i>
                                 </div>
                                 <span class="error-text relationship_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Address -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_address">{!! __('guarantors.address') !!}</label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" class="form-control premium-input shadow-none" id="edit_address"
                                     name="address" placeholder="{!! __('guarantors.address') !!}" autocomplete="off">
-                                    <i class="la la-map-marker text-primary"></i>
+                                    <i class="fas fa-map-marker text-primary"></i>
                                 </div>
                                 <span class="error-text address_error text-danger small"></span>
                             </div>
                         </div>
 
                         <!-- Notes -->
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-12 mb-1">
                             <div class="premium-form-group">
                                 <label for="edit_notes">{!! __('guarantors.notes') !!}</label>
                                 <div class="premium-input-wrapper no-icon">
@@ -142,14 +143,14 @@
                 <!--end::modal body-->
 
                 <div class="modal-footer border-0 pt-0">
-                    <button type="submit" id="editSaveBtn" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
-                        <i class="la la-save mr-1"></i> {{ __('general.save') }}
-                        <i class="la la-refresh la-spin spinner_loading d-none ml-1"></i>
+                    <button type="submit" id="editSaveBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                        <i class="fas fa-save"></i> {{ __('general.save') }}
+                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
                         data-dismiss="modal">
-                        <i class="la la-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->
@@ -162,6 +163,14 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        if ($('#edit_company_id').length) {
+            $('#edit_company_id').select2({
+                dropdownParent: $('#editModal'),
+                width: '100%',
+                dir: $('html').attr('data-textdirection') || 'ltr'
+            });
+        }
+
         // Handle edit button click
         $(document).on('click', '.js-edit-btn', function() {
             var id = $(this).data('id');
@@ -190,14 +199,11 @@
             // Handle Company Select2 for Super Admin
             @if(user()->company_id == 1)
                 var company_id = $(this).data('company_id');
-                var company_name = $(this).data('company');
                 var select = $('#edit_company_id');
-                select.empty();
                 if (company_id) {
-                    var option = new Option(company_name, company_id, true, true);
-                    select.append(option).trigger('change');
+                    select.val(company_id).trigger('change');
                 } else {
-                    select.trigger('change');
+                    select.val('').trigger('change');
                 }
             @endif
         });
