@@ -67,4 +67,12 @@ return [
     'property_name' => 'Property Name',
     'legal_utility_info' => 'Legal & Utility Information',
     'sq_m' => 'sqm',
+    'parent_property' => 'Belongs to Property (Parent)',
+    'standalone_property' => 'Standalone Property (Main)',
+    'quick_tips' => 'Quick Tips',
+    'property_preview_desc' => 'Here is a preliminary summary of the data you are currently entering to ensure accuracy.',
+    'property_edit_summary' => 'Property Data Summary',
+    'tip_1' => 'Make sure to review the "Property Number" as it is the primary reference for the property in the system.',
+    'tip_2' => 'Adding the "Electricity and Water Account Number" facilitates the tracking of bills later.',
+    'tip_3' => 'A detailed description helps in marketing the property faster.',
 ];

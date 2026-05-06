@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('properties')->onDelete('set null');
             $table->foreignId('owner_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name');
             $table->string('location')->nullable();

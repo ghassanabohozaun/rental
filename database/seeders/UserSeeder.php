@@ -29,6 +29,21 @@ class UserSeeder extends Seeder
             ]
         );
 
+        // 1.2 Haitham Super Admin
+        User::firstOrCreate(
+            ['email' => 'haitham@admin.com'],
+            [
+                'name' => [
+                    'en' => 'Haitham Admin',
+                    'ar' => 'هيثم - مدير النظام',
+                ],
+                'password' => bcrypt('123123'),
+                'company_id' => 1,
+                'role_id' => $superRole->id,
+                'status' => true
+            ]
+        );
+
         // 2. Al Majed Admin
         $majedCompany = Company::where('name->en', 'AL Majed Rental Company')->first();
         if ($majedCompany) {

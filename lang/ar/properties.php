@@ -76,4 +76,6 @@ return [
     'property_name' => 'اسم العقار',
     'legal_utility_info' => 'المعلومات القانونية والخدمات',
     'sq_m' => 'م²',
+    'parent_property' => 'العقار الرئيسي (يتبع لعقار)',
+    'standalone_property' => 'عقار مستقل (رئيسي)',
 ];

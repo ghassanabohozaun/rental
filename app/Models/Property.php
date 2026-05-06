@@ -21,10 +21,27 @@ class Property extends Model implements MustBelongToCompany
         'contracts' => 'properties.cannot_delete_has_contracts',
     ];
 
-    protected $fillable = ['company_id', 'owner_id', 'name', 'location',
-     'property_type_id', 'property_status_id', 'area', 'price', 'description', 'property_number', 'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by'];
+    protected $fillable = ['company_id', 'parent_id', 'owner_id', 'name', 'location',
+     'property_type_id', 'property_status_id', 'area', 'price', 'description', 'property_number',
+     'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by'];
 
     public $translatable = ['name'];
+
+    /**
+     * Get the parent property (e.g., Building).
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Property::class, 'parent_id');
+    }
+
+    /**
+     * Get the child units (e.g., Apartments).
+     */
+    public function units()
+    {
+        return $this->hasMany(Property::class, 'parent_id');
+    }
 
     /**
      * Get the type of the property.

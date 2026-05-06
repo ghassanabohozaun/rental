@@ -35,6 +35,7 @@ class PropertyRequest extends FormRequest
             'electricity_account_number' => 'required|string|max:255',
             'water_account_number' => 'required|string|max:255',
             'owner_id' => 'nullable|exists:users,id',
+            'parent_id' => 'nullable|exists:properties,id',
         ];
 
         // If user is super admin, they must select a company

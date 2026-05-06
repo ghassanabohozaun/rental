@@ -118,7 +118,24 @@
                                                         <i class="fas fa-building text-primary"></i>
                                                     </div>
                                                     <span
-                                                        class="text text-danger small mt-1 d-block error-text name_en_error"></span>
+                                                </div>
+                                        </div>
+
+                                        {{-- Parent Property Selection --}}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="premium-form-group">
+                                                    <label class="premium-label">{!! __('properties.parent_property') !!}</label>
+                                                    <div class="premium-input-wrapper">
+                                                        <select name="parent_id" class="form-control premium-input shadow-none select2">
+                                                            <option value="">{!! __('properties.standalone_property') !!}</option>
+                                                            @foreach ($parent_properties as $parent)
+                                                                <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <i class="fas fa-sitemap text-primary"></i>
+                                                    </div>
+                                                    <span class="text text-danger small mt-1 d-block error-text parent_id_error"></span>
                                                 </div>
                                             </div>
                                         </div>

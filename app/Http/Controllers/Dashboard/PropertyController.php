@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\PropertyRequest;
+use App\Models\Property;
 use App\Models\Company;
 use App\Models\PropertyType;
 use App\Models\PropertyStatus;
@@ -69,7 +70,10 @@ class PropertyController extends Controller
         $property_types = PropertyType::active()->get();
         $property_statuses = PropertyStatus::active()->get();
 
-        return view('dashboard.properties.create', compact('title', 'companies', 'property_types', 'property_statuses'));
+        // Get properties that can be parents (usually those without a parent)
+        $parent_properties = Property::whereNull('parent_id')->get();
+
+        return view('dashboard.properties.create', compact('title', 'companies', 'property_types', 'property_statuses', 'parent_properties'));
     }
 
 
@@ -118,7 +122,12 @@ class PropertyController extends Controller
         $property_types = PropertyType::active()->get();
         $property_statuses = PropertyStatus::active()->get();
 
-        return view('dashboard.properties.edit', compact('property', 'title', 'companies', 'property_types', 'property_statuses'));
+        // Get properties that can be parents (excluding the current one and its children)
+        $parent_properties = Property::whereNull('parent_id')
+            ->where('id', '!=', $id)
+            ->get();
+
+        return view('dashboard.properties.edit', compact('property', 'title', 'companies', 'property_types', 'property_statuses', 'parent_properties'));
     }
 
     // update
