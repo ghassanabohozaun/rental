@@ -13,16 +13,16 @@
         <!-- 1. Visual/Welcome Side (Hidden on Mobile) -->
         <div class="welcome-side">
             <div class="welcome-content-premium">
-                <span class="badge-welcome">MJK-ALTHANI GROUP</span>
+                <span class="badge-welcome">{!! setting()->auth_welcome_badge !!}</span>
                 <h1 class="welcome-title">
-                    {!! __('auth.welcome_title') !!}
+                    {!! setting()->auth_welcome_title !!}
                 </h1>
                 <p class="welcome-text">
-                    {!! __('auth.welcome_desc') !!}
+                    {!! setting()->auth_welcome_desc !!}
                 </p>
                 <div class="welcome-footer">
                     <div class="footer-stats">
-                        <span class="stat-item"><i class="fas fa-briefcase"></i> MJK-ALTHANI Portal</span>
+                        <span class="stat-item"><i class="fas fa-briefcase"></i> {!! setting()->auth_welcome_footer !!}</span>
                     </div>
                 </div>
             </div>
@@ -58,55 +58,40 @@
                     <p>{!! __('auth.login_dashboard') !!}</p>
                 </div>
 
-                @if (session('success'))
-                    <div class="alert alert-success mb-4 py-3"
-                        style="font-size: 0.82rem; border-radius: 12px; border: none; background: #ecfdf5; color: #065f46;">
-                        <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
-                    </div>
-                @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger mb-4 py-3"
-                        style="font-size: 0.82rem; border-radius: 12px; border: none; background: #fff1f2; color: #be123c;">
-                        <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
-                    </div>
-                @endif
-
-                <form action="{!! route('dashboard.post.login') !!}" method="post" class="modern-form" autocomplete="off">
+                <form action="{!! route('dashboard.post.login') !!}" method="post" class="modern-form" autocomplete="off" novalidate>
                     @csrf
 
                     <!-- Email -->
-                    <div class="form-group-modern">
+                    <div class="premium-form-group">
                         <label class="form-label-modern">{!! __('auth.enter_you_email') !!}</label>
                         <div class="input-container-modern">
                             <input type="text" class="form-control-modern @error('email') is-invalid @enderror"
-                                name="email" id="email" placeholder="email@example.com" required autofocus
+                                name="email" id="email" placeholder="email@example.com" autofocus
                                 autocomplete="off">
                             <i class="fas fa-envelope input-icon-modern"></i>
                         </div>
                         @error('email')
-                            <span
-                                style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
+                            <span class="text-danger error-text">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <!-- Password -->
-                    <div class="form-group-modern">
+                    <div class="premium-form-group">
                         <label class="form-label-modern">{!! __('auth.enter_you_password') !!}</label>
                         <div class="input-container-modern">
                             <input type="password" class="form-control-modern @error('password') is-invalid @enderror"
-                                name="password" id="password" placeholder="••••••••" required autocomplete="new-password">
+                                name="password" id="password" placeholder="••••••••" autocomplete="new-password">
                             <i class="fas fa-lock input-icon-modern"></i>
                         </div>
                         @error('password')
-                            <span
-                                style="color: #e11d48; font-size: 0.75rem; margin-top: 5px; display: block;">{{ $message }}</span>
+                            <span class="text-danger error-text">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <div class="login-options-modern">
                         <label class="remember-modern">
-                            <input type="checkbox" name="remmber" {{ old('remmber') ? 'checked' : '' }}>
+                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                             <span>{!! __('auth.remmber_me') !!}</span>
                         </label>
                         <a href="{!! route('dashboard.password.get.email') !!}" class="forgot-modern">
@@ -123,3 +108,7 @@
         </div>
     </div>
 @endsection
+
+
+
+

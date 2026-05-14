@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->foreignId('nationality_id')->nullable()->constrained('nationalities')->nullOnDelete();
             $table->enum('tenant_type', ['individual', 'company'])->default('individual');
-            $table->foreignId('guarantor_id')->nullable()->constrained('guarantors')->nullOnDelete();
+            $table->string('company_name')->nullable();
+            $table->string('establishment_number')->nullable();
+            $table->string('cr_number')->nullable();
+            $table->string('license_number')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('status')->default(1);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

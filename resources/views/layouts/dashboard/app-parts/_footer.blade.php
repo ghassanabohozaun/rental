@@ -7,3 +7,5 @@
             {!! __('dashboard.all_rights_reserved') !!}. </span>
     </p>
 </footer>
+
+

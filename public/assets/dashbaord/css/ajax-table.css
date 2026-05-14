@@ -72,14 +72,9 @@
     overflow: hidden;
     background: #fff;
 }
-.premium-modal-header {
-    background: linear-gradient(135deg, #1F3BB3 0%, #3e59cc 100%);
-    height: 100px;
-    width: 100%;
-    position: relative;
-}
+
 .modal-profile-wrapper {
-    margin-top: -50px;
+    margin-top: 20px;
     position: relative;
     z-index: 5;
     margin-bottom: 20px;
@@ -299,6 +294,30 @@ html[dir="rtl"] .company-chip {
     box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
 }
 
+.badge-warning-premium {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+}
+
+.badge-danger-premium {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
+
+.badge-info-premium {
+    background-color: #17a2b8 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(23, 162, 184, 0.3);
+}
+
+.badge-secondary-premium {
+    background-color: #6c757d !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+}
+
 .premium-badge i {
     font-size: 14px;
     line-height: 0;
@@ -357,10 +376,14 @@ html[dir="rtl"] .property-info-td, [data-textdirection="rtl"] .property-info-td 
 .font-40 { font-size: 40px !important; }
 
 [data-textdirection="rtl"] .table td,
-[data-textdirection="rtl"] .table th,
-html[dir="rtl"] .table td,
-html[dir="rtl"] .table th {
+html[dir="rtl"] .table td {
     font-size: 14px !important;
+}
+
+.table thead th,
+[data-textdirection="rtl"] .table th,
+html[dir="rtl"] .table th {
+    font-size: 10px !important;
 }
 [data-textdirection="rtl"] .font-11, html[dir="rtl"] .font-11 { font-size: 11px !important; }
 [data-textdirection="rtl"] .font-12, html[dir="rtl"] .font-12 { font-size: 12px !important; }

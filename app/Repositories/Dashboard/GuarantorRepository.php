@@ -71,8 +71,7 @@ class GuarantorRepository
         if (!empty($searchValue)) {
             $query->where(function ($q) use ($searchValue) {
                 // Merging native Laravel JSON search with standard columns for case-insensitivity
-                $q->where('name->en', 'like', '%' . $searchValue . '%')
-                    ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
+                $q->where('name', 'like', '%' . $searchValue . '%')
                     ->orWhere('phone', 'like', '%' . $searchValue . '%')
                     ->orWhere('id_number', 'like', '%' . $searchValue . '%');
             });

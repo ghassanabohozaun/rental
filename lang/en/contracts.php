@@ -12,6 +12,7 @@ return [
     'available_properties_hint' => 'Available properties for rent',
     'customer' => 'Customer',
     'available_customers_hint' => 'Available Customers',
+    'conclusion_date' => 'Contract Conclusion Date',
     'start_date' => 'Start Date',
     'end_date' => 'End Date',
     'rent_amount' => 'Rent Amount',
@@ -76,4 +77,6 @@ return [
     'total_rent_value' => 'Total Rent Value',
     'expiring_soon' => 'Expiring Soon',
     'total_revenue' => 'Total Revenue',
+    'financial_summary' => 'Financial Summary',
+    'deposit_locked_hint' => 'Deposit details cannot be modified after it has been returned or used.',
 ];

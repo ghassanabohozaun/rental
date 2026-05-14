@@ -3,7 +3,7 @@
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\Auth\Passowrd\ResetPasswordController;
-use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, GuarantorsController, CustomersController, MaintenancesController, ContractsController, ChequesController, PaymentsController};
+use App\Http\Controllers\Dashboard\{CompaniesController,CompanyBankAccountController, DashboardController, DepartmentsController, RolesController, SettingsController, UsersController, PropertyTypesController, PropertyStatusesController, PropertyController, OwnersController, GuarantorsController, CustomersController, MaintenancesController, ContractsController, ChequesController, PaymentsController};
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -117,6 +117,14 @@ Route::group(
                 Route::post('/guarantors/destroy', [GuarantorsController::class, 'destroy'])->name('guarantors.destroy');
                 Route::post('/guarantors/status', [GuarantorsController::class, 'changeStatus'])->name('guarantors.change.status');
                 Route::get('/guarantors-autocomplete', [GuarantorsController::class, 'autocomplete'])->name('guarantors.autocomplete');
+            });
+
+            ########################################### owners routes #############################################################
+            Route::group(['middleware' => 'can:owners_read'], function () {
+                Route::resource('owners', OwnersController::class);
+                Route::post('/owners/destroy', [OwnersController::class, 'destroy'])->name('owners.destroy');
+                Route::get('/owners-autocomplete', [OwnersController::class, 'autocomplete'])->name('owners.autocomplete');
+                Route::get('/owners-by-company', [OwnersController::class, 'getByCompany'])->name('owners.by-company');
             });
 
             ########################################### customers routes #############################################################

@@ -24,6 +24,7 @@ class UserRequest extends FormRequest
             'role_id' => 'required|exists:roles,id',
             'mobile' => 'nullable|string|max:20',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'delete_photo' => 'nullable',
         ];
 
         if (user()->company_id == 1) {

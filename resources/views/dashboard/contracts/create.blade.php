@@ -7,13 +7,13 @@
     <link rel="stylesheet"
         href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <link href="{!! asset('vendor/summernote/summernote-bs4.css') !!}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}">
+    
 @endpush
 
 @section('content')
     <div class="app-content content">
         <form class="form ajax-form" id='myForm' action="{!! route('dashboard.contracts.store') !!}" method="post" enctype="multipart/form-data"
-            novalidate data-success-msg="{!! __('general.add_success_message') !!}" data-success-action="redirect"
+            novalidate autocomplete="off" data-success-msg="{!! __('general.add_success_message') !!}" data-success-action="redirect"
             data-redirect-url="{!! route('dashboard.contracts.index') !!}">
             @csrf
             <div class="content-wrapper">
@@ -60,7 +60,7 @@
                     <section id="basic-form-layouts">
                         <div class="row match-height">
                             <div class="col-md-12">
-                                <div class="card premium-card shadow-lg border-0">
+                                <div class="card premium-card shadow-lg border-0 premium-card-anim">
                                     <div class="card-header border-0 pb-0">
                                         <h6 class="card-title text-dark font-weight-bold d-flex align-items-center">
                                             <i class="fas fa-plus-circle text-primary mr-2 icon-size-16"></i> 
@@ -70,19 +70,21 @@
 
                                     <div class="card-content collapse show">
                                         <div class="card-body pt-1">
-                                            <!-- begin: Tabs Navigation (Segmented Style - UL/LI for BS4 Compatibility) -->
-                                            <ul class="nav premium-segmented-control mb-3" id="contractTabs" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link premium-tab-btn active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="basic" aria-selected="true">
-                                                        <i class="fas fa-info-circle"></i> {!! __('contracts.basic_details_tab') !!}
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link premium-tab-btn" id="terms-tab" data-toggle="tab" href="#terms" role="tab" aria-controls="terms" aria-selected="false">
-                                                        <i class="fas fa-file-invoice"></i> {!! __('contracts.contract_terms_tab') !!}
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <!-- Elite Floating Tabs Navigation -->
+                                            <div class="d-flex justify-content-center w-100 mb-2">
+                                                <ul class="nav premium-nav-tabs" id="contractTabs" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" data-text="{!! __('contracts.basic_details_tab') !!}">
+                                                            <i class="fas fa-info-circle"></i> {!! __('contracts.basic_details_tab') !!}
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms" role="tab" data-text="{!! __('contracts.contract_terms_tab') !!}">
+                                                            <i class="fas fa-file-invoice"></i> {!! __('contracts.contract_terms_tab') !!}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                             <!-- end: Tabs Navigation -->
 
                                             <div class="tab-content tab-content-premium" id="contractTabsContent">
@@ -252,7 +254,17 @@
                     }
 
                     $('#deposit_amount').on('input change', toggleChequeDetails);
-                    $('#deposit_type').on('change', toggleChequeDetails);
+                    $('#deposit_amount').on('blur', function() {
+                        if ($(this).val() === '') {
+                            $(this).val(0);
+                        }
+                    });
+                    $('#deposit_type').on('change', function() {
+                        toggleChequeDetails();
+                        if ($(this).val() === 'cash') {
+                            $('#deposit_status').val('held').trigger('change');
+                        }
+                    });
                     
                     // Initial check on load (for validation errors repopulation)
                     toggleChequeDetails();
@@ -285,3 +297,5 @@
         });
     </script>
 @endpush
+
+

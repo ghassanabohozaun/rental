@@ -3,14 +3,26 @@
 }
 
 .contract-header-premium {
-    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    border-radius: 24px;
+    border-radius: 15px; /* Unified radius */
     color: white;
-    padding: 40px;
-    margin-bottom: 30px;
+    padding: 25px 30px !important; /* Unified height/padding from properties masterpiece */
+    margin-bottom: 25px;
     position: relative;
-    box-shadow: 0 15px 35px rgba(30, 58, 138, 0.2);
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* Module Specific Gradients */
+.header-contract-navy {
+    background: linear-gradient(135deg, #0a1969 0%, #1e3a8a 100%) !important;
+}
+
+.header-property-black {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%) !important;
+}
+
+.header-customer-royal {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
 }
 
 .contract-header-premium .row {
@@ -62,7 +74,7 @@ body.rtl .contract-header-premium .col-lg-7 p {
     margin-bottom: 24px;
     background: #fff;
     border: 1px solid #f1f5f9;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .detail-card-master .card-header {
@@ -210,6 +222,18 @@ body.rtl .contract-header-premium .col-lg-7 p {
     white-space: pre-wrap;
 }
 
+
+.border-dashed-premium {
+    border: 1px dashed rgba(10, 25, 105, 0.2) !important;
+}
+
+.bg-light-primary-opacity { background: rgba(10, 25, 105, 0.08) !important; }
+.bg-light-success-opacity { background: rgba(40, 167, 69, 0.1) !important; }
+.bg-light-warning-opacity { background: rgba(255, 159, 67, 0.1) !important; }
+.bg-light-danger-opacity { background: rgba(234, 84, 85, 0.1) !important; }
+.bg-light-info-opacity { background: rgba(0, 207, 221, 0.1) !important; }
+
+.radius-15 { border-radius: 15px !important; }
 
 @media print {
     .app-content, .header-navbar, .main-menu, .content-header, .nav-pills, .breadcrumb-wrapper, .btn-premium-back, .btn-premium-edit {

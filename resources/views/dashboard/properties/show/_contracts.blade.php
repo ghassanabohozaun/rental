@@ -1,11 +1,10 @@
 <!-- Contracts Tab -->
 <div class="tab-pane fade" id="contracts" role="tabpanel">
-    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
-        <div class="card-header bg-white border-bottom py-2 px-3">
-            <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                <i class="fas fa-file-contract text-primary mr-1"></i>
-                <span>{!! __('contracts.contracts') !!}</span>
-            </h6>
+    <div class="card border-0 shadow-sm radius-15">
+        <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
+            <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                <i class="fas fa-file-contract text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('contracts.contracts') !!}
+            </h5>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -69,3 +68,5 @@
         </div>
     </div>
 </div>
+
+

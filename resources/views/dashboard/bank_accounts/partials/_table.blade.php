@@ -4,11 +4,11 @@
         <thead class="bg-white">
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                <th class="text-center align-middle py-3 border-top-0">#</th>
+                <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.bank_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.account_number') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('bank_accounts.account_holder_name') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.is_default') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
@@ -110,6 +110,14 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    <td class="text-center align-middle">
+                        <a href="javascript:void(0)" class="company-chip">
+                            <i class="fas fa-briefcase mr-1"></i>
+                            {!! $account->company->name ?? '---' !!}
+                        </a>
+                    </td>
+
                     <!-- Bank Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">{!! $account->bank_name !!}</td>
                     
@@ -118,13 +126,6 @@
                     
                     <!-- Account Holder -->
                     <td class="text-center align-middle d-none d-xl-table-cell">{!! $account->account_holder_name !!}</td>
-
-                    <!-- Company -->
-                    <td class="text-center align-middle">
-                        <span class="badge badge-light-primary border-0">
-                            <i class="fas fa-briefcase mr-25"></i> {!! $account->company->name ?? '---' !!}
-                        </span>
-                    </td>
                     
                     <!-- Is Default -->
                     <td class="text-center align-middle">
@@ -158,3 +159,5 @@
         {!! $bankAccounts->links() !!}
     </div>
 </div>
+
+

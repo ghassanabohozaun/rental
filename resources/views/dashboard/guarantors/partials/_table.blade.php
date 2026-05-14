@@ -5,10 +5,10 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('guarantors.name') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('guarantors.phone') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('guarantors.id_number') !!}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('guarantors.status') !!}</th>
                 @can('guarantors_update')
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{!! __('general.status') !!}</th>
@@ -69,13 +69,6 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="fas fa-users"></i></div>
-                                        <div class="detail-info-box text-left">
-                                            <span class="detail-info-label">{!! __('guarantors.relationship') !!}</span>
-                                            <span class="detail-info-value">{!! $guarantor->relationship ?? '---' !!}</span>
-                                        </div>
-                                    </div>
 
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
@@ -126,13 +119,18 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    <td class="text-center align-middle d-none d-lg-table-cell">
+                        <div class="company-chip">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{!! optional($guarantor->company)->name ?? __('general.all_companies') !!}</span>
+                        </div>
+                    </td>
+
                     <!-- Name -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! $guarantor->name !!}</span>
-                            @if($guarantor->relationship)
-                                <span class="user-email-text">{!! $guarantor->relationship !!}</span>
-                            @endif
                         </div>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
@@ -145,12 +143,7 @@
                             <i class="fas fa-credit-card text-muted mr-1"></i> {!! $guarantor->id_number ?? '---' !!}
                         </span>
                     </td>
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($guarantor->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
-                    </td>
+
                     <td class="text-center align-middle">
                         <div class="badge badge-pill badge-glow guarantor_status_{!! $guarantor->id !!} {!! $guarantor->status == 1 ? 'badge-success' : 'badge-danger' !!}"
                             style="font-size: 12px; font-weight: bold; padding: 5px 12px;">
@@ -159,14 +152,14 @@
                     </td>
                     
                     @can('guarantors_update')
-                    <td class="text-center align-middle">
-                        <div class="premium-switch-centered-wrapper">
-                            <div class="custom-control custom-switch custom-control-primary premium-switch-centered">
-                                <input type="checkbox" class="custom-control-input change_status" id="customSwitch_{{ $guarantor->id }}" {{ $guarantor->status == 1 ? 'checked' : '' }} data-id="{{ $guarantor->id }}" />
-                                <label class="custom-control-label" for="customSwitch_{{ $guarantor->id }}"></label>
+                        <td class="text-center align-middle">
+                            <div class="premium-switch-centered-wrapper">
+                                <label class="modern-switch">
+                                    <input type="checkbox" class="change_status" id="customSwitch_{{ $guarantor->id }}" {{ $guarantor->status == 1 ? 'checked' : '' }} data-id="{{ $guarantor->id }}" />
+                                    <span class="modern-slider"></span>
+                                </label>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                     @endcan
 
                     <td class="text-center align-middle">
@@ -186,3 +179,5 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $guarantors->links() !!}
 </div>
+
+

@@ -1103,35 +1103,60 @@ margin-right : 0;
 margin-right : 0rem;
 }
 @media (max-width: 767.98px) {
-.header-navbar .navbar-header {
-width : 100% !important;
-padding : 0.5rem 1rem;
-}
-.header-navbar .navbar-header .menu-toggle {
-top : 2px;
-position : relative;
-}
-.header-navbar .navbar-header .open-navbar-container i {
-font-size : 1.8rem;
-}
-.header-navbar .navbar-header .navbar-brand {
-position : absolute;
-right : 50%;
-top : 0;
--webkit-transform : translate(50%, 0);
--moz-transform : translate(50%, 0);
--ms-transform : translate(50%, 0);
--o-transform : translate(50%, 0);
-transform : translate(50%, 0);
-}
-.header-navbar.navbar-with-menu .navbar-container {
-width : 100%;
-display : table;
-background : #FFFFFF;
-padding : 0rem 1rem;
-margin : 0;
-height : auto;
-}
+    .header-navbar .navbar-header {
+        width: 100% !important;
+        height: 5rem !important;
+        padding: 0 !important;
+        display: block !important;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        background: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+        z-index: 1100 !important;
+    }
+    .header-navbar .navbar-header .nav.navbar-nav {
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+        display: block !important;
+        margin: 0 !important;
+    }
+    /* Absolute Logo Centering */
+    .header-navbar .navbar-header .navbar-brand {
+        position: absolute !important;
+        left: 50% !important;
+        top: 0 !important;
+        height: 100% !important;
+        transform: translateX(-50%) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 5 !important;
+    }
+    .header-navbar .navbar-header .navbar-brand img {
+        max-height: 35px !important;
+        display: block !important;
+    }
+    /* Fixed Icons Position for RTL: Hamburger LEFT, Ellipsis RIGHT */
+    .header-navbar .navbar-header .nav-item.mobile-menu {
+        position: absolute !important;
+        top: 50% !important;
+        left: 20px !important; /* Left in RTL */
+        right: auto !important;
+        transform: translateY(-50%) !important;
+        z-index: 10 !important;
+    }
+    .header-navbar .navbar-header .nav-item.d-md-none {
+        position: absolute !important;
+        top: 50% !important;
+        right: 20px !important; /* Right in RTL */
+        left: auto !important;
+        transform: translateY(-50%) !important;
+        z-index: 10 !important;
+    }
 }
 
 .navbar-light {
@@ -3024,3 +3049,4 @@ transform : rotate(0deg);
 transform : rotate(-360deg);
 }
 }
+

@@ -11,7 +11,8 @@ return [
     'property' => 'العقار',
     'available_properties_hint' => 'العقارات المتاحة للتأجير',
     'customer' => 'المستأجر',
-    'available_customers_hint' => 'العملاء المتاحون',
+    'available_customers_hint' => 'المستأجرون المتاحون',
+    'conclusion_date' => 'تاريخ إبرام العقد',
     'start_date' => 'تاريخ البدء',
     'end_date' => 'تاريخ الانتهاء',
     'rent_amount' => 'قيمة الإيجار',
@@ -79,4 +80,6 @@ return [
     'expiring_soon' => 'عقود تنتهي قريباً',
     'total_revenue' => 'إجمالي الإيرادات',
     'select_contract_to_view_details' => 'اختر العقد لعرض التفاصيل المالية',
+    'financial_summary' => 'الملخص المالي',
+    'deposit_locked_hint' => 'لا يمكن تعديل بيانات التأمين بعد استرجاعه أو تسييله.',
 ];

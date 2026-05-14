@@ -11,3 +11,5 @@
         <i class="fas fa-user avatar-icon-{!! $size !!}"></i>
     </div>
 @endif
+
+

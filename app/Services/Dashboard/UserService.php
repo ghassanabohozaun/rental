@@ -51,13 +51,18 @@ class UserService
             return false;
         }
 
-        $data = $request->except(['photo']);
+        $data = $request->except(['photo', 'delete_photo']);
         if ($request->hasFile('photo')) {
             if ($user->photo) {
                 $this->imageManagerUtils->removeImageFromLocal($user->photo, 'users');
             }
             $file_name = $this->imageManagerUtils->uploadSingleImage('', $request->photo, 'users');
             $data['photo'] = $file_name;
+        } elseif (isset($request->delete_photo) && $request->delete_photo == 1) {
+            if ($user->photo) {
+                $this->imageManagerUtils->removeImageFromLocal($user->photo, 'users');
+            }
+            $data['photo'] = null;
         }
 
         return $this->userRepository->updateUser($data, $user);

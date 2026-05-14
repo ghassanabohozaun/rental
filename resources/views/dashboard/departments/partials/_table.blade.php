@@ -5,8 +5,8 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('departments.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0">{!! __('departments.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.manage_status') !!}</th>
@@ -95,21 +95,23 @@
                         </span>
                     </td>
 
-                    <!-- Name -->
-                    <td class="text-center align-middle font-weight-bold text-primary">{!! $department->name !!}</td>
-
                     <!-- Company -->
                     <td class="text-center align-middle">
                         @if($department->company_id)
-                            <span class="badge badge-light-primary border-0">
-                                <i class="fas fa-briefcase mr-25"></i> {!! optional($department->company)->name !!}
-                            </span>
+                            <a href="javascript:void(0)" class="company-chip">
+                                <i class="fas fa-briefcase mr-1"></i>
+                                {!! optional($department->company)->name !!}
+                            </a>
                         @else
                             <span class="badge badge-light-warning border-0">
-                                <i class="fas fa-globe mr-25"></i> {!! __('roles.global_role') !!}
+                                <i class="fas fa-globe mr-1"></i> {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>
+
+                    <!-- Name -->
+                    <td class="text-center align-middle font-weight-bold text-primary">{!! $department->name !!}</td>
+
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-muted small">{!! $department->creator->name ?? '---' !!}</span>
                     </td>
@@ -143,3 +145,5 @@
         {!! $departments->links() !!}
     </div>
 </div>
+
+

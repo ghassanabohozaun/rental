@@ -1,117 +1,187 @@
 <!-- Personal Info Tab -->
 <div class="tab-pane fade show active" id="details" role="tabpanel">
-    <div class="row">
-        <div class="col-lg-4 col-12">
-            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-id-card text-primary mr-1"></i>
-                        <span>{!! __('customers.identity_info') !!}</span>
-                    </h6>
-                </div>
-                <div class="card-body p-3">
-                    <div class="info-row mb-2 d-flex justify-content-between align-items-center border-bottom pb-1">
-                        <span class="text-muted font-small-3">{!! __('customers.id_number') !!}</span>
-                        <span class="text-dark font-weight-bold">{!! $customer->id_number !!}</span>
-                    </div>
-                    <div class="info-row mb-2 d-flex justify-content-between align-items-center border-bottom pb-1">
-                        <span class="text-muted font-small-3">{!! __('customers.nationality') !!}</span>
-                        <span class="text-dark font-weight-bold">{!! optional($customer->nationality)->name !!}</span>
-                    </div>
-                    <div class="info-row d-flex justify-content-between align-items-center">
-                        <span class="text-muted font-small-3">{!! __('customers.tenant_type') !!}</span>
-                        <span class="badge badge-light-primary">{!! __('customers.type_' . strtolower($customer->tenant_type)) !!}</span>
-                    </div>
-                </div>
+    <!-- Main Info Section (12) - Expanded Grid -->
+    <div class="col-md-12">
+        <div class="card border-0 shadow-sm mb-2 radius-15">
+            <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
+                <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                    <i class="fas fa-user-circle text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('customers.personal_info') !!}
+                </h5>
             </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-address-book text-primary mr-1"></i>
-                        <span>{!! __('customers.contact_info') !!}</span>
-                    </h6>
-                </div>
-                <div class="card-body p-3">
-                    <div class="info-row mb-2 d-flex justify-content-between align-items-center border-bottom pb-1">
-                        <span class="text-muted font-small-3">{!! __('customers.phone') !!}</span>
-                        <span class="text-dark font-weight-bold">{!! $customer->phone !!}</span>
+            <div class="card-body pt-3 pb-3">
+                <div class="row">
+                    <!-- 1. Name Ar -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-primary-opacity">
+                                <i class="fas fa-signature text-primary"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.name_ar') !!}</label>
+                                <span class="data-grid-value">{!! $customer->getTranslation('name', 'ar') !!}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info-row mb-2 d-flex justify-content-between align-items-center border-bottom pb-1">
-                        <span class="text-muted font-small-3">{!! __('customers.email') !!}</span>
-                        <span class="text-dark font-weight-bold">{!! $customer->email ?: '---' !!}</span>
-                    </div>
-                    <div class="info-row d-flex justify-content-between align-items-center">
-                        <span class="text-muted font-small-3">{!! __('customers.status') !!}</span>
-                        <span class="badge badge-light-{!! $customer->status ? 'success' : 'danger' !!}">
-                            {!! $customer->status ? __('general.active') : __('general.inactive') !!}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-sticky-note text-primary mr-1"></i>
-                        <span>{!! __('general.notes') !!}</span>
-                    </h6>
-                </div>
-                <div class="card-body p-3">
-                    <p class="text-muted font-small-3 mb-0">
-                        {!! $customer->notes ?: __('general.no_notes') !!}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    @if($customer->guarantor)
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-user-shield text-info mr-1"></i>
-                        <span>{!! __('guarantors.guarantor_details') !!}</span>
-                    </h6>
+                    <!-- 2. Name En -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-info-opacity">
+                                <i class="fas fa-font text-info"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.name_en') !!}</label>
+                                <span class="data-grid-value">{!! $customer->getTranslation('name', 'en') !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Tenant Type -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-warning-opacity">
+                                <i class="fas fa-users-cog text-warning"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.tenant_type') !!}</label>
+                                <span class="data-grid-value text-warning">{!! __('customers.type_' . strtolower($customer->tenant_type)) !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. ID Number -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-dark-opacity">
+                                <i class="fas fa-passport text-dark"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.id_number') !!}</label>
+                                <span class="data-grid-value">{!! $customer->id_number !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Nationality -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-success-opacity">
+                                <i class="fas fa-globe-africa text-success"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.nationality') !!}</label>
+                                <span class="data-grid-value">{!! optional($customer->nationality)->name !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Phone -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-primary-opacity">
+                                <i class="fas fa-phone-alt text-primary"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.phone') !!}</label>
+                                <span class="data-grid-value">{!! $customer->phone !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Email -->
+                    <div class="col-md-4 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-info-opacity">
+                                <i class="fas fa-envelope text-info"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.email') !!}</label>
+                                <span class="data-grid-value font-small-3">{!! $customer->email ?: '---' !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Address -->
+                    <div class="col-md-8 mb-3">
+                        <div class="data-grid-item">
+                            <div class="data-grid-icon bg-light-danger-opacity">
+                                <i class="fas fa-map-marker-alt text-danger"></i>
+                            </div>
+                            <div class="data-grid-content">
+                                <label class="data-grid-label">{!! __('customers.address') !!}</label>
+                                <span class="data-grid-value">{!! $customer->address ?: '---' !!}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (strtolower($customer->tenant_type) == 'company')
+                        <div class="col-12">
+                            <hr class="my-2 opacity-50 border-dashed-premium">
+                        </div>
+
+                        <!-- Company Specifics -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item border-left-primary-3">
+                                <div class="data-grid-icon bg-light-primary-opacity">
+                                    <i class="fas fa-building text-primary"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('customers.customer_company_name') !!}</label>
+                                    <span class="data-grid-value text-primary">{!! $customer->company_name !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-dark-opacity">
+                                    <i class="fas fa-file-invoice text-dark"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('customers.cr_number') !!}</label>
+                                    <span class="data-grid-value">{!! $customer->cr_number !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-warning-opacity">
+                                    <i class="fas fa-certificate text-warning"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('customers.license_number') !!}</label>
+                                    <span class="data-grid-value">{!! $customer->license_number !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-info-opacity">
+                                    <i class="fas fa-university text-info"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('customers.establishment_number') !!}</label>
+                                    <span class="data-grid-value">{!! $customer->establishment_number !!}</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-md-3 border-right border-light d-flex align-items-center">
-                            <div class="bg-light-info p-2 rounded-circle mr-2">
-                                <i class="fas fa-user text-info font-medium-3"></i>
-                            </div>
-                            <div>
-                                <h5 class="mb-0 font-weight-bold text-dark">{!! $customer->guarantor->name !!}</h5>
-                                <small class="text-info font-weight-bold">
-                                    @php
-                                        $rel = $customer->guarantor->relationship;
-                                        $relKey = strtolower($rel);
-                                        $transKey = 'guarantors.relationships.' . $relKey;
-                                    @endphp
-                                    {!! \Illuminate\Support\Facades\Lang::has($transKey) ? __($transKey) : $rel !!}
-                                </small>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-right border-light d-flex flex-column justify-content-center px-3">
-                            <span class="text-muted font-small-3">{!! __('guarantors.id_number') !!}</span>
-                            <span class="text-dark font-weight-bold">{!! $customer->guarantor->id_number !!}</span>
-                        </div>
-                        <div class="col-md-3 border-right border-light d-flex flex-column justify-content-center px-3">
-                            <span class="text-muted font-small-3">{!! __('guarantors.phone') !!}</span>
-                            <span class="text-dark font-weight-bold">{!! $customer->guarantor->phone !!}</span>
-                        </div>
-                        <div class="col-md-3 d-flex flex-column justify-content-center px-3">
-                            <span class="text-muted font-small-3">{!! __('guarantors.address') !!}</span>
-                            <span class="text-dark">{!! $customer->guarantor->address ?: '---' !!}</span>
-                        </div>
+
+                <!-- Notes Section - Integrated -->
+                <div class="col-12 mt-2">
+                    <div class="notes-area-premium p-2 rounded bg-light-warning-opacity border-left-warning-3">
+                        <h6 class="font-weight-bold text-warning mb-1" style="font-size: 1.1rem !important;">
+                            <i class="fas fa-sticky-note mr-1" style="font-size: 1.2rem !important;"></i> {!! __('customers.notes') !!}
+                        </h6>
+                        <p class="text-muted font-small-3 mb-0">
+                            {!! $customer->notes ?: __('general.no_notes') !!}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endif
 </div>

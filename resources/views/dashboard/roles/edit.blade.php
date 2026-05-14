@@ -4,7 +4,7 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}?v={{ time() }}">
+    
 @endpush
 
 @section('content')
@@ -45,7 +45,7 @@
                             @if ($role->id !== 1)
                                 <button class="btn btn-premium-save shadow-pulse" type="submit" id="saveBtn">
                                     <i class="fas fa-save"></i>
-                                    {!! __('general.update') !!}
+                                    {!! __('general.save') !!}
                                     <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                                 </button>
                             @endif
@@ -124,8 +124,7 @@
                                                                     </select>
                                                                     <i class="fas fa-briefcase text-primary"></i>
                                                                 </div>
-                                                                <span
-                                                                    class="text text-danger small mt-1 d-block error-text company_id_error"></span>
+                                                                <span class="text-danger error-text company_id_error"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -146,8 +145,7 @@
                                                                     @disabled($role->id === 1)>
                                                                 <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
+                                                            <span class="text-danger error-text name_ar_error"></span>
                                                         </div>
                                                     </div>
 
@@ -165,8 +163,7 @@
                                                                     @disabled($role->id === 1)>
                                                                 <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text name_en_error"></span>
+                                                            <span class="text-danger error-text name_en_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -186,8 +183,7 @@
                                                                     @disabled($role->id === 1)>
                                                                 <i class="fas fa-info-circle text-primary"></i>
                                                             </div>
-                                                            <span
-                                                                class="text text-danger small mt-1 d-block error-text description_error"></span>
+                                                            <span class="text-danger error-text description_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,35 +192,45 @@
                                                 <!-- begin: Premium Permissions Grid -->
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <h5 class="premium-section-title">
-                                                            <i class="fas fa-key"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                        <h5 class="premium-section-title d-flex align-items-center justify-content-between">
+                                                            <span>
+                                                                <i class="fas fa-key"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                            </span>
+                                                            <span class="permissions_error premium-error-alert-chip"></span>
                                                         </h5>
 
                                                         <div class="permissions-grid">
+                                                            @php
+                                                                $rolePermissions = $role->permissions
+                                                                    ->pluck('name')
+                                                                    ->toArray();
+                                                            @endphp
                                                             @foreach (config('global.modules') as $moduleKey => $moduleLangKey)
                                                                 <div
                                                                     class="permission-card {{ $role->id === 1 ? 'disabled-card' : '' }}">
                                                                     <div class="permission-card-header">
                                                                         <div class="permission-card-title">
-                                                                            <i
-                                                                                class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
+                                                                            <i class="{{ config('global.module_icons.' . $moduleKey, 'la la-dot-circle') }}"></i>
                                                                             {!! __($moduleLangKey) !!}
                                                                         </div>
-                                                                        <label class="modern-switch"
-                                                                            style="transform: scale(0.8);">
+                                                                        @php
+                                                                            $modulePermissions = collect(config('global.crud_operations'))->map(function($opLangKey, $opKey) use ($moduleKey) {
+                                                                                return $moduleKey . '_' . $opKey;
+                                                                            });
+                                                                            $allChecked = $role->id === 1 || ($modulePermissions->every(function($perm) use ($rolePermissions) {
+                                                                                return in_array($perm, $rolePermissions);
+                                                                            }));
+                                                                        @endphp
+                                                                        <label class="modern-switch">
                                                                             <input type="checkbox"
                                                                                 class="select-all-module"
                                                                                 data-module="module-{{ $moduleKey }}"
+                                                                                @checked($allChecked)
                                                                                 @disabled($role->id === 1)>
                                                                             <span class="modern-slider"></span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="permission-card-body">
-                                                                        @php
-                                                                            $rolePermissions = $role->permissions
-                                                                                ->pluck('name')
-                                                                                ->toArray();
-                                                                        @endphp
                                                                         @foreach (config('global.crud_operations') as $opKey => $opLangKey)
                                                                             @php $permName = $moduleKey . '_' . $opKey; @endphp
                                                                             <div class="permission-item">
@@ -249,8 +255,9 @@
                                                                 </div>
                                                             @endforeach
                                                         </div>
-                                                        <span
-                                                            class="text text-danger small mt-1 d-block error-text permissions_error"></span>
+                                                        <div class="text-center mt-3">
+                                                            <span class="permissions_error premium-error-alert-chip"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- end: Premium Permissions Grid -->
@@ -281,12 +288,12 @@
                 });
             }
 
-            updateSelectAllSwitches();
+            // updateSelectAllSwitches(); // No longer needed as it's handled by PHP on load
 
             $('.select-all-module').on('change', function() {
                 let moduleClass = $(this).data('module');
                 let isChecked = $(this).is(':checked');
-                $('.' + moduleClass).prop('checked', isChecked);
+                $('.' + moduleClass).prop('checked', isChecked).trigger('change');
             });
 
             $('.permission-checkbox').on('change', function() {
@@ -306,3 +313,5 @@
         });
     </script>
 @endpush
+
+

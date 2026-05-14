@@ -5,8 +5,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
 @endpush
 
 @section('content')
@@ -37,11 +35,10 @@
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
                         @can('customers_create')
-                            <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
-                                data-target="#createModal">
+                            <a href="{!! route('dashboard.customers.create') !!}" class="btn btn-premium-add shadow-pulse">
                                 <i class="fas fa-plus-circle"></i>
                                 {!! __('customers.add_customer') !!}
-                            </button>
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -52,71 +49,47 @@
             <div class="content-body">
                 <!-- begin: stats cards -->
                 <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-primary font-weight-bold mb-0">
-                                            {{ $stats['total_customers'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('customers.customers') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(30, 159, 242, 0.1);">
-                                        <i class="fas fa-users text-primary font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-contracts">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['total_customers'] }}</h3>
+                                <h6 class="stat-title">{!! __('customers.customers') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-users"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-success font-weight-bold mb-0">
-                                            {{ $stats['active_customers'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('customers.active_customers') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(40, 208, 148, 0.1);">
-                                        <i class="fas fa-user-check text-success font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-active">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['active_customers'] }}</h3>
+                                <h6 class="stat-title">{!! __('customers.active_customers') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-user-check"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-info font-weight-bold mb-0">
-                                            {{ $stats['active_tenants'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('customers.active_tenants') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(0, 207, 221, 0.1);">
-                                        <i class="fas fa-key text-info font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-expiring">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['active_tenants'] }}</h3>
+                                <h6 class="stat-title">{!! __('customers.active_tenants') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-key"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-warning font-weight-bold mb-0">
-                                            {{ $stats['corporate_customers'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('customers.corporate_customers') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 145, 73, 0.1);">
-                                        <i class="fas fa-building text-warning font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-revenue">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['corporate_customers'] }}</h3>
+                                <h6 class="stat-title">{!! __('customers.corporate_customers') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-building"></i>
                             </div>
                         </div>
                     </div>
@@ -127,7 +100,7 @@
                 <section id="basic-form-layouts">
                     <div class="row match-height">
                         <div class="col-md-12">
-                            <div class="card premium-card">
+                            <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
                                     <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
@@ -168,9 +141,6 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
-    @include('dashboard.customers.modals.create')
-    @include('dashboard.customers.modals.edit')
-    @include('dashboard.customers.modals.details')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/dashbaord/js/ajax-table.js') }}"></script>
@@ -255,3 +225,5 @@
         });
     </script>
 @endpush
+
+

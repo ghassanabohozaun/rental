@@ -2,27 +2,30 @@
 
 namespace App\Models;
 
+
+use App\Contracts\MustBelongToCompany;
+use App\Traits\BelongsToCompany;
+use App\Traits\Dashboard\CanBeDeleted;
+use App\Traits\Dashboard\Filterable;
+use App\Traits\Dashboard\HasAvatar;
+use App\Traits\Dashboard\HasCreatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Traits\BelongsToCompany;
-use App\Traits\Dashboard\Filterable;
-use App\Traits\Dashboard\HasCreatedBy;
-use App\Traits\Dashboard\CanBeDeleted;
-use App\Contracts\MustBelongToCompany;
 use Spatie\Translatable\HasTranslations;
 
 class Customer extends Model implements MustBelongToCompany
 {
-    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations, CanBeDeleted, \App\Traits\Dashboard\HasAvatar;
+    use HasFactory, SoftDeletes, BelongsToCompany, Filterable, HasCreatedBy, HasTranslations, CanBeDeleted, HasAvatar;
 
     protected $restrictiveRelations = [
         'contracts' => 'customers.cannot_delete_has_contracts',
     ];
 
     protected $fillable = [
-        'company_id', 'name', 'phone', 'email', 'id_number', 
-        'address', 'nationality_id', 'tenant_type', 'guarantor_id', 
+        'company_id', 'name', 'phone', 'email', 'id_number',
+        'address', 'nationality_id', 'tenant_type',
+        'company_name', 'establishment_number', 'cr_number', 'license_number',
         'notes', 'status', 'created_by'
     ];
 
@@ -45,11 +48,13 @@ class Customer extends Model implements MustBelongToCompany
     }
 
     /**
-     * Get the guarantor associated with the customer.
+     * Get the guarantors associated with the customer.
      */
-    public function guarantor()
+    public function guarantors()
     {
-        return $this->belongsTo(Guarantor::class);
+        return $this->belongsToMany(Guarantor::class, 'customer_guarantor')
+                    ->withPivot('relationship', 'relationship_details')
+                    ->withTimestamps();
     }
 
     /**

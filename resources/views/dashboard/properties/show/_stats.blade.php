@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <h4 class="font-weight-bolder mb-0 text-info" style="font-size: 0.9rem;">
-                        {!! $property->owner->name ?? 'N/A' !!}
+                        {!! $property->owners->first()->name ?? 'N/A' !!}
                     </h4>
                     <p class="card-text text-muted font-small-3 mb-0">{!! __('properties.owner') !!}</p>
                 </div>
@@ -57,3 +57,5 @@
         </div>
     </div>
 </div>
+
+

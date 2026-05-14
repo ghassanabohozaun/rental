@@ -1,4 +1,4 @@
-<div class="modal modal-pop fade" id="createRoleModal" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel"
+<div class="modal modal-pop" id="createRoleModal" tabindex="-1" role="dialog" aria-labelledby="createRoleModalLabel"
     aria-hidden="true">
 
     <div class="modal-dialog modal-lg" role="document">
@@ -18,7 +18,7 @@
                 <!--end::modal header-->
 
                 <!--begin::modal body-->
-                <div class="modal-body">
+                <div class="modal-body my-2">
 
                     <div class="row">
                         <div class="col-lg-12">
@@ -190,6 +190,8 @@
         });
     </script>
 @endpush
+
+
 
 
 

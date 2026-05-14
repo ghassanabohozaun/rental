@@ -5,15 +5,11 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.photo') !!}
-                </th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.photo') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('users.users') !!}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.role_id') !!}
-                </th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}
-                </th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.created_by') !!}
-                </th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.role_id') !!}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('users.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{!! __('users.manage_status') !!}
                 </th>
@@ -116,6 +112,12 @@
                             {!! $loop->iteration + ($users->currentPage() - 1) * $users->perPage() !!}
                         </span>
                     </td>
+                    <td class="text-center align-middle d-none d-lg-table-cell">
+                        <a href="javascript:void(0)" class="company-chip">
+                            <i class="fas fa-briefcase mr-1"></i>
+                            {!! optional($user->company)->name ?? __('general.all_companies') !!}
+                        </a>
+                    </td>
                     <td class="text-center d-none d-lg-table-cell align-middle">
                         <div class="d-flex justify-content-center">
                             @include('dashboard.users.parts.photo')
@@ -132,12 +134,6 @@
                             class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
                             {!! optional($user->role)->name !!}
                         </span>
-                    </td>
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($user->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-muted small">{!! $user->creator->name ?? '---' !!}</span>
@@ -166,3 +162,5 @@
     {!! $users->links() !!}
 </div>
 </div>
+
+

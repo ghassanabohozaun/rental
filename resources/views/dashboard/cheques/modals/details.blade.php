@@ -1,5 +1,5 @@
-<div class="modal modal-pop fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel"
-    aria-hidden="true">
+<div class="modal modal-pop" id="detailsModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+    aria-labelledby="detailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header border-0 pb-0">
@@ -18,3 +18,5 @@
         </div>
     </div>
 </div>
+
+

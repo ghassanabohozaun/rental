@@ -6,24 +6,24 @@ return [
     'create_new_property' => 'إضافة عقار جديد',
     'update_property' => 'تعديل بيانات العقار',
     'show_all_properties' => 'عرض جميع العقارات',
-    
+
     // Fields
     'name' => 'اسم العقار',
-    'name_ar' => 'اسم العقار بالعربية',
-    'name_en' => 'اسم العقار بالإنجليزية',
+    'name_ar' => 'اسم العقار (العربية)',
+    'name_en' => 'اسم العقار (الإنجليزية)',
     'location' => 'الموقع',
     'type' => 'نوع العقار',
     'property_type' => 'نوع العقار',
     'area' => 'المساحة',
     'price' => 'السعر الإيجاري',
     'status' => 'حالة العقار',
-    'description' => 'الوصف التفصيلي',
+    'description' => 'الوصف التفصيلي للعقار',
     'property_number' => 'الرقم المساحي',
     'title_deed_number' => 'رقم سند الملكية',
     'electricity_account_number' => 'رقم حساب الكهرباء',
     'water_account_number' => 'رقم حساب المياه',
     'owner' => 'المالك',
-    
+
     // Enums
     'status_available' => 'متاح',
     'status_rented' => 'مؤجر',
@@ -34,16 +34,16 @@ return [
     'type_shop' => 'محل تجاري',
     'type_land' => 'أرض',
     'type_building' => 'عمارة',
-    
+
     // Placeholders
     'enter_name_ar' => 'أدخل اسم العقار بالعربية...',
     'enter_name_en' => 'أدخل اسم العقار بالإنجليزية...',
     'enter_location' => 'أدخل عنوان أو موقع العقار...',
-    
+
     // UI Elements
     'mandatory_details_title' => 'Important Additional Details - تفاصيل إضافة هامة',
     'no_properties_found' => 'لا يوجد عقارات !',
-    
+
     // Placeholders
     'enter_price' => 'أدخل القيمة الإيجارية المتوقعة...',
     'enter_area' => 'أدخل مساحة العقار (مثلاً: 120 متر)...',
@@ -60,7 +60,7 @@ return [
     'available_properties' => 'العقارات المتاحة',
     'rented' => 'مؤجر',
     'available' => 'متاح',
-    
+
     // Premium UI Sidebar
     'property_summary' => 'ملخص العقار الجديد',
     'property_edit_summary' => 'ملخص بيانات العقار',
@@ -76,6 +76,37 @@ return [
     'property_name' => 'اسم العقار',
     'legal_utility_info' => 'المعلومات القانونية والخدمات',
     'sq_m' => 'م²',
-    'parent_property' => 'العقار الرئيسي (يتبع لعقار)',
+    'parent_property' => 'التبعية (رئيسي/تابع)',
     'standalone_property' => 'عقار مستقل (رئيسي)',
+    'sub_property' => 'عقار تابع',
+    'sub_units' => 'الوحدات التابعة',
+    'sub_property_of' => 'يتبع للعقار الرئيسي',
+    'total' => 'الإجمالي',
+    'file_number' => 'رقم الملف',
+    'enter_file_number' => 'أدخل رقم الملف...',
+    'attachments' => 'المرفقات',
+    'rental_contract_original' => 'عقد الإيجار - أصلي',
+    'building_completion_certificate' => 'نسخة من شهادة إتمام البناء',
+    'other_documents' => 'مستندات أخرى',
+
+    // Owners Repeater
+    'owners_and_ownership' => 'الملاك ونسب الملكية',
+    'add_owner' => 'إضافة مالك',
+    'ownership_percentage' => 'نسبة الملكية (%)',
+    'is_primary' => 'رئيسي؟',
+    'total_percentage' => 'إجمالي النسب',
+    'percentage_must_be_100' => 'يجب أن يكون مجموع نسب الملكية 100%',
+    'must_select_primary_owner' => 'يجب اختيار مالك رئيسي واحد على الأقل',
+    'percentage' => 'نسبة الملكية',
+    'percentages' => 'نسب الملكية',
+    'duplicate_owner_error' => 'لا يمكن تكرار نفس المالك في هذا العقار، يرجى اختيار ملاك مختلفين.',
+    'basic_info_and_specs' => 'المعلومات الأساسية والمواصفات',
+    'please_select_company_first' => 'يرجى اختيار الشركة أولاً قبل إضافة الملاك.',
+    'company_locked_help' => 'لا يمكن تغيير الشركة بعد إنشاء العقار لضمان سلامة البيانات.',
+    'owner_row_added' => 'تمت إضافة المالك للقائمة بنجاح.',
+    'no_owners_added' => 'لم يتم إضافة أي ملاك بعد. انقر على زر الإضافة للبدء.',
+    'id_number_or_record' => 'رقم الهوية / السجل',
+    'owner_name_ar' => 'الاسم (العربية)',
+    'owner_name_en' => 'الاسم (الإنجليزية)',
+    'phone' => 'رقم الهاتف',
 ];

@@ -25,6 +25,7 @@ class ContractRequest extends FormRequest
         $rules = [
             'property_id' => 'required|exists:properties,id',
             'customer_id' => 'required|exists:customers,id',
+            'conclusion_date' => 'required|date|before_or_equal:start_date',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'rent_amount' => 'required|numeric|min:0',
@@ -40,7 +41,7 @@ class ContractRequest extends FormRequest
             'deposit_bank_name.en' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_cheque_owner_name.ar' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_cheque_owner_name.en' => 'required_if:deposit_type,cheque|nullable|string|max:255',
-            'deposit_issue_date' => 'required_if:deposit_type,cheque|nullable|date',
+            'deposit_issue_date' => 'nullable|date',
         ];
 
         // If user is super admin, they must select a company

@@ -25,7 +25,7 @@ class CompaniesController extends Controller
         abort_if(user()->company_id != 1, 403);
         
         $companies = $this->service->getAll($request);
-        $all_companies = user()->company_id == 1 ? Company::active()->get() : null;
+        $all_companies = user()->company_id == 1 ? Company::active()->orderByDesc('id')->get() : null;
         $title = __('companies.companies');
 
         if ($request->ajax() || $request->has('_ajax')) {

@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="showModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+<div class="modal modal-pop text-left" id="showModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content premium-modal">
             <div class="modal-header bg-premium-blue text-white">
@@ -94,3 +94,5 @@
     });
 </script>
 @endpush
+
+

@@ -5,8 +5,8 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('roles.role_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0">{!! __('roles.role_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.description') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
@@ -96,6 +96,20 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    <td class="text-center align-middle">
+                        @if($role->company_id)
+                            <a href="javascript:void(0)" class="company-chip">
+                                <i class="fas fa-briefcase mr-1"></i>
+                                {!! optional($role->company)->name !!}
+                            </a>
+                        @else
+                            <span class="badge badge-light-warning border-0">
+                                <i class="fas fa-globe mr-1"></i> {!! __('roles.global_role') !!}
+                            </span>
+                        @endif
+                    </td>
+
                     <!-- Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">
                         <div class="d-flex align-items-center justify-content-center">
@@ -104,18 +118,6 @@
                         </div>
                     </td>
 
-                    <!-- Company -->
-                    <td class="text-center align-middle">
-                        @if($role->company_id)
-                            <span class="badge badge-light-primary border-0">
-                                <i class="fas fa-briefcase mr-25"></i> {!! optional($role->company)->name !!}
-                            </span>
-                        @else
-                            <span class="badge badge-light-warning border-0">
-                                <i class="fas fa-globe mr-25"></i> {!! __('roles.global_role') !!}
-                            </span>
-                        @endif
-                    </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-muted">{!! $role->creator->name ?? '---' !!}</span>
                     </td>
@@ -148,3 +150,5 @@
         {!! $roles->links() !!}
     </div>
 </div>
+
+

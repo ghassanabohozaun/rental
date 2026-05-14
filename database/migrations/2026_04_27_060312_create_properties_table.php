@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->string('file_number')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('properties')->onDelete('set null');
-            $table->foreignId('owner_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name');
             $table->string('location')->nullable();
             $table->foreignId('property_type_id')->nullable()->constrained('property_types')->onDelete('set null');
@@ -28,6 +28,12 @@ return new class extends Migration
             $table->string('title_deed_number')->nullable();
             $table->string('electricity_account_number')->nullable();
             $table->string('water_account_number')->nullable();
+            
+            // Attachments
+            $table->string('rental_contract_original')->nullable();
+            $table->string('building_completion_certificate')->nullable();
+            $table->string('other_documents')->nullable();
+
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();

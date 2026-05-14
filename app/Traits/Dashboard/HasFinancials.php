@@ -33,6 +33,12 @@ trait HasFinancials
     {
         return round((float) $this->payments()
             ->whereIn('status', ['paid', 'pending'])
+            ->where(function ($query) {
+                $query->whereNull('cheque_id')
+                    ->orWhereHas('cheque', function ($q) {
+                        $q->where('is_deposit', false);
+                    });
+            })
             ->sum('amount'), 0);
     }
 

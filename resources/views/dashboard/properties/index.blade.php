@@ -3,12 +3,6 @@
     {!! $title !!}
 @endsection
 
-@push('style')
-    <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/permissions.css') !!}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-@endpush
-
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -51,71 +45,47 @@
             <div class="content-body">
                 <!-- begin: Quick Stats -->
                 <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-primary font-weight-bold mb-0">
-                                            {{ $total_count }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('properties.properties') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(30, 159, 242, 0.1);">
-                                        <i class="fas fa-building text-primary font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-contracts">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $total_count }}</h3>
+                                <h6 class="stat-title">{!! __('properties.properties') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-building"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-success font-weight-bold mb-0">
-                                            {{ $available_count ?? 0 }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('properties.available') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(40, 208, 148, 0.1);">
-                                        <i class="fas fa-check-circle text-success font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-active">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $available_count ?? 0 }}</h3>
+                                <h6 class="stat-title">{!! __('properties.available') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-check-circle"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-danger font-weight-bold mb-0">
-                                            {{ $rented_count ?? 0 }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('properties.rented') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 73, 97, 0.1);">
-                                        <i class="fas fa-key text-danger font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-expiring">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $rented_count ?? 0 }}</h3>
+                                <h6 class="stat-title">{!! __('properties.rented') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-key"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-warning font-weight-bold mb-0">
-                                            {{ $maintenance_count ?? 0 }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('properties.status_maintenance') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 145, 73, 0.1);">
-                                        <i class="fas fa-tools text-warning font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-revenue">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $maintenance_count ?? 0 }}</h3>
+                                <h6 class="stat-title">{!! __('properties.status_maintenance') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-tools"></i>
                             </div>
                         </div>
                     </div>
@@ -129,12 +99,13 @@
                         <div class="col-md-12">
                             <div class="card premium-card">
                                 <!-- begin: card header -->
-                                    <div class="card-header border-0 pb-0">
-                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
-                                            <i class="fas fa-building text-primary mr-2 icon-size-16"></i> 
-                                            {!! __('properties.properties') !!}
-                                            <span id="propertyCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $properties->total() !!}</span>
-                                        </h6>
+                                <div class="card-header border-0 pb-0">
+                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
+                                        <i class="fas fa-building text-primary mr-2 icon-size-16"></i>
+                                        {!! __('properties.properties') !!}
+                                        <span id="propertyCountBadge"
+                                            class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $properties->total() !!}</span>
+                                    </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>

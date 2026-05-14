@@ -1,122 +1,224 @@
 <div class="tab-pane fade show active" id="contract" role="tabpanel">
-
     <div class="row">
-        <div class="col-lg-8">
-            <!-- Data Dense Info Card -->
-            <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-info-circle text-primary mr-1"></i>
-                        <span>{!! __('contracts.contract_details') !!}</span>
-                    </h6>
+        <div class="col-12">
+            <!-- 1. General Contract Info Card -->
+            <div class="card detail-card-master border-0 shadow-sm mb-4 radius-15">
+                <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
+                    <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                        <i class="fas fa-info-circle text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('contracts.contract_details') !!}
+                    </h5>
                 </div>
-                <div class="card-body p-3">
-                    <div class="row align-items-center">
-                        <div class="col border-right">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.start_date') !!}</span>
-                            <span class="text-dark font-weight-bold font-small-3">{!! $contract->start_date->format('Y-m-d') !!}</span>
+                <div class="card-body pt-3 pb-3">
+                    <div class="row">
+                        <!-- Conclusion Date -->
+                        <div class="col-md-3 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-info-opacity">
+                                    <i class="fas fa-file-contract text-info"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.conclusion_date') !!}</label>
+                                    <span class="data-grid-value">{!! $contract->conclusion_date->format('Y-m-d') !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col border-right">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.end_date') !!}</span>
-                            <span class="text-dark font-weight-bold font-small-3">{!! $contract->end_date->format('Y-m-d') !!}</span>
+
+                        <!-- Start Date -->
+                        <div class="col-md-3 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-primary-opacity">
+                                    <i class="fas fa-calendar-check text-primary"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.start_date') !!}</label>
+                                    <span class="data-grid-value">{!! $contract->start_date->format('Y-m-d') !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col border-right">
-                            <span class="text-muted font-small-3 d-block">{!! __('general.duration') !!}</span>
-                            <span class="text-info font-weight-bold font-small-3">{!! $contract->duration_label !!}</span>
+
+                        <!-- End Date -->
+                        <div class="col-md-3 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-danger-opacity">
+                                    <i class="fas fa-calendar-times text-danger"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.end_date') !!}</label>
+                                    <span class="data-grid-value">{!! $contract->end_date->format('Y-m-d') !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col border-right text-center">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.status') !!}</span>
-                            <span class="text-{{ $statusColor }} font-weight-bold font-small-3 d-flex align-items-center justify-content-center">
-                                <i class="fas {{ $statusIcon }} mr-1"></i>
-                                <span>{!! __('contracts.status_' . $contract->status) !!}</span>
-                            </span>
+
+                        <!-- Duration -->
+                        <div class="col-md-3 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-info-opacity">
+                                    <i class="fas fa-hourglass-half text-info"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('general.duration') !!}</label>
+                                    <span class="data-grid-value text-info">{!! $contract->duration_label !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col text-center">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.payment_cycle') !!}</span>
-                            <span class="text-dark font-weight-bold font-small-3">{!! __('contracts.payment_cycle_' . $contract->payment_cycle) !!}</span>
+
+                        <!-- Payment Cycle -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-warning-opacity">
+                                    <i class="fas fa-sync-alt text-warning"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.payment_cycle') !!}</label>
+                                    <span class="data-grid-value">{!! __('contracts.payment_cycle_' . $contract->payment_cycle) !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contract Status -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                @php
+                                    $statusClass = 'success';
+                                    if ($contract->status == 'ended') $statusClass = 'warning';
+                                    if ($contract->status == 'cancelled') $statusClass = 'danger';
+                                @endphp
+                                <div class="data-grid-icon bg-light-{!! $statusClass !!}-opacity">
+                                    <i class="fas {!! $statusIcon !!} text-{!! $statusClass !!}"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.status') !!}</label>
+                                    <span class="data-grid-value text-{!! $statusClass !!}">{!! __('contracts.status_' . $contract->status) !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Creator -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-dark-opacity">
+                                    <i class="fas fa-user-shield text-dark"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('general.created_by') !!}</label>
+                                    <span class="data-grid-value font-small-3">{!! optional($contract->creator)->name ?? __('general.admin') !!}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                        <i class="fas fa-wallet text-success mr-1"></i>
-                        <span>{!! __('contracts.financial_details_title') !!}</span>
-                    </h6>
+            <!-- 2. Financial & Deposit Card -->
+            <div class="card detail-card-master border-0 shadow-sm radius-15">
+                <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
+                    <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                        <i class="fas fa-wallet text-success mr-1" style="font-size: 1.2rem !important;"></i> {!! __('contracts.financial_details_title') !!}
+                    </h5>
                 </div>
-                <div class="card-body p-3">
-                    <div class="row mb-3 pb-3 border-bottom">
-                        <div class="col-md-4">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.rent_amount') !!}</span>
-                            <span class="h5 font-weight-bolder text-success mb-0">{!! number_format($contract->rent_amount, 2) !!}</span>
+                <div class="card-body pt-3 pb-3">
+                    <div class="row">
+                        <!-- Rent Amount -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item border-left-success-3">
+                                <div class="data-grid-icon bg-light-success-opacity">
+                                    <i class="fas fa-money-bill-wave text-success"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.rent_amount') !!}</label>
+                                    <span class="data-grid-value text-success">{!! number_format($contract->rent_amount, 2) !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <span class="text-muted font-small-3 d-block">{!! __('contracts.deposit_amount') !!}</span>
-                            <span class="h5 font-weight-bolder text-warning mb-0">{!! number_format($contract->deposit_amount, 2) !!}</span>
+
+                        <!-- Deposit Amount -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item border-left-warning-3">
+                                <div class="data-grid-icon bg-light-warning-opacity">
+                                    <i class="fas fa-shield-alt text-warning"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.deposit_amount') !!}</label>
+                                    <span class="data-grid-value text-warning">{!! number_format($contract->deposit_amount, 2) !!}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <span class="text-muted font-small-3 d-block mb-1">{!! __('contracts.deposit_type') !!}</span>
-                            <span class="text-dark font-weight-bold"><i class="fas fa-money-check text-primary mr-1"></i> {!! __('contracts.deposit_type_' . $contract->deposit_type) !!}</span>
+
+                        <!-- Deposit Status -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-info-opacity">
+                                    <i class="fas fa-check-double text-info"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.deposit_status') !!}</label>
+                                    @php
+                                        $dStatusInfo = [
+                                            'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
+                                            'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
+                                            'used' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
+                                        ][$contract->deposit_status] ?? ['class' => 'badge-secondary', 'icon' => 'fas fa-info-circle'];
+                                    @endphp
+                                    <div class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} px-2 py-25">
+                                        <i class="{!! $dStatusInfo['icon'] !!} mr-25"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 border-left border-right">
-                            <span class="text-muted font-small-3 d-block mb-1">{!! __('contracts.deposit_status') !!}</span>
-                            <span class="text-{{ $contract->deposit_status == 'received' ? 'success' : 'warning' }} font-weight-bold">
-                                <i class="fas fa-circle font-small-2 mr-1"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                            </span>
+
+                        <!-- Deposit Type -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-dark-opacity">
+                                    <i class="fas fa-money-check text-dark"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.deposit_type') !!}</label>
+                                    <span class="data-grid-value">{!! __('contracts.deposit_type_' . $contract->deposit_type) !!}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <span class="text-muted font-small-3 d-block mb-1">{!! __('general.tax') !!}</span>
-                            <span class="text-dark font-weight-bold">0.00 %</span>
+
+                        <!-- Tax -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-danger-opacity">
+                                    <i class="fas fa-percent text-danger"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('general.tax') !!}</label>
+                                    <span class="data-grid-value">0.00 %</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
-                <div class="card-body p-2 px-3">
-                    <div class="row align-items-center">
-                        <div class="col-7 border-right">
+        @if ($contract->deposit_type == 'cheque' && $contract->insuranceCheque)
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card detail-card-master border-0 shadow-sm bg-light-primary-opacity radius-15">
+                        <div class="card-body p-3 d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
-                                <div class="bg-light-info p-2 rounded mr-2" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-user-shield text-info font-small-3"></i></div>
+                                <div class="bg-white p-2 rounded shadow-sm mr-2" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-money-check text-primary font-medium-3"></i>
+                                </div>
                                 <div>
-                                    <span class="text-muted font-small-3 d-block line-height-1">{!! __('general.created_by') !!}</span>
-                                    <span class="text-dark font-weight-bold font-small-3">{!! optional($contract->creator)->name ?? __('general.admin') !!}</span>
+                                    <h6 class="font-weight-bold text-primary mb-0">{!! __('cheques.insurance_cheques') !!}</h6>
+                                    <span class="text-muted font-small-3">{!! __('cheques.statuses.' . $contract->insuranceCheque->status) !!}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="d-flex align-items-center pl-1">
-                                <div class="bg-light-warning p-2 rounded mr-2" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-clock text-warning font-small-3"></i></div>
-                                <div>
-                                    <span class="text-muted font-small-3 d-block line-height-1">{!! __('general.created_at') !!}</span>
-                                    <span class="text-dark font-weight-bold font-small-3">{!! $contract->created_at->format('Y-m-d') !!}</span>
-                                </div>
+                            <div class="text-right">
+                                <span class="badge badge-primary px-3 py-1 radius-10">#{!! $contract->insuranceCheque->cheque_number !!}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @if ($contract->deposit_type == 'cheque' && $contract->insuranceCheque)
-                <div class="card border-0 shadow-sm bg-primary text-white mb-0 overflow-hidden" style="border-radius: 12px;">
-                    <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="text-white mb-0">{!! __('cheques.insurance_cheques') !!}</h6>
-                            <span class="badge badge-white text-primary badge-pill font-weight-bold">#{!! $contract->insuranceCheque->cheque_number !!}</span>
-                        </div>
-                        <div class="mt-2 d-flex justify-content-between align-items-center small opacity-75">
-                            <span>{!! __('cheques.status') !!}</span>
-                            <span>{!! __('cheques.statuses.' . $contract->insuranceCheque->status) !!}</span>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        </div>
+        @endif
     </div>
 </div>
+
+

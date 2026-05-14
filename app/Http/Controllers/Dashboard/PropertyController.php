@@ -50,7 +50,7 @@ class PropertyController extends Controller
         }
 
         return view('dashboard.properties.index', compact(
-            'properties', 'title', 'companies', 'property_types', 
+            'properties', 'title', 'companies', 'property_types',
             'property_statuses', 'total_count', 'available_count', 'rented_count', 'maintenance_count'
         ));
     }
@@ -70,10 +70,17 @@ class PropertyController extends Controller
         $property_types = PropertyType::active()->get();
         $property_statuses = PropertyStatus::active()->get();
 
+        // Initial owners list (filtered by company if user is not admin)
+        $owner_query = \App\Models\Owner::active();
+        if (user()->company_id != 1) {
+            $owner_query->where('company_id', user()->company_id);
+        }
+        $owners = $owner_query->get();
+
         // Get properties that can be parents (usually those without a parent)
         $parent_properties = Property::whereNull('parent_id')->get();
 
-        return view('dashboard.properties.create', compact('title', 'companies', 'property_types', 'property_statuses', 'parent_properties'));
+        return view('dashboard.properties.create_livewire', compact('title'));
     }
 
 
@@ -122,12 +129,17 @@ class PropertyController extends Controller
         $property_types = PropertyType::active()->get();
         $property_statuses = PropertyStatus::active()->get();
 
+        // Owners filtered by current property company
+        $owners = \App\Models\Owner::active()
+            ->where('company_id', $property->company_id)
+            ->get();
+
         // Get properties that can be parents (excluding the current one and its children)
         $parent_properties = Property::whereNull('parent_id')
             ->where('id', '!=', $id)
             ->get();
 
-        return view('dashboard.properties.edit', compact('property', 'title', 'companies', 'property_types', 'property_statuses', 'parent_properties'));
+        return view('dashboard.properties.edit_livewire', compact('property', 'title'));
     }
 
     // update
@@ -177,7 +189,8 @@ class PropertyController extends Controller
         $data = $this->service->autocomplete(
             $request->get('q'),
             $request->get('company_id'),
-            $request->get('only_available', false)
+            $request->get('only_available', false),
+            $request->get('exclude_id')
         );
         return response()->json($data);
     }

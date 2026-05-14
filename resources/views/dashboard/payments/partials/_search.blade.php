@@ -14,7 +14,7 @@
                     <span class="chip-text">{!! __('customers.customer') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="customer_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="customer_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('customers.customer') !!}</label>
                         <div class="premium-input-wrapper">
@@ -45,7 +45,7 @@
                     <span class="chip-text">{!! __('properties.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="property_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property') !!}</label>
                         <div class="premium-input-wrapper">
@@ -76,7 +76,7 @@
                     <span class="chip-text">{!! __('payments.method') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-200" id="method_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="method_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('payments.method') !!}</label>
                         <div class="premium-input-wrapper">
@@ -104,7 +104,7 @@
                     <span class="chip-text">{!! __('payments.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-200" id="status_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('payments.status') !!}</label>
                         <div class="premium-input-wrapper">
@@ -133,7 +133,7 @@
                     <span class="chip-text">{!! __('companies.company') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="company_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="company_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
                         <div class="premium-input-wrapper">
@@ -170,3 +170,5 @@
 @push('scripts')
     <script src="{!! asset('assets/dashbaord/js/filter-system.js') !!}"></script>
 @endpush
+
+

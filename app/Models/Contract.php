@@ -17,9 +17,10 @@ class Contract extends Model implements MustBelongToCompany
 {
     use HasFactory, BelongsToCompany, Filterable, SoftDeletes, HasCreatedBy, CanBeDeleted, HasFinancials;
     
-    protected $fillable = ['company_id', 'property_id', 'customer_id', 'start_date', 'end_date', 'rent_amount', 'deposit_amount', 'deposit_type', 'deposit_status', 'payment_cycle', 'status', 'contract_text', 'notes', 'created_by'];
+    protected $fillable = ['company_id', 'property_id', 'customer_id', 'conclusion_date', 'start_date', 'end_date', 'rent_amount', 'deposit_amount', 'deposit_type', 'deposit_status', 'payment_cycle', 'status', 'contract_text', 'notes', 'created_by'];
 
     protected $casts = [
+        'conclusion_date' => 'date',
         'start_date' => 'date',
         'end_date' => 'date',
         'rent_amount' => 'float',

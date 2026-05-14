@@ -3,14 +3,18 @@
 namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\PropertyRepository;
+use App\Utils\ImageManagerUtils;
+use Illuminate\Support\Arr;
 
 class PropertyService
 {
     protected $repository;
+    protected $imageManager;
 
-    public function __construct(PropertyRepository $repository)
+    public function __construct(PropertyRepository $repository, ImageManagerUtils $imageManager)
     {
         $this->repository = $repository;
+        $this->imageManager = $imageManager;
     }
 
     public function getAll($request)
@@ -25,29 +29,70 @@ class PropertyService
 
     public function store(array $data)
     {
-        // Logic: The owner of the property is the company itself
         if (!isset($data['company_id'])) {
             // For regular users, use their own company
             $data['company_id'] = user()->company_id;
-            $data['owner_id'] = user()->company_id;
-        } else {
-            // For Super Admin, use the selected company as the owner
-            $data['owner_id'] = $data['company_id'];
         }
 
-        return $this->repository->create($data);
+
+        // Handle File Uploads
+        $fileFields = ['rental_contract_original', 'building_completion_certificate', 'other_documents'];
+        foreach ($fileFields as $field) {
+            if (isset($data[$field]) && request()->hasFile($field)) {
+                $data[$field] = $this->imageManager->uploadFile('', $data[$field], 'properties');
+            }
+        }
+
+        $property = $this->repository->create($data);
+
+        // Sync Owners
+        $this->syncOwners($property, $data);
+
+        return $property;
     }
 
     public function update($id, array $data)
     {
-        // Keep owner_id synced with company_id on update
-        if (isset($data['company_id'])) {
-            $data['owner_id'] = $data['company_id'];
-        } else {
-            $data['owner_id'] = user()->company_id;
+        $property = $this->repository->find($id);
+
+
+
+        // Handle File Uploads & Deletions
+        $fileFields = ['rental_contract_original', 'building_completion_certificate', 'other_documents'];
+        
+        // 1. Process explicit deletions from UI
+        if (isset($data['deleted_files']) && is_array($data['deleted_files'])) {
+            foreach ($data['deleted_files'] as $field) {
+                if (in_array($field, $fileFields) && $property->$field) {
+                    $this->imageManager->removeImageFromLocal($property->$field, 'properties');
+                    $data[$field] = null;
+                }
+            }
         }
 
-        return $this->repository->update($id, $data);
+        // 2. Process new uploads
+        foreach ($fileFields as $field) {
+            if (request()->hasFile($field)) {
+                // Remove old file if it exists and wasn't already cleared above
+                if ($property->$field && (!array_key_exists($field, $data) || $data[$field] !== null)) {
+                    $this->imageManager->removeImageFromLocal($property->$field, 'properties');
+                }
+                $data[$field] = $this->imageManager->uploadFile('', request()->file($field), 'properties');
+            } elseif (!array_key_exists($field, $data)) {
+                // Keep existing file if no new file and no deletion signal
+                unset($data[$field]);
+            }
+        }
+
+        // Cleanup: Remove the helper field
+        unset($data['deleted_files']);
+
+        $property = $this->repository->update($id, $data);
+
+        // Sync Owners
+        $this->syncOwners($property, $data);
+
+        return $property;
     }
 
     public function delete($id)
@@ -63,9 +108,9 @@ class PropertyService
         return $this->repository->delete($id);
     }
 
-    public function autocomplete($search, $companyId = null, $onlyAvailable = false)
+    public function autocomplete($search, $companyId = null, $onlyAvailable = false, $excludeId = null)
     {
-        return $this->repository->autocomplete($search, $companyId, $onlyAvailable);
+        return $this->repository->autocomplete($search, $companyId, $onlyAvailable, $excludeId);
     }
 
     public function getCountByStatus($statusId)
@@ -76,5 +121,21 @@ class PropertyService
     public function getTotalCount()
     {
         return $this->repository->getTotalCount();
+    }
+
+    protected function syncOwners($property, array $data)
+    {
+        if (isset($data['owners'])) {
+            $syncData = [];
+            foreach ($data['owners'] as $index => $ownerId) {
+                if ($ownerId) {
+                    $syncData[$ownerId] = [
+                        'ownership_percentage' => $data['percentages'][$index] ?? 0,
+                        'is_primary' => $data['is_primary'][$index] ?? 0,
+                    ];
+                }
+            }
+            $property->owners()->sync($syncData);
+        }
     }
 }

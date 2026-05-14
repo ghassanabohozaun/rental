@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('property_id')->constrained('properties')->onDelete('restrict');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('restrict');
 
+            $table->date('conclusion_date');
             $table->date('start_date');
             $table->date('end_date');
 

@@ -57,15 +57,17 @@ class ChequesController extends Controller
         Gate::authorize('cheques_create');
 
         $is_deposit = $request->get('is_deposit', 0);
+        $contract_id = $request->get('contract_id');
+        $company_id = $request->get('company_id');
         $title = $is_deposit == 1 ? __('cheques.add_insurance_cheque') : __('cheques.add_cheque');
 
-        $contracts = Contract::with(['customer', 'property'])->latest()->get();
+        $contracts = Contract::with(['customer', 'property'])->orderBy('id', 'desc')->get();
         $customers = Customer::active()->get();
         $companies = null;
         if (user()->company_id == 1) {
             $companies = $this->companyService->getAll(new Request());
         }
-        return view('dashboard.cheques.create', compact('title', 'contracts', 'customers', 'companies', 'is_deposit'));
+        return view('dashboard.cheques.create', compact('title', 'contracts', 'customers', 'companies', 'is_deposit', 'contract_id', 'company_id'));
     }
 
     public function show(string $id, Request $request)
@@ -87,7 +89,7 @@ class ChequesController extends Controller
 
         $title = __('cheques.edit_cheque');
         $cheque = $this->chequeService->getOne($id);
-        $contracts = Contract::with(['customer', 'property'])->latest()->get();
+        $contracts = Contract::with(['customer', 'property'])->orderBy('id', 'desc')->get();
         $customers = Customer::active()->get();
         $companies = null;
         if (user()->company_id == 1) {
@@ -108,6 +110,7 @@ class ChequesController extends Controller
                 'data' => $cheque
             ], 200);
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Cheque Store Error: ' . $e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => __('general.add_error_message')
@@ -129,6 +132,7 @@ class ChequesController extends Controller
                 'data' => $cheque
             ], 201);
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Cheque Update Error: ' . $e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => __('general.update_error_message')

@@ -14,7 +14,7 @@
                     </select>
                     <i class="fas fa-briefcase text-primary"></i>
                 </div>
-                <span class="text text-danger small mt-1 d-block error-text company_id_error"></span>
+                <span class="text-danger error-text company_id_error"></span>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 </select>
                 <i class="fas fa-building text-primary"></i>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text property_id_error"></span>
+            <span class="text-danger error-text property_id_error"></span>
         </div>
     </div>
     <div class="col-md-6">
@@ -52,13 +52,26 @@
                 </select>
                 <i class="fas fa-user text-primary"></i>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text customer_id_error"></span>
+            <span class="text-danger error-text customer_id_error"></span>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
+        <div class="premium-form-group">
+            <label for="conclusion_date" class="premium-label">{!! __('contracts.conclusion_date') !!} <span
+                    class="text-danger">*</span></label>
+            <div class="premium-input-wrapper">
+                <input type="text" id="conclusion_date" name="conclusion_date" value="{!! old('conclusion_date', optional($contract->conclusion_date)->format('Y-m-d')) !!}"
+                    class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                    placeholder="YYYY-MM-DD">
+                <i class="fas fa-file-contract text-primary"></i>
+            </div>
+            <span class="text-danger error-text conclusion_date_error"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
         <div class="premium-form-group">
             <label for="start_date" class="premium-label">{!! __('contracts.start_date') !!} <span
                     class="text-danger">*</span></label>
@@ -68,10 +81,10 @@
                     placeholder="YYYY-MM-DD">
                 <i class="fas fa-calendar-alt text-primary"></i>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text start_date_error"></span>
+            <span class="text-danger error-text start_date_error"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="premium-form-group">
             <label for="end_date" class="premium-label">{!! __('contracts.end_date') !!} <span
                     class="text-danger">*</span></label>
@@ -81,23 +94,26 @@
                     placeholder="YYYY-MM-DD">
                 <i class="fas fa-calendar-times text-primary"></i>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text end_date_error"></span>
+            <span class="text-danger error-text end_date_error"></span>
         </div>
     </div>
-    <div class="col-md-2">
+</div>
+
+<div class="row">
+    <div class="col-md-4">
         <div class="premium-form-group">
             <label for="rent_amount" class="premium-label">{!! __('contracts.rent_amount') !!} <span
                     class="text-danger">*</span></label>
             <div class="premium-input-wrapper">
                 <input type="number" step="0.01" id="rent_amount" name="rent_amount"
-                    value="{!! old('rent_amount', $contract->rent_amount) !!}" class="form-control premium-input shadow-none" autocomplete="off"
-                    placeholder="0.00">
+                    value="{!! old('rent_amount', $contract->rent_amount) !!}" class="form-control premium-input shadow-none"
+                    autocomplete="off" placeholder="0.00">
                 <i class="fas fa-money-bill-wave text-primary"></i>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text rent_amount_error"></span>
+            <span class="text-danger error-text rent_amount_error"></span>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="premium-form-group">
             <label for="payment_cycle" class="premium-label">{!! __('contracts.payment_cycle') !!} <span
                     class="text-danger">*</span></label>
@@ -105,31 +121,37 @@
                 <i class="fas fa-sync text-primary z-index-high"></i>
                 <select id="payment_cycle" name="payment_cycle"
                     class="form-control premium-input shadow-none select2">
+                    <option value="">{!! __('general.select_from_list') !!}</option>
                     <option value="monthly" @selected($contract->payment_cycle == 'monthly')>{!! __('contracts.payment_cycle_monthly') !!}</option>
                     <option value="yearly" @selected($contract->payment_cycle == 'yearly')>{!! __('contracts.payment_cycle_yearly') !!}</option>
                 </select>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text payment_cycle_error"></span>
+            <span class="text-danger error-text payment_cycle_error"></span>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="premium-form-group">
             <label for="status" class="premium-label">{!! __('contracts.status') !!} <span
                     class="text-danger">*</span></label>
             <div class="premium-input-wrapper">
                 <i class="fas fa-check-circle text-primary z-index-high"></i>
                 <select id="status" name="status" class="form-control premium-input shadow-none select2">
+                    <option value="">{!! __('general.select_from_list') !!}</option>
                     <option value="active" @selected($contract->status == 'active')>{!! __('contracts.status_active') !!}</option>
                     <option value="ended" @selected($contract->status == 'ended')>{!! __('contracts.status_ended') !!}</option>
                     <option value="cancelled" @selected($contract->status == 'cancelled')>{!! __('contracts.status_cancelled') !!}</option>
                 </select>
             </div>
-            <span class="text text-danger small mt-1 d-block error-text status_error"></span>
+            <span class="text-danger error-text status_error"></span>
         </div>
     </div>
 </div>
 
-<div class="premium-mandatory-section mb-4">
+@php
+    $isDepositLocked = in_array($contract->deposit_status, ['returned', 'used']);
+@endphp
+
+<div class="premium-mandatory-section mb-4 {{ $isDepositLocked ? 'premium-locked-section' : '' }}">
     <div class="premium-mandatory-header">
         <i class="fas fa-shield-alt mr-1"></i>
         {!! __('contracts.deposit_details_title') !!}
@@ -144,10 +166,13 @@
                     <div class="premium-input-wrapper">
                         <input type="number" step="0.01" id="deposit_amount" name="deposit_amount"
                             value="{!! old('deposit_amount', $contract->deposit_amount) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="0.00">
+                            autocomplete="off" placeholder="0.00" {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-money-bill-wave"></i>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_amount_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_amount" value="{{ $contract->deposit_amount }}">
+                    @endif
+                    <span class="text-danger error-text deposit_amount_error"></span>
                 </div>
             </div>
             <div class="col-md-4">
@@ -158,12 +183,16 @@
                     <div class="premium-input-wrapper">
                         <i class="fas fa-money-bill-wave text-primary z-index-high"></i>
                         <select id="deposit_type" name="deposit_type"
-                            class="form-control premium-input shadow-none select2">
+                            class="form-control premium-input shadow-none select2"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                             <option value="cash" @selected($contract->deposit_type == 'cash')>{!! __('contracts.deposit_type_cash') !!}</option>
                             <option value="cheque" @selected($contract->deposit_type == 'cheque')>{!! __('contracts.deposit_type_cheque') !!}</option>
                         </select>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_type_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_type" value="{{ $contract->deposit_type }}">
+                    @endif
+                    <span class="text-danger error-text deposit_type_error"></span>
                 </div>
             </div>
             <div class="col-md-4">
@@ -174,20 +203,29 @@
                     <div class="premium-input-wrapper">
                         <i class="fas fa-shield-alt text-primary z-index-high"></i>
                         <select id="deposit_status" name="deposit_status"
-                            class="form-control premium-input shadow-none select2">
+                            class="form-control premium-input shadow-none select2"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                             <option value="held" @selected($contract->deposit_status == 'held')>{!! __('contracts.deposit_status_held') !!}</option>
                             <option value="returned" @selected($contract->deposit_status == 'returned')>{!! __('contracts.deposit_status_returned') !!}</option>
                             <option value="used" @selected($contract->deposit_status == 'used')>{!! __('contracts.deposit_status_used') !!}</option>
                         </select>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_status_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_status" value="{{ $contract->deposit_status }}">
+                        <div style="margin-top: -2px;">
+                            <small class="text-danger font-10">
+                                <i class="fas fa-lock"></i> {!! __('contracts.deposit_locked_hint') !!}
+                            </small>
+                        </div>
+                    @endif
+                    <span class="text-danger error-text deposit_status_error"></span>
                 </div>
             </div>
         </div>
         <!-- Cheque Details Section (Hidden by default) -->
-        <div class="row cheque-details-section mt-3 cheque-details-section-box" {!! $contract->deposit_type == 'cheque' && $contract->deposit_amount > 0 ? '' : 'style="display: none;"' !!}>
+        <div class="row cheque-details-section mt-1 cheque-details-section-box" {!! $contract->deposit_type == 'cheque' && $contract->deposit_amount > 0 ? '' : 'style="display: none;"' !!}>
             <div class="col-md-12">
-                <h6 class="text-primary mb-2"><i class="fas fa-money-bill-wave"></i> {!! __('cheques.cheque_details') !!} <small
+                <h6 class="text-primary mb-1"><i class="fas fa-money-bill-wave"></i> {!! __('cheques.cheque_details') !!} <small
                         class="text-muted">({!! __('cheques.is_deposit') !!})</small></h6>
             </div>
             <div class="col-md-6">
@@ -197,16 +235,19 @@
                     <div class="premium-input-wrapper">
                         <input type="text" id="deposit_cheque_number" name="deposit_cheque_number"
                             value="{!! old('deposit_cheque_number', optional($contract->insuranceCheque)->cheque_number) !!}" class="form-control premium-input shadow-none"
-                            placeholder="{!! __('cheques.cheque_number') !!}">
+                            autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}" {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-barcode"></i>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_cheque_number_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_cheque_number"
+                            value="{{ optional($contract->insuranceCheque)->cheque_number }}">
+                    @endif
+                    <span class="text-danger error-text deposit_cheque_number_error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="premium-form-group">
-                    <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!} <span
-                            class="text-danger">*</span></label>
+                    <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!} </label>
                     <div class="premium-input-wrapper">
                         <input type="text" id="deposit_issue_date" name="deposit_issue_date"
                             value="{!! old(
@@ -216,10 +257,14 @@
                                     : '',
                             ) !!}"
                             class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
-                            autocomplete="off">
+                            autocomplete="off" {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_issue_date_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_issue_date"
+                            value="{{ $contract->insuranceCheque && $contract->insuranceCheque->issue_date ? $contract->insuranceCheque->issue_date->format('Y-m-d') : '' }}">
+                    @endif
+                    <span class="text-danger error-text deposit_issue_date_error"></span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -232,10 +277,15 @@
                                 'deposit_bank_name.ar',
                                 $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'ar') : '',
                             ) !!}" class="form-control premium-input shadow-none"
-                            placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})">
+                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-university"></i>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_bank_name_ar_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_bank_name[ar]"
+                            value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'ar') : '' }}">
+                    @endif
+                    <span class="text-danger error-text deposit_bank_name_ar_error"></span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -248,10 +298,15 @@
                                 'deposit_bank_name.en',
                                 $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'en') : '',
                             ) !!}" class="form-control premium-input shadow-none"
-                            placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})">
+                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-university"></i>
                     </div>
-                    <span class="text text-danger small mt-1 d-block error-text deposit_bank_name_en_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_bank_name[en]"
+                            value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'en') : '' }}">
+                    @endif
+                    <span class="text-danger error-text deposit_bank_name_en_error"></span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -264,11 +319,15 @@
                                 'deposit_cheque_owner_name.ar',
                                 $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'ar') : '',
                             ) !!}" class="form-control premium-input shadow-none"
-                            placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})">
+                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-user"></i>
                     </div>
-                    <span
-                        class="text text-danger small mt-1 d-block error-text deposit_cheque_owner_name_ar_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_cheque_owner_name[ar]"
+                            value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'ar') : '' }}">
+                    @endif
+                    <span class="text-danger error-text deposit_cheque_owner_name_ar_error"></span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -281,11 +340,15 @@
                                 'deposit_cheque_owner_name.en',
                                 $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'en') : '',
                             ) !!}" class="form-control premium-input shadow-none"
-                            placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})">
+                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})"
+                            {{ $isDepositLocked ? 'disabled' : '' }}>
                         <i class="fas fa-user"></i>
                     </div>
-                    <span
-                        class="text text-danger small mt-1 d-block error-text deposit_cheque_owner_name_en_error"></span>
+                    @if ($isDepositLocked)
+                        <input type="hidden" name="deposit_cheque_owner_name[en]"
+                            value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'en') : '' }}">
+                    @endif
+                    <span class="text-danger error-text deposit_cheque_owner_name_en_error"></span>
                 </div>
             </div>
         </div>

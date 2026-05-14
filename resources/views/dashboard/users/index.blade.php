@@ -4,8 +4,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
 @endpush
 
 @section('content')
@@ -49,71 +47,47 @@
             <div class="content-body">
                 <!-- begin: stats cards -->
                 <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-primary font-weight-bold mb-0">
-                                            {{ $stats['total_users'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('users.users') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(30, 159, 242, 0.1);">
-                                        <i class="fas fa-users text-primary font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-contracts">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['total_users'] }}</h3>
+                                <h6 class="stat-title">{!! __('users.users') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-users"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-success font-weight-bold mb-0">
-                                            {{ $stats['active_users'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('users.active_users') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(40, 208, 148, 0.1);">
-                                        <i class="fas fa-user-check text-success font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-active">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['active_users'] }}</h3>
+                                <h6 class="stat-title">{!! __('users.active_users') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-user-check"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-info font-weight-bold mb-0">
-                                            {{ $stats['managers'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('users.managers') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(0, 207, 221, 0.1);">
-                                        <i class="fas fa-user-shield text-info font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-revenue">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['managers'] }}</h3>
+                                <h6 class="stat-title">{!! __('users.managers') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-user-shield"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-warning font-weight-bold mb-0">
-                                            {{ $stats['super_users'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('users.super_users') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 145, 73, 0.1);">
-                                        <i class="fas fa-user-tie text-warning font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-expiring">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['super_users'] }}</h3>
+                                <h6 class="stat-title">{!! __('users.super_users') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-user-tie"></i>
                             </div>
                         </div>
                     </div>
@@ -233,3 +207,5 @@
         });
     </script>
 @endpush
+
+

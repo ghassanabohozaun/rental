@@ -1,5 +1,6 @@
 <!-- Details Modal for Contracts -->
-<div class="modal modal-pop fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal modal-pop" id="detailsModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+    aria-labelledby="detailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadow-lg border-0 modal-content-premium">
             <div class="modal-header border-0 pb-0">
@@ -14,7 +15,8 @@
                 <!-- Content will be injected from the .row-details div in the table -->
             </div>
             <div class="modal-footer border-0 pt-0 justify-content-center">
-                <button type="button" class="btn btn-premium-secondary px-4 shadow-sm btn-premium-rounded" data-dismiss="modal">
+                <button type="button" class="btn btn-premium-secondary px-4 shadow-sm btn-premium-rounded"
+                    data-dismiss="modal">
                     <i class="fas fa-times-circle mr-1"></i> {!! __('general.close') !!}
                 </button>
             </div>

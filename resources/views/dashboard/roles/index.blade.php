@@ -5,8 +5,6 @@
 
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/permissions.css') !!}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
 @endpush
 
 @section('content')
@@ -111,3 +109,5 @@
         });
     </script>
 @endpush
+
+

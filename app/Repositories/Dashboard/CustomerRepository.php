@@ -19,7 +19,7 @@ class CustomerRepository
     public function getAll($request)
     {
         $query = $this->model
-            ->with(['company', 'creator', 'guarantor', 'nationality'])
+            ->with(['company', 'creator', 'guarantors', 'nationality'])
             ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type'])
             ->orderByDesc('id');
 
@@ -28,7 +28,7 @@ class CustomerRepository
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->with(['company', 'guarantors', 'nationality'])->findOrFail($id);
     }
 
     public function create(array $data)

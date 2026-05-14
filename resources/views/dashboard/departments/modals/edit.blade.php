@@ -1,4 +1,4 @@
-<div class="modal modal-pop fade" id="updateDepartmentModal" tabindex="-1" role="dialog"
+<div class="modal modal-pop" id="updateDepartmentModal" tabindex="-1" role="dialog"
     aria-labelledby="updateDepartmentModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -21,7 +21,27 @@
                 <!--end::modal header-->
 
                 <!--begin::modal body-->
-                <div class="modal-body">
+                <div class="modal-body my-2">
+                    @if(isset($companies))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="premium-form-group">
+                                <label for="company_id_dept_edit">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
+                                <div class="premium-input-wrapper">
+                                    <select class="form-control premium-input select2 shadow-none" id='company_id_dept_edit' name="company_id">
+                                        <option value="" selected>{!! __('general.select_from_list') !!}</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <i class="fas fa-building text-primary"></i>
+                                </div>
+                                <span class="text-danger error-text company_id_error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="row">
                         <input type="hidden" id="id_edit" name="id">
 
@@ -35,7 +55,7 @@
                                         placeholder="{!! __('departments.enter_name_ar') !!}">
                                     <i class="fas fa-building text-primary"></i>
                                 </div>
-                                <span class="error-text name_ar_error text-danger small"></span>
+                                <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
 
@@ -49,30 +69,10 @@
                                         placeholder="{!! __('departments.enter_name_en') !!}">
                                     <i class="fas fa-building text-primary"></i>
                                 </div>
-                                <span class="error-text name_en_error text-danger small"></span>
+                                <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
                     </div>
-
-                    @if(isset($companies))
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="premium-form-group">
-                                <label for="company_id_dept_edit">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select class="form-control premium-input shadow-none" id='company_id_dept_edit' name="company_id">
-                                        <option value="">{!! __('general.select_from_list') !!}</option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <i class="fas fa-briefcase text-primary"></i>
-                                </div>
-                                <span class="error-text company_id_error text-danger small"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
                 </div>
                 <!--end::modal body-->
 
@@ -142,3 +142,5 @@
         });
     </script>
 @endpush
+
+

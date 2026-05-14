@@ -1,18 +1,16 @@
-<div class="modal modal-pop fade" id="createBankAccountModal" tabindex="-1" role="dialog"
-    aria-labelledby="createBankAccountModalLabel" aria-hidden="true">
+<div class="modal modal-pop" id="createBankAccountModal" tabindex="-1" role="dialog" data-backdrop="static"
+    data-keyboard="false" aria-labelledby="createBankAccountModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <form class="form ajax-form" action="{!! route('dashboard.bank-accounts.store') !!}" method="POST" enctype="multipart/form-data"
-            id='create_bank_account_form' novalidate
-            data-success-msg="{!! __('general.add_success_message') !!}"
-            data-success-action="reload-table"
-            data-table-id="#table_data">
+            id='create_bank_account_form' novalidate data-success-msg="{!! __('general.add_success_message') !!}"
+            data-success-action="reload-table" data-table-id="#table_data">
             @csrf
-            <div class="modal-content shadow-lg border-0" style="border-radius: 20px;">
-
+            <div class="modal-content shadow-lg premium-modal-content">
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="createBankAccountModalLabel">
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center"
+                        id="createBankAccountModalLabel">
                         <i class="fas fa-plus-circle text-primary mr-2 icon-size-18"></i> {!! __('bank_accounts.create_new_bank_account') !!}
                     </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
@@ -22,75 +20,102 @@
                 <!--end::modal header-->
 
                 <!--begin::modal body-->
-                <div class="modal-body">
+                <div class="modal-body my-2">
+                    <div class="row">
+                        @if (isset($companies))
+                            <div class="col-md-12">
+                                <div class="premium-form-group">
+                                    <label for="company_id_bank_create">{!! __('companies.company') !!} <span
+                                            class="text-danger">*</span></label>
+                                    <div class="premium-input-wrapper">
+                                        <select class="form-control premium-input shadow-none"
+                                            id='company_id_bank_create' name="company_id">
+                                            <option value="">{!! __('general.select_from_list') !!}</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <i class="fas fa-briefcase text-primary"></i>
+                                    </div>
+                                    <span class="text-danger error-text company_id_error"></span>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="row">
                         <!-- Bank Name Arabic -->
                         <div class="col-md-6">
                             <div class="premium-form-group">
-                                <label for="bank_name_ar_create">{!! __('bank_accounts.bank_name_ar') !!} <span class="text-danger">*</span></label>
+                                <label for="bank_name_ar_create">{!! __('bank_accounts.bank_name_ar') !!} <span
+                                        class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="bank_name_ar_create" name="bank_name[ar]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_bank_name_ar') !!}">
                                     <i class="fas fa-university text-primary"></i>
                                 </div>
-                                <span class="error-text bank_name_ar_error text-danger small"></span>
+                                <span class="text-danger error-text bank_name_ar_error"></span>
                             </div>
                         </div>
 
                         <!-- Bank Name English -->
                         <div class="col-md-6">
                             <div class="premium-form-group">
-                                <label for="bank_name_en_create">{!! __('bank_accounts.bank_name_en') !!} <span class="text-danger">*</span></label>
+                                <label for="bank_name_en_create">{!! __('bank_accounts.bank_name_en') !!} <span
+                                        class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="bank_name_en_create" name="bank_name[en]"
                                         class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_bank_name_en') !!}">
                                     <i class="fas fa-university text-primary"></i>
                                 </div>
-                                <span class="error-text bank_name_en_error text-danger small"></span>
+                                <span class="text-danger error-text bank_name_en_error"></span>
                             </div>
                         </div>
-                        
+
                         <!-- Account Holder Arabic -->
                         <div class="col-md-6">
                             <div class="premium-form-group">
-                                <label for="account_holder_name_ar_create">{!! __('bank_accounts.account_holder_name_ar') !!} <span class="text-danger">*</span></label>
+                                <label for="account_holder_name_ar_create">{!! __('bank_accounts.account_holder_name_ar') !!} <span
+                                        class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
-                                    <input type="text" id="account_holder_name_ar_create" name="account_holder_name[ar]"
-                                        class="form-control premium-input shadow-none" autocomplete="off"
-                                        placeholder="{!! __('bank_accounts.enter_account_holder_name_ar') !!}">
+                                    <input type="text" id="account_holder_name_ar_create"
+                                        name="account_holder_name[ar]" class="form-control premium-input shadow-none"
+                                        autocomplete="off" placeholder="{!! __('bank_accounts.enter_account_holder_name_ar') !!}">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text account_holder_name_ar_error text-danger small"></span>
+                                <span class="text-danger error-text account_holder_name_ar_error"></span>
                             </div>
                         </div>
 
                         <!-- Account Holder English -->
                         <div class="col-md-6">
                             <div class="premium-form-group">
-                                <label for="account_holder_name_en_create">{!! __('bank_accounts.account_holder_name_en') !!} <span class="text-danger">*</span></label>
+                                <label for="account_holder_name_en_create">{!! __('bank_accounts.account_holder_name_en') !!} <span
+                                        class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
-                                    <input type="text" id="account_holder_name_en_create" name="account_holder_name[en]"
-                                        class="form-control premium-input shadow-none" autocomplete="off"
-                                        placeholder="{!! __('bank_accounts.enter_account_holder_name_en') !!}">
+                                    <input type="text" id="account_holder_name_en_create"
+                                        name="account_holder_name[en]" class="form-control premium-input shadow-none"
+                                        autocomplete="off" placeholder="{!! __('bank_accounts.enter_account_holder_name_en') !!}">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text account_holder_name_en_error text-danger small"></span>
+                                <span class="text-danger error-text account_holder_name_en_error"></span>
                             </div>
                         </div>
 
                         <!-- Account Number -->
                         <div class="col-md-6">
                             <div class="premium-form-group">
-                                <label for="account_number_create">{!! __('bank_accounts.account_number') !!} <span class="text-danger">*</span></label>
+                                <label for="account_number_create">{!! __('bank_accounts.account_number') !!} <span
+                                        class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="account_number_create" name="account_number"
-                                        class="form-control premium-input shadow-none" autocomplete="off" dir="ltr"
+                                        class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_account_number') !!}">
                                     <i class="fas fa-hashtag text-primary"></i>
                                 </div>
-                                <span class="error-text account_number_error text-danger small"></span>
+                                <span class="text-danger error-text account_number_error"></span>
                             </div>
                         </div>
 
@@ -100,51 +125,34 @@
                                 <label for="iban_create">{!! __('bank_accounts.iban') !!}</label>
                                 <div class="premium-input-wrapper">
                                     <input type="text" id="iban_create" name="iban"
-                                        class="form-control premium-input shadow-none" autocomplete="off" dir="ltr"
+                                        class="form-control premium-input shadow-none" autocomplete="off"
                                         placeholder="{!! __('bank_accounts.enter_iban') !!}">
                                     <i class="fas fa-barcode text-primary"></i>
                                 </div>
-                                <span class="error-text iban_error text-danger small"></span>
+                                <span class="text-danger error-text iban_error"></span>
                             </div>
                         </div>
                     </div>
 
-                    @if(isset($companies))
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="premium-form-group">
-                                <label for="company_id_bank_create">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select class="form-control premium-input shadow-none" id='company_id_bank_create' name="company_id">
-                                        <option value="">{!! __('general.select_from_list') !!}</option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <i class="fas fa-briefcase text-primary"></i>
-                                </div>
-                                <span class="error-text company_id_error text-danger small"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
 
                     <div class="row">
                         <div class="col-md-12 mt-3">
-                            <label for="is_default_create" class="d-flex align-items-center justify-content-between p-3 w-100 cursor-pointer mb-0" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; transition: all 0.3s ease;">
-                                <div class="d-flex align-items-center">
-                                    <div class="d-flex align-items-center justify-content-center text-warning shadow-sm bg-white" style="width: 45px; height: 45px; border-radius: 10px; margin-inline-end: 15px;">
-                                        <i class="fas fa-star" style="font-size: 24px;"></i>
+                            <label for="is_default_create" class="premium-switch-container"
+                                style="display: flex !important; justify-content: space-between !important; align-items: center !important; flex-direction: row !important; width: 100% !important;">
+                                <div class="premium-switch-content"
+                                    style="display: flex !important; align-items: center !important; gap: 1rem !important;">
+                                    <div class="premium-switch-icon-circle text-warning shadow-sm">
+                                        <i class="fas fa-star"></i>
                                     </div>
-                                    <div>
-                                        <h6 class="font-weight-bold mb-1 text-dark" style="font-size: 1rem; cursor: pointer;">{!! __('bank_accounts.is_default') !!}</h6>
-                                        <span class="text-muted d-block" style="font-size: 0.85rem;">{!! __('bank_accounts.set_as_default') !!}</span>
+                                    <div class="premium-switch-texts">
+                                        <h6 class="premium-switch-title mb-1">{!! __('bank_accounts.is_default') !!}</h6>
+                                        <span class="premium-switch-subtitle">{!! __('bank_accounts.set_as_default') !!}</span>
                                     </div>
                                 </div>
-                                <div class="custom-control custom-switch premium-switch mx-4">
-                                    <input type="checkbox" class="custom-control-input" id="is_default_create" name="is_default">
-                                    <span class="custom-control-label m-0 cursor-pointer" style="width: 3.5rem; height: 1.65rem; display: inline-block;"></span>
-                                </div>
+                                <label class="modern-switch" style="flex-shrink: 0 !important;">
+                                    <input type="checkbox" id="is_default_create" name="is_default">
+                                    <span class="modern-slider"></span>
+                                </label>
                             </label>
                         </div>
                     </div>
@@ -153,7 +161,8 @@
 
                 <!--begin::modal footer-->
                 <div class="modal-footer border-0 pt-0 mt-3">
-                    <button type="submit" id="saveBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
+                    <button type="submit" id="saveBtn"
+                        class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
                         <i class="fas fa-save"></i> {{ __('general.save') }}
                         <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>

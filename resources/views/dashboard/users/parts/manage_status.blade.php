@@ -1,6 +1,7 @@
 <div class="premium-switch-centered-wrapper">
-    <div class="custom-control custom-switch custom-control-primary premium-switch-centered">
-        <input type="checkbox" class="custom-control-input change_status" id="customSwitch_{{ $user->id }}" {{ $user->status == 1 ? 'checked' : '' }} data-id="{{ $user->id }}" />
-        <label class="custom-control-label" for="customSwitch_{{ $user->id }}"></label>
-    </div>
+    <label class="modern-switch">
+        <input type="checkbox" class="change_status" id="status_{!! $user->id !!}" data-id="{!! $user->id !!}"
+            {!! $user->status == 1 ? 'checked' : '' !!}>
+        <span class="modern-slider"></span>
+    </label>
 </div>

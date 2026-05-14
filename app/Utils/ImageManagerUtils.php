@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Utils;
-use File;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -10,37 +10,121 @@ use Intervention\Image\Drivers\Gd\Driver;
 class ImageManagerUtils
 {
     /**
-     * Create a new class instance.
+     * Handle single image upload without resizing.
+     *
+     * @param mixed $image
+     * @param string $path
+     * @param string $disk
+     * @param string|null $file_name
+     * @return string
      */
-    public function __construct()
-    {
-        //
-    }
-
-    // upload images
-    public function uploadImages($images, $modal, $disk)
-    {
-        foreach ($images as $image) {
-            $file_name = $this->generateImageName($image);
-            $this->storeImageInLocal($image, '/', $file_name, $disk);
-            $modal->images()->create([
-                'file_name' => $file_name,
-            ]);
-        }
-    }
-
-    // upload single image
     public function uploadSingleImage($path, $image, $disk, $file_name = null)
     {
         if (!$file_name) {
             $file_name = $this->generateImageName($image);
         }
 
-        $this->storeImageInLocal($image, $path, $file_name, $disk);
+        $this->storeInLocal($image, $path, $file_name, $disk);
         return $file_name;
     }
 
-    // generate file name
+    /**
+     * Handle single file upload (PDF, Docs, etc.).
+     *
+     * @param mixed $file
+     * @param string $path
+     * @param string $disk
+     * @param string|null $file_name
+     * @return string
+     */
+    public function uploadFile($path, $file, $disk, $file_name = null)
+    {
+        if (!$file_name) {
+            $file_name = $this->generateImageName($file); // Using same logic for name generation
+        }
+
+        $this->storeInLocal($file, $path, $file_name, $disk);
+        return $file_name;
+    }
+
+    /**
+     * Upload and resize image.
+     *
+     * @param mixed $image
+     * @param string $path
+     * @param string $disk
+     * @param int $width
+     * @param int $height
+     * @param string|null $file_name
+     * @return string
+     */
+    public function uploadAndResizeImage($path, $image, $disk, $width, $height, $file_name = null)
+    {
+        if (!$file_name) {
+            $file_name = $this->generateImageName($image);
+        }
+
+        $manager = new ImageManager(new Driver());
+        $img = $manager->read($image->getRealPath());
+        $img->resize($width, $height);
+
+        $encodedImage = $img->encode();
+
+        // Ensure path ends with slash
+        $fullPath = $path ? rtrim($path, '/') . '/' . $file_name : $file_name;
+        
+        Storage::disk($disk)->put($fullPath, $encodedImage);
+
+        return $file_name;
+    }
+
+    /**
+     * Bulk upload images for a model.
+     *
+     * @param array $images
+     * @param mixed $model
+     * @param string $disk
+     * @return void
+     */
+    public function uploadImages($images, $model, $disk)
+    {
+        foreach ($images as $image) {
+            $file_name = $this->generateImageName($image);
+            $this->storeInLocal($image, '/', $file_name, $disk);
+            $model->images()->create([
+                'file_name' => $file_name,
+            ]);
+        }
+    }
+
+    /**
+     * Remove file from storage.
+     *
+     * @param string $file_name
+     * @param string $disk
+     * @return void
+     */
+    public function removeImageFromLocal($file_name, $disk)
+    {
+        if ($file_name && Storage::disk($disk)->exists($file_name)) {
+            Storage::disk($disk)->delete($file_name);
+        }
+    }
+
+    /**
+     * Generate a unique image name.
+     *
+     * @param mixed $image
+     * @return string
+     */
+    public function generateImageName($image)
+    {
+        return Str::uuid() . time() . '.' . $image->getClientOriginalExtension();
+    }
+
+    /**
+     * Generate a formatted file name.
+     */
     public function generateFileName($file, $employeeName, $month, $year)
     {
         $extension = $file->getClientOriginalExtension();
@@ -48,47 +132,17 @@ class ImageManagerUtils
         return $cleanName . '_' . $month . '_' . $year . '_' . time() . '.' . $extension;
     }
 
-    // generate image name
-    public function generateImageName($image)
+    /**
+     * Internal helper to store file.
+     */
+    private function storeInLocal($file, $path, $file_name, $disk)
     {
-        $file_name = Str::uuid() . time() . '.' . $image->getClientOriginalExtension();
-        return $file_name;
+        $file->storeAs($path, $file_name, ['disk' => $disk]);
     }
 
-    // store image in local
-    private function storeImageInLocal($image, $path, $file_name, $disk)
+    // Deprecated method name mapping for backward compatibility if needed
+    public function saveResizeImage($image, $disk, $width, $height)
     {
-        $image->storeAs($path, $file_name, ['disk' => $disk]);
-    }
-
-    // remove image from local
-    public function removeImageFromLocal($image, $disk)
-    {
-        Storage::disk($disk)->delete($image);
-        // $public_path =
-        //  public_path('uploads\\' . $disk . '\\' . $image);
-        // if (File::exists($public_path)) {
-        //     File::delete($public_path);
-        // }
-    }
-
-    // save resize image
-    public function saveResizeImage($image,$disk, $width, $height)
-    {
-
-        $file_name = $this->generateImageName($image);
-
-        // Create an image manager instance
-        $manager = new ImageManager(new Driver());
-
-        // Read the image and perform manipulations
-        $img = $manager->read($image->getRealPath());
-        $img->resize($width, $height);
-
-        $encodedImage = $img->encode();
-
-        Storage::disk($disk)->put($file_name, $encodedImage);
-
-        return $file_name;
+        return $this->uploadAndResizeImage('', $image, $disk, $width, $height);
     }
 }

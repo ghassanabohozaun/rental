@@ -21,9 +21,10 @@ class Property extends Model implements MustBelongToCompany
         'contracts' => 'properties.cannot_delete_has_contracts',
     ];
 
-    protected $fillable = ['company_id', 'parent_id', 'owner_id', 'name', 'location',
+    protected $fillable = ['company_id', 'parent_id', 'name', 'location',
      'property_type_id', 'property_status_id', 'area', 'price', 'description', 'property_number',
-     'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by'];
+     'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by',
+     'file_number', 'rental_contract_original', 'building_completion_certificate', 'other_documents'];
 
     public $translatable = ['name'];
 
@@ -60,11 +61,13 @@ class Property extends Model implements MustBelongToCompany
     }
 
     /**
-     * Get the owner of the property.
+     * Get the owners of the property.
      */
-    public function owner()
+    public function owners()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsToMany(Owner::class, 'owner_property')
+                    ->withPivot('ownership_percentage', 'is_primary')
+                    ->withTimestamps();
     }
 
     /**

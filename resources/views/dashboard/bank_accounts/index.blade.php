@@ -4,7 +4,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
 @endpush
 
 @section('content')
@@ -105,3 +104,5 @@
         });
     </script>
 @endpush
+
+

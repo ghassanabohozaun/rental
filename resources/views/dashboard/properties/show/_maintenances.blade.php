@@ -1,15 +1,14 @@
 <!-- Maintenances Tab -->
 <div class="tab-pane fade" id="maintenances" role="tabpanel">
-    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
-        <div class="card-header bg-white border-bottom py-2 px-3 d-flex justify-content-between align-items-center">
-            <h6 class="card-title font-weight-bolder text-dark mb-0 d-flex align-items-center justify-content-start">
-                <i class="fas fa-tools text-primary mr-1"></i>
-                <span>{!! __('maintenances.maintenances') !!}</span>
-            </h6>
+    <div class="card border-0 shadow-sm radius-15">
+        <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex justify-content-between align-items-center" style="height: 50px;">
+            <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                <i class="fas fa-tools text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('maintenances.maintenances') !!}
+            </h5>
             @can('maintenances_create')
-            <a href="{!! route('dashboard.maintenances.index') !!}?property_id={!! $property->id !!}" class="text-primary font-weight-bolder hover-scale" style="text-decoration: none;">
+            <a href="{!! route('dashboard.maintenances.index') !!}?property_id={!! $property->id !!}" class="text-primary font-weight-bold hover-scale d-flex align-items-center" style="text-decoration: none;">
                 <i class="fas fa-plus-circle font-medium-3 ml-1"></i>
-                <span>{!! __('maintenances.add_maintenance') !!}</span>
+                <span class="font-small-3">{!! __('maintenances.add_maintenance') !!}</span>
             </a>
             @endcan
         </div>
@@ -66,3 +65,5 @@
         </div>
     </div>
 </div>
+
+

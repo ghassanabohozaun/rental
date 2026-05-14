@@ -4,7 +4,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
 @endpush
 
 @section('content')
@@ -102,6 +101,18 @@
                     detailsModalBody: "#detailsCompanyModalBody"
                 });
             }
+
+            // Global Select2 Initialization for all modals in this page
+            $('.select2').each(function() {
+                var $el = $(this);
+                var parentModal = $el.closest('.modal');
+                
+                $el.select2({
+                    dropdownParent: parentModal.length ? parentModal : $(document.body),
+                    width: '100%',
+                    placeholder: $el.attr('placeholder') || "{!! __('general.choose') !!}",
+                });
+            });
         });
 
         // change status
@@ -146,3 +157,5 @@
         });
     </script>
 @endpush
+
+

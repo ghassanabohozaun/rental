@@ -28,6 +28,13 @@ return new class extends Migration {
             $table->string('youtube')->nullable();
             $table->string('logo')->nullable();
             $table->string('favicon')->nullable();
+
+            // auth welcome content
+            $table->text('auth_welcome_title')->nullable();
+            $table->text('auth_welcome_desc')->nullable();
+            $table->text('auth_welcome_badge')->nullable();
+            $table->text('auth_welcome_footer')->nullable();
+
             $table->timestamps();
         });
     }

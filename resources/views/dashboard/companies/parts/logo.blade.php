@@ -15,3 +15,5 @@
         {!! $company->initials !!}
     </div>
 @endif
+
+

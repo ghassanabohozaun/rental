@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -22,8 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // web
             Route::middleware('web')->group(base_path('routes/dashboard.php'));
 
-            // employee
-            Route::middleware('web')->group(base_path('routes/employee.php'));
+
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -41,10 +40,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // redirect if auth
         $middleware->redirectUsersTo(function () {
-            if (Auth::guard('admin')->check()) {
+            if (Auth::guard('admin')->check() || Auth::guard('web')->check()) {
                 return route('dashboard.index');
-            } elseif (Auth::guard('user')->check()) {
-                return route('user.overview');
             } else {
                 return route('welcome');
             }
@@ -59,8 +56,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
-            'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class,
-            'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
             'checkLockScreen' => \App\Http\Middleware\CheckLockScreen::class,
             //'setLanguage' => SetLangMiddleware::class,
         ]);

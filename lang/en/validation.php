@@ -178,6 +178,24 @@ return [
             'required' => 'Please verify that you are not a robot.',
             'captcha' => 'Captcha error! try again later or contact site admin.',
         ],
+        'deposit_bank_name.ar' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
+        'deposit_bank_name.en' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
+        'deposit_cheque_number' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
+        'deposit_issue_date' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
+        'deposit_cheque_owner_name.ar' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
+        'deposit_cheque_owner_name.en' => [
+            'required_if' => 'Field is required when insurance type is "Cheque".',
+        ],
     ],
 
     /*
@@ -351,5 +369,9 @@ return [
         'deposit_cheque_owner_name.ar' => 'Cheque Owner Name (Arabic)',
         'deposit_cheque_owner_name.en' => 'Cheque Owner Name (English)',
         'deposit_issue_date' => 'Cheque Issue Date',
+
+        // Owners
+        'identification_number' => 'ID / Registration Number',
+        'conclusion_date' => 'Conclusion Date',
     ],
 ];

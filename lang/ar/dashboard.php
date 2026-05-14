@@ -8,7 +8,8 @@ return [
     'access_restricted' => 'الوصول ممنوع',
     'access_denied' => 'الوصول مقيد / ممنوع',
     'back_to_home' => 'الرجوع الي الشاشة الرئيسية',
-    'search' => 'بحث ...',
+    'search' => 'البحث في القائمة...',
+    'main_navigation' => 'القائمة الرئيسية',
     'hello' => 'مرحبا ,',
     'employees_count' => 'عدد الموظفين',
     'daily_reports_count' => 'عدد التقارير اليومية',
@@ -83,4 +84,5 @@ return [
     'upcoming_cheques' => 'شيكات تستحق التحصيل (7 أيام)',
     'no_upcoming_cheques' => 'لا يوجد شيكات مستحقة قريباً.',
     'reports_module_ready' => 'نظام التقارير قيد التجهيز مع كافة التدقيقات المالية.',
+    'technical_support' => 'الدعم والوصول',
 ];

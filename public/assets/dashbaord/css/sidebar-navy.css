@@ -161,6 +161,7 @@ body .main-menu.expanded .navigation-main .menu-title,
     line-height: 1 !important;
     visibility: visible !important;
     opacity: 1 !important;
+    font-size: 0.95rem !important; /* Reduced by 1px */
 }
 
 /* --- Collapsed State: Restore Original Icon Centering --- */
@@ -199,6 +200,7 @@ body .main-menu.expanded .navigation-main .menu-title,
     border-radius: 6px;
     line-height: 1 !important;
     color: #cbd5e1 !important;
+    font-size: 0.9rem !important; /* Reduced by 1px */
 }
 
 .main-menu.menu-dark .navigation-main ul.menu-content > li > a i {

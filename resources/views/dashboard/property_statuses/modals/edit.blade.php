@@ -1,5 +1,5 @@
-<div class="modal modal-pop fade" id="updateproperty_statusModal" tabindex="-1" role="dialog"
-    aria-labelledby="updateproperty_statusModalLabel" aria-hidden="true">
+<div class="modal modal-pop" id="updateproperty_statusModal" tabindex="-1" role="dialog"
+    aria-labelledby="updateproperty_statusModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <form class="form ajax-form" action="" method="POST" enctype="multipart/form-data"
@@ -21,7 +21,28 @@
                 <!--end::modal header-->
 
                 <!--begin::modal body-->
-                <div class="modal-body">
+                <div class="modal-body my-2">
+                    @if (isset($companies))
+                        <div class="row">
+                            <!-- Company -->
+                            <div class="col-md-12">
+                                <div class="premium-form-group">
+                                    <label for="company_id_dept_edit">{!! __('property_statuses.company') !!} <span class="text-danger">*</span></label>
+                                    <div class="premium-input-wrapper">
+                                        <select name="company_id" id="company_id_dept_edit" class="form-control premium-input select2">
+                                            <option value="" selected>{{ __('general.select_from_list') }}</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <i class="fas fa-building text-primary"></i>
+                                    </div>
+                                    <span class="text-danger error-text company_id_error"></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <input type="hidden" id="id_edit" name="id">
 
@@ -35,7 +56,7 @@
                                         placeholder="{!! __('property_statuses.enter_name_ar') !!}">
                                     <i class="fas fa-building text-primary"></i>
                                 </div>
-                                <span class="error-text name_ar_error text-danger small"></span>
+                                <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
 
@@ -49,26 +70,9 @@
                                         placeholder="{!! __('property_statuses.enter_name_en') !!}">
                                     <i class="fas fa-building text-primary"></i>
                                 </div>
-                                <span class="error-text name_en_error text-danger small"></span>
+                                <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        @if (isset($companies))
-                            <!-- Company -->
-                            <div class="col-md-12">
-                                <div class="premium-form-group">
-                                    <label for="company_id_dept_edit">{!! __('property_statuses.company') !!} <span class="text-danger">*</span></label>
-                                    <div class="premium-input-wrapper no-icon">
-                                        <select name="company_id" id="company_id_dept_edit" class="form-control premium-input select2-remote">
-                                            <option value="">{{ __('general.select_from_list') }}</option>
-                                        </select>
-                                    </div>
-                                    <span class="error-text company_id_error text-danger small"></span>
-                                </div>
-                            </div>
-                        @endif
                     </div>
 
                     <div class="row mt-2">
@@ -101,29 +105,29 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="selected-color-info mt-3 d-flex align-items-center">
+                                <div class="selected-color-info mt-3 d-flex align-items-center">
                                         <div class="color-preview-circle" id="colorPreview_edit"></div>
                                         <input type="text" id="color_edit" name="color" class="premium-hex-display" value="#1e9ff2" readonly>
                                         <small class="text-muted ml-2">({{ __('general.selected_color') }})</small>
-                                    </div>
                                 </div>
-                                <span class="error-text color_error text-danger small"></span>
+                                <span class="text-danger error-text color_error"></span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
                 <!--end::modal body-->
 
                 <!--begin::modal footer-->
                 <div class="modal-footer border-0 pt-0">
                     <button type="submit" id="saveBtnEdit"
-                        class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
+                        class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10" style="min-width: 120px;">
                         <i class="fas fa-save mr-1"></i> {{ __('general.save') }}
                         <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
-                        data-dismiss="modal">
+                        data-dismiss="modal" style="min-width: 120px;">
                         <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
@@ -184,12 +188,7 @@
 
                 // Populate Select2 for Company
                 if ($('#company_id_dept_edit').length) {
-                    if (property_status_company_id && property_status_company_name) {
-                        var newOption = new Option(property_status_company_name, property_status_company_id, true, true);
-                        $('#company_id_dept_edit').append(newOption).trigger('change');
-                    } else {
-                        $('#company_id_dept_edit').val(null).trigger('change');
-                    }
+                    $('#company_id_dept_edit').val(property_status_company_id).trigger('change');
                 }
 
                 // Update form action URL dynamically
@@ -202,8 +201,14 @@
 
             // Initialize Select2
             if ($('#company_id_dept_edit').length) {
-                initGenericSelect2('#company_id_dept_edit', '{!! route("dashboard.companies.autocomplete") !!}', '{!! __("general.select_from_list") !!}', '#updateproperty_statusModal');
+                $('#company_id_dept_edit').select2({
+                    dropdownParent: $('#updateproperty_statusModal'),
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
             }
         });
     </script>
 @endpush
+
+

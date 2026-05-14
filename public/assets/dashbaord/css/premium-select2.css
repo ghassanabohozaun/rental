@@ -1,11 +1,25 @@
-/* Premium Select2 Styling */
+.select2-container {
+    width: 100% !important;
+    min-width: 100% !important;
+    display: block !important;
+}
+
+/* Prevent FOUC (Flash of Unstyled Content) - Hides raw select border & text before Select2 init */
+select.select2:not(.select2-hidden-accessible) {
+    visibility: hidden !important;
+    height: 42px !important; /* Match final select2 height to prevent layout jump */
+}
+
 .select2-container--default .select2-selection--single {
     height: 42px !important;
+    width: 100% !important;
+    display: block !important;
+    position: relative !important;
     border: 1px solid #e2e8f0 !important;
-    border-radius: 10px !important;
-    padding: 6px 12px;
+    border-radius: 6px !important; /* Unified with standard inputs */
+    padding: 0 !important;
     background-color: transparent !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important; /* Smoother transition */
 }
 
 .select2-container--default.select2-container--focus .select2-selection--single,
@@ -16,15 +30,47 @@
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 28px !important;
+    line-height: 40px !important;
     color: #475569 !important;
-    padding-left: 3rem !important;
-    padding-right: 2.5rem !important;
+    display: block !important;
+    width: 100% !important;
+    font-size: 1.0rem !important; /* Base text size */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #94a3b8 !important;
+    font-size: 0.9rem !important;
+    opacity: 0.85 !important;
+    font-weight: 500 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #475569 transparent transparent transparent !important;
+    border-style: solid !important;
+    border-width: 5px 4px 0 4px !important;
+    height: 0 !important;
+    left: 50% !important;
+    margin-left: -4px !important;
+    margin-top: -2px !important;
+    position: absolute !important;
+    top: 50% !important;
+    width: 0 !important;
+    display: block !important;
+}
+
+/* Rotate arrow when open */
+.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #475569 transparent !important;
+    border-width: 0 4px 5px 4px !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 40px !important;
+    height: 42px !important;
+    width: 30px !important;
+    position: absolute !important;
     top: 0 !important;
+    z-index: 10 !important;
+    display: block !important;
 }
 
 /* Clear Icon Base */
@@ -36,8 +82,12 @@
 html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__rendered {
     text-align: left;
 }
-html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow {
+/* LTR Support - Force Arrow to RIGHT */
+html[dir="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+[dir="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     right: 12px !important;
+    left: auto !important;
 }
 html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__clear {
     position: absolute !important;
@@ -59,9 +109,9 @@ html[data-textdirection="ltr"] .select2-results__option {
 /* RTL Support */
 html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__rendered {
     text-align: right;
-    padding-right: 3rem !important; /* Synced with LTR (48px) */
-    padding-left: 2.5rem !important;
-    font-size: 1rem !important; /* Increased font size for RTL by ~1px */
+    padding-right: 2.2rem !important; /* Reduced from 3rem for better spacing from premium icon */
+    padding-left: 2.5rem !important; /* Space for dropdown arrow */
+    font-size: 1rem !important;
 }
 
 /* ================================================================
@@ -75,7 +125,10 @@ html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-selection
 html[data-textdirection="rtl"] .premium-input-wrapper.no-icon .select2-selection__rendered {
     padding-right: 12px !important;
 }
-html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
+/* RTL Support - Force Arrow to LEFT (Final & Clean) */
+[dir="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+html[dir="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
     left: 12px !important;
     right: auto !important;
 }
@@ -207,12 +260,22 @@ html[data-textdirection="rtl"] .premium-input-wrapper .select2-custom-reset {
    ================================================================ */
 .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
     height: 42px !important;
+    width: 100% !important;
+    min-width: 100% !important;
     display: flex !important;
     align-items: center !important;
     border: 1px solid #e2e8f0 !important;
     background-color: #ffffff !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+    position: relative !important;
+}
+
+.premium-ajax-selection::after,
+.premium-ajax-selection::before,
+.premium-ajax-selection .select2-selection__arrow::after,
+.premium-ajax-selection .select2-selection__arrow::before {
+    display: none !important;
 }
 
 /* LTR Adjustments for Ajax Select2 with Avatar */
@@ -225,14 +288,20 @@ html[data-textdirection="ltr"] .premium-ajax-selection .select2-selection__rende
     text-align: left !important;
 }
 
-/* RTL Adjustments for Ajax Select2 with Avatar */
+/* RTL Adjustments for Ajax Select2 with Avatar/Icon */
 html[data-textdirection="rtl"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
-    padding-right: 6px !important;
-    padding-left: 0 !important;
+    padding-right: 2.2rem !important;
+    padding-left: 0.5rem !important;
 }
 html[data-textdirection="rtl"] .premium-ajax-selection .select2-selection__rendered {
     padding-right: 0 !important;
     text-align: right !important;
+}
+
+/* LTR Adjustments for Ajax Select2 with Avatar/Icon */
+html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
+    padding-left: 3.2rem !important;
+    padding-right: 0.5rem !important;
 }
 
 .premium-ajax-selection .select2-selection__rendered {
@@ -288,5 +357,15 @@ html[data-textdirection="rtl"] .premium-ajax-selection .select2-selection__rende
     font-weight: 600 !important;
     color: #334155 !important;
     font-size: 0.95rem !important;
+}
+
+/* ====================================================================
+   🔥 PROFESSIONAL VALIDATION ERROR STATES FOR SELECT2
+   ==================================================================== */
+.premium-input-wrapper.is-invalid-premium .select2-container--default .select2-selection--single {
+    border: 1px solid #ef4444 !important;
+    background-color: #fff5f5 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+    border-radius: 6px !important; /* Exactly 6px as requested */
 }
 

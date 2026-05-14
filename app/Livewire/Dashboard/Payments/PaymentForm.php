@@ -18,20 +18,21 @@ class PaymentForm extends Component
     public $paymentId;
 
     // Form Fields
+    public $validation_fail_nonce = 0;
     public $company_id;
     public $contract_id;
     public $customer_id;
-    public $method = 'cash';
+    public $method;
     public $amount;
     public $payment_date;
     public $cheque_id;
-    public $status = 'paid';
+    public $status;
     public $reference_number;
     public $notes;
 
     // Data Collections
-    public $companies = [];
-    public $contracts = [];
+    public $companies;
+    public $contracts;
     public $availableCheques = [];
     
     // Financial Summaries
@@ -54,7 +55,7 @@ class PaymentForm extends Component
 
     public function mount($paymentId = null)
     {
-        $this->payment_date = date('Y-m-d');
+        $this->payment_date = null;
         $this->loadInitialData();
 
         if ($paymentId) {
@@ -72,7 +73,7 @@ class PaymentForm extends Component
     protected function loadInitialData()
     {
         if (user()->company_id == 1) {
-            $this->companies = Company::all();
+            $this->companies = Company::orderByDesc('id')->get();
             $this->contracts = []; // Keep empty for super admin until company is selected
         } else {
             $this->company_id = user()->company_id;
@@ -141,10 +142,10 @@ class PaymentForm extends Component
 
     protected function resetPaymentFields()
     {
-        $this->method = 'cash';
+        $this->method = '';
         $this->amount = null;
         $this->cheque_id = null;
-        $this->status = 'paid';
+        $this->status = '';
         $this->reference_number = null;
         $this->selectedChequeDetails = null;
     }
@@ -163,7 +164,8 @@ class PaymentForm extends Component
         ];
     }
 
-    public $allCheques = [];
+    /** @var \Illuminate\Support\Collection */
+    public $allCheques;
 
     public function loadContractDetails()
     {
@@ -187,15 +189,6 @@ class PaymentForm extends Component
         $total = (float)$contract->total_amount;
         $paid = (float)$contract->paid_amount;
         
-        // Adjust paid if we are editing an existing payment
-        if ($this->isEdit) {
-            $currentPayment = Payment::find($this->paymentId);
-            if ($currentPayment && $currentPayment->status === 'paid') {
-                // If the current payment is already counted in contract->paid_amount, we don't subtract it here
-                // because we want to see the state AS IT IS.
-            }
-        }
-
         $remaining = (float)$contract->remaining_amount;
         $pendingTotal = $this->allCheques->sum('remaining_amount');
         $originalTotal = $this->allCheques->sum('amount');
@@ -247,7 +240,7 @@ class PaymentForm extends Component
         } else {
             $this->cheque_id = null;
             $this->selectedChequeDetails = null;
-            $this->status = 'paid';
+            $this->status = '';
         }
         $this->dispatch('reinit-plugins');
     }
@@ -302,7 +295,14 @@ class PaymentForm extends Component
             $rules['company_id'] = 'required|exists:companies,id';
         }
 
-        $validatedData = $this->validate($rules);
+        try {
+            $validatedData = $this->validate($rules);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->validation_fail_nonce++;
+            $this->dispatch('reinit-plugins');
+            throw $e;
+        }
+
         $validatedData['customer_id'] = $this->customer_id;
 
         // Custom Validation

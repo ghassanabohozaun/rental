@@ -4,11 +4,6 @@
     {!! $title !!}
 @endsection
 
-@push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-@endpush
-
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -61,7 +56,8 @@
                                     <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
                                         <i class="fas fa-shield-alt text-primary mr-2 icon-size-16"></i>
                                         {!! __('guarantors.guarantors') !!}
-                                        <span id="guarantorsCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $guarantors->total() !!}</span>
+                                        <span id="guarantorsCountBadge"
+                                            class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $guarantors->total() !!}</span>
                                     </h6>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">

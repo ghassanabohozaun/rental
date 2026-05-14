@@ -5,7 +5,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/lock-screen.css') }}">
 @endpush
 
 @section('content')
@@ -79,7 +78,7 @@
                 <form id="lock-form" action="{{ route('dashboard.unlock.screen') }}" method="POST" autocomplete="off"
                     class="modern-form">
                     @csrf
-                    
+
                     <div class="form-group-modern">
                         <label class="form-label-modern">{!! __('auth.enter_you_password') !!}</label>
                         <div class="input-container-modern">

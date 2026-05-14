@@ -20,7 +20,7 @@ class Guarantor extends Model implements MustBelongToCompany
         'customers' => 'guarantors.cannot_delete_has_customers',
     ];
 
-    protected $fillable = ['company_id', 'name', 'phone', 'id_number', 'address', 'relationship',
+    protected $fillable = ['company_id', 'name', 'phone', 'id_number', 'address',
     'notes', 'status', 'created_by'];
 
     public array $translatable = ['name'];
@@ -46,6 +46,8 @@ class Guarantor extends Model implements MustBelongToCompany
      */
     public function customers()
     {
-        return $this->hasMany(Customer::class);
+        return $this->belongsToMany(Customer::class, 'customer_guarantor')
+                    ->withPivot('relationship', 'relationship_details')
+                    ->withTimestamps();
     }
 }

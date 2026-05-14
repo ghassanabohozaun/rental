@@ -1,5 +1,5 @@
-<div class="modal modal-pop fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-    aria-hidden="true">
+<div class="modal modal-pop" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <form class="form ajax-form" action="" method="POST"
@@ -36,7 +36,7 @@
                                             <option></option>
                                         </select>
                                     </div>
-                                    <span class="error-text company_id_error text-danger small"></span>
+                                    <span class="error-text company_id_error text-danger"></span>
                                 </div>
                             </div>
                         @endif
@@ -54,7 +54,7 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                <span class="error-text contract_id_error text-danger small"></span>
+                                <span class="error-text contract_id_error text-danger"></span>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
                                     <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount_edit"
                                     name="amount" placeholder="{!! __('payments.amount') !!}" autocomplete="off">
                                 </div>
-                                <span class="error-text amount_error text-danger small"></span>
+                                <span class="error-text amount_error text-danger"></span>
                             </div>
                         </div>
 
@@ -80,7 +80,7 @@
                                     <input type="date" class="form-control premium-input shadow-none" id="payment_date_edit"
                                     name="payment_date" autocomplete="off">
                                 </div>
-                                <span class="error-text payment_date_error text-danger small"></span>
+                                <span class="error-text payment_date_error text-danger"></span>
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <span class="error-text method_error text-danger small"></span>
+                                <span class="error-text method_error text-danger"></span>
                             </div>
                         </div>
 
@@ -113,7 +113,7 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                <span class="error-text cheque_id_error text-danger small"></span>
+                                <span class="error-text cheque_id_error text-danger"></span>
                             </div>
                         </div>
 
@@ -126,7 +126,7 @@
                                     <input type="text" class="form-control premium-input shadow-none" id="reference_number_edit"
                                     name="reference_number" placeholder="{!! __('payments.reference_number') !!}" autocomplete="off">
                                 </div>
-                                <span class="error-text reference_number_error text-danger small"></span>
+                                <span class="error-text reference_number_error text-danger"></span>
                             </div>
                         </div>
 
@@ -142,7 +142,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <span class="error-text status_error text-danger small"></span>
+                                <span class="error-text status_error text-danger"></span>
                             </div>
                         </div>
 
@@ -154,7 +154,7 @@
                                     <textarea class="form-control premium-input shadow-none" id="notes_edit" name="notes" rows="3" placeholder="{!! __('payments.notes') !!}"></textarea>
                                     <i class="fas fa-sticky-note text-primary"></i>
                                 </div>
-                                <span class="error-text notes_error text-danger small"></span>
+                                <span class="error-text notes_error text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -209,3 +209,5 @@
         });
     </script>
 @endpush
+
+

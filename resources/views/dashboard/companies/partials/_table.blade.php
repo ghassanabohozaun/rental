@@ -37,7 +37,7 @@
                                         @include('dashboard.companies.parts.logo', ['size' => 100])
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{!! $company->name !!}</h4>
-                                    <span class="modal-role-badge">{!! $company->subscription_plan !!}</span>
+                                    <span class="modal-role-badge">{!! __('companies.plan_' . strtolower($company->subscription_plan)) !!}</span>
                                 </div>
 
                                 <div class="modal-info-list mt-2">
@@ -87,7 +87,12 @@
                     </td>
 
                     <!-- Name -->
-                    <td class="text-center align-middle font-weight-bold text-primary">{!! $company->name !!}</td>
+                    <td class="text-center align-middle">
+                        <a href="javascript:void(0)" class="company-chip">
+                            <i class="fas fa-briefcase mr-1"></i>
+                            {!! $company->name !!}
+                        </a>
+                    </td>
 
                     <!-- Email -->
                     <td class="text-center align-middle d-none d-lg-table-cell">{!! $company->email ?? '---' !!}</td>
@@ -126,3 +131,5 @@
         {!! $companies->links() !!}
     </div>
 </div>
+
+

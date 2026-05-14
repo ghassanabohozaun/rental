@@ -5,8 +5,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
 @endpush
 
 @section('content')
@@ -55,7 +53,7 @@
                 <section id="basic-form-layouts">
                     <div class="row match-height">
                         <div class="col-md-12">
-                            <div class="card premium-card">
+                            <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
                                     <div class="card-header border-0 pb-0">
                                         <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
@@ -215,3 +213,5 @@
         });
     </script>
 @endpush
+
+

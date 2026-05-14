@@ -42,6 +42,21 @@ use App\Exceptions\DeleteRestrictionException;
         return view('dashboard.customers.index', compact('title', 'customers', 'companies', 'nationalities', 'stats'));
     }
 
+    public function create()
+    {
+        Gate::authorize('customers_create');
+        $title = __('customers.add_customer');
+        return view('dashboard.customers.create', compact('title'));
+    }
+
+    public function edit(string $id)
+    {
+        Gate::authorize('customers_update');
+        $customer = $this->customerService->getOne($id);
+        $title = __('customers.edit_customer') . ' - ' . $customer->name;
+        return view('dashboard.customers.edit', compact('id', 'title'));
+    }
+
     public function show(string $id)
     {
         Gate::authorize('customers_read');

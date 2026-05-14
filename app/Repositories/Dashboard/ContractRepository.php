@@ -33,7 +33,7 @@ class ContractRepository
 
     public function find($id)
     {
-        return $this->model->with(['company', 'creator', 'property', 'customer', 'insuranceCheque'])->findOrFail($id);
+        return $this->model->with(['company', 'creator', 'property', 'customer', 'insuranceCheque', 'cheques'])->findOrFail($id);
     }
 
     public function create(array $data)

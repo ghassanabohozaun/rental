@@ -51,7 +51,30 @@ class ChequeService
 
     public function delete($id)
     {
-        return $this->repository->delete($id);
+        $cheque = $this->repository->find($id);
+        if (!$cheque) return false;
+
+        // Debug: Check payments count
+        $paymentsCount = $cheque->payments()->count();
+        if ($paymentsCount > 0) {
+            throw new \Exception("Cannot delete: This cheque has $paymentsCount associated payments in the database.");
+        }
+
+        return \DB::transaction(function () use ($cheque) {
+            // Sync contract
+            if ($cheque->is_deposit && $cheque->contract_id) {
+                $contract = Contract::find($cheque->contract_id);
+                if ($contract) {
+                    $contract->update([
+                        'deposit_type' => 'cash',
+                        'deposit_amount' => 0,
+                        'deposit_status' => 'held',
+                    ]);
+                }
+            }
+
+            return $cheque->delete();
+        });
     }
 
     public function autocomplete($searchValue)
@@ -95,7 +118,7 @@ class ChequeService
                 'customer_id' => $cheque->customer_id,
                 'amount' => $cheque->amount,
                 'payment_date' => now()->format('Y-m-d'),
-                'payment_method' => 'cheque',
+                'method' => 'cheque',
                 'cheque_id' => $cheque->id,
                 'status' => 'paid',
                 'notes' => [

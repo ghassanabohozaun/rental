@@ -39,14 +39,12 @@ class AuthController extends Controller implements HasMiddleware
 
         $checkLogin = $this->authService->login($credentials, $remember, 'web');
         if (!$checkLogin) {
-            flash()->error(__('auth.login_failed'));
-            return redirect()->back();
+            return redirect()->back()->withErrors(['email' => __('auth.login_failed')])->withInput();
         } else {
             // Check if user is disabled
             if (Auth::guard('web')->user()->status != 1) {
                 $this->authService->logout('web');
-                flash()->error(__('auth.account_disabled_contact_admin'));
-                return redirect()->route('dashboard.get.login');
+                return redirect()->route('dashboard.get.login')->withErrors(['email' => __('auth.account_disabled_contact_admin')]);
             }
 
             session(['is_locked' => false]); // Reset lock on login

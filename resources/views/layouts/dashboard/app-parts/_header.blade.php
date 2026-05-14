@@ -2,10 +2,17 @@
     style="background: #fff !important;">
     <div class="navbar-wrapper" style="background: #fff !important;">
         <div class="navbar-header bg-white" style="background: #fff !important;">
-            <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs"
-                        href="javascript:void(0)"><i class="ft-menu font-large-1"></i></a></li>
-                <li class="nav-item mr-auto site_name_logo_section">
+            <ul class="nav navbar-nav flex-row premium-mobile-nav-container">
+                <li class="nav-item mobile-menu d-md-none premium-mobile-toggle">
+                    <a class="nav-link nav-menu-main menu-toggle" href="javascript:void(0)">
+                        <div class="premium-burger sidebar-burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item site_name_logo_section">
                     <a class="navbar-brand" href="javascript:void(0)">
                         @if (setting()->logo != null)
                             <img class="brand-logo" alt="" src="{!! asset('uploads/settings/' . setting()->logo) !!}">
@@ -23,29 +30,33 @@
                                 }
                                 $displayInitials = mb_strtoupper(mb_substr($initials, 0, 2));
                             @endphp
-                            <div class="company-header-brand">
-                                <div class="brand-pill">
-                                    <div class="brand-avatar">
-                                        <span class="initials" style="background: #5A8DEE">
+                            <div class="enterprise-header-brand">
+                                <div class="brand-container">
+                                    <div class="brand-icon-frame">
+                                        <span class="initials-enterprise">
                                             {{ $displayInitials }}
                                         </span>
                                     </div>
-                                    <span class="brand-text">{{ $brandName }}</span>
+                                    <span class="brand-text-enterprise">{{ $brandName }}</span>
                                 </div>
                             </div>
                         @endif
                     </a>
                 </li>
-                <li class="nav-item d-md-none">
+                <li class="nav-item d-md-none premium-mobile-ellipsis">
                     <a class="nav-link open-navbar-container px-2" data-toggle="collapse" data-target="#navbar-mobile">
-                        <i class="la la-ellipsis-v font-medium-3 text-primary"></i>
+                        <div class="premium-burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </a>
                 </li>
             </ul>
         </div>
         <div class="navbar-container content">
             <div class="collapse navbar-collapse" id="navbar-mobile">
-                <ul class="nav navbar-nav mr-auto float-left">
+                <ul class="nav navbar-nav mr-auto float-left d-none d-md-flex">
                 </ul>
 
                 <ul class="nav navbar-nav float-right">
@@ -53,7 +64,7 @@
                         <div id="user_header_content" class="d-flex align-items-center">
                             <a class="dropdown-toggle nav-link dropdown-user-link p-0" href="javascript:void(0)"
                                 data-toggle="dropdown">
-                                <div class="premium-user-pill">
+                                <div class="enterprise-user-pill">
                                     <div class="user-info-text d-none d-lg-flex">
                                         <span class="greeting-text">{!! __('dashboard.hello') !!}</span>
                                         <span class="user-name-text">{!! user()->getTranslation('name', Lang()) !!}</span>
@@ -62,24 +73,23 @@
                                         $user = user();
                                         $photoUrl = $user->userPhoto();
                                         $colors = [
-                                            '#5A8DEE',
-                                            '#FDAC41',
-                                            '#FF5B5C',
-                                            '#39DA8A',
-                                            '#00CFDD',
-                                            '#7117EA',
-                                            '#272727',
+                                            '#455a64',
+                                            '#37474f',
+                                            '#263238',
+                                            '#1e293b',
+                                            '#334155',
+                                            '#475569',
                                         ];
                                         $charIndex = abs(crc32($user->name)) % count($colors);
                                         $bgColor = $colors[$charIndex];
                                     @endphp
-                                    <div class="avatar-wrapper-premium">
+                                    <div class="avatar-wrapper-enterprise">
                                         @if ($photoUrl)
                                             <img src="{!! $photoUrl !!}" alt="avatar"
-                                                class="avatar-img-premium shadow-sm">
+                                                class="avatar-img-enterprise shadow-sm">
                                         @else
-                                            <span class="avatar-initials-premium shadow-sm"
-                                                style="background: linear-gradient(135deg, {!! $bgColor !!}, {!! $bgColor !!}dd);">
+                                            <span class="avatar-initials-enterprise shadow-sm"
+                                                style="background: {!! $bgColor !!};">
                                                 {!! $user->initials !!}
                                             </span>
                                         @endif
@@ -93,15 +103,24 @@
                                     <span class="user-email">{!! user()->email !!}</span>
                                 </div>
                                 <a class="dropdown-item premium-dropdown-item" href="javascript:void(0)">
-                                    <i class="ft-user"></i> {!! __('dashboard.profile') !!}
+                                    <div class="dropdown-icon-wrapper bg-soft-primary">
+                                        <i class="fas fa-user-circle"></i>
+                                    </div>
+                                    <span>{!! __('dashboard.profile') !!}</span>
                                 </a>
                                 <a class="dropdown-item premium-dropdown-item" href="{!! route('dashboard.lock.screen') !!}">
-                                    <i class="la la-lock"></i> {!! __('dashboard.lock_screen') !!}
+                                    <div class="dropdown-icon-wrapper bg-soft-warning">
+                                        <i class="fas fa-user-shield"></i>
+                                    </div>
+                                    <span>{!! __('dashboard.lock_screen') !!}</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item premium-dropdown-item logout-item"
                                     href="{!! route('dashboard.logout') !!}">
-                                    <i class="ft-power"></i> {!! __('auth.logout') !!}
+                                    <div class="dropdown-icon-wrapper bg-soft-danger">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </div>
+                                    <span>{!! __('auth.logout') !!}</span>
                                 </a>
                             </div>
                         </div>
@@ -121,16 +140,18 @@
                             class="nav-link p-0 d-flex align-items-center h-100">
                             <div class="language-switcher-premium">
                                 <img src="{!! $flagPath !!}" class="flag-icon" alt="{!! $targetNative !!}">
-                                <span class="lang-name">{{ $targetNative }}</span>
+                                <span class="lang-name d-none d-sm-inline-block">{{ $targetNative }}</span>
                             </div>
                         </a>
                     </li>
 
-                    {{-- Hardcoded Notifications --}}
+                    {{-- Enterprise Notifications --}}
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="javascript:void(0)" data-toggle="dropdown">
-                            <i class="ficon ft-bell"></i>
-                            <span class="badge badge-pill badge-default badge-danger badge-up badge-glow">4</span>
+                            <div class="enterprise-action-btn">
+                                <i class="ficon la la-bell"></i>
+                                <span class="enterprise-badge badge-danger">4</span>
+                            </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list">
                             <div class="dropdown-header-main">
@@ -141,7 +162,7 @@
                                 style="max-height: 350px; overflow-y: auto;">
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-success">
-                                        <i class="ft-home"></i>
+                                        <i class="la la-home"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">New Property</span>
@@ -152,7 +173,7 @@
                                 </a>
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-warning">
-                                        <i class="ft-file-text"></i>
+                                        <i class="la la-file-text"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Contract Expiring</span>
@@ -162,7 +183,7 @@
                                 </a>
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-info">
-                                        <i class="ft-tool"></i>
+                                        <i class="la la-cog"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Maintenance Request</span>
@@ -173,7 +194,7 @@
                                 </a>
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-danger">
-                                        <i class="ft-credit-card"></i>
+                                        <i class="la la-credit-card"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Due Cheque</span>
@@ -188,11 +209,13 @@
                         </div>
                     </li>
 
-                    {{-- Hardcoded Messages --}}
+                    {{-- Enterprise Messages --}}
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="javascript:void(0)" data-toggle="dropdown">
-                            <i class="ficon ft-mail"></i>
-                            <span class="badge badge-pill badge-default badge-danger badge-up badge-glow">4</span>
+                            <div class="enterprise-action-btn">
+                                <i class="ficon la la-envelope"></i>
+                                <span class="enterprise-badge badge-primary">4</span>
+                            </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list">
                             <div class="dropdown-header-main">
@@ -202,8 +225,8 @@
                             <div class="scrollable-container media-list w-100 custom-scrollbar"
                                 style="max-height: 350px; overflow-y: auto;">
                                 <a class="preview-item-premium" href="javascript:void(0)">
-                                    <div class="preview-thumbnail-premium bg-cyan">
-                                        <i class="ft-user"></i>
+                                    <div class="preview-thumbnail-premium bg-purple">
+                                        <i class="la la-user"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Ahmed Mohamed</span>
@@ -213,7 +236,7 @@
                                 </a>
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-primary">
-                                        <i class="ft-user"></i>
+                                        <i class="la la-user"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Sara Ali</span>
@@ -223,7 +246,7 @@
                                 </a>
                                 <a class="preview-item-premium" href="javascript:void(0)">
                                     <div class="preview-thumbnail-premium bg-teal">
-                                        <i class="ft-user"></i>
+                                        <i class="la la-user"></i>
                                     </div>
                                     <div class="preview-item-content-premium">
                                         <span class="subject">Khaled Mahmoud</span>

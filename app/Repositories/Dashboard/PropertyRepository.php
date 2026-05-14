@@ -19,7 +19,7 @@ class PropertyRepository
     public function getAll($request)
     {
         $query = $this->model
-            ->with(['company', 'creator', 'owner', 'propertyType', 'propertyStatus'])
+            ->with(['company', 'creator', 'owners', 'propertyType', 'propertyStatus'])
             ->filter(
                 $request->all(),
                 ['name', 'location', 'property_number', 'title_deed_number'], // Search columns
@@ -29,6 +29,12 @@ class PropertyRepository
                     'area' => ['min' => 'area_min', 'max' => 'area_max']
                 ] // Range filters
             )
+            ->when($request->dependency_status == 'main', function ($q) {
+                return $q->whereNull('parent_id');
+            })
+            ->when($request->dependency_status == 'sub', function ($q) {
+                return $q->whereNotNull('parent_id');
+            })
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query);
@@ -37,8 +43,8 @@ class PropertyRepository
     public function find($id)
     {
         return $this->model->with([
-            'company', 'creator', 'owner', 'propertyType', 'propertyStatus',
-            'contracts.customer', 'maintenances'
+            'company', 'creator', 'owners', 'propertyType', 'propertyStatus',
+            'contracts.customer', 'maintenances', 'units.propertyType', 'units.propertyStatus'
         ])->findOrFail($id);
     }
 
@@ -60,7 +66,7 @@ class PropertyRepository
         return $property->delete();
     }
 
-    public function autocomplete($searchValue, $companyId = null, $onlyAvailable = false)
+    public function autocomplete($searchValue, $companyId = null, $onlyAvailable = false, $excludeId = null)
     {
         // Prevent Super Admin from loading all properties across all companies if no company is selected
         if (user() && user()->company_id == 1 && (empty($companyId) || $companyId === 'null' || $companyId === 'undefined')) {
@@ -74,6 +80,10 @@ class PropertyRepository
 
         if ($companyId) {
             $query->where('company_id', $companyId);
+        }
+
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
         }
 
         if ($onlyAvailable) {
@@ -101,7 +111,8 @@ class PropertyRepository
                 return [
                     'id' => $property->id,
                     'text' => $property->name . ' (' . $property->property_number . ')',
-                    'property_number' => $property->property_number
+                    'property_number' => $property->property_number,
+                    'location' => $property->location
                 ];
             });
 

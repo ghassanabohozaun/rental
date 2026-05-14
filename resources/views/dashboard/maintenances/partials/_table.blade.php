@@ -5,12 +5,11 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
+                <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('maintenances.property') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('maintenances.date') !!}
                 </th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('maintenances.cost') !!}
-                </th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('companies.company') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('maintenances.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}
@@ -128,12 +127,21 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    <td class="text-center align-middle">
+                        <a href="javascript:void(0)" class="company-chip">
+                            <i class="fas fa-briefcase mr-1"></i>
+                            {!! optional($maintenance->company)->name ?? __('general.all_companies') !!}
+                        </a>
+                    </td>
+
                     <!-- Property -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional($maintenance->property)->name !!}</span>
                         </div>
                     </td>
+
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span
                             class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
@@ -144,12 +152,6 @@
                         <span class="text-dark font-weight-bold">
                             <i class="fas fa-money-bill-wave text-muted mr-1"></i> {!! $maintenance->cost ?? '0.00' !!}
                         </span>
-                    </td>
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($maintenance->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
                     </td>
                     <td class="text-center align-middle">
                         @php
@@ -186,3 +188,5 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $maintenances->links() !!}
 </div>
+
+

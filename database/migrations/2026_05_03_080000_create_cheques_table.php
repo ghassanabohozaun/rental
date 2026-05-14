@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('bank_name'); // Translatable
             $table->text('cheque_owner_name'); // Translatable
             
-            $table->date('issue_date');
+            $table->date('issue_date')->nullable();
             $table->date('due_date')->nullable();
             
             $table->string('status')->default('pending'); // pending, cleared, bounced, held

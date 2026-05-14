@@ -1,6 +1,4 @@
-<div class="modal modal-pop fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel"
-    aria-hidden="true">
-
+<div class="modal modal-pop" id="updateUserModal" role="dialog" aria-labelledby="updateUserModalLabel" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <form class="form ajax-form" action="" method="POST" enctype="multipart/form-data" id='update_user_form'
             novalidate data-success-msg="{!! __('general.update_success_message') !!}" data-success-action="reload-table"
@@ -11,7 +9,8 @@
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
-                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center" id="updateUserModalLabel">
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center"
+                        id="updateUserModalLabel">
                         <i class="fas fa-edit text-primary mr-2 icon-size-18"></i> {!! __('users.update_user') !!}
                     </h6>
                     <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
@@ -24,7 +23,30 @@
                 <div class="modal-body my-2">
                     <input type="hidden" id="id_edit" name="id">
 
-                    <!-- First Row: Names and Mobile (3 Columns) -->
+                    <!-- First Row: Company (Full Width if Admin) -->
+                    @if ($companies)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="premium-form-group">
+                                    <label for="company_id_edit">{!! __('companies.company') !!} <span
+                                            class="text-danger">*</span></label>
+                                    <div class="premium-input-wrapper">
+                                        <select class="form-control premium-input shadow-none select2"
+                                            id='company_id_edit' name="company_id">
+                                            <option value="" selected>{!! __('general.select_from_list') !!}</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <i class="fas fa-building text-primary"></i>
+                                    </div>
+                                    <span class="text-danger error-text company_id_error"></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Second Row: Names and Mobile (3 Columns) -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="premium-form-group">
@@ -36,7 +58,7 @@
                                         autocomplete="off">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text name_ar_error text-danger small"></span>
+                                <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
 
@@ -50,7 +72,7 @@
                                         autocomplete="off">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text name_en_error text-danger small"></span>
+                                <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
 
@@ -63,12 +85,12 @@
                                         dir="ltr" autocomplete="off">
                                     <i class="fas fa-phone text-primary"></i>
                                 </div>
-                                <span class="error-text mobile_error text-danger small"></span>
+                                <span class="text-danger error-text mobile_error"></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Second Row: Email, Password, Password Confirm (3 Columns) -->
+                    <!-- Third Row: Email, Password, Password Confirm (3 Columns) -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="premium-form-group">
@@ -80,7 +102,7 @@
                                         dir="ltr" autocomplete="off">
                                     <i class="fas fa-envelope text-primary"></i>
                                 </div>
-                                <span class="error-text email_error text-danger small"></span>
+                                <span class="text-danger error-text email_error"></span>
                             </div>
                         </div>
 
@@ -97,7 +119,7 @@
                                     <i class="fas fa-lock text-primary"
                                         style="{{ Lang() == 'ar' ? 'right: 1.15rem !important; left: auto !important;' : 'left: 1.15rem !important; right: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; pointer-events: none;"></i>
                                 </div>
-                                <span class="error-text password_error text-danger small"></span>
+                                <span class="text-danger error-text password_error"></span>
                             </div>
                         </div>
 
@@ -114,19 +136,19 @@
                                     <i class="fas fa-lock text-primary"
                                         style="{{ Lang() == 'ar' ? 'right: 1.15rem !important; left: auto !important;' : 'left: 1.15rem !important; right: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; pointer-events: none;"></i>
                                 </div>
-                                <span class="error-text password_confirm_error text-danger small"></span>
+                                <span class="text-danger error-text password_confirm_error"></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Third Row: Role and Company (Two Columns if Admin) -->
+                    <!-- Fourth Row: Role (Full Width) -->
                     <div class="row">
-                        <div class="@if ($companies) col-md-6 @else col-md-12 @endif">
+                        <div class="col-md-12">
                             <div class="premium-form-group">
                                 <label for="role_id_edit">{!! __('users.role_id') !!} <span
                                         class="text-danger">*</span></label>
                                 <div class="premium-input-wrapper">
-                                    <select class="form-control premium-input shadow-none" id='role_id_edit'
+                                    <select class="form-control premium-input shadow-none select2" id='role_id_edit'
                                         name="role_id">
                                         <option value="" selected="">{!! __('general.select_from_list') !!}</option>
                                         @foreach ($roles as $role)
@@ -135,29 +157,9 @@
                                     </select>
                                     <i class="fas fa-shield-alt text-primary"></i>
                                 </div>
-                                <span class="error-text role_id_error text-danger small"></span>
+                                <span class="text-danger error-text role_id_error"></span>
                             </div>
                         </div>
-
-                        @if ($companies)
-                            <div class="col-md-6">
-                                <div class="premium-form-group">
-                                    <label for="company_id_edit">{!! __('companies.company') !!} <span
-                                            class="text-danger">*</span></label>
-                                    <div class="premium-input-wrapper">
-                                        <select class="form-control premium-input shadow-none select2"
-                                            id='company_id_edit' name="company_id">
-                                            <option value="">{!! __('roles.global_role') !!}</option>
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <i class="fas fa-briefcase text-primary"></i>
-                                    </div>
-                                    <span class="error-text company_id_error text-danger small"></span>
-                                </div>
-                            </div>
-                        @endif
                     </div>
 
                     <!-- Fourth Row: Photo (Full Width) -->
@@ -166,10 +168,11 @@
                             <div class="premium-form-group mb-0">
                                 <label class="font-weight-bold text-dark">{!! __('users.photo') !!}</label>
                                 <div class="premium-photo-container">
+                                    <input type="hidden" name="delete_photo" id="delete_photo_edit" value="0">
                                     <input type="file" name="photo" id="photo_edit" class="form-control"
                                         accept="image/*">
                                 </div>
-                                <span class="error-text photo_error text-danger small"></span>
+                                <span class="text-danger error-text photo_error"></span>
                             </div>
                         </div>
                     </div>
@@ -197,37 +200,13 @@
 
 @push('scripts')
     <script type="text/javascript">
-        // Global toggle function redefined locally to ensure it works even if global script fails
-        if (typeof window.togglePassword !== 'function') {
-            window.togglePassword = function(inputId, icon) {
-                var input = document.getElementById(inputId);
-                if (!input) return;
-                var isPassword = input.type === "password";
-                input.type = isPassword ? "text" : "password";
-                var wrapper = icon.parentElement;
-                if (wrapper) {
-                    var icons = wrapper.getElementsByTagName('i');
-                    for (var i = 0; i < icons.length; i++) {
-                        var ico = icons[i];
-                        if (ico.classList.contains('la-lock') || ico.classList.contains('la-unlock-alt')) {
-                            ico.className = isPassword ? 'fas fa-unlock-alt text-primary' : 'fas fa-lock text-primary';
-                        } else if (ico.classList.contains('la-eye') || ico.classList.contains('la-eye-slash')) {
-                            ico.className = isPassword ? 'fas fa-eye-slash pointer text-primary premium-icon-opposite' :
-                                'fas fa-eye pointer text-primary premium-icon-opposite';
-                        }
-                    }
-                }
-            };
-        }
 
 
         $(document).ready(function() {
             let lang = "{!! Lang() !!}";
 
             // Show edit modal and populate data dynamically
-            $('body').on('click', '.edit_user_button', function(e) {
-                e.preventDefault();
-
+            $('body').on('click', '.edit_user_button', function() {
                 let user_id = $(this).attr('user-id');
                 let user_name_ar = $(this).attr('user-name-ar');
                 let user_name_en = $(this).attr('user-name-en');
@@ -242,11 +221,12 @@
 
                 // Populate fields
                 $('#id_edit').val(user_id);
+                $('#delete_photo_edit').val(0);
                 $('#name_ar_edit').val(user_name_ar);
                 $('#name_en_edit').val(user_name_en);
                 $('#email_edit').val(user_email);
                 $('#mobile_edit').val(user_mobile);
-                $('#role_id_edit').val(user_role_id);
+                $('#role_id_edit').val(user_role_id).trigger('change');
 
                 // Pre-populate Select2 for Company without Extra AJAX Call
                 if ($('#company_id_edit').length) {
@@ -261,30 +241,27 @@
                 let url = "{!! route('dashboard.users.update', 'id') !!}".replace('id', user_id);
                 $('#update_user_form').attr('action', url);
 
-                // Re-initialize FileInput with preview
-                $("#photo_edit").fileinput('destroy');
-                $("#photo_edit").fileinput({
-                    theme: 'fa5',
-                    language: lang,
-                    allowedFileTypes: ['image'],
-                    maxFileCount: 1,
-                    showCancel: false,
-                    showUpload: false,
-                    initialPreview: user_photo ? [user_photo_url] : [],
-                    initialPreviewAsData: true,
-                    browseClass: "btn btn-sm btn-primary d-block w-100",
-                    removeClass: "btn btn-danger",
-                    removeLabel: "{!! __('general.delete') !!}",
-                    browseLabel: "{!! __('general.choose_file') !!}"
-                });
-
-                // Show modal
-                $('#updateUserModal').modal('show');
+                // Re-initialize FileInput using Global Generic Pattern
+                let photoOptions = {};
+                if (user_photo && user_photo_url && !user_photo_url.includes('default')) {
+                    photoOptions = {
+                        initialPreview: [user_photo_url],
+                        initialPreviewAsData: true
+                    };
+                }
+                window.PremiumFileInput.init("#photo_edit", photoOptions);
             });
 
-            // Initialize Generic Select2 for Company Autocomplete in Edit Modal
+            // Initialize Generic Select2 for Company & Role in Edit Modal
             if ($('#company_id_edit').length) {
                 $('#company_id_edit').select2({
+                    dropdownParent: $('#updateUserModal'),
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
+            }
+            if ($('#role_id_edit').length) {
+                $('#role_id_edit').select2({
                     dropdownParent: $('#updateUserModal'),
                     width: '100%',
                     dir: $('html').attr('data-textdirection') || 'ltr'

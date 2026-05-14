@@ -1,5 +1,5 @@
 <!-- Details Modal for property_statuses -->
-<div class="modal modal-pop fade" id="detailsproperty_statusModal" tabindex="-1" role="dialog" aria-labelledby="detailsproperty_statusModalLabel" aria-hidden="true">
+<div class="modal modal-pop" id="detailsproperty_statusModal" tabindex="-1" role="dialog" aria-labelledby="detailsproperty_statusModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadow-lg border-0" style="border-radius: 20px;">
             <div class="modal-header border-0 pb-0">
@@ -10,7 +10,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body" id="detailsproperty_statusModalBody">
+            <div class="modal-body my-2" id="detailsproperty_statusModalBody">
                 <!-- Content loaded from row-details via AJAX JS -->
             </div>
             <div class="modal-footer border-0 pt-0 justify-content-center">
@@ -21,3 +21,5 @@
         </div>
     </div>
 </div>
+
+

@@ -9,10 +9,30 @@
 
 <link rel="apple-touch-icon" href="{!! asset('uploads/settings/' . setting()->favicon) !!}">
 <link rel="shortcut icon" type="image/x-icon" href="{!! asset('uploads/settings/' . setting()->favicon) !!}">
+<!-- Preload Local Fonts to prevent FOUT/FOIT -->
+<link rel="preload" href="{!! asset('assets/dashbaord/fonts/google/Tajawal-400.ttf') !!}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{!! asset('assets/dashbaord/fonts/google/Tajawal-500.ttf') !!}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{!! asset('assets/dashbaord/fonts/google/Tajawal-700.ttf') !!}" as="font" type="font/ttf" crossorigin>
+
+<!-- Preload Icons -->
+<link rel="preload" href="{!! asset('assets/dashbaord/vendors/fontawesome/webfonts/fa-solid-900.woff2') !!}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{!! asset('assets/dashbaord/fonts/line-awesome/fonts/line-awesome.woff2') !!}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{!! asset('assets/dashbaord/fonts/feather/fonts/feather.woff') !!}" as="font" type="font/woff" crossorigin>
+
+<!-- Preconnect for external fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Load Poppins from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=block"
+    rel="stylesheet">
+
+<!-- Load local fonts (Tajawal, Open Sans, etc) -->
 <link href="{!! asset('assets/dashbaord/fonts/google/font.css') !!}" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/line-awesome/css/line-awesome.min.css') !!}">
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/fontawesome/css/all.min.css') !!}">
+<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/feather/style.min.css') !!}">
 
 <link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
 
@@ -43,27 +63,36 @@
         href="{{ asset('assets/dashbaord/css-rtl/core/colors/palette-gradient.css') }}?v={{ time() }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css-rtl/sidebar-navy-rtl.css') }}?v={{ time() }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/my-style.css') }}?v={{ time() }}">
 @else
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/app.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css/vendors.css') }}?v={{ time() }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/app.css') }}?v={{ time() }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('assets/dashbaord/css/app.css') }}?v={{ time() }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css/core/menu/menu-types/vertical-menu-modern.css') }}?v={{ time() }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css/core/colors/palette-gradient.css') }}?v={{ time() }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css/sidebar-navy.css') }}?v={{ time() }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/my-style.css') }}?v={{ time() }}">
 @endif
 
-<!-- Ultra Premium Sidebar Styles -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v={{ time() }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/pages.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/dashbaord/css/system-style.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/dashbaord/css/premium-navbar.css') }}?v={{ time() }}">
+
+<!-- Ultra Premium Styles -->
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/dashbaord/css/system-flasher.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/dashbaord/css/premium-fileinput.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}">
 <!-- END: Core CSS -->
 
-
+<!-- Base Typography (Loaded LAST to guarantee it overrides RTL Bootstrap and custom files) -->
+<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/typography-base.css') !!}">

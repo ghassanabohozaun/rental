@@ -26,7 +26,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark {
     position: relative;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 2px;
     padding: 2px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -83,7 +83,7 @@ html[data-textdirection="rtl"] .sidebar-search-input {
     color: #94a3b8 !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-size: 0.85rem;
+    font-size: 0.8rem; /* Reduced by 1px from 0.85rem */
     font-weight: 800;
 }
 
@@ -109,9 +109,10 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation-header {
 .main-menu.menu-dark .navigation > li > a {
     padding: 12px 18px !important;
     margin: 4px 14px !important;
-    border-radius: 12px !important;
+    border-radius: 2px !important;
     color: #94a3b8 !important;
     border-left: 4px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a {
@@ -137,17 +138,24 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
     vertical-align: middle !important;
     display: inline-block !important;
     padding-top: 2px !important;
+    font-size: 0.95rem !important; /* Reduced by 1px from 1rem */
 }
 
 /* Hover State */
 .main-menu.menu-dark .navigation > li:hover > a {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(56, 189, 248, 0.08) !important;
     color: #f8fafc !important;
+    transform: translateX(5px);
+    box-shadow: none !important; /* Truly Flat */
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li:hover > a {
+    transform: translateX(-5px);
 }
 
 .main-menu.menu-dark .navigation > li:hover > a > i {
     color: #38bdf8 !important; /* Neon Blue */
-    transform: scale(1.15) !important;
+    transform: scale(1.1) !important;
 }
 
 /* Active State */
@@ -221,28 +229,32 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul {
     padding: 10px 18px 10px 24px !important;
     color: #64748b !important;
     position: relative;
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Reduced by 1px from 0.95rem */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li > a {
-    padding: 10px 24px 10px 18px !important;
+    padding-right: 40px !important; /* Increased further as requested */
+    padding-left: 18px !important;
 }
 
 /* Submenu Hover & Active */
-.main-menu.menu-dark .navigation > li > ul > li:hover > a {
-    color: #e2e8f0 !important;
-    transform: translateX(6px) !important;
-    background: transparent !important;
+.main-menu.menu-dark .navigation > li > ul > li:hover > a,
+.main-menu.menu-dark .navigation > li > ul > li.active > a {
+    background: rgba(56, 189, 248, 0.08) !important;
+    color: #38bdf8 !important;
+    border-radius: 2px !important;
+    margin-right: 10px !important;
+    transform: translateX(8px) !important; /* Unified Translation */
 }
 
-html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a {
-    transform: translateX(-6px) !important;
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a,
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li.active > a {
+    transform: translateX(-8px) !important; /* Unified Translation for RTL */
 }
 
 .main-menu.menu-dark .navigation > li > ul > li.active > a {
-    color: #38bdf8 !important;
     font-weight: 700 !important;
-    background: transparent !important;
 }
 
 /* Tree Connectors (Bullet Lines) */
@@ -270,90 +282,10 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
     box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
-/* Logo Area Overrides - COMPLETE RESET */
-.header-navbar .navbar-header,
-.header-navbar .navbar-header.expanded,
-.header-navbar .navbar-header.fixed,
-.navbar-header.bg-white {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    border: none !important;
-    border-right: none !important;
-    border-left: none !important;
-    box-shadow: none !important;
-}
-
-.header-navbar .navbar-header .navbar-brand {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-}
-
-/* Remove any potential separator line */
-.header-navbar .navbar-header::after,
-.header-navbar .navbar-header::before {
-    display: none !important;
-}
-
-/* Mobile Header & Responsive Fixes */
-@media (max-width: 767px) {
-    .header-navbar .navbar-header {
-        height: 70px !important;
-        padding: 0 15px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        position: relative !important;
-        background: #fff !important;
-    }
-
-    .header-navbar .navbar-header .nav.navbar-nav {
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        height: 100% !important;
-    }
-
-    .header-navbar .navbar-header .navbar-brand {
-        position: absolute !important;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: transparent !important;
-    }
-
-    .header-navbar .navbar-header .navbar-brand img {
-        max-height: 40px !important;
-        width: auto !important;
-        margin: 0 !important;
-    }
-
-    .header-navbar .navbar-header .nav-link {
-        padding: 0.5rem !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    /* Fix for the breadcrumb/home icon overlap if any */
-    .content-header-left {
-        margin-bottom: 1rem !important;
-    }
-}
-
 /* Table Disaster Fix */
 .card-content .table-responsive,
 .table-responsive {
-    border-radius: 15px !important;
+    border-radius: 2px !important;
     border: none !important;
 }
 

@@ -6,7 +6,7 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contract-show.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}">
+    
 @endpush
 
 @section('content')
@@ -50,13 +50,26 @@
 
         <div class="content-body">
             @include('dashboard.properties.show._header')
-            @include('dashboard.properties.show._stats')
-            @include('dashboard.properties.show._tabs')
+            
+                <div class="row">
+                    <!-- Tab Content Cards (8) -->
+                    <div class="col-lg-8 col-md-12">
+                        @include('dashboard.properties.show._tabs')
+                        <div class="tab-content mt-1">
+                            @include('dashboard.properties.show._details')
+                            @include('dashboard.properties.show._owners')
+                            @include('dashboard.properties.show._contracts')
+                            @include('dashboard.properties.show._maintenances')
+                            @if($property->units->count() > 0)
+                                @include('dashboard.properties.show._units')
+                            @endif
+                        </div>
+                    </div>
 
-            <div class="tab-content mt-3">
-                @include('dashboard.properties.show._details')
-                @include('dashboard.properties.show._contracts')
-                @include('dashboard.properties.show._maintenances')
+                <!-- Sidebar Stats (4) - Aligned with Cards -->
+                <div class="col-lg-4 col-md-12">
+                    @include('dashboard.properties.show._sidebar')
+                </div>
             </div>
         </div>
     </div>
@@ -112,3 +125,5 @@
     });
 </script>
 @endpush
+
+

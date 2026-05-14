@@ -5,14 +5,15 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- Mobile Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
-                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('properties.property') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.type') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.area') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('properties.price') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
                 @if(isset($companies))
                     <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('companies.company') !!}</th>
                 @endif
+                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('properties.property') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.type') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.parent_property') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.area') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('properties.price') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
             </tr>
         </thead>
@@ -57,6 +58,16 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    @if(isset($companies))
+                        <td class="text-center align-middle d-none d-md-table-cell">
+                            <a href="javascript:void(0)" class="company-chip">
+                                <i class="fas fa-briefcase mr-1"></i>
+                                {!! optional($property->company)->name !!}
+                            </a>
+                        </td>
+                    @endif
+
                     <!-- Property Info (Name + Location) -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
@@ -70,6 +81,21 @@
                         <span class="property-type-badge">
                             {!! optional($property->propertyType)->name !!}
                         </span>
+                    </td>
+
+                    <!-- Parent Property -->
+                    <td class="text-center align-middle d-none d-md-table-cell">
+                        @if($property->parent_id)
+                            <span class="badge badge-light-warning badge-pill">
+                                <i class="fas fa-link mr-1 font-11"></i>
+                                {!! optional($property->parent)->name !!}
+                            </span>
+                        @else
+                            <span class="badge badge-light-primary badge-pill">
+                                <i class="fas fa-sitemap mr-1 font-11"></i>
+                                {!! __('properties.standalone_property') !!}
+                            </span>
+                        @endif
                     </td>
 
                     <!-- Area -->
@@ -99,16 +125,6 @@
                             <span class="text-muted">---</span>
                         @endif
                     </td>
-
-                    <!-- Company -->
-                    @if(isset($companies))
-                        <td class="text-center align-middle d-none d-md-table-cell">
-                            <a href="javascript:void(0)" class="company-chip">
-                                <i class="fas fa-briefcase mr-1"></i>
-                                {!! optional($property->company)->name !!}
-                            </a>
-                        </td>
-                    @endif
 
                     <!-- Actions -->
                     <td class="text-center align-middle">
@@ -140,3 +156,5 @@
         </div>
     </div>
 </div>
+
+

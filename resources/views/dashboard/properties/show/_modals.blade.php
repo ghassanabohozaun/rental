@@ -1,5 +1,5 @@
 <!-- Payments Modal -->
-<div class="modal modal-pop fade" id="paymentsModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-pop" id="paymentsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content border-0" style="border-radius: 15px;">
             <div class="modal-header bg-success text-white py-2 px-3">
@@ -29,7 +29,7 @@
 </div>
 
 <!-- Cheques Modal -->
-<div class="modal modal-pop fade" id="chequesModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-pop" id="chequesModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content border-0" style="border-radius: 15px;">
             <div class="modal-header bg-warning text-white py-2 px-3">
@@ -57,3 +57,5 @@
         </div>
     </div>
 </div>
+
+

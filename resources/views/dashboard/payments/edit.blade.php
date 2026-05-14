@@ -5,8 +5,8 @@
 
 @section('content')
     @push('style')
-        <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/payments-premium.css') }}?v={{ time() }}">
-        <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/cheques-premium.css') }}?v={{ time() }}">
+        
+        
         <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}?v={{ time() }}">
     @endpush
 
@@ -14,3 +14,5 @@
         @livewire('dashboard.payments.payment-form', ['paymentId' => $payment->id])
     </div>
 @endsection
+
+

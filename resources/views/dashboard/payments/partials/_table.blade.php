@@ -5,6 +5,8 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
+                    {!! __('companies.company') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('customers.customer') !!}</th>
                 <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">{!! __('properties.property') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.amount') !!}</th>
@@ -89,6 +91,12 @@
                             {!! $loop->iteration + ($payments->currentPage() - 1) * $payments->perPage() !!}
                         </span>
                     </td>
+                    <td class="text-center align-middle d-none d-md-table-cell">
+                        <div class="company-chip">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{!! optional($payment->company)->name ?? __('general.all_companies') !!}</span>
+                        </div>
+                    </td>
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional(optional($payment->contract)->customer)->name ?? '---' !!}</span>
@@ -130,6 +138,13 @@
                             <i class="fas {!! $icon !!} text-primary mr-1"></i>
                             <span class="text-dark font-weight-bold">{!! __('payments.methods.' . $payment->method) !!}</span>
                         </div>
+                        @if($payment->cheque_id)
+                            <div class="mt-25">
+                                <span class="badge badge-light-info border-0 font-10 px-1 py-0" title="{!! __('cheques.cashed_cheque') !!}">
+                                    <i class="fas fa-money-check"></i> #{!! optional($payment->cheque)->cheque_number ?? $payment->cheque_id !!}
+                                </span>
+                            </div>
+                        @endif
                     </td>
                     <td class="text-center align-middle">
                         @php
@@ -161,3 +176,5 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $payments->links() !!}
 </div>
+
+

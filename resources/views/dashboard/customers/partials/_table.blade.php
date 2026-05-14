@@ -5,12 +5,11 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('companies.company') }}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{{ __('customers.name_ar') }}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.phone') }}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.id_number') }}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.nationality') }}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('companies.company') }}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.guarantor') }}</th>
                 <th class="text-center align-middle py-3 border-top-0">{{ __('customers.status') }}</th>
                 @can('customers_update')
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{{ __('general.manage_status') }}</th>
@@ -94,6 +93,15 @@
                         </span>
                     </td>
 
+                    <!-- Company -->
+                    <td class="text-center align-middle d-none d-lg-table-cell">
+                        <div class="company-chip">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
+                        </div>
+                    </td>
+
+                    <!-- Name -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{{ $customer->name }}</span>
@@ -117,17 +125,7 @@
                             <i class="fas fa-flag mr-1"></i> {{ optional($customer->nationality)->name ?? '---' }}
                         </div>
                     </td>
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
-                        </div>
-                    </td>
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-shield-alt text-muted mr-1"></i> {{ optional($customer->guarantor)->name ?? '---' }}
-                        </span>
-                    </td>
+
                     <td class="text-center align-middle">
                         <div class="badge badge-pill badge-glow customer_status_{{ $customer->id }} {{ $customer->status == 1 ? 'badge-success' : 'badge-danger' }}"
                             style="font-size: 12px; font-weight: bold; padding: 5px 12px;">
@@ -138,10 +136,10 @@
                     @can('customers_update')
                         <td class="text-center align-middle">
                             <div class="premium-switch-centered-wrapper">
-                                <div class="custom-control custom-switch custom-control-primary premium-switch-centered">
-                                    <input type="checkbox" class="custom-control-input change_status" id="customSwitch_{{ $customer->id }}" {{ $customer->status == 1 ? 'checked' : '' }} data-id="{{ $customer->id }}" />
-                                    <label class="custom-control-label" for="customSwitch_{{ $customer->id }}"></label>
-                                </div>
+                                <label class="modern-switch">
+                                    <input type="checkbox" class="change_status" id="customSwitch_{{ $customer->id }}" {{ $customer->status == 1 ? 'checked' : '' }} data-id="{{ $customer->id }}" />
+                                    <span class="modern-slider"></span>
+                                </label>
                             </div>
                         </td>
                     @endcan
@@ -163,3 +161,5 @@
 <div class="float-right mt-2 custom-pagination">
     {{ $customers->links() }}
 </div>
+
+

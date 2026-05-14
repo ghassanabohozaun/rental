@@ -6,6 +6,7 @@ return [
     'contact_section' => 'بيانات الاتصال',
     'media_section' => 'الوسائط والشعارات',
     'social_section' => 'شبكات التواصل الاجتماعي',
+    'auth_welcome_section' => 'محتوى شاشة الترحيب (Auth)',
 
     // Fields
     'site_name_ar' => 'اسم الموقع (عربي)',
@@ -23,6 +24,10 @@ return [
     'whatsapp' => 'رقم الواتساب',
     'favicon' => 'أيقونة المتصفح (Favicon)',
     'logo' => 'شعار الموقع الرئيسي',
+    'auth_welcome_title' => 'عنوان الترحيب',
+    'auth_welcome_desc' => 'وصف الترحيب',
+    'auth_welcome_badge' => 'نص الشارة (Badge)',
+    'auth_welcome_footer' => 'نص التذييل (Footer)',
 
     'facebook' => 'فيسبوك',
     'twitter' => 'تويتر (X)',
@@ -54,6 +59,10 @@ return [
     'enter_whatsapp' => 'أدخل رابط أو رقم الواتساب',
     'enter_favicon' => 'ارفع أيقونة المتصفح',
     'enter_logo' => 'ارفع شعار الموقع الرئيسي',
+    'enter_auth_welcome_title' => 'أدخل عنوان الترحيب في شاشة الدخول',
+    'enter_auth_welcome_desc' => 'أدخل وصف الترحيب في شاشة الدخول',
+    'enter_auth_welcome_badge' => 'أدخل نص الشارة العلوية',
+    'enter_auth_welcome_footer' => 'أدخل نص التذييل في شاشة الدخول',
 
     'enter_facebook' => 'أدخل رابط صفحة الفيسبوك',
     'enter_twitter' => 'أدخل رابط حساب تويتر',

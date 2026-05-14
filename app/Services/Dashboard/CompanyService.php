@@ -49,6 +49,11 @@ class CompanyService
                 $this->imageManagerUtils->removeImageFromLocal($company->logo, 'companies');
             }
             $data['logo'] = $this->imageManagerUtils->uploadSingleImage('', $data['logo'], 'companies');
+        } elseif (isset($data['delete_logo']) && $data['delete_logo'] == 1) {
+            if ($company->logo) {
+                $this->imageManagerUtils->removeImageFromLocal($company->logo, 'companies');
+            }
+            $data['logo'] = null;
         }
 
         $updatedCompany = $this->repository->update($id, $data);

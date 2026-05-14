@@ -12,7 +12,7 @@
                     <span class="chip-text">{!! __('contracts.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="property_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.property') !!}</label>
                         <div class="premium-input-wrapper">
@@ -43,7 +43,7 @@
                     <span class="chip-text">{!! __('contracts.customer') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="customer_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="customer_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.customer') !!}</label>
                         <div class="premium-input-wrapper">
@@ -74,14 +74,14 @@
                     <span class="chip-text">{!! __('contracts.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-200" id="status_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.status') !!}</label>
                         <div class="premium-input-wrapper">
                             <select name="status" id="filter_status" class="form-control premium-input shadow-none js-select2" 
                                 data-placeholder="{!! __('general.all') !!}"
                                 data-parent="#status_search_popover">
-                                <option value="">{!! __('general.all') !!}</option>
+                                <option value="">{!! __('general.select_from_list') !!}</option>
                                 <option value="active">{!! __('contracts.status_active') !!}</option>
                                 <option value="ended">{!! __('contracts.status_ended') !!}</option>
                                 <option value="cancelled">{!! __('contracts.status_cancelled') !!}</option>
@@ -104,14 +104,14 @@
                     <span class="chip-text">{!! __('contracts.payment_cycle') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-200" id="cycle_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="cycle_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.payment_cycle') !!}</label>
                         <div class="premium-input-wrapper">
                             <select name="payment_cycle" id="filter_cycle" class="form-control premium-input shadow-none js-select2" 
                                 data-placeholder="{!! __('general.all') !!}"
                                 data-parent="#cycle_search_popover">
-                                <option value="">{!! __('general.all') !!}</option>
+                                <option value="">{!! __('general.select_from_list') !!}</option>
                                 <option value="monthly">{!! __('contracts.payment_cycle_monthly') !!}</option>
                                 <option value="yearly">{!! __('contracts.payment_cycle_yearly') !!}</option>
                             </select>
@@ -133,7 +133,7 @@
                     <span class="chip-text">{!! __('contracts.rent_amount') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-320" id="rent_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-320" id="rent_search_popover">
                     <div class="row">
                         <div class="col-12 mb-2">
                             <label class="premium-label mb-2">{!! __('general.min') !!}</label>
@@ -168,7 +168,7 @@
                     <span class="chip-text">{!! __('companies.company') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="company_search_popover">
+                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="company_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
                         <div class="premium-input-wrapper">
@@ -205,3 +205,5 @@
 @push('scripts')
     <script src="{!! asset('assets/dashbaord/js/filter-system.js') !!}"></script>
 @endpush
+
+

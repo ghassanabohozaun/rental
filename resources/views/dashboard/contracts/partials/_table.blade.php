@@ -5,7 +5,12 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
-                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('contracts.property') !!} & {!! __('contracts.customer') !!}
+                @if (isset($companies))
+                    <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">
+                        {!! __('companies.company') !!}</th>
+                @endif
+                <th class="align-middle py-3 border-top-0 property-info-td">{!! __('contracts.property') !!} &
+                    {!! __('contracts.customer') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.rent_amount') !!}
                 </th>
@@ -20,10 +25,6 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
-                @if (isset($companies))
-                    <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">
-                        {!! __('companies.company') !!}</th>
-                @endif
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
             </tr>
         </thead>
@@ -173,6 +174,14 @@
                         </span>
                     </td>
 
+                    <!-- Company (Super Admin Only) -->
+                    <td class="text-center align-middle d-none d-md-table-cell">
+                        <div class="company-chip">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{!! optional($contract->company)->name ?? __('general.all_companies') !!}</span>
+                        </div>
+                    </td>
+
                     <!-- Property & Customer Merged -->
                     <td class="align-middle py-3 property-info-td">
                         <div class="user-info-cell">
@@ -256,15 +265,28 @@
                                             title="{!! __('cheques.cheque_number') !!}">
                                             <i class="fas fa-barcode"></i> {!! $contract->insuranceCheque->cheque_number !!}
                                         </span>
-                                        <span class="badge badge-secondary border-0 badge-status-sm">
-                                            {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                        </span>
-                                    </div>
-                                @else
-                                    <span class="badge badge-secondary border-0 badge-status-sm">
-                                        {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                    </span>
-                                @endif
+                                @php
+                                    $dStatusInfo = [
+                                        'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
+                                        'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
+                                        'used' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
+                                    ][$contract->deposit_status] ?? ['class' => 'badge-secondary', 'icon' => 'fas fa-info-circle'];
+                                @endphp
+                                <div class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
+                                    <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
+                                </div>
+@else
+                                @php
+                                    $dStatusInfo = [
+                                        'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
+                                        'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
+                                        'used' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
+                                    ][$contract->deposit_status] ?? ['class' => 'badge-secondary', 'icon' => 'fas fa-info-circle'];
+                                @endphp
+                                <div class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
+                                    <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
+                                </div>
+@endif
                             </div>
                         @else
                             <span class="badge badge-secondary border-0 px-2 py-25 no-deposit-badge">
@@ -305,15 +327,6 @@
                         </span>
                     </td>
 
-                    <!-- Company (Super Admin Only) -->
-                    @if (isset($companies))
-                        <td class="text-center align-middle d-none d-md-table-cell">
-                            <span class="text-primary font-weight-bold small">
-                                <i class="fas fa-briefcase mr-25"></i> {!! optional($contract->company)->name !!}
-                            </span>
-                        </td>
-                    @endif
-
                     <!-- Actions -->
                     <td class="text-center align-middle">
                         @include('dashboard.contracts.parts.actions')
@@ -321,7 +334,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="10" class="text-center p-4 text-muted">
+                    <td colspan="11" class="text-center p-4 text-muted">
                         <div class="d-flex flex-column align-items-center">
                             <i class="fas fa-info-circle mb-1 font-40 opacity-5"></i>
                             <span>{!! __('contracts.no_contracts_found') !!}</span>

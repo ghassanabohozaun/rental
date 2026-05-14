@@ -30,11 +30,11 @@ class ContractsController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = Company::where('status', 'active')->get();
+            $companies = Company::active()->orderBy('id', 'desc')->get();
         }
 
-        $properties = Property::latest()->get();
-        $customers = Customer::active()->latest()->get();
+        $properties = Property::orderBy('id', 'desc')->get();
+        $customers = Customer::active()->orderBy('id', 'desc')->get();
         $stats = $this->service->getStats();
 
         if ($request->ajax() || $request->has('_ajax')) {
@@ -52,7 +52,7 @@ class ContractsController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = Company::where('status', 'active')->get();
+            $companies = Company::active()->orderBy('id', 'desc')->get();
         }
 
         return view('dashboard.contracts.create', compact('title', 'companies'));
@@ -95,7 +95,7 @@ class ContractsController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = Company::where('status', 'active')->get();
+            $companies = Company::active()->orderBy('id', 'desc')->get();
         }
 
         return view('dashboard.contracts.edit', compact('contract', 'title', 'companies'));

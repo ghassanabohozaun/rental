@@ -1,5 +1,5 @@
-<div class="modal modal-pop fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
-    aria-hidden="true">
+<div class="modal modal-pop" id="createModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+    aria-labelledby="createModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <form class="form ajax-form" action="{!! route('dashboard.cheques.store') !!}" method="POST"
@@ -48,7 +48,7 @@
                                             <option></option>
                                         </select>
                                     </div>
-                                    <span class="error-text company_id_error text-danger small"></span>
+                                    <span class="error-text company_id_error text-danger"></span>
                                 </div>
                             </div>
                         @endif
@@ -65,7 +65,7 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                <span class="error-text contract_id_error text-danger small"></span>
+                                <span class="error-text contract_id_error text-danger"></span>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                <span class="error-text customer_id_error text-danger small"></span>
+                                <span class="error-text customer_id_error text-danger"></span>
                             </div>
                         </div>
 
@@ -94,7 +94,7 @@
                                     name="cheque_number" placeholder="{!! __('cheques.cheque_number') !!}" autocomplete="off">
                                     <i class="fas fa-barcode text-primary"></i>
                                 </div>
-                                <span class="error-text cheque_number_error text-danger small"></span>
+                                <span class="error-text cheque_number_error text-danger"></span>
                             </div>
                         </div>
 
@@ -107,7 +107,7 @@
                                     name="amount" placeholder="{!! __('cheques.amount') !!}" autocomplete="off">
                                     <i class="fas fa-money-bill text-primary"></i>
                                 </div>
-                                <span class="error-text amount_error text-danger small"></span>
+                                <span class="error-text amount_error text-danger"></span>
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@
                                     </select>
                                     <i class="fas fa-info-circle text-primary"></i>
                                 </div>
-                                <span class="error-text status_error text-danger small"></span>
+                                <span class="error-text status_error text-danger"></span>
                             </div>
                         </div>
 
@@ -138,7 +138,7 @@
                                     </select>
                                     <i class="fas fa-shield-alt text-primary"></i>
                                 </div>
-                                <span class="error-text is_deposit_error text-danger small"></span>
+                                <span class="error-text is_deposit_error text-danger"></span>
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@
                                     name="bank_name[ar]" placeholder="{!! __('cheques.bank_name') !!}" autocomplete="off">
                                     <i class="fas fa-university text-primary"></i>
                                 </div>
-                                <span class="error-text bank_name_ar_error text-danger small"></span>
+                                <span class="error-text bank_name_ar_error text-danger"></span>
                             </div>
                         </div>
 
@@ -164,7 +164,7 @@
                                     name="bank_name[en]" placeholder="{!! __('cheques.bank_name') !!}" autocomplete="off">
                                     <i class="fas fa-university text-primary"></i>
                                 </div>
-                                <span class="error-text bank_name_en_error text-danger small"></span>
+                                <span class="error-text bank_name_en_error text-danger"></span>
                             </div>
                         </div>
 
@@ -177,7 +177,7 @@
                                     name="cheque_owner_name[ar]" placeholder="{!! __('cheques.cheque_owner_name') !!}" autocomplete="off">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text cheque_owner_name_ar_error text-danger small"></span>
+                                <span class="error-text cheque_owner_name_ar_error text-danger"></span>
                             </div>
                         </div>
 
@@ -190,7 +190,7 @@
                                     name="cheque_owner_name[en]" placeholder="{!! __('cheques.cheque_owner_name') !!}" autocomplete="off">
                                     <i class="fas fa-user text-primary"></i>
                                 </div>
-                                <span class="error-text cheque_owner_name_en_error text-danger small"></span>
+                                <span class="error-text cheque_owner_name_en_error text-danger"></span>
                             </div>
                         </div>
 
@@ -203,7 +203,7 @@
                                     name="issue_date" autocomplete="off">
                                     <i class="fas fa-calendar-alt text-primary"></i>
                                 </div>
-                                <span class="error-text issue_date_error text-danger small"></span>
+                                <span class="error-text issue_date_error text-danger"></span>
                             </div>
                         </div>
 
@@ -216,7 +216,7 @@
                                     name="due_date" autocomplete="off">
                                     <i class="fas fa-calendar-check text-primary"></i>
                                 </div>
-                                <span class="error-text due_date_error text-danger small"></span>
+                                <span class="error-text due_date_error text-danger"></span>
                             </div>
                         </div>
 
@@ -228,7 +228,7 @@
                                     <textarea class="form-control premium-input shadow-none" id="notes_create" name="notes" rows="3"
                                     placeholder="{!! __('cheques.notes') !!}"></textarea>
                                 </div>
-                                <span class="error-text notes_error text-danger small"></span>
+                                <span class="error-text notes_error text-danger"></span>
                             </div>
                         </div>
 
@@ -249,3 +249,5 @@
         </form>
     </div>
 </div>
+
+

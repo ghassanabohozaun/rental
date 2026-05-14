@@ -21,7 +21,7 @@ return [
     'cheque_details' => 'تفاصيل الشيك',
     'delete_cheque' => 'حذف الشيك',
     'contract' => 'العقد المرتبط',
-    'customer' => 'العميل',
+    'customer' => 'المستأجر',
     'no_cheques_found' => 'عذراً، لم يتم العثور على أي شيكات!',
     'statuses' => [
         'pending' => 'معلق',
@@ -41,7 +41,7 @@ return [
     'rent_cheques' => 'شيكات الإيجار',
     'insurance_cheques' => 'شيكات التأمين',
     'confirm_return_title' => 'تأكيد إرجاع الشيك',
-    'confirm_return_text' => 'هل أنت متأكد من إرجاع شيك التأمين للعميل وإغلاقه؟',
+    'confirm_return_text' => 'هل أنت متأكد من إرجاع شيك التأمين للمستأجر وإغلاقه؟',
     'confirm_cash_title' => 'تسييل شيك التأمين',
     'confirm_cash_text' => 'هل أنت متأكد من مصادرة الشيك وتحويله إلى دفعة مستحقة (إيراد)؟',
     'contract_selection' => 'اختيار العقد المرتبط',

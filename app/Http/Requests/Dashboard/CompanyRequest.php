@@ -24,6 +24,7 @@ class CompanyRequest extends FormRequest
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:500',
             'logo' => $this->isMethod('POST') ? 'nullable|image|mimes:jpeg,png,jpg|max:2048' : 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'delete_logo' => 'nullable',
         ];
     }
 

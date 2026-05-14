@@ -56,14 +56,14 @@ $(document).ready(function () {
                     text: cancelButtonText,
                     value: null,
                     visible: true,
-                    className: "btn-danger",
+                    className: "btn-premium-cancel",
                     closeModal: true,
                 },
                 confirm: {
                     text: confirmButtonText,
                     value: true,
                     visible: true,
-                    className: "btn-info",
+                    className: "btn-premium-save",
                     closeModal: false,
                 },
             },
@@ -173,6 +173,8 @@ $(document).ready(function () {
                                 text: "",
                                 icon: "error",
                                 button: window.PTC_I18N.common.ok
+                            }).then(() => {
+                                location.reload();
                             });
                         } else {
                             swal({
@@ -180,6 +182,8 @@ $(document).ready(function () {
                                 text: errorMessage,
                                 icon: "error",
                                 button: window.PTC_I18N.common.ok
+                            }).then(() => {
+                                location.reload();
                             });
                         }
                     },

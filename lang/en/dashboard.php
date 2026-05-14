@@ -8,7 +8,8 @@ return [
     'access_restricted' => 'Access Restricted',
     'access_denied' => 'Access Denied/Forbidden !',
     'back_to_home' => 'Back To Home',
-    'search' => 'Search ... ',
+    'search' => 'Search menu...',
+    'main_navigation' => 'Main Navigation',
     'hello' => 'Hello ,',
     'welcome' => 'Welcome',
     'employees_count' => 'Employees Count',
@@ -84,4 +85,5 @@ return [
     'upcoming_cheques' => 'Upcoming Cheque Collections (7 Days)',
     'no_upcoming_cheques' => 'No cheques due soon.',
     'reports_module_ready' => 'Reports module is being prepared with full financial audits.',
+    'technical_support' => 'Support & Access',
 ];

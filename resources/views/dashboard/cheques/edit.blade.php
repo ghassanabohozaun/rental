@@ -5,11 +5,13 @@
 
 @section('content')
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/cheques-premium.css') }}?v={{ time() }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}?v={{ time() }}">
+    
+    
 @endpush
     <div class="app-content content">
-        @livewire('dashboard.cheques.cheque-form', ['chequeId' => $cheque->id])
+        @livewire('dashboard.cheques.edit-cheque', [
+        'cheque' => $cheque
+    ])
     </div>
 @endsection
 

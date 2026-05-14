@@ -12,9 +12,10 @@ class Setting extends Model implements MustBelongToCompany
     use HasTranslations, BelongsToCompany;
     protected $table = 'settings';
     protected $fillable = ['company_id', 'site_name', 'address', 'description', 'keywords', 'phone','mobile',
-    'whatsapp', 'email', 'email_support', 'facebook', 'twitter', 'instegram', 'youtube', 'logo', 'favicon'];
+    'whatsapp', 'email', 'email_support', 'facebook', 'twitter', 'instegram', 'youtube', 'logo', 'favicon',
+    'auth_welcome_title', 'auth_welcome_desc', 'auth_welcome_badge', 'auth_welcome_footer'];
     public $timestamps = false;
-    public array $translatable = ['site_name', 'address', 'description', 'keywords'];
+    public array $translatable = ['site_name', 'address', 'description', 'keywords', 'auth_welcome_title', 'auth_welcome_desc', 'auth_welcome_badge', 'auth_welcome_footer'];
 
 
 

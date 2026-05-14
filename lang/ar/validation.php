@@ -168,25 +168,25 @@ return [
             'captcha' => 'خطأ في الكابتشا! حاول مرة أخرى لاحقًا أو اتصل بمسؤول الموقع.',
         ],
         'id_number' => [
-            'unique' => 'رقم الهوية / السجل التجاري مسجل مسبقاً لعميل آخر !',
+            'unique' => 'رقم البطاقة الشخصية / السجل التجاري مسجل مسبقاً لعميل آخر !',
         ],
         'deposit_bank_name.ar' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
         'deposit_bank_name.en' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
         'deposit_cheque_number' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
         'deposit_issue_date' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
         'deposit_cheque_owner_name.ar' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
         'deposit_cheque_owner_name.en' => [
-            'required_if' => 'حقل :attribute مطلوب عندما يكون نوع التأمين "شيك".',
+            'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
     ],
 
@@ -310,7 +310,7 @@ return [
         'father_name_en' => 'اسم الاب بالانجليزي',
         'grand_father_name_en' => 'اسم الجد بالانجليزي',
         'family_name_en' => 'اسم العائلة بالانجليزي',
-        'personal_id' => ' رقم الهوية ',
+        'personal_id' => ' رقم البطاقة الشخصية / السجل التجاري ',
         'birthday' => 'تاريخ الميلاد',
         'class' => 'الفصل الدراسي',
         'governoate_id' => 'المحافظة',
@@ -382,12 +382,16 @@ return [
         'property_status_id' => 'حالة العقار',
         'owner_id' => 'المالك',
         'property_number' => 'رقم العقار',
+        'property_owners' => 'ملاك العقار',
+        'ownership_percentage' => 'نسبة الملكية',
+        'is_primary' => 'مالك رئيسي',
+        'file_number' => 'رقم الملف',
         'title_deed_number' => 'رقم الصك',
         'electricity_account_number' => 'رقم حساب الكهرباء',
         'water_account_number' => 'رقم حساب المياه',
-        
+
         // Guarantors
-        'id_number' => 'رقم الهوية',
+        'id_number' => 'رقم البطاقة الشخصية / السجل التجاري',
         'relationship' => 'صلة القرابة',
         'notes' => 'ملاحظات',
 
@@ -400,7 +404,7 @@ return [
         'deposit_status' => 'حالة التأمين',
         'payment_cycle' => 'دورة الدفع',
         'contract_text' => 'نص العقد',
-        
+
         // Payments
         'contract_id'  => 'العقد',
         'payment_date' => 'تاريخ الدفع',
@@ -415,7 +419,7 @@ return [
         'issue_date' => 'تاريخ الإصدار',
         'due_date' => 'تاريخ الاستحقاق',
         'is_deposit' => 'نوع الشيك',
-        
+
         // Contracts - Insurance Cheque
         'deposit_cheque_number' => 'رقم شيك التأمين',
         'deposit_bank_name.ar' => 'اسم البنك (لشيك التأمين) بالعربية',
@@ -423,5 +427,10 @@ return [
         'deposit_cheque_owner_name.ar' => 'اسم صاحب الشيك (لشيك التأمين) بالعربية',
         'deposit_cheque_owner_name.en' => 'اسم صاحب الشيك (لشيك التأمين) بالإنجليزية',
         'deposit_issue_date' => 'تاريخ إصدار شيك التأمين',
+
+        // Owners
+        'identification_number' => 'رقم البطاقة الشخصية / السجل التجاري',
+        'conclusion_date' => 'تاريخ إبرام العقد',
+        'permissions' => 'الصلاحيات',
     ],
 ];

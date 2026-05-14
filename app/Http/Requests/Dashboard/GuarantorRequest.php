@@ -18,10 +18,9 @@ class GuarantorRequest extends FormRequest
         $rules = [
             'name.ar' => 'required|string|max:255',
             'name.en' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'id_number' => 'required|string|max:255|unique:guarantors,id_number,' . ($id ? $id : 'NULL') . ',id,deleted_at,NULL',
             'address' => 'nullable|string|max:255',
-            'relationship' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
         ];
 

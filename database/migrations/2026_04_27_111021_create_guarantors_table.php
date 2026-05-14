@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('phone')->nullable();
             $table->string('id_number')->nullable();
             $table->string('address')->nullable();
-            $table->string('relationship')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('status')->default(1);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

@@ -8,24 +8,8 @@
         @endcan
 
         @can('customers_update')
-            <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-edit js-edit-btn"
-                title="{{ __('general.edit') }}" 
-                data-url="{{ route('dashboard.customers.update', $customer->id) }}"
-                data-id="{{ $customer->id }}" 
-                data-name_ar="{{ $customer->getTranslation('name', 'ar') }}"
-                data-name_en="{{ $customer->getTranslation('name', 'en') }}" 
-                data-phone="{{ $customer->phone }}"
-                data-email="{{ $customer->email }}"
-                data-id_number="{{ $customer->id_number }}"
-                data-address="{{ $customer->address }}"
-                data-nationality_id="{{ $customer->nationality_id }}"
-                data-tenant_type="{{ $customer->tenant_type }}"
-                data-guarantor_id="{{ $customer->guarantor_id }}"
-                data-guarantor="{{ optional($customer->guarantor)->name }}"
-                data-notes="{{ $customer->notes }}" 
-                data-company_id="{{ $customer->company_id }}" 
-                data-company="{{ optional($customer->company)->name }}"
-                data-toggle="modal" data-target="#editModal">
+            <a href="{{ route('dashboard.customers.edit', $customer->id) }}" class="btn-premium-action btn-premium-action-edit"
+                title="{{ __('general.edit') }}">
                 <i class="fas fa-edit"></i>
             </a>
         @endcan
@@ -42,3 +26,5 @@
         @endcan
     </div>
 </div>
+
+

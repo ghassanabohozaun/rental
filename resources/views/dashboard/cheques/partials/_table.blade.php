@@ -5,10 +5,12 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">
+                    {!! __('companies.company') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('cheques.cheque_number') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('customers.customer') !!}</th>
-                <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">{!! __('companies.company') !!}</th>
-                <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">{!! __('properties.property') !!}</th>
+                <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
+                    {!! __('properties.property') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell" style="min-width: 150px;">
                     {!! __('cheques.amount') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('cheques.due_date') !!}
@@ -112,6 +114,12 @@
                             {!! $loop->iteration + ($cheques->currentPage() - 1) * $cheques->perPage() !!}
                         </span>
                     </td>
+                    <td class="text-center align-middle d-none d-md-table-cell">
+                        <div class="company-chip">
+                            <i class="fas fa-briefcase"></i>
+                            <span>{!! optional($cheque->company)->name ?? __('general.all_companies') !!}</span>
+                        </div>
+                    </td>
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! $cheque->cheque_number !!}</span>
@@ -124,11 +132,6 @@
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional($cheque->customer)->name ?? '---' !!}</span>
                             <span class="user-email-text text-muted small">{!! optional($cheque->customer)->phone ?? '---' !!}</span>
-                        </div>
-                    </td>
-                    <td class="align-middle d-none d-md-table-cell property-info-td">
-                        <div class="user-info-cell">
-                            <span class="user-name-text font-weight-bold text-dark">{!! optional($cheque->company)->name ?? '---' !!}</span>
                         </div>
                     </td>
                     <td class="align-middle d-none d-md-table-cell property-info-td">
@@ -185,16 +188,19 @@
                     </td>
                     <td class="text-center align-middle">
                         @php
-                            $statusClass =
-                                [
-                                    'pending' => 'badge-warning',
-                                    'cleared' => 'badge-success',
-                                    'bounced' => 'badge-danger',
-                                    'held' => 'badge-info',
-                                ][$cheque->status] ?? 'badge-secondary';
+                            $statusInfo = [
+                                'pending' => ['class' => 'badge-warning-premium', 'icon' => 'fas fa-clock'],
+                                'cleared' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
+                                'bounced' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-times-circle'],
+                                'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
+                                'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
+                            ][$cheque->status] ?? [
+                                'class' => 'badge-secondary-premium',
+                                'icon' => 'fas fa-info-circle',
+                            ];
                         @endphp
-                        <div class="badge badge-pill badge-glow {!! $statusClass !!} premium-badge">
-                            {!! __('cheques.statuses.' . $cheque->status) !!}
+                        <div class="badge badge-pill badge-glow premium-badge {!! $statusInfo['class'] !!}">
+                            <i class="{!! $statusInfo['icon'] !!}"></i> {!! __('cheques.statuses.' . $cheque->status) !!}
                         </div>
                     </td>
                     <td class="text-center align-middle">

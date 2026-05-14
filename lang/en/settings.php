@@ -6,6 +6,7 @@ return [
     'contact_section' => 'Contact Information',
     'media_section' => 'Media & Branding',
     'social_section' => 'Social Media Links',
+    'auth_welcome_section' => 'Auth Welcome Screen Content',
 
     // Fields
     'site_name_ar' => 'Website Name (Arabic)',
@@ -23,6 +24,10 @@ return [
     'email_support' => 'Technical Support Email',
     'favicon' => 'Browser Icon (Favicon)',
     'logo' => 'Official Website Logo',
+    'auth_welcome_title' => 'Welcome Title',
+    'auth_welcome_desc' => 'Welcome Description',
+    'auth_welcome_badge' => 'Badge Text',
+    'auth_welcome_footer' => 'Footer Text',
 
     'facebook' => 'Facebook Profile',
     'twitter' => 'Twitter Account (X)',
@@ -55,6 +60,10 @@ return [
     'enter_email_support' => 'Enter Technical Support Email',
     'enter_favicon' => 'Upload Browser Icon (Favicon)',
     'enter_logo' => 'Upload Official Website Logo',
+    'enter_auth_welcome_title' => 'Enter Welcome Title for Login Screen',
+    'enter_auth_welcome_desc' => 'Enter Welcome Description for Login Screen',
+    'enter_auth_welcome_badge' => 'Enter Top Badge Text',
+    'enter_auth_welcome_footer' => 'Enter Login Screen Footer Text',
 
     'enter_facebook' => 'Enter Facebook Page URL',
     'enter_twitter' => 'Enter Twitter (X) Account URL',

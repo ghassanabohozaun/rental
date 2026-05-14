@@ -4,7 +4,7 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}?v={{ time() }}">
+    
 @endpush
 
 @section('content')
@@ -97,8 +97,8 @@
                                                                 </select>
                                                                 <i class="fas fa-briefcase text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text company_id_error"></span>
-                                                        </div>
+                                                                <span class="text-danger error-text company_id_error"></span>
+                                                            </div>
                                                     </div>
                                                 </div>
                                                 @endif
@@ -116,8 +116,8 @@
                                                                     placeholder="{!! __('roles.enter_role_ar') !!}">
                                                                 <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_ar_error"></span>
-                                                        </div>
+                                                                <span class="text-danger error-text name_ar_error"></span>
+                                                            </div>
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -132,8 +132,8 @@
                                                                     placeholder="{!! __('roles.enter_role_en') !!}">
                                                                 <i class="fas fa-shield-alt text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text name_en_error"></span>
-                                                        </div>
+                                                                <span class="text-danger error-text name_en_error"></span>
+                                                            </div>
                                                     </div>
                                                 </div>
 
@@ -151,8 +151,8 @@
                                                                     placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}">
                                                                 <i class="fas fa-info-circle text-primary"></i>
                                                             </div>
-                                                            <span class="text text-danger small mt-1 d-block error-text description_error"></span>
-                                                        </div>
+                                                                <span class="text-danger error-text description_error"></span>
+                                                            </div>
                                                     </div>
                                                 </div>
                                                 <!-- end: row -->
@@ -160,8 +160,11 @@
                                                 <!-- begin: Premium Permissions Grid -->
                                                 <div class="row mt-4">
                                                     <div class="col-md-12">
-                                                        <h5 class="premium-section-title">
-                                                            <i class="fas fa-key"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                        <h5 class="premium-section-title d-flex align-items-center justify-content-between">
+                                                            <span>
+                                                                <i class="fas fa-key"></i> {!! __('roles.permissions') !!} <span class="text-danger">*</span>
+                                                            </span>
+                                                            <span class="permissions_error premium-error-alert-chip"></span>
                                                         </h5>
 
                                                         <div class="permissions-grid">
@@ -171,10 +174,10 @@
                                                                     <div class="permission-card">
                                                                         <div class="permission-card-header">
                                                                             <div class="permission-card-title">
-                                                                                <i class="la {{ config('global.module_icons.' . $moduleKey, 'la-dot-circle') }}"></i>
+                                                                                <i class="{{ config('global.module_icons.' . $moduleKey, 'la la-dot-circle') }}"></i>
                                                                                 {!! __($moduleLangKey) !!}
                                                                             </div>
-                                                                            <label class="modern-switch" style="transform: scale(0.8);">
+                                                                            <label class="modern-switch">
                                                                                 <input type="checkbox" class="select-all-module" data-module="module-{{ $moduleKey }}">
                                                                                 <span class="modern-slider"></span>
                                                                             </label>
@@ -201,7 +204,9 @@
                                                                 @endif
                                                             @endforeach
                                                         </div>
-                                                        <span class="text text-danger small mt-1 d-block error-text permissions_error"></span>
+                                                        <div class="text-center mt-3">
+                                                            <span class="permissions_error premium-error-alert-chip"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- end: Premium Permissions Grid -->
@@ -226,7 +231,7 @@
             $('.select-all-module').on('change', function() {
                 let moduleClass = $(this).data('module');
                 let isChecked = $(this).is(':checked');
-                $('.' + moduleClass).prop('checked', isChecked);
+                $('.' + moduleClass).prop('checked', isChecked).trigger('change');
             });
 
             $('.permission-checkbox').on('change', function() {
@@ -246,3 +251,5 @@
         });
     </script>
 @endpush
+
+

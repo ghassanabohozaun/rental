@@ -46,6 +46,22 @@ class SettingSeeder extends Seeder
                 'youtube' => '',
                 'logo' => '',
                 'favicon' => '',
+                'auth_welcome_title' => [
+                    'ar' => 'التميز في الاستثمار',
+                    'en' => 'Excellence in Investment',
+                ],
+                'auth_welcome_desc' => [
+                    'ar' => 'رؤية طموحة لمستقبل واعد. نحن نبني النجاح معاً من خلال الالتزام والابتكار.',
+                    'en' => 'An ambitious vision for a promising future. We build success together through commitment and innovation.',
+                ],
+                'auth_welcome_badge' => [
+                    'ar' => 'MJK-ALTHANI GROUP',
+                    'en' => 'MJK-ALTHANI GROUP',
+                ],
+                'auth_welcome_footer' => [
+                    'ar' => 'MJK-ALTHANI Portal',
+                    'en' => 'MJK-ALTHANI Portal',
+                ],
             ]);
         });
     }

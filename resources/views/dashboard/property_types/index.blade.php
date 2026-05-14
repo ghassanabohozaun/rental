@@ -4,7 +4,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
 @endpush
 
 @section('content')
@@ -133,7 +132,7 @@
                     if (data.data.status == 1) {
                         $('.property_type_status_' + data.data.id).addClass('badge-success');
                         $('.property_type_status_' + data.data.id).text("{!! __('general.enable') !!}");
-                    } else if (data.data.status == '') {
+                    } else if (data.data.status == 0) {
                         $('.property_type_status_' + data.data.id).addClass('badge-danger');
                         $('.property_type_status_' + data.data.id).text("{!! __('general.disabled') !!}");
                     }
@@ -159,3 +158,5 @@
         });
     </script>
 @endpush
+
+

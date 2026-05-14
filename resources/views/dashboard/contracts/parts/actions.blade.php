@@ -12,6 +12,14 @@
         <i class="fas fa-edit"></i>
     </a>
 
+    {{-- Add Cheque --}}
+    @can('cheques_create')
+        <a href="{!! route('dashboard.cheques.create') !!}?contract_id={!! $contract->id !!}&company_id={!! $contract->company_id !!}&is_deposit=0"
+            class="btn-premium-action btn-premium-action-warning mr-1" title="{!! __('cheques.add_cheque') !!}">
+            <i class="fas fa-money-check"></i>
+        </a>
+    @endcan
+
     {{-- Delete --}}
     <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger delete-confirm"
         data-id="{!! $contract->id !!}" data-route="{!! route('dashboard.contracts.destroy') !!}" data-title="{!! __('general.ask_delete_record') !!}"
@@ -21,3 +29,5 @@
         <i class="fas fa-trash-alt"></i>
     </a>
 </div>
+
+

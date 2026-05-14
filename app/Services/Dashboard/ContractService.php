@@ -24,16 +24,22 @@ class ContractService
     {
         return $this->repository->find($id);
     }
-
     public function store(array $data)
     {
         if (!isset($data['company_id'])) {
             $data['company_id'] = user()->company_id;
         }
 
+        // Ensure deposit_amount is numeric and defaults to 0
+        $data['deposit_amount'] = isset($data['deposit_amount']) && $data['deposit_amount'] !== '' ? (float)$data['deposit_amount'] : 0;
+
         // Logic: If deposit amount is 0, force deposit type to cash
         if (isset($data['deposit_amount']) && (float)$data['deposit_amount'] <= 0) {
             $data['deposit_type'] = 'cash';
+        }
+
+        if (isset($data['deposit_type']) && $data['deposit_type'] === 'cash') {
+            $data['deposit_status'] = 'held';
         }
 
         $contract = $this->repository->create($data);
@@ -53,9 +59,15 @@ class ContractService
 
     public function update($id, array $data)
     {
+        // Ensure deposit_amount is numeric and defaults to 0
+        $data['deposit_amount'] = isset($data['deposit_amount']) && $data['deposit_amount'] !== '' ? (float)$data['deposit_amount'] : 0;
         // Logic: If deposit amount is 0, force deposit type to cash
         if (isset($data['deposit_amount']) && (float)$data['deposit_amount'] <= 0) {
             $data['deposit_type'] = 'cash';
+        }
+
+        if (isset($data['deposit_type']) && $data['deposit_type'] === 'cash') {
+            $data['deposit_status'] = 'held';
         }
 
         $contract = $this->repository->update($id, $data);

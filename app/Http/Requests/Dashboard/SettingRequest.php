@@ -37,6 +37,11 @@ class SettingRequest extends FormRequest
             'youtube' => ['nullable', 'url', 'max:255'],
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,gif,pmp,svg,ico,tiff,webp'],
             'favicon' => ['nullable', 'image', 'mimes:png,jpg,jpeg,gif,pmp,svg,ico,tiff,webp'],
+
+            'auth_welcome_title.*' => ['nullable', 'string', 'max:255'],
+            'auth_welcome_desc.*' => ['nullable', 'string'],
+            'auth_welcome_badge.*' => ['nullable', 'string', 'max:255'],
+            'auth_welcome_footer.*' => ['nullable', 'string', 'max:255'],
             // 'promation_video_url' => ['required', 'url', 'max:255'],
         ];
     }

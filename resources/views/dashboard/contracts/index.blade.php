@@ -5,9 +5,7 @@
 
 @push('style')
     <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/permissions.css') !!}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contracts-premium.css') }}">
+    
 @endpush
 
 @section('content')
@@ -52,71 +50,47 @@
             <div class="content-body">
                 <!-- begin: stats cards -->
                 <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-primary font-weight-bold mb-0">
-                                            {{ $stats['total_contracts'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('contracts.contracts') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(30, 159, 242, 0.1);">
-                                        <i class="fas fa-file-contract text-primary font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-contracts">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['total_contracts'] }}</h3>
+                                <h6 class="stat-title">{!! __('contracts.contracts') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-file-contract"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-success font-weight-bold mb-0">
-                                            {{ $stats['active_contracts'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('contracts.active_contracts') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(40, 208, 148, 0.1);">
-                                        <i class="fas fa-check-double text-success font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-active">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['active_contracts'] }}</h3>
+                                <h6 class="stat-title">{!! __('contracts.active_contracts') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-check-double"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-info font-weight-bold mb-0">
-                                            {!! number_format($stats['total_rent_value'], 0) !!}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('contracts.total_rent_value') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(0, 207, 221, 0.1);">
-                                        <i class="fas fa-money-bill-wave text-info font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-revenue">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{!! number_format($stats['total_rent_value'], 0) !!}</h3>
+                                <h6 class="stat-title">{!! __('contracts.total_rent_value') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-money-bill-wave"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-12">
-                        <div class="card premium-card premium-stat-card mb-2">
-                            <div class="card-body">
-                                <div class="media d-flex">
-                                    <div class="media-body text-left">
-                                        <h3 class="stat-value text-warning font-weight-bold mb-0">
-                                            {{ $stats['expiring_soon'] }}
-                                        </h3>
-                                        <span class="stat-label text-muted">{!! __('contracts.expiring_soon') !!}</span>
-                                    </div>
-                                    <div class="align-self-center stat-icon-wrapper" style="background: rgba(255, 145, 73, 0.1);">
-                                        <i class="fas fa-hourglass-half text-warning font-large-2"></i>
-                                    </div>
-                                </div>
+                    <div class="col-xl-3 col-lg-6 col-12 mb-2">
+                        <div class="premium-stat-card h-100 card-expiring">
+                            <div class="stat-content">
+                                <h3 class="stat-value">{{ $stats['expiring_soon'] }}</h3>
+                                <h6 class="stat-title">{!! __('contracts.expiring_soon') !!}</h6>
+                            </div>
+                            <div class="stat-icon-wrapper">
+                                <i class="fas fa-hourglass-half"></i>
                             </div>
                         </div>
                     </div>
@@ -127,7 +101,7 @@
                 <section id="basic-form-layouts">
                     <div class="row match-height">
                         <div class="col-md-12">
-                            <div class="card premium-card">
+                            <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
                                 <div class="card-header border-0 pb-0">
                                     <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
@@ -184,3 +158,5 @@
         });
     </script>
 @endpush
+
+
