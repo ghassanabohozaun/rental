@@ -76,17 +76,22 @@
                 </div>
 
                 <form id="lock-form" action="{{ route('dashboard.unlock.screen') }}" method="POST" autocomplete="off"
-                    class="modern-form">
+                    class="modern-form" novalidate>
                     @csrf
 
                     <div class="form-group-modern">
                         <label class="form-label-modern">{!! __('auth.enter_you_password') !!}</label>
                         <div class="input-container-modern">
-                            <input type="password" class="form-control-modern" name="password" id="lock-password"
-                                placeholder="••••••••" required autofocus autocomplete="new-password">
+                            <input type="password" class="form-control-modern @error('password') is-invalid @enderror" 
+                                name="password" id="lock-password"
+                                placeholder="••••••••" autofocus autocomplete="off">
                             <i class="fas fa-lock input-icon-modern"></i>
                         </div>
-                        <div id="lock-error" class="text-danger small mt-2 d-none"></div>
+                        @if($errors->has('password'))
+                            <div class="text-danger font-weight-bold mt-1" style="display: block !important;">
+                                <i class="fas fa-exclamation-circle mr-1"></i> {{ $errors->first('password') }}
+                            </div>
+                        @endif
                     </div>
 
                     <button type="submit" id="unlock-btn" class="btn-login-modern">
@@ -104,7 +109,7 @@
     </div>
 @endsection
 
-@push('js')
+@push('scripts')
     <script>
         window.LockScreenData = {
             routes: {

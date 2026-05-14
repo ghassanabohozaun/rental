@@ -85,9 +85,14 @@ class AuthController extends Controller implements HasMiddleware
     // unlock screen function
     public function unlock(Request $request)
     {
-        $request->validate([
+        // dd('reaches unlock');
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'password' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dashboard.lock.screen')->withErrors($validator)->withInput();
+        }
 
         if (Hash::check($request->password, Auth::guard('web')->user()->password)) {
             session()->forget('is_locked');
@@ -101,16 +106,9 @@ class AuthController extends Controller implements HasMiddleware
             }
 
             session()->save();
-            return response()->json([
-                'status' => true,
-                'message' => 'Success',
-                'redirect' => $redirectUrl
-            ]);
+            return redirect()->to($redirectUrl);
         }
 
-        return response()->json([
-            'status' => false,
-            'message' => __('auth.failed')
-        ], 422);
+        return redirect()->route('dashboard.lock.screen')->withErrors(['password' => __('auth.failed')])->withInput();
     }
 }
