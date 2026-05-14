@@ -27,33 +27,17 @@ class CompanySeeder extends Seeder
 
         Company::firstOrCreate(
             [
-                'name->en' => 'AL Majed Rental Company',
+                'name->en' => 'Ghassan Rental Company',
             ],
             [
                 'name' => [
-                    'en' => 'AL Majed Rental Company',
-                    'ar' => 'شركة المجد العقارية',
+                    'en' => 'Ghassan Rental Company',
+                    'ar' => 'شركة غسان العقارية',
                 ],
                 'subscription_plan' => 'Premium',
                 'status' => 'active',
-                'email' => 'majed@rental.com',
-                'phone' => '01111111111',
-            ],
-        );
-
-        Company::firstOrCreate(
-            [
-                'name->en' => 'El Amal Rental Comany',
-            ],
-            [
-                'name' => [
-                    'en' => 'El Amal Rental Comany',
-                    'ar' => 'شركة الامل العقارية',
-                ],
-                'subscription_plan' => 'Basic',
-                'status' => 'active',
-                'email' => 'amal@rental.com',
-                'phone' => '02222222222',
+                'email' => 'ghassan@rental.com',
+                'phone' => '0590000000',
             ],
         );
     }

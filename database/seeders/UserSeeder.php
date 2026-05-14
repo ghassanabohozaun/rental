@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $superRole = Role::where('name->en', 'Super User')->first();
-        $adminRole = Role::where('name->en' , 'Company Manager')->first();
+        $adminRole = Role::where('name->en', 'Company Manager')->first();
 
         // 1. Super Admin
         User::firstOrCreate(
@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('123456'),
                 'company_id' => 1,
                 'role_id' => $superRole->id,
-                'status' => true
-            ]
+                'status' => true,
+            ],
         );
 
         // 1.2 Haitham Super Admin
@@ -40,40 +40,21 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('123123'),
                 'company_id' => 1,
                 'role_id' => $superRole->id,
-                'status' => true
-            ]
+                'status' => true,
+            ],
         );
-
-        // 2. Al Majed Admin
-        $majedCompany = Company::where('name->en', 'AL Majed Rental Company')->first();
-        if ($majedCompany) {
+        // 2. Ghassan Admin (Company Manager)
+        $ghassanCompany = Company::where('name->en', 'Ghassan Rental Company')->first();
+        if ($ghassanCompany) {
             User::firstOrCreate(
-                ['email' => 'majed@admin.com'],
+                ['email' => 'ghassan@admin.com'],
                 [
                     'name' => [
-                        'en' => 'Majed Admin',
-                        'ar' => 'مدير شركة المجد',
+                        'en' => 'Ghassan Admin',
+                        'ar' => 'غسان - مدير الشركة',
                     ],
                     'password' => bcrypt('123456'),
-                    'company_id' => $majedCompany->id,
-                    'role_id' => $adminRole->id,
-                    'status' => true,
-                ]
-            );
-        }
-
-        // 3. El Amal Admin
-        $amalCompany = Company::where('name->en', 'El Amal Rental Comany')->first();
-        if ($amalCompany) {
-            User::firstOrCreate(
-                ['email' => 'amal@admin.com'],
-                [
-                    'name' => [
-                        'en' => 'Amal Admin',
-                        'ar' => 'مدير شركة الامل',
-                    ],
-                    'password' => bcrypt('123456'),
-                    'company_id' => $amalCompany->id,
+                    'company_id' => $ghassanCompany->id,
                     'role_id' => $adminRole->id,
                     'status' => true,
                 ]
