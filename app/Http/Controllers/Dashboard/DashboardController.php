@@ -57,11 +57,12 @@ class DashboardController extends Controller
             'labels' => [__('properties.rented'), __('properties.available')]
         ];
 
-        // B. Financial Trend (Last 12 Months)
+        // B. Financial Trend (Starting from Jan 2026 for 12 months)
         $months = [];
         $collections = [];
-        for ($i = 11; $i >= 0; $i--) {
-            $date = Carbon::now()->subMonths($i);
+        $startDate = Carbon::create(2026, 1, 1);
+        for ($i = 0; $i < 12; $i++) {
+            $date = (clone $startDate)->addMonths($i);
             $months[] = $date->translatedFormat('M Y');
             
             $collections[] = (clone $paymentsQuery)

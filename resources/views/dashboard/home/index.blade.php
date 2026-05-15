@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body pt-0">
-                                        <div id="premium-area-chart" class="height-350"></div>
+                                        <div id="premium-area-chart"></div>
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +325,8 @@
             var financialOptions = {
                 chart: {
                     type: 'area',
-                    height: 380,
+                    height: 400,
+                    width: '100%',
                     toolbar: {
                         show: false
                     },
@@ -384,13 +385,34 @@
                 },
                 tooltip: {
                     theme: 'light'
-                }
+                },
+                responsive: [{
+                    breakpoint: 768,
+                    options: {
+                        chart: {
+                            height: 300
+                        },
+                        xaxis: {
+                            labels: {
+                                rotate: -45,
+                                style: {
+                                    fontSize: '10px'
+                                }
+                            }
+                        }
+                    }
+                }]
             };
 
             if (document.querySelector("#premium-area-chart")) {
                 var financialChart = new ApexCharts(document.querySelector("#premium-area-chart"),
                     financialOptions);
                 financialChart.render();
+                
+                // Professional way to ensure chart fills container dynamically
+                new ResizeObserver(() => {
+                    financialChart.updateOptions({ chart: { width: '100%' } }, false, false);
+                }).observe(document.querySelector("#premium-area-chart").parentElement);
             }
 
             // 2. Occupancy Donut Chart
