@@ -1,7 +1,4 @@
 <div class="content-wrapper">
-
-
-
     <!-- begin: content header -->
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
@@ -35,7 +32,6 @@
     <div class="content-body">
         <section id="basic-form-layouts">
             <div class="row">
-                <!-- Main Container for all sections -->
                 <div class="col-12">
                     <!-- Section 1: Basic Information -->
                     <div class="card premium-card mb-2 premium-card-anim">
@@ -44,7 +40,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <!-- Row 1: Company Selection (Admin Only) -->
                                 @if (user()->company_id == 1)
                                     <div class="col-md-12 mb-2">
                                         <div class="premium-form-group @error('company_id') is-invalid-premium @enderror">
@@ -55,8 +50,7 @@
                                                     class="form-control premium-input shadow-none select2">
                                                     <option value="">{!! __('general.select_company') !!}</option>
                                                     @foreach ($companies as $company)
-                                                        <option value="{{ $company->id }}">{{ $company->name }}
-                                                        </option>
+                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -67,204 +61,195 @@
                                     </div>
                                 @endif
 
-                                <!-- Row 2: Dependency, Name AR, Name EN, Description -->
-                                <!-- Row 1: Identity & File -->
-                                <div class="row w-100 m-0 p-0">
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('parent_id') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.parent_property') !!}</label>
-                                            <div wire:ignore>
-                                                <select id="parent_id" wire:model.defer="parent_id"
-                                                    data-simple="true"
-                                                    class="form-control premium-input shadow-none select2 ajax-select">
-                                                    <option value="">{!! __('properties.standalone_property') !!}</option>
-                                                    @foreach ($parent_properties as $p)
-                                                        <option value="{{ $p->id }}">{{ $p->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('parent_id')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('parent_id') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.parent_property') !!}</label>
+                                        <div wire:ignore>
+                                            <select id="parent_id" wire:model.defer="parent_id" data-simple="true"
+                                                class="form-control premium-input shadow-none select2 ajax-select">
+                                                <option value="">{!! __('properties.standalone_property') !!}</option>
+                                                @foreach ($parent_properties as $p)
+                                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('name.ar') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.name_ar') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" wire:model.defer="name.ar"
-                                                class="form-control premium-input shadow-none" autocomplete="off"
-                                                placeholder="{!! __('properties.enter_name_ar') !!}">
-                                            @error('name.ar')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('name.en') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.name_en') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" wire:model.defer="name.en"
-                                                class="form-control premium-input shadow-none" autocomplete="off"
-                                                placeholder="{!! __('properties.enter_name_en') !!}">
-                                            @error('name.en')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('file_number') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.file_number') !!}</label>
-                                            <input type="text" wire:model.defer="file_number"
-                                                class="form-control premium-input shadow-none" autocomplete="off"
-                                                placeholder="{!! __('properties.enter_file_number') !!}">
-                                            @error('file_number')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                        @error('parent_id')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <!-- Row 2: Categorization & Description -->
-                                <div class="row w-100 m-0 p-0">
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('property_type_id') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.type') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <div wire:ignore>
-                                                <select wire:model.defer="property_type_id"
-                                                    class="form-control premium-input shadow-none select2"
-                                                    id="property_type_id">
-                                                    <option value="">{!! __('general.select_from_list') !!}</option>
-                                                    @foreach ($property_types as $type)
-                                                        <option value="{{ $type->id }}">{{ $type->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('property_type_id')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('property_status_id') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.status') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <div wire:ignore>
-                                                <select wire:model.defer="property_status_id"
-                                                    class="form-control premium-input shadow-none select2"
-                                                    id="property_status_id">
-                                                    <option value="">{!! __('general.select_from_list') !!}</option>
-                                                    @foreach ($property_statuses as $status)
-                                                        <option value="{{ $status->id }}">{{ $status->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('property_status_id')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-12 mb-2">
-                                        <div class="premium-form-group @error('description') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.description') !!}</label>
-                                            <input type="text" wire:model.defer="description"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_description') !!}">
-                                            @error('description')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('name.ar') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.name_ar') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" wire:model.defer="name.ar"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_name_ar') !!}">
+                                        @error('name.ar')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <!-- Row 3: Financial & Location -->
-                                <div class="row w-100 m-0 p-0">
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('price') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.price') !!}</label>
-                                            <input type="number" step="0.01" wire:model.defer="price"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_price') !!}">
-                                            @error('price')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('area') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.area') !!}</label>
-                                            <input type="number" step="0.01" wire:model.defer="area"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_area') !!}">
-                                            @error('area')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-12 mb-2">
-                                        <div class="premium-form-group @error('location') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.location') !!}</label>
-                                            <input type="text" wire:model.defer="location"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_location') !!}">
-                                            @error('location')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('name.en') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.name_en') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" wire:model.defer="name.en"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_name_en') !!}">
+                                        @error('name.en')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <!-- Row 4: Technical Numbers -->
-                                <div class="row w-100 m-0 p-0">
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('property_number') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.property_number') !!}</label>
-                                            <input type="text" wire:model.defer="property_number"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_property_number') !!}">
-                                            @error('property_number')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('file_number') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.file_number') !!}</label>
+                                        <input type="text" wire:model.defer="file_number"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_file_number') !!}">
+                                        @error('file_number')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('title_deed_number') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.title_deed_number') !!}</label>
-                                            <input type="text" wire:model.defer="title_deed_number"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_title_deed_number') !!}">
-                                            @error('title_deed_number')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('property_type_id') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.type') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <div wire:ignore>
+                                            <select wire:model.defer="property_type_id"
+                                                class="form-control premium-input shadow-none select2" id="property_type_id">
+                                                <option value="">{!! __('general.select_from_list') !!}</option>
+                                                @foreach ($property_types as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        @error('property_type_id')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('electricity_account_number') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.electricity_account_number') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" wire:model.defer="electricity_account_number"
-                                                class="form-control premium-input shadow-none"
-                                                autocomplete="off" placeholder="{!! __('properties.enter_electricity_account') !!}">
-                                            @error('electricity_account_number')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('property_status_id') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.status') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <div wire:ignore>
+                                            <select wire:model.defer="property_status_id"
+                                                class="form-control premium-input shadow-none select2" id="property_status_id">
+                                                <option value="">{!! __('general.select_from_list') !!}</option>
+                                                @foreach ($property_statuses as $status)
+                                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        @error('property_status_id')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group @error('water_account_number') is-invalid-premium @enderror">
-                                            <label class="premium-label">{!! __('properties.water_account_number') !!} <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" wire:model.defer="water_account_number"
-                                                class="form-control premium-input shadow-none" autocomplete="off"
-                                                placeholder="{!! __('properties.enter_water_account') !!}">
-                                            @error('water_account_number')
-                                                <span class="text-danger error-text">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-12 mb-2">
+                                    <div class="premium-form-group @error('description') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.description') !!}</label>
+                                        <input type="text" wire:model.defer="description"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_description') !!}">
+                                        @error('description')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('price') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.price') !!}</label>
+                                        <input type="number" step="0.01" wire:model.defer="price"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_price') !!}">
+                                        @error('price')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('area') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.area') !!}</label>
+                                        <input type="number" step="0.01" wire:model.defer="area"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_area') !!}">
+                                        @error('area')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-12 mb-2">
+                                    <div class="premium-form-group @error('location') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.location') !!}</label>
+                                        <input type="text" wire:model.defer="location"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_location') !!}">
+                                        @error('location')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('property_number') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.property_number') !!}</label>
+                                        <input type="text" wire:model.defer="property_number"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_property_number') !!}">
+                                        @error('property_number')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('title_deed_number') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.title_deed_number') !!}</label>
+                                        <input type="text" wire:model.defer="title_deed_number"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_title_deed_number') !!}">
+                                        @error('title_deed_number')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('electricity_account_number') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.electricity_account_number') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" wire:model.defer="electricity_account_number"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_electricity_account') !!}">
+                                        @error('electricity_account_number')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-6 mb-2">
+                                    <div class="premium-form-group @error('water_account_number') is-invalid-premium @enderror">
+                                        <label class="premium-label">{!! __('properties.water_account_number') !!} <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" wire:model.defer="water_account_number"
+                                            class="form-control premium-input shadow-none" autocomplete="off"
+                                            placeholder="{!! __('properties.enter_water_account') !!}">
+                                        @error('water_account_number')
+                                            <span class="text-danger error-text">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -274,8 +259,7 @@
                     <!-- Row 3: Owners & Ownership (Repeater) -->
                     <div class="card premium-card mb-2 @if ($errors->has('property_owners') || $errors->has('property_owners_total') || $errors->has('property_owners_primary')) premium-card-error-glow pulse-error @endif"
                         wire:key="owners-card-wrapper-{{ $validation_fail_nonce }}">
-                        <div
-                            class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center position-relative">
+                        <div class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center position-relative">
                             <div class="font-weight-bold text-dark">{!! __('properties.owners_and_ownership') !!}</div>
 
                             <div class="total-percentage-header-badge d-flex align-items-center position-absolute"
@@ -284,16 +268,10 @@
                                     $total = collect($property_owners)->sum(function ($owner) {
                                         return is_numeric($owner['percentage']) ? (float) $owner['percentage'] : 0;
                                     });
-                                    $badgeClass =
-                                        $total == 100
-                                            ? 'badge-light-success badge-glow-success'
-                                            : ($total > 100
-                                                ? 'badge-light-danger badge-glow-danger'
-                                                : 'badge-light-primary badge-glow-primary');
+                                    $badgeClass = $total == 100 ? 'badge-light-success badge-glow-success' : ($total > 100 ? 'badge-light-danger badge-glow-danger' : 'badge-light-primary badge-glow-primary');
                                 @endphp
                                 <span class="mr-1 font-weight-bold text-muted small">{!! __('properties.total_percentage') !!}:</span>
-                                <span
-                                    class="badge badge-pill {{ $badgeClass }} font-14 py-1 px-2">{{ $total }}%</span>
+                                <span class="badge badge-pill {{ $badgeClass }} font-14 py-1 px-2">{{ $total }}%</span>
                             </div>
 
                             <div class="text-center">
@@ -308,18 +286,12 @@
                                 <table class="table table-hover mb-0">
                                     <thead class="bg-light-primary-opacity">
                                         <tr>
-                                            <th class="align-middle py-3 border-top-0">
-                                                {!! __('properties.owner_name_ar') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">
-                                                {!! __('properties.owner_name_en') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">
-                                                {!! __('properties.id_number_or_record') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">
-                                                {!! __('properties.phone') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
-                                                {!! __('properties.percentage') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
-                                                {!! __('properties.is_primary') !!}</th>
+                                            <th class="align-middle py-3 border-top-0">{!! __('properties.owner_name_ar') !!}</th>
+                                            <th class="align-middle py-3 border-top-0">{!! __('properties.owner_name_en') !!}</th>
+                                            <th class="align-middle py-3 border-top-0">{!! __('properties.id_number_or_record') !!}</th>
+                                            <th class="align-middle py-3 border-top-0">{!! __('properties.phone') !!}</th>
+                                            <th class="align-middle py-3 border-top-0 text-center">{!! __('properties.percentage') !!}</th>
+                                            <th class="align-middle py-3 border-top-0 text-center">{!! __('properties.is_primary') !!}</th>
                                             <th class="align-middle py-3 border-top-0 text-center">
                                                 <i class="fas fa-trash-alt header-trash-icon"></i>
                                             </th>
@@ -327,60 +299,43 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($property_owners as $index => $owner)
-                                            <tr class="owner-row"
-                                                wire:key="owner-row-{{ $index }}-{{ $validation_fail_nonce }}">
+                                            <tr class="owner-row" wire:key="owner-row-{{ $index }}-{{ $validation_fail_nonce }}">
                                                 <td class="align-middle">
                                                     <div class="user-info-cell">
-                                                        <span class="user-name-text">
-                                                            {{ $owner['name_ar'] ?: '---' }}
-                                                        </span>
+                                                        <span class="user-name-text">{{ $owner['name_ar'] ?: '---' }}</span>
                                                     </div>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <span class="text-muted small">
-                                                        {{ $owner['name_en'] ?: '---' }}
-                                                    </span>
+                                                    <span class="text-muted small">{{ $owner['name_en'] ?: '---' }}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <span class="text-muted font-weight-bold">
-                                                        {{ $owner['identification_number'] ?? '---' }}
-                                                    </span>
+                                                    <span class="text-muted font-weight-bold">{{ $owner['identification_number'] ?? '---' }}</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <span class="text-dark font-weight-bold text-left ltr-text">
-                                                        {{ $owner['phone'] ?? '---' }}
-                                                    </span>
+                                                    <span class="text-dark font-weight-bold text-left ltr-text">{{ $owner['phone'] ?? '---' }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="premium-form-group mb-0 mx-auto @error("property_owners.$index.percentage") is-invalid-premium @enderror"
                                                         style="max-width: 100px;">
-                                                        <input type="number" step="0.01"
-                                                            wire:model.live="property_owners.{{ $index }}.percentage"
+                                                        <input type="number" step="0.01" wire:model.live="property_owners.{{ $index }}.percentage"
                                                             class="form-control premium-input shadow-none text-center compact-input"
-                                                            autocomplete="off"
-                                                            style="height: 32px !important; font-size: 0.9rem;"
+                                                            autocomplete="off" style="height: 32px !important; font-size: 0.9rem;"
                                                             placeholder="0.00 %">
                                                         @error("property_owners.$index.percentage")
-                                                            <span class="text-danger error-text d-block mt-1"
-                                                                style="font-size: 0.7rem;">{{ $message }}</span>
+                                                            <span class="text-danger error-text d-block mt-1" style="font-size: 0.7rem;">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <div
-                                                        class="custom-control custom-radio custom-radio-premium d-inline-block">
-                                                        <input type="radio"
-                                                            wire:click="setPrimary({{ $index }})"
-                                                            @if ($owner['is_primary']) checked @endif
-                                                            id="primary_radio_{{ $index }}"
+                                                    <div class="custom-control custom-radio custom-radio-premium d-inline-block">
+                                                        <input type="radio" wire:click="setPrimary({{ $index }})"
+                                                            @if ($owner['is_primary']) checked @endif id="primary_radio_{{ $index }}"
                                                             name="primary_owner_radio" class="custom-control-input">
-                                                        <label class="custom-control-label"
-                                                            for="primary_radio_{{ $index }}"></label>
+                                                        <label class="custom-control-label" for="primary_radio_{{ $index }}"></label>
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button type="button"
-                                                        wire:click="removeOwner({{ $index }})"
+                                                    <button type="button" wire:click="removeOwner({{ $index }})"
                                                         class="btn-premium-action btn-premium-action-danger remove-owner-btn shadow-none btn-trash-cell">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
@@ -415,8 +370,6 @@
                         </div>
                     </div>
 
-
-
                     <!-- Row for Attachments -->
                     <div class="card premium-card mb-2 premium-card-anim">
                         <div class="premium-mandatory-header py-2 border-bottom-0">
@@ -424,97 +377,64 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                {{-- Original Rental Contract --}}
                                 <div class="col-md-4 mb-2">
                                     <div class="premium-form-group">
                                         <div class="premium-label d-flex align-items-center">
                                             <span class="mr-1">{!! __('properties.rental_contract_original') !!}</span>
                                             <div class="file-action-buttons">
                                                 @if ($rental_contract_original)
-                                                    <button type="button"
-                                                        wire:click="resetFile('rental_contract_original')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
+                                                    <button type="button" wire:click="resetFile('rental_contract_original')"
+                                                        class="btn-file-action btn-delete-file" title="{!! __('general.remove') !!}"><i class="fas fa-times"></i></button>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('rental_contract_original')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="rental_contract_original"
-                                                class="d-none" id="rental_contract_original">
-                                            <label for="rental_contract_original"
-                                                class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
+                                        <div class="premium-file-upload-wrapper @if ($errors->has('rental_contract_original')) is-invalid-premium @endif">
+                                            <input type="file" wire:model="rental_contract_original" class="d-none" id="rental_contract_original">
+                                            <label for="rental_contract_original" class="premium-file-label w-100 mb-0">
+                                                <div class="premium-file-box d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-contract text-primary"></i></div>
+                                                        <div class="file-icon-box"><i class="fas fa-file-contract text-primary"></i></div>
                                                         <span class="file-name text-muted">
-                                                            @if ($rental_contract_original)
-                                                                {{ $rental_contract_original->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
+                                                            @if ($rental_contract_original) {{ $rental_contract_original->getClientOriginalName() }}
+                                                            @else {!! __('general.choose_file') !!} @endif
                                                         </span>
                                                     </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
+                                                    <span class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
                                                 </div>
                                             </label>
                                         </div>
-                                        @error('rental_contract_original')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
+                                        @error('rental_contract_original') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
-                                {{-- Building Completion Certificate --}}
                                 <div class="col-md-4 mb-2">
                                     <div class="premium-form-group">
                                         <div class="premium-label d-flex align-items-center">
                                             <span class="mr-1">{!! __('properties.building_completion_certificate') !!}</span>
                                             <div class="file-action-buttons">
                                                 @if ($building_completion_certificate)
-                                                    <button type="button"
-                                                        wire:click="resetFile('building_completion_certificate')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
+                                                    <button type="button" wire:click="resetFile('building_completion_certificate')"
+                                                        class="btn-file-action btn-delete-file" title="{!! __('general.remove') !!}"><i class="fas fa-times"></i></button>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('building_completion_certificate')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="building_completion_certificate"
-                                                class="d-none" id="building_completion_certificate">
-                                            <label for="building_completion_certificate"
-                                                class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
+                                        <div class="premium-file-upload-wrapper @if ($errors->has('building_completion_certificate')) is-invalid-premium @endif">
+                                            <input type="file" wire:model="building_completion_certificate" class="d-none" id="building_completion_certificate">
+                                            <label for="building_completion_certificate" class="premium-file-label w-100 mb-0">
+                                                <div class="premium-file-box d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-pdf text-danger"></i></div>
+                                                        <div class="file-icon-box"><i class="fas fa-file-pdf text-danger"></i></div>
                                                         <span class="file-name text-muted">
-                                                            @if ($building_completion_certificate)
-                                                                {{ $building_completion_certificate->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
+                                                            @if ($building_completion_certificate) {{ $building_completion_certificate->getClientOriginalName() }}
+                                                            @else {!! __('general.choose_file') !!} @endif
                                                         </span>
                                                     </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-danger">{!! __('general.browse') !!}</span>
+                                                    <span class="browse-badge browse-badge-danger">{!! __('general.browse') !!}</span>
                                                 </div>
                                             </label>
                                         </div>
-                                        @error('building_completion_certificate')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
+                                        @error('building_completion_certificate') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
-                                {{-- Other Documents --}}
                                 <div class="col-md-4 mb-2">
                                     <div class="premium-form-group">
                                         <div class="premium-label d-flex align-items-center">
@@ -522,39 +442,26 @@
                                             <div class="file-action-buttons">
                                                 @if ($other_documents)
                                                     <button type="button" wire:click="resetFile('other_documents')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
+                                                        class="btn-file-action btn-delete-file" title="{!! __('general.remove') !!}"><i class="fas fa-times"></i></button>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('other_documents')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="other_documents" class="d-none"
-                                                id="other_documents">
+                                        <div class="premium-file-upload-wrapper @if ($errors->has('other_documents')) is-invalid-premium @endif">
+                                            <input type="file" wire:model="other_documents" class="d-none" id="other_documents">
                                             <label for="other_documents" class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
+                                                <div class="premium-file-box d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-alt text-info"></i></div>
+                                                        <div class="file-icon-box"><i class="fas fa-file-alt text-info"></i></div>
                                                         <span class="file-name text-muted">
-                                                            @if ($other_documents)
-                                                                {{ $other_documents->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
+                                                            @if ($other_documents) {{ $other_documents->getClientOriginalName() }}
+                                                            @else {!! __('general.choose_file') !!} @endif
                                                         </span>
                                                     </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-info">{!! __('general.browse') !!}</span>
+                                                    <span class="browse-badge browse-badge-info">{!! __('general.browse') !!}</span>
                                                 </div>
                                             </label>
                                         </div>
-                                        @error('other_documents')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
+                                        @error('other_documents') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -580,14 +487,11 @@
     <script src="{{ asset('assets/dashbaord/js/generic-select2.js') }}"></script>
     <script>
         function initSelect2() {
-            // Destroy existing instances to prevent double arrows
             $('.select2').each(function() {
                 if ($(this).hasClass("select2-hidden-accessible")) {
                     $(this).select2('destroy');
                 }
             });
-
-            // Standard Select2 (Property Type, Status, etc.)
             $('.select2:not(.ajax-select)').each(function() {
                 $(this).select2({
                     width: '100%',
@@ -595,58 +499,33 @@
                     dropdownParent: $('body')
                 }).on('change', function(e) {
                     let wireModel = $(this).attr('wire:model.defer');
-                    if (wireModel) {
-                        @this.set(wireModel, e.target.value);
-                    }
+                    if (wireModel) { @this.set(wireModel, e.target.value); }
                 });
             });
-
-            // Parent ID (AJAX Select2)
             const $parentSelect = $('#parent_id');
             if ($parentSelect.length && typeof initGenericSelect2 === "function") {
                 const companyId = @this.get('company_id');
-
-                // First call standard init to get premium styling
                 initGenericSelect2($parentSelect, "{!! route('dashboard.properties.autocomplete') !!}", "{!! __('properties.standalone_property') !!}");
-
-                // Then override AJAX config to include company_id and force width
                 const existingConfig = $parentSelect.data('select2').options.options;
                 $parentSelect.select2($.extend(true, {}, existingConfig, {
                     width: '100%',
                     dropdownParent: $('body'),
                     ajax: {
                         data: function(params) {
-                            return {
-                                q: params.term,
-                                page: params.page,
-                                company_id: companyId
-                            };
+                            return { q: params.term, page: params.page, company_id: companyId };
                         }
                     }
                 }));
-
-                $parentSelect.on('change', function(e) {
-                    @this.set('parent_id', $(this).val());
-                });
+                $parentSelect.on('change', function(e) { @this.set('parent_id', $(this).val()); });
             }
         }
-
         document.addEventListener('livewire:initialized', () => {
             initSelect2();
-            Livewire.on('rowAdded', () => {
-                setTimeout(initSelect2, 150);
-            });
-
-            // Re-init Select2 on every morph update to catch validation refreshes
+            Livewire.on('rowAdded', () => { setTimeout(initSelect2, 150); });
             Livewire.hook('morph.updated', (el, component) => {
-                if ($(el).is('select.select2') || $(el).find('select.select2').length > 0) {
-                    initSelect2();
-                }
+                if ($(el).is('select.select2') || $(el).find('select.select2').length > 0) { initSelect2(); }
             });
         });
-
-        $(function() {
-            initSelect2();
-        });
+        $(function() { initSelect2(); });
     </script>
 @endpush
