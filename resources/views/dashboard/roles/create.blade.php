@@ -38,14 +38,14 @@
                         </div>
                     </div>
                     <div class="content-header-right col-md-6 col-12 text-md-right">
-                        <div class="d-flex align-items-center justify-content-end mb-1">
-                            <a href="{!! route('dashboard.roles.index') !!}" class="btn-premium-back mr-1">
+                        <div class="d-flex align-items-center justify-content-end mb-1 gap-15px">
+                            <a href="{!! route('dashboard.roles.index') !!}" class="btn-premium-back">
                                 <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
                             </a>
-                            <button class="btn btn-premium-save shadow-pulse" type="submit" id="saveBtn">
-                                <i class="fas fa-save"></i>
+                            <button class="btn btn-premium-save" type="submit" id="saveBtn">
+                                <i class="fas fa-save mr-2"></i>
+                                <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
                                 {!! __('general.save') !!}
-                                <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                             </button>
                         </div>
                     </div>
@@ -84,81 +84,69 @@
                                                 </div>
                                                 <!-- end: Global Role Note -->
 
-                                                <div class="row mb-3">
+                                                <div class="row mb-2">
                                                     <div class="col-md-12">
                                                         <div class="premium-form-group">
                                                             <label for="company_id" class="premium-label">{!! __('companies.company') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <select id="company_id" name="company_id" class="form-control premium-input shadow-none select2">
-                                                                    <option value="">{!! __('roles.global_role') !!}</option>
-                                                                    @foreach ($companies as $company)
-                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <i class="fas fa-briefcase text-primary"></i>
-                                                            </div>
-                                                                <span class="text-danger error-text company_id_error"></span>
-                                                            </div>
+                                                            <select id="company_id" name="company_id" class="form-control premium-input shadow-none select2">
+                                                                <option value="">{!! __('roles.global_role') !!}</option>
+                                                                @foreach ($companies as $company)
+                                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-text company_id_error"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 @endif
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                                <div class="row mb-4px">
+                                                    <div class="col-md-6 mb-2">
                                                         <div class="premium-form-group">
                                                             <label for="name_ar"
                                                                 class="premium-label">{!! __('roles.role_ar') !!} <span class="text-danger">*</span></label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="name_ar" name="name[ar]"
-                                                                    value="{!! old('name.ar') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off"
-                                                                    placeholder="{!! __('roles.enter_role_ar') !!}">
-                                                                <i class="fas fa-shield-alt text-primary"></i>
-                                                            </div>
-                                                                <span class="text-danger error-text name_ar_error"></span>
-                                                            </div>
+                                                            <input type="text" id="name_ar" name="name[ar]"
+                                                                value="{!! old('name.ar') !!}"
+                                                                class="form-control premium-input shadow-none"
+                                                                autocomplete="off"
+                                                                placeholder="{!! __('roles.enter_role_ar') !!}">
+                                                            <span class="text-danger error-text name_ar_error"></span>
+                                                        </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 mb-2">
                                                         <div class="premium-form-group">
                                                             <label for="name_en"
                                                                 class="premium-label">{!! __('roles.role_en') !!} <span class="text-danger">*</span></label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="name_en" name="name[en]"
-                                                                    value="{!! old('name.en') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off"
-                                                                    placeholder="{!! __('roles.enter_role_en') !!}">
-                                                                <i class="fas fa-shield-alt text-primary"></i>
-                                                            </div>
-                                                                <span class="text-danger error-text name_en_error"></span>
-                                                            </div>
+                                                            <input type="text" id="name_en" name="name[en]"
+                                                                value="{!! old('name.en') !!}"
+                                                                class="form-control premium-input shadow-none"
+                                                                autocomplete="off"
+                                                                placeholder="{!! __('roles.enter_role_en') !!}">
+                                                            <span class="text-danger error-text name_en_error"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <!-- begin: row -->
-                                                <div class="row">
-                                                    <div class="col-md-12">
+                                                <div class="row mb-4px">
+                                                    <div class="col-md-12 mb-2">
                                                         <div class="premium-form-group">
                                                             <label for="description"
                                                                 class="premium-label">{!! __('roles.description') !!}</label>
-                                                            <div class="premium-input-wrapper">
-                                                                <input type="text" id="description" name="description"
-                                                                    value="{!! old('description') !!}"
-                                                                    class="form-control premium-input shadow-none"
-                                                                    autocomplete="off"
-                                                                    placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}">
-                                                                <i class="fas fa-info-circle text-primary"></i>
-                                                            </div>
-                                                                <span class="text-danger error-text description_error"></span>
-                                                            </div>
+                                                            <input type="text" id="description" name="description"
+                                                                value="{!! old('description') !!}"
+                                                                class="form-control premium-input shadow-none"
+                                                                autocomplete="off"
+                                                                placeholder="{!! __('roles.enter_description') ?? 'ادخل وصفاً لهذا الدور...' !!}">
+                                                            <span class="text-danger error-text description_error"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- end: row -->
 
                                                 <!-- begin: Premium Permissions Grid -->
-                                                <div class="row mt-4">
+                                                <div class="row mt-4px">
                                                     <div class="col-md-12">
                                                         <h5 class="premium-section-title d-flex align-items-center justify-content-between">
                                                             <span>

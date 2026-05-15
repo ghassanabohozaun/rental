@@ -48,19 +48,15 @@
                                                 <i class="fas fa-lock mr-1"></i> {!! __('customers.company_locked_help') !!}
                                             </span>
                                         </div>
-                                        <div
-                                            class="premium-input-wrapper @if ($errors->has('company_id')) is-invalid-premium @endif">
-                                            <div wire:ignore>
-                                                <select id="edit_company_id_header" wire:model.defer="company_id"
-                                                    class="form-control premium-input shadow-none select2" disabled>
-                                                    <option value="">{!! __('general.select_company') !!}</option>
-                                                    @foreach ($companies as $company)
-                                                        <option value="{{ $company->id }}">{{ $company->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <i class="fas fa-briefcase text-primary"></i>
+                                        <div wire:ignore>
+                                            <select id="edit_company_id_header" wire:model.defer="company_id"
+                                                class="form-control premium-input shadow-none select2 @error('company_id') is-invalid-premium @enderror" disabled>
+                                                <option value="">{!! __('general.select_company') !!}</option>
+                                                @foreach ($companies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         @error('company_id')
                                             <span class="text-danger error-text">{{ $message }}</span>
@@ -75,21 +71,17 @@
                                 <div class="premium-form-group">
                                     <label class="premium-label">{!! __('customers.tenant_type') !!} <span
                                             class="text-danger">*</span></label>
-                                    <div
-                                        class="premium-input-wrapper @if ($errors->has('tenant_type')) is-invalid-premium @endif">
-                                        <div wire:ignore>
-                                            <select id="tenant_type" wire:model.live="tenant_type"
-                                                class="form-control premium-input shadow-none select2">
-                                                <option value="">{!! __('customers.select_tenant_type') !!}</option>
-                                                <option value="individual"
-                                                    @if ($tenant_type == 'individual') selected @endif>
-                                                    {!! __('customers.individual') !!}</option>
-                                                <option value="company"
-                                                    @if ($tenant_type == 'company') selected @endif>
-                                                    {!! __('customers.company') !!}</option>
-                                            </select>
-                                        </div>
-                                        <i class="fas fa-tags text-primary"></i>
+                                    <div wire:ignore>
+                                        <select id="tenant_type" wire:model.live="tenant_type"
+                                            class="form-control premium-input shadow-none select2 @error('tenant_type') is-invalid-premium @enderror">
+                                            <option value="">{!! __('customers.select_tenant_type') !!}</option>
+                                            <option value="individual"
+                                                @if ($tenant_type == 'individual') selected @endif>
+                                                {!! __('customers.individual') !!}</option>
+                                            <option value="company"
+                                                @if ($tenant_type == 'company') selected @endif>
+                                                {!! __('customers.company') !!}</option>
+                                        </select>
                                     </div>
                                     @error('tenant_type')
                                         <span class="text-danger error-text">{{ $message }}</span>
@@ -106,13 +98,9 @@
                                             <div class="premium-form-group">
                                                 <label class="premium-label">{!! __('customers.customer_company_name') !!} <span
                                                         class="text-danger">*</span></label>
-                                                <div
-                                                    class="premium-input-wrapper @error('company_name') is-invalid-premium @enderror">
-                                                    <input type="text" wire:model.defer="company_name"
-                                                        class="form-control premium-input shadow-none"
-                                                        placeholder="{!! __('customers.customer_company_name') !!}">
-                                                    <i class="fas fa-building text-primary"></i>
-                                                </div>
+                                                <input type="text" wire:model.defer="company_name"
+                                                    class="form-control premium-input shadow-none @error('company_name') is-invalid-premium @enderror"
+                                                    placeholder="{!! __('customers.customer_company_name') !!}">
                                                 @error('company_name')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -122,13 +110,9 @@
                                             <div class="premium-form-group">
                                                 <label class="premium-label">{!! __('customers.establishment_number') !!} <span
                                                         class="text-danger">*</span></label>
-                                                <div
-                                                    class="premium-input-wrapper @error('establishment_number') is-invalid-premium @enderror">
-                                                    <input type="text" wire:model.defer="establishment_number"
-                                                        class="form-control premium-input shadow-none"
-                                                        placeholder="{!! __('customers.establishment_number') !!}">
-                                                    <i class="fas fa-id-badge text-primary"></i>
-                                                </div>
+                                                <input type="text" wire:model.defer="establishment_number"
+                                                    class="form-control premium-input shadow-none @error('establishment_number') is-invalid-premium @enderror"
+                                                    placeholder="{!! __('customers.establishment_number') !!}">
                                                 @error('establishment_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -138,13 +122,9 @@
                                             <div class="premium-form-group">
                                                 <label class="premium-label">{!! __('customers.cr_number') !!} <span
                                                         class="text-danger">*</span></label>
-                                                <div
-                                                    class="premium-input-wrapper @error('cr_number') is-invalid-premium @enderror">
-                                                    <input type="text" wire:model.defer="cr_number"
-                                                        class="form-control premium-input shadow-none"
-                                                        placeholder="{!! __('customers.cr_number') !!}">
-                                                    <i class="fas fa-file-contract text-primary"></i>
-                                                </div>
+                                                <input type="text" wire:model.defer="cr_number"
+                                                    class="form-control premium-input shadow-none @error('cr_number') is-invalid-premium @enderror"
+                                                    placeholder="{!! __('customers.cr_number') !!}">
                                                 @error('cr_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -154,13 +134,9 @@
                                             <div class="premium-form-group">
                                                 <label class="premium-label">{!! __('customers.license_number') !!} <span
                                                         class="text-danger">*</span></label>
-                                                <div
-                                                    class="premium-input-wrapper @error('license_number') is-invalid-premium @enderror">
-                                                    <input type="text" wire:model.defer="license_number"
-                                                        class="form-control premium-input shadow-none"
-                                                        placeholder="{!! __('customers.license_number') !!}">
-                                                    <i class="fas fa-certificate text-primary"></i>
-                                                </div>
+                                                <input type="text" wire:model.defer="license_number"
+                                                    class="form-control premium-input shadow-none @error('license_number') is-invalid-premium @enderror"
+                                                    placeholder="{!! __('customers.license_number') !!}">
                                                 @error('license_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -174,13 +150,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.name_ar') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('name.ar')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="name.ar"
-                                                    class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.name_ar') !!}">
-                                                <i class="fas fa-user text-primary"></i>
-                                            </div>
+                                            <input type="text" wire:model.defer="name.ar"
+                                                class="form-control premium-input shadow-none @error('name.ar') is-invalid-premium @enderror"
+                                                placeholder="{!! __('customers.name_ar') !!}">
                                             @error('name.ar')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -190,13 +162,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.name_en') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('name.en')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="name.en"
-                                                    class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.name_en') !!}">
-                                                <i class="fas fa-user text-primary"></i>
-                                            </div>
+                                            <input type="text" wire:model.defer="name.en"
+                                                class="form-control premium-input shadow-none @error('name.en') is-invalid-premium @enderror"
+                                                placeholder="{!! __('customers.name_en') !!}">
                                             @error('name.en')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -206,13 +174,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.phone') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('phone')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="phone"
-                                                    class="form-control premium-input shadow-none text-left"
-                                                    dir="ltr" placeholder="{!! __('customers.phone') !!}">
-                                                <i class="fas fa-phone text-primary"></i>
-                                            </div>
+                                            <input type="text" wire:model.defer="phone"
+                                                class="form-control premium-input shadow-none text-left @error('phone') is-invalid-premium @enderror"
+                                                dir="ltr" placeholder="{!! __('customers.phone') !!}">
                                             @error('phone')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -222,13 +186,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.id_number') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('id_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="id_number"
-                                                    class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.id_number') !!}">
-                                                <i class="fas fa-credit-card text-primary"></i>
-                                            </div>
+                                            <input type="text" wire:model.defer="id_number"
+                                                class="form-control premium-input shadow-none @error('id_number') is-invalid-premium @enderror"
+                                                placeholder="{!! __('customers.id_number') !!}">
                                             @error('id_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -241,21 +201,17 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.nationality') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('nationality_id')) is-invalid-premium @endif">
-                                                <div wire:ignore
-                                                    wire:key="nationality-select-wrapper-{{ $tenant_type }}">
-                                                    <select id="nationality_id" wire:model.defer="nationality_id"
-                                                        class="form-control premium-input shadow-none select2">
-                                                        <option value="">{!! __('general.select_from_list') !!}</option>
-                                                        @foreach ($nationalities as $nationality)
-                                                            <option value="{{ $nationality->id }}"
-                                                                @if ($nationality_id == $nationality->id) selected @endif>
-                                                                {{ $nationality->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <i class="fas fa-flag text-primary"></i>
+                                            <div wire:ignore
+                                                wire:key="nationality-select-wrapper-{{ $tenant_type }}">
+                                                <select id="nationality_id" wire:model.defer="nationality_id"
+                                                    class="form-control premium-input shadow-none select2 @error('nationality_id') is-invalid-premium @enderror">
+                                                    <option value="">{!! __('general.select_from_list') !!}</option>
+                                                    @foreach ($nationalities as $nationality)
+                                                        <option value="{{ $nationality->id }}"
+                                                            @if ($nationality_id == $nationality->id) selected @endif>
+                                                            {{ $nationality->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             @error('nationality_id')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -266,13 +222,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.email') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('email')) is-invalid-premium @endif">
-                                                <input type="email" wire:model.defer="email"
-                                                    class="form-control premium-input shadow-none text-left"
-                                                    dir="ltr" placeholder="{!! __('customers.email') !!}">
-                                                <i class="fas fa-envelope text-primary"></i>
-                                            </div>
+                                            <input type="email" wire:model.defer="email"
+                                                class="form-control premium-input shadow-none text-left @error('email') is-invalid-premium @enderror"
+                                                dir="ltr" placeholder="{!! __('customers.email') !!}">
                                             @error('email')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -282,13 +234,9 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('customers.address') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('address')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="address"
-                                                    class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.address') !!}">
-                                                <i class="fas fa-map-marker-alt text-primary"></i>
-                                            </div>
+                                            <input type="text" wire:model.defer="address"
+                                                class="form-control premium-input shadow-none @error('address') is-invalid-premium @enderror"
+                                                placeholder="{!! __('customers.address') !!}">
                                             @error('address')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -420,7 +368,7 @@
                             <div class="col-md-12">
                                 <div class="premium-form-group mb-0">
                                     <label class="premium-label">{!! __('customers.notes') !!}</label>
-                                    <textarea wire:model.defer="notes" class="form-control shadow-none radius-15" rows="5"
+                                    <textarea wire:model.defer="notes" class="form-control premium-input shadow-none" rows="5"
                                         placeholder="{!! __('customers.notes') !!}"></textarea>
                                 </div>
                             </div>

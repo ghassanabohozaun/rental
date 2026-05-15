@@ -53,7 +53,7 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 /* Global Selection Styling */
 .select2-container--default .select2-selection--single {
     background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid #e2e8f0 !important; /* Standard gray border */
     border-radius: 4px !important;
     height: 42px !important;
     display: flex !important;
@@ -64,8 +64,8 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 
 .select2-container--default.select2-container--focus .select2-selection--single,
 .select2-container--default.select2-container--open .select2-selection--single {
-    border-color: #6366f1 !important;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    border-color: #cbd5e1 !important; /* Slightly darker gray on focus, no indigo */
+    box-shadow: none !important; /* Remove the glow to keep it minimal */
     outline: none !important;
 }
 
@@ -182,7 +182,7 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 
 /* Search Field Styling (Global) */
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid #d1d5db !important; /* Slightly darker gray for better visibility */
     border-radius: 4px !important;
     padding: 8px 12px !important;
     outline: none !important;
@@ -192,8 +192,8 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field:focus {
-    border-color: #6366f1 !important;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    border-color: #cbd5e1 !important; /* Muted gray focus */
+    box-shadow: none !important;
 }
 
 /* RTL Search Field Alignment */
@@ -208,4 +208,26 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: #f1f5f9 !important;
     color: #4f46e5 !important;
+}
+
+/* 
+   Final Stacking & Clipping Fixes 
+   Elevate the active card above others when interacting with inputs
+*/
+.premium-card-anim:focus-within {
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+.select2-container--open {
+    z-index: 10000 !important;
+}
+
+/* Definitive Select2 Error Glow Fix */
+.is-invalid-premium + .select2-container--default .select2-selection--single,
+.select2-container--default.is-invalid-premium .select2-selection--single,
+.is-invalid-premium.select2-container--default .select2-selection--single {
+    border: 1.5px solid #ef4444 !important;
+    background-color: #fff5f5 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;
 }

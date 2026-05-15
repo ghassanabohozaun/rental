@@ -244,15 +244,16 @@
                         </div>
 
                     </div>
-                    <div class="modal-footer border-0 pt-0">
+                    <div class="modal-footer border-0 pt-0 premium-modal-footer">
                         <button type="submit"
-                            class="btn btn-premium-save shadow-pulse px-4 font-weight-bold radius-10">
-                            <i class="fas fa-check-circle mr-1"></i> {!! __('properties.add_owner') !!}
-                            <i wire:loading wire:target="saveQuickOwner" class="fas fa-spinner fa-spin ml-1"></i>
+                            class="btn btn-premium-save px-4 font-weight-bold">
+                            <i wire:loading.remove wire:target="saveQuickOwner" class="fas fa-check-circle mr-2"></i>
+                            <i wire:loading wire:target="saveQuickOwner" class="fas fa-sync fa-spin mr-2"></i>
+                            {!! __('properties.add_owner') !!}
                         </button>
-                        <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold radius-10"
+                        <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold"
                             data-dismiss="modal">
-                            <i class="fas fa-times-circle mr-1"></i> {!! __('general.cancel') !!}
+                            <i class="fas fa-times-circle mr-2"></i> {!! __('general.cancel') !!}
                         </button>
                     </div>
                 </form>

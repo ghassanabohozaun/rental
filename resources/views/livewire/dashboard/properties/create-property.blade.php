@@ -21,9 +21,10 @@
                 <a href="{!! route('dashboard.properties.index') !!}" class="btn-premium-back">
                     <i class="fas fa-arrow-left"></i> {!! __('general.back') !!}
                 </a>
-                <button type="button" wire:click="store" class="btn btn-premium-save shadow-pulse">
-                    <i class="fas fa-save"></i> {!! __('general.save') !!}
-                    <span wire:loading wire:target="store" class="fas fa-sync fa-spin ml-1"></span>
+                <button type="button" wire:click="store" class="btn btn-premium-save">
+                    <i wire:loading.remove wire:target="store" class="fas fa-save mr-2"></i>
+                    <i wire:loading wire:target="store" class="fas fa-sync fa-spin mr-2"></i>
+                    {!! __('general.save') !!}
                 </button>
             </div>
         </div>

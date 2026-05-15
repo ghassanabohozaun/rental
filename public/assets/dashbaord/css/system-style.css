@@ -347,7 +347,7 @@ line-height: 1.4rem;
 color: #495057;
 background-color: #fff;
 background-clip: padding-box;
-border: 1px solid #d2d6da;
+border: 1px solid #e2e8f0;
 appearance: none;
 border-radius: 6px;
 transition: box-shadow 0.15s ease, border-color 0.15s ease;
@@ -444,8 +444,9 @@ border-radius: 5px;
 color: white
 }
 
-#spinner {
-font-size: 8px;
+/* Premium Spinner Styling */
+.spinner_loading {
+    vertical-align: middle !important;
 }
 
 /* Removed broken max-height constraints */
@@ -514,7 +515,7 @@ body.stop-scrolling {
 /* Premium Global Header & Body Styling */
 .content-body .card {
 border-radius: 2px !important;
-overflow: hidden !important;
+overflow: visible !important;
 border: none !important;
 box-shadow: 0 5px 25px rgba(0,0,0,0.04) !important;
 transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform
@@ -2608,7 +2609,7 @@ box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
 border: none !important;
 border-radius: 2px !important;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 8px rgba(0, 0, 0, 0.02) !important;
-overflow: hidden;
+overflow: visible !important;
 background: #ffffff !important;
 transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform
 0.15s ease, opacity 0.15s ease;
@@ -3790,34 +3791,50 @@ box-shadow: none !important; /* Removed shadow as requested */
 
 
 
-/* Premium Secondary Button */
+/* Premium Secondary Button - Matched to Save Button */
 .btn-premium-secondary {
 background-color: #f8f9fa !important;
 color: #4b5563 !important;
 border: 1px solid #e5e7eb !important;
-padding: 10px 24px !important;
+padding: 0 24px !important;
 border-radius: 2px !important;
 font-weight: 600 !important;
 display: inline-flex !important;
 align-items: center !important;
-
-transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) , color 0.15s cubic-bezier(0.4, 0, 0.2, 1) ,
-border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) , box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1) , transform 0.15s
-cubic-bezier(0.4, 0, 0.2, 1) , opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+justify-content: center !important;
+height: 42px !important;
+min-width: 120px !important;
+vertical-align: middle !important; /* Force baseline alignment */
+line-height: 1 !important;
+margin: 0 !important; /* Eliminate any shifting margins */
+box-sizing: border-box !important;
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Same as Save */
 box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+text-decoration: none !important;
+cursor: pointer !important;
 }
 
 .btn-premium-secondary:hover {
     background-color: #ffffff !important;
     color: #1e293b !important;
-    border-color: #5A8DEE !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+    border-color: #cbd5e1 !important;
+    transform: translateY(-3px) !important; /* Same as Save */
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 .btn-premium-secondary i {
 font-size: 1.2rem !important;
 margin-right: 6px !important;
+}
+
+/* Premium Modal Footer - Standardized Spacing */
+.premium-modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 4px !important; /* Precision 4px horizontal distance */
+    padding: 10px 1.25rem !important; /* Reduced vertical padding */
+    border-top: none !important;
 }
 
 /* Premium Modal Close Button */
@@ -4001,7 +4018,8 @@ border: 1px solid #f1f5f9;
 padding: 1rem;
 border-radius: 6px;
 margin-bottom: 0.75rem;
-transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s
+transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform
+0.2s
 ease, opacity 0.2s ease;
 box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
@@ -4786,9 +4804,9 @@ height: auto !important;
 padding: 8px 15px !important;
 line-height: 1.6 !important;
 resize: vertical !important;
-border: none !important;
+border: 1px solid #e2e8f0 !important;
 min-height: 80px !important;
-background: transparent !important;
+background: #ffffff !important;
 width: 100% !important;
 font-size: 1.1rem !important;
 }
@@ -4805,7 +4823,7 @@ textarea.form-control.premium-input {
 height: auto !important;
 min-height: 80px !important;
 display: block !important;
-border: none !important;
+border: 1px solid #e2e8f0 !important;
 box-shadow: none !important;
 }
 
@@ -5157,18 +5175,22 @@ a.btn-premium-back {
 background: #ffffff !important;
 color: #475569 !important;
 border: 1px solid #e2e8f0 !important;
-padding: 10px 22px !important; /* Reduced padding */
-border-radius: 2px !important; /* Reduced border radius */
-font-weight: 800 !important;
+padding: 0 24px !important;
+border-radius: 2px !important;
+font-weight: 600 !important;
 display: inline-flex !important;
 align-items: center !important;
-
+justify-content: center !important;
+height: 42px !important;
+min-width: 120px !important;
+vertical-align: middle !important; /* Force baseline alignment */
+line-height: 1 !important;
+margin: 0 !important; /* Eliminate any shifting margins */
+box-sizing: border-box !important;
 transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
 text-decoration: none !important;
 cursor: pointer !important;
-height: auto !important;
-line-height: normal !important;
 }
 
 .btn-premium-white:hover,
@@ -5387,7 +5409,7 @@ line-height: 1.4rem;
 color: #495057;
 background-color: #fff;
 background-clip: padding-box;
-border: 1px solid #d2d6da;
+border: 1px solid #e2e8f0;
 appearance: none;
 border-radius: 6px;
 transition: box-shadow 0.15s ease, border-color 0.15s ease;
@@ -5489,38 +5511,51 @@ font-weight: bold;
 color: #999;
 }
 
-html[dir='rtl'] [data-textdirection="rtl"] .select2-container--default .select2-selection--single
-.select2-selection__arrow {
-left: 1px !important;
-right: auto !important;
-position: absolute !important;
+html[data-textdirection='rtl'] .select2-container--default .select2-selection--single
+.select2-selection__arrow,
+.select2-container--rtl .select2-selection--single .select2-selection__arrow {
+    left: 1px !important;
+    right: auto !important;
+    position: absolute !important;
 }
 
 /* Select2 RTL selection padding fix */
-html[dir='rtl'] [data-textdirection="rtl"] .select2-container--default .select2-selection--single
-.select2-selection__rendered {
-padding-right: 8px !important;
-padding-left: 45px !important; /* Sufficient space for both icons on the left */
+html[data-textdirection='rtl'] .select2-container--default .select2-selection--single,
+html[data-textdirection='rtl'] .select2-selection--single,
+html[data-textdirection='rtl'] .select2-selection__rendered,
+html[data-textdirection='rtl'] .select2-selection__placeholder {
+    padding-right: 8px !important;
+    margin-right: 0px !important;
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+html[data-textdirection='rtl'] .select2-container--default .select2-selection--single .select2-selection__rendered,
+.select2-container--rtl .select2-selection--single .select2-selection__rendered,
+.select2-container--rtl .select2-selection--single .select2-selection__placeholder {
+    padding-right: 8px !important;
+    padding-left: 25px !important;
+    text-align: right !important;
+    direction: rtl !important;
 }
 
 /* Native Date & Month Input RTL Styling */
-html[dir='rtl'] [data-textdirection="rtl"] input[type="date"],
-html[dir='rtl'] [data-textdirection="rtl"] input[type="month"] {
-text-align: right !important;
-direction: rtl !important;
-position: relative;
-padding-left: 35px !important; /* Space for the calendar icon on the left */
+html[data-textdirection="rtl"] input[type="date"],
+html[data-textdirection="rtl"] input[type="month"] {
+    text-align: right !important;
+    direction: rtl !important;
+    position: relative;
+    padding-left: 35px !important;
 }
 
-/* Move the calendar icon to the left and center it vertically */
-html[dir='rtl'] [data-textdirection="rtl"] input[type="date"]::-webkit-calendar-picker-indicator,
-html[dir='rtl'] [data-textdirection="rtl"] input[type="month"]::-webkit-calendar-picker-indicator {
-cursor: pointer;
-position: absolute;
-left: 8px; /* Target left side */
-top: 50%;
-transform: translateY(-50%);
-margin: 0 !important;
+html[data-textdirection="rtl"] input[type="date"]::-webkit-calendar-picker-indicator,
+html[data-textdirection="rtl"] input[type="month"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 !important;
 }
 
 /* Premium Global Table Style - RTL */
@@ -10133,3 +10168,14 @@ html[dir="rtl"] .premium-label.d-flex {
 }
 
 
+
+/* Custom Spacing Utilities */
+.mb-4px { margin-bottom: 4px !important; }
+.mt-4px { margin-top: 4px !important; }
+.mr-4px { margin-inline-end: 4px !important; }
+
+.mr-12px { margin-inline-end: 12px !important; }
+
+.gap-15px { gap: 15px !important; }
+
+textarea.premium-input, input.premium-input, select.premium-input { border: 1px solid #e2e8f0 !important; border-radius: 2px !important; display: block !important; }

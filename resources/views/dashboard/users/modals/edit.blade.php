@@ -26,20 +26,17 @@
                     <!-- First Row: Company (Full Width if Admin) -->
                     @if ($companies)
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 mb-1">
                                 <div class="premium-form-group">
-                                    <label for="company_id_edit">{!! __('companies.company') !!} <span
+                                    <label class="premium-label" for="company_id_edit">{!! __('companies.company') !!} <span
                                             class="text-danger">*</span></label>
-                                    <div class="premium-input-wrapper">
-                                        <select class="form-control premium-input shadow-none select2"
-                                            id='company_id_edit' name="company_id">
-                                            <option value="" selected>{!! __('general.select_from_list') !!}</option>
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <i class="fas fa-building text-primary"></i>
-                                    </div>
+                                    <select class="form-control premium-input shadow-none select2"
+                                        id='company_id_edit' name="company_id">
+                                        <option value="" selected>{!! __('general.select_from_list') !!}</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <span class="text-danger error-text company_id_error"></span>
                                 </div>
                             </div>
@@ -48,43 +45,34 @@
 
                     <!-- Second Row: Names and Mobile (3 Columns) -->
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="name_ar_edit">{!! __('users.name_ar') !!} <span
+                                <label class="premium-label" for="name_ar_edit">{!! __('users.name_ar') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="name_ar_edit" name="name[ar]" placeholder="{!! __('users.enter_name_ar') !!}"
-                                        autocomplete="off">
-                                    <i class="fas fa-user text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="name_ar_edit" name="name[ar]" placeholder="{!! __('users.enter_name_ar') !!}"
+                                    autocomplete="off">
                                 <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="name_en_edit">{!! __('users.name_en') !!} <span
+                                <label class="premium-label" for="name_en_edit">{!! __('users.name_en') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="name_en_edit" name="name[en]" placeholder="{!! __('users.enter_name_en') !!}"
-                                        autocomplete="off">
-                                    <i class="fas fa-user text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="name_en_edit" name="name[en]" placeholder="{!! __('users.enter_name_en') !!}"
+                                    autocomplete="off">
                                 <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="mobile_edit">{!! __('users.mobile') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none text-left"
-                                        id="mobile_edit" name="mobile" placeholder="{!! __('users.enter_mobile') !!}"
-                                        dir="ltr" autocomplete="off">
-                                    <i class="fas fa-phone text-primary"></i>
-                                </div>
+                                <label class="premium-label" for="mobile_edit">{!! __('users.mobile') !!}</label>
+                                <input type="text" class="form-control premium-input shadow-none text-left"
+                                    id="mobile_edit" name="mobile" placeholder="{!! __('users.enter_mobile') !!}"
+                                    dir="ltr" autocomplete="off">
                                 <span class="text-danger error-text mobile_error"></span>
                             </div>
                         </div>
@@ -92,49 +80,42 @@
 
                     <!-- Third Row: Email, Password, Password Confirm (3 Columns) -->
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="email_edit">{!! __('users.email') !!} <span
+                                <label class="premium-label" for="email_edit">{!! __('users.email') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="email" class="form-control premium-input shadow-none text-left"
-                                        id="email_edit" name="email" placeholder="{!! __('users.enter_email') !!}"
-                                        dir="ltr" autocomplete="off">
-                                    <i class="fas fa-envelope text-primary"></i>
-                                </div>
+                                <input type="email" class="form-control premium-input shadow-none text-left"
+                                    id="email_edit" name="email" placeholder="{!! __('users.enter_email') !!}"
+                                    dir="ltr" autocomplete="off">
                                 <span class="text-danger error-text email_error"></span>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="password_edit">{!! __('users.password') !!}</label>
-                                <div class="premium-input-wrapper">
+                                <label class="premium-label" for="password_edit">{!! __('users.password') !!}</label>
+                                <div class="position-relative">
                                     <i class="fas fa-eye pointer text-primary premium-icon-opposite"
                                         style="{{ Lang() == 'ar' ? 'left: 1.15rem !important; right: auto !important;' : 'right: 1.15rem !important; left: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; cursor: pointer;"
                                         onclick="togglePassword('password_edit', this);"></i>
                                     <input type="password" class="form-control premium-input shadow-none"
                                         id="password_edit" name="password" placeholder="{!! __('users.enter_password') !!}"
                                         autocomplete="new-password">
-                                    <i class="fas fa-lock text-primary"
-                                        style="{{ Lang() == 'ar' ? 'right: 1.15rem !important; left: auto !important;' : 'left: 1.15rem !important; right: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; pointer-events: none;"></i>
                                 </div>
                                 <span class="text-danger error-text password_error"></span>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <div class="premium-form-group">
-                                <label for="password_confirm_edit">{!! __('users.password_confirm') !!}</label>
-                                <div class="premium-input-wrapper">
+                                <label class="premium-label" for="password_confirm_edit">{!! __('users.password_confirm') !!}</label>
+                                <div class="position-relative">
                                     <i class="fas fa-eye pointer text-primary premium-icon-opposite"
                                         style="{{ Lang() == 'ar' ? 'left: 1.15rem !important; right: auto !important;' : 'right: 1.15rem !important; left: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; cursor: pointer;"
                                         onclick="togglePassword('password_confirm_edit', this);"></i>
                                     <input type="password" class="form-control premium-input shadow-none"
                                         id="password_confirm_edit" name="password_confirm"
                                         placeholder="{!! __('users.enter_password_confirm') !!}" autocomplete="new-password">
-                                    <i class="fas fa-lock text-primary"
-                                        style="{{ Lang() == 'ar' ? 'right: 1.15rem !important; left: auto !important;' : 'left: 1.15rem !important; right: auto !important;' }} position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; font-size: 1.35rem; pointer-events: none;"></i>
                                 </div>
                                 <span class="text-danger error-text password_confirm_error"></span>
                             </div>
@@ -143,20 +124,17 @@
 
                     <!-- Fourth Row: Role (Full Width) -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-2">
                             <div class="premium-form-group">
-                                <label for="role_id_edit">{!! __('users.role_id') !!} <span
+                                <label class="premium-label" for="role_id_edit">{!! __('users.role_id') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select class="form-control premium-input shadow-none select2" id='role_id_edit'
-                                        name="role_id">
-                                        <option value="" selected="">{!! __('general.select_from_list') !!}</option>
-                                        @foreach ($roles as $role)
-                                            <option value="{!! $role->id !!}">{!! $role->name !!}</option>
-                                        @endforeach
-                                    </select>
-                                    <i class="fas fa-shield-alt text-primary"></i>
-                                </div>
+                                <select class="form-control premium-input shadow-none select2" id='role_id_edit'
+                                    name="role_id">
+                                    <option value="" selected="">{!! __('general.select_from_list') !!}</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{!! $role->id !!}">{!! $role->name !!}</option>
+                                    @endforeach
+                                </select>
                                 <span class="text-danger error-text role_id_error"></span>
                             </div>
                         </div>
@@ -179,16 +157,16 @@
                 </div>
                 <!--end::modal body-->
 
-                <div class="modal-footer border-0 pt-0">
-                    <button type="submit" id="saveBtnEdit"
-                        class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
-                        <i class="fas fa-save"></i> {{ __('general.save') }}
-                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                <div class="modal-footer border-0 pt-0 premium-modal-footer">
+                    <button type="submit" id="saveBtnEdit" class="btn btn-premium-save font-weight-bold">
+                        <i class="fas fa-save mr-2"></i>
+                        <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
+                        {{ __('general.save') }}
                     </button>
 
-                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
+                    <button type="button" class="btn btn-premium-secondary font-weight-bold"
                         data-dismiss="modal">
-                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-2"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->

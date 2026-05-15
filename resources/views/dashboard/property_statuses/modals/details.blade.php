@@ -10,12 +10,12 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body my-2" id="detailsproperty_statusModalBody">
+            <div class="modal-body mt-2 mb-0" id="detailsproperty_statusModalBody">
                 <!-- Content loaded from row-details via AJAX JS -->
             </div>
-            <div class="modal-footer border-0 pt-0 justify-content-center">
-                <button type="button" class="btn btn-premium-secondary px-4 shadow-sm" style="border-radius: 12px; font-weight: 600; transition: all 0.3s ease;" data-dismiss="modal">
-                    <i class="fas fa-times-circle mr-1"></i> {!! __('general.close') !!}
+            <div class="modal-footer border-0 pt-0 premium-modal-footer justify-content-center">
+                <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold" data-dismiss="modal">
+                    <i class="fas fa-times-circle mr-2"></i> {!! __('general.close') !!}
                 </button>
             </div>
         </div>

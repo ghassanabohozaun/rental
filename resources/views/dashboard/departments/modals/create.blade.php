@@ -25,18 +25,15 @@
                 <div class="modal-body my-2">
                     @if(isset($companies))
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-1">
                             <div class="premium-form-group">
-                                <label for="company_id_dept_create">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select class="form-control premium-input select2 shadow-none" id='company_id_dept_create' name="company_id">
-                                        <option value="" selected>{!! __('general.select_from_list') !!}</option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <i class="fas fa-building text-primary"></i>
-                                </div>
+                                <label class="premium-label" for="company_id_dept_create">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
+                                <select class="form-control premium-input select2 shadow-none" id='company_id_dept_create' name="company_id">
+                                    <option value="" selected>{!! __('general.select_from_list') !!}</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
                                 <span class="text-danger error-text company_id_error"></span>
                             </div>
                         </div>
@@ -45,29 +42,23 @@
 
                     <div class="row">
                         <!-- Name Arabic -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label for="name_ar_create">{!! __('departments.name_ar') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" id="name_ar_create" name="name[ar]"
-                                        class="form-control premium-input shadow-none" autocomplete="off"
-                                        placeholder="{!! __('departments.enter_name_ar') !!}">
-                                    <i class="fas fa-building text-primary"></i>
-                                </div>
+                                <label class="premium-label" for="name_ar_create">{!! __('departments.name_ar') !!} <span class="text-danger">*</span></label>
+                                <input type="text" id="name_ar_create" name="name[ar]"
+                                    class="form-control premium-input shadow-none" autocomplete="off"
+                                    placeholder="{!! __('departments.enter_name_ar') !!}">
                                 <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
 
                         <!-- Name English -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label for="name_en_create">{!! __('departments.name_en') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" id="name_en_create" name="name[en]"
-                                        class="form-control premium-input shadow-none" autocomplete="off"
-                                        placeholder="{!! __('departments.enter_name_en') !!}">
-                                    <i class="fas fa-building text-primary"></i>
-                                </div>
+                                <label class="premium-label" for="name_en_create">{!! __('departments.name_en') !!} <span class="text-danger">*</span></label>
+                                <input type="text" id="name_en_create" name="name[en]"
+                                    class="form-control premium-input shadow-none" autocomplete="off"
+                                    placeholder="{!! __('departments.enter_name_en') !!}">
                                 <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
@@ -75,16 +66,16 @@
                 </div>
                 <!--end::modal body-->
 
-                <!--begin::modal footer-->
-                <div class="modal-footer border-0 pt-0">
-                    <button type="submit" id="saveBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
-                        <i class="fas fa-save"></i> {{ __('general.save') }}
-                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                <div class="modal-footer border-0 pt-0 premium-modal-footer">
+                    <button type="submit" id="saveBtn" class="btn btn-premium-save font-weight-bold">
+                        <i class="fas fa-save mr-2"></i>
+                        <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
+                        {{ __('general.save') }}
                     </button>
 
-                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
+                    <button type="button" class="btn btn-premium-secondary font-weight-bold"
                         data-dismiss="modal">
-                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
+                        <i class="fas fa-times-circle mr-2"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->

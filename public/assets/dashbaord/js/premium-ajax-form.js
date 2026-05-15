@@ -16,6 +16,7 @@ $(document).ready(function () {
         // UI Elements
         let saveBtn = form.find('button[type="submit"]');
         let spinner = saveBtn.find(".spinner_loading");
+        let btnIcon = saveBtn.find("i");
 
         // Custom Data Attributes (Configuration via HTML)
         let successAction = form.data("success-action") || "reload-table"; // 'reload-table' or 'redirect'
@@ -49,7 +50,9 @@ $(document).ready(function () {
         let modalId = modal.length ? modal.attr("id") : null;
 
         // Reset previous errors
-        form.find(".error-text, .premium-error-alert-chip, .error-message-premium strong").text("");
+        form.find(
+            ".error-text, .premium-error-alert-chip, .error-message-premium strong",
+        ).text("");
         form.find(
             ".premium-input, .form-control, .select2-selection, .premium-input-wrapper",
         )
@@ -64,7 +67,10 @@ $(document).ready(function () {
             contentType: false,
             beforeSend: function () {
                 saveBtn.prop("disabled", true);
-                if (spinner.length) spinner.removeClass("d-none");
+                if (spinner.length) {
+                    spinner.removeClass("d-none");
+                    saveBtn.find("i:not(.spinner_loading)").addClass("d-none");
+                }
             },
             success: function (response) {
                 if (response.status) {
@@ -74,11 +80,13 @@ $(document).ready(function () {
                         flasher.success(finalMsg);
                     } else if (typeof Swal !== "undefined") {
                         Swal.fire({
-                            icon: 'success',
-                            title: window.PremiumSettings ? window.PremiumSettings.messages.success : 'Success',
+                            icon: "success",
+                            title: window.PremiumSettings
+                                ? window.PremiumSettings.messages.success
+                                : "Success",
                             text: finalMsg,
                             timer: 3000,
-                            showConfirmButton: false
+                            showConfirmButton: false,
                         });
                     }
 
@@ -174,9 +182,11 @@ $(document).ready(function () {
                         flasher.error(finalError);
                     } else if (typeof Swal !== "undefined") {
                         Swal.fire({
-                            icon: 'error',
-                            title: window.PremiumSettings ? window.PremiumSettings.messages.error : 'Error',
-                            text: finalError
+                            icon: "error",
+                            title: window.PremiumSettings
+                                ? window.PremiumSettings.messages.error
+                                : "Error",
+                            text: finalError,
                         });
                     }
                 }
@@ -237,25 +247,28 @@ $(document).ready(function () {
                     if (typeof flasher !== "undefined") {
                         flasher.error(validationMsg);
                     } else if (typeof Swal !== "undefined") {
-                        Swal.fire({ icon: 'error', title: validationMsg });
+                        Swal.fire({ icon: "error", title: validationMsg });
                     }
                 } else if (xhr.status === 403) {
                     if (typeof flasher !== "undefined") {
                         flasher.error(accessDeniedMsg);
                     } else if (typeof Swal !== "undefined") {
-                        Swal.fire({ icon: 'error', title: accessDeniedMsg });
+                        Swal.fire({ icon: "error", title: accessDeniedMsg });
                     }
                 } else {
                     if (typeof flasher !== "undefined") {
                         flasher.error(errorMsg);
                     } else if (typeof Swal !== "undefined") {
-                        Swal.fire({ icon: 'error', title: errorMsg });
+                        Swal.fire({ icon: "error", title: errorMsg });
                     }
                 }
             },
             complete: function () {
                 saveBtn.prop("disabled", false);
-                if (spinner.length) spinner.addClass("d-none");
+                if (spinner.length) {
+                    spinner.addClass("d-none");
+                    saveBtn.find("i:not(.spinner_loading)").removeClass("d-none");
+                }
             },
         });
     });
@@ -282,12 +295,20 @@ $(document).ready(function () {
                 });
             }
 
-            form.find(".error-text, .premium-error-alert-chip, .error-message-premium strong").text("");
+            form.find(
+                ".error-text, .premium-error-alert-chip, .error-message-premium strong",
+            ).text("");
             form.find(
                 ".premium-input, .form-control, .select2-selection, .premium-input-wrapper",
             )
                 .css("border-color", "")
                 .removeClass("is-invalid-premium");
+
+            // Reset Buttons (Spinner/Icons)
+            let saveBtn = form.find('button[type="submit"]');
+            saveBtn.prop("disabled", false);
+            saveBtn.find(".spinner_loading").addClass("d-none");
+            saveBtn.find("i:not(.spinner_loading)").removeClass("d-none");
         }
     });
 });

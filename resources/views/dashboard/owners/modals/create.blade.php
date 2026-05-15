@@ -8,7 +8,7 @@
             data-success-action="reload-table"
             data-table-id="#table_data">
             @csrf
-            <div class="modal-content border-0">
+            <div class="modal-content premium-modal-content">
 
                 <!--begin::modal header-->
                 <div class="modal-header border-0 pb-0">
@@ -22,7 +22,7 @@
                 <!--end::modal header-->
 
                 <!--begin::modal body-->
-                <div class="modal-body my-2">
+                <div class="modal-body mt-2 mb-0">
                     <div class="row">
                         <!-- Company -->
                         @if(user()->company_id == 1)
@@ -44,10 +44,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="name_ar_create">{!! __('owners.name') !!} ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none" id="name_ar_create"
+                                <input type="text" class="form-control premium-input shadow-none" id="name_ar_create"
                                     name="name[ar]" placeholder="{!! __('owners.name') !!} ({!! __('general.ar') !!})" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
@@ -56,10 +54,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="name_en_create">{!! __('owners.name') !!} ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none" id="name_en_create"
+                                <input type="text" class="form-control premium-input shadow-none" id="name_en_create"
                                     name="name[en]" placeholder="{!! __('owners.name') !!} ({!! __('general.en') !!})" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
@@ -82,10 +78,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="identification_number_create">{!! __('owners.identification_number') !!} <span class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none" id="identification_number_create"
+                                <input type="text" class="form-control premium-input shadow-none" id="identification_number_create"
                                     name="identification_number" placeholder="{!! __('owners.identification_number') !!}" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text identification_number_error"></span>
                             </div>
                         </div>
@@ -94,10 +88,8 @@
                         <div class="col-md-12 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="phone_create">{!! __('owners.phone') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none text-left" id="phone_create"
+                                <input type="text" class="form-control premium-input shadow-none text-left" id="phone_create"
                                     name="phone" placeholder="{!! __('owners.phone') !!}" dir="ltr" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text phone_error"></span>
                             </div>
                         </div>
@@ -106,10 +98,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="email_create">{!! __('owners.email') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <input type="email" class="form-control premium-input shadow-none" id="email_create"
+                                <input type="email" class="form-control premium-input shadow-none" id="email_create"
                                     name="email" placeholder="{!! __('owners.email') !!}" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text email_error"></span>
                             </div>
                         </div>
@@ -118,10 +108,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="address_create">{!! __('owners.address') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none" id="address_create"
+                                <input type="text" class="form-control premium-input shadow-none" id="address_create"
                                     name="address" placeholder="{!! __('owners.address') !!}" autocomplete="off">
-                                </div>
                                 <span class="text-danger error-text address_error"></span>
                             </div>
                         </div>
@@ -130,9 +118,7 @@
                         <div class="col-md-12 mb-2">
                             <div class="premium-form-group">
                                 <label class="premium-label" for="notes_create">{!! __('owners.notes') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <textarea class="form-control premium-input shadow-none" id="notes_create" name="notes" rows="4" placeholder="{!! __('owners.notes') !!}"></textarea>
-                                </div>
+                                <textarea class="form-control premium-input shadow-none" id="notes_create" name="notes" rows="4" placeholder="{!! __('owners.notes') !!}"></textarea>
                                 <span class="text-danger error-text notes_error"></span>
                             </div>
                         </div>
@@ -140,15 +126,16 @@
                 </div>
                 <!--end::modal body-->
 
-                <div class="modal-footer border-0 pt-0">
-                    <button type="submit" id="saveBtn" class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10" style="min-width: 120px;">
-                        <i class="fas fa-save"></i> {{ __('general.save') }}
-                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                <div class="modal-footer border-0 pt-0 premium-modal-footer">
+                    <button type="submit" id="saveBtn" class="btn btn-premium-save font-weight-bold">
+                        <i class="fas fa-save mr-2"></i>
+                        <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
+                        {{ __('general.save') }}
                     </button>
 
-                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
-                        data-dismiss="modal" style="min-width: 120px;">
-                        <i class="fas fa-times-circle mr-1"></i> {{ __('general.cancel') }}
+                    <button type="button" class="btn btn-premium-secondary font-weight-bold"
+                        data-dismiss="modal">
+                        <i class="fas fa-times-circle mr-2"></i> {{ __('general.cancel') }}
                     </button>
                 </div>
                 <!--end::modal footer-->

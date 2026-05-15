@@ -16,7 +16,7 @@
                     </button>
                 </div>
 
-                <div class="modal-body my-2">
+                <div class="modal-body mt-2 mb-0">
                     <!-- First Row: Names and Plan -->
                     <div class="row">
                         <div class="col-md-4">
@@ -51,17 +51,14 @@
                             <div class="premium-form-group">
                                 <label for="subscription_plan_create">{!! __('companies.subscription_plan') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select name="subscription_plan" id="subscription_plan_create"
-                                        class="form-control premium-input select2 shadow-none"
-                                        data-placeholder="{!! __('companies.subscription_plan') !!}">
-                                        <option value="" disabled selected>{!! __('general.choose') !!}</option>
-                                        <option value="Basic">{!! __('companies.plan_basic') !!}</option>
-                                        <option value="Premium">{!! __('companies.plan_premium') !!}</option>
-                                        <option value="Enterprise">{!! __('companies.plan_enterprise') !!}</option>
-                                    </select>
-                                    <i class="fas fa-gem text-primary"></i>
-                                </div>
+                                <select name="subscription_plan" id="subscription_plan_create"
+                                    class="form-control premium-input select2 shadow-none"
+                                    data-placeholder="{!! __('companies.subscription_plan') !!}">
+                                    <option value="" disabled selected>{!! __('general.select_from_list') !!}</option>
+                                    <option value="Basic">{!! __('companies.plan_basic') !!}</option>
+                                    <option value="Premium">{!! __('companies.plan_premium') !!}</option>
+                                    <option value="Enterprise">{!! __('companies.plan_enterprise') !!}</option>
+                                </select>
                                 <span class="text-danger error-text subscription_plan_error"></span>
                             </div>
                         </div>
@@ -73,16 +70,13 @@
                             <div class="premium-form-group">
                                 <label for="status_create">{!! __('companies.status') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <select name="status" id="status_create"
-                                        class="form-control premium-input select2 shadow-none"
-                                        data-placeholder="{!! __('companies.status') !!}">
-                                        <option value="" disabled selected>{!! __('general.choose') !!}</option>
-                                        <option value="active">{!! __('general.active') !!}</option>
-                                        <option value="inactive">{!! __('general.inactive') !!}</option>
-                                    </select>
-                                    <i class="fas fa-check-circle text-primary"></i>
-                                </div>
+                                <select name="status" id="status_create"
+                                    class="form-control premium-input select2 shadow-none"
+                                    data-placeholder="{!! __('companies.status') !!}">
+                                    <option value="" disabled selected>{!! __('general.select_from_list') !!}</option>
+                                    <option value="active">{!! __('general.active') !!}</option>
+                                    <option value="inactive">{!! __('general.inactive') !!}</option>
+                                </select>
                                 <span class="text-danger error-text status_error"></span>
                             </div>
                         </div>
@@ -143,15 +137,15 @@
                     </div>
                 </div>
 
-                <div class="modal-footer border-0 pt-0">
-                    <button type="submit"
-                        class="btn btn-premium-save shadow-pulse px-4 font-weight-bold h-42 radius-10">
-                        <i class="fas fa-save"></i> {!! __('general.save') !!}
-                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                <div class="modal-footer border-0 pt-0 premium-modal-footer">
+                    <button type="submit" class="btn btn-premium-save font-weight-bold">
+                        <i class="fas fa-save mr-2"></i>
+                        <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
+                        {!! __('general.save') !!}
                     </button>
-                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"
+                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold"
                         data-dismiss="modal">
-                        <i class="fas fa-times-circle mr-1"></i> {!! __('general.cancel') !!}
+                        <i class="fas fa-times-circle mr-2"></i> {!! __('general.cancel') !!}
                     </button>
                 </div>
             </div>
@@ -162,6 +156,15 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            // Initialize Select2
+            $('.select2').each(function() {
+                $(this).select2({
+                    dropdownParent: $(this).closest('.modal'),
+                    width: '100%',
+                    dir: $('html').attr('data-textdirection') || 'ltr'
+                });
+            });
+
             // Initialize FileInput for Create
             $("#logo_create").fileinput({
                 theme: 'fa5',
