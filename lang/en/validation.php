@@ -373,5 +373,10 @@ return [
         // Owners
         'identification_number' => 'ID / Registration Number',
         'conclusion_date' => 'Conclusion Date',
+        'company_name' => 'Company Name',
+        'establishment_number' => 'Establishment Number',
+        'cr_number' => 'CR Number',
+        'license_number' => 'License Number',
+        'tenant_type' => 'Tenant Type',
     ],
 ];

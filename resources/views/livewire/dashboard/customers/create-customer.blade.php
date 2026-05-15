@@ -19,9 +19,10 @@
                 <a href="{!! route('dashboard.customers.index') !!}" class="btn-premium-back">
                     <i class="fas fa-arrow-left"></i> {!! __('general.back') !!}
                 </a>
-                <button type="button" wire:click="store" class="btn btn-premium-save shadow-pulse">
-                    <i class="fas fa-save"></i> {!! __('general.save') !!}
-                    <span wire:loading wire:target="store" class="fas fa-sync fa-spin ml-1"></span>
+                <button type="button" wire:click="store" class="btn btn-premium-save">
+                    <i wire:loading.remove wire:target="store" class="fas fa-save mr-2"></i>
+                    <i wire:loading wire:target="store" class="fas fa-sync fa-spin mr-2"></i>
+                    {!! __('general.save') !!}
                 </button>
             </div>
         </div>
@@ -39,12 +40,12 @@
                         @if (user()->company_id == 1)
                             <div class="row mb-1">
                                 <div class="col-md-12">
-                                    <div class="premium-form-group">
+                                    <div class="premium-form-group @error('company_id') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('companies.company') !!} <span
                                                 class="text-danger">*</span></label>
                                         <div wire:ignore>
                                             <select id="company_id_header" wire:model.defer="company_id"
-                                                class="form-control premium-input shadow-none select2 @error('company_id') is-invalid-premium @enderror">
+                                                class="form-control premium-input shadow-none select2">
                                                 <option value="">{!! __('general.select_company') !!}</option>
                                                 @foreach ($companies as $company)
                                                     <option value="{{ $company->id }}">{{ $company->name }}
@@ -62,12 +63,12 @@
 
                         <div class="row mt-1">
                             <div class="col-md-12">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('tenant_type') is-invalid-premium @enderror">
                                     <label class="premium-label">{!! __('customers.tenant_type') !!} <span
                                             class="text-danger">*</span></label>
                                     <div wire:ignore>
                                         <select id="tenant_type" wire:model.live="tenant_type"
-                                            class="form-control premium-input shadow-none select2 @error('tenant_type') is-invalid-premium @enderror">
+                                            class="form-control premium-input shadow-none select2">
                                             <option value="">{!! __('customers.select_tenant_type') !!}</option>
                                             <option value="individual">{!! __('customers.individual') !!}</option>
                                             <option value="company">{!! __('customers.company') !!}</option>
@@ -85,11 +86,11 @@
                                 @if ($tenant_type == 'company')
                                     <div class="row mt-1 animate__animated animate__fadeIn">
                                         <div class="col-md-3">
-                                            <div class="premium-form-group">
+                                            <div class="premium-form-group @error('company_name') is-invalid-premium @enderror">
                                                 <label class="premium-label">{!! __('customers.customer_company_name') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="company_name"
-                                                    class="form-control premium-input shadow-none @error('company_name') is-invalid-premium @enderror"
+                                                    class="form-control premium-input shadow-none"
                                                     placeholder="{!! __('customers.customer_company_name') !!}">
                                                 @error('company_name')
                                                     <span class="text-danger error-text">{{ $message }}</span>
@@ -97,11 +98,11 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="premium-form-group">
+                                            <div class="premium-form-group @error('establishment_number') is-invalid-premium @enderror">
                                                 <label class="premium-label">{!! __('customers.establishment_number') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="establishment_number"
-                                                    class="form-control premium-input shadow-none @error('establishment_number') is-invalid-premium @enderror"
+                                                    class="form-control premium-input shadow-none"
                                                     placeholder="{!! __('customers.establishment_number') !!}">
                                                 @error('establishment_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
@@ -109,11 +110,11 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="premium-form-group">
+                                            <div class="premium-form-group @error('cr_number') is-invalid-premium @enderror">
                                                 <label class="premium-label">{!! __('customers.cr_number') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="cr_number"
-                                                    class="form-control premium-input shadow-none @error('cr_number') is-invalid-premium @enderror"
+                                                    class="form-control premium-input shadow-none"
                                                     placeholder="{!! __('customers.cr_number') !!}">
                                                 @error('cr_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
@@ -121,11 +122,11 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="premium-form-group">
+                                            <div class="premium-form-group @error('license_number') is-invalid-premium @enderror">
                                                 <label class="premium-label">{!! __('customers.license_number') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="license_number"
-                                                    class="form-control premium-input shadow-none @error('license_number') is-invalid-premium @enderror"
+                                                    class="form-control premium-input shadow-none"
                                                     placeholder="{!! __('customers.license_number') !!}">
                                                 @error('license_number')
                                                     <span class="text-danger error-text">{{ $message }}</span>
@@ -137,11 +138,11 @@
 
                                 <div class="row mt-1">
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('name.ar') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.name_ar') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" wire:model.defer="name.ar"
-                                                class="form-control premium-input shadow-none @error('name.ar') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none"
                                                 placeholder="{!! __('customers.name_ar') !!}">
                                             @error('name.ar')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -149,11 +150,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('name.en') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.name_en') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" wire:model.defer="name.en"
-                                                class="form-control premium-input shadow-none @error('name.en') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none"
                                                 placeholder="{!! __('customers.name_en') !!}">
                                             @error('name.en')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -161,11 +162,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('phone') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.phone') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" wire:model.defer="phone"
-                                                class="form-control premium-input shadow-none text-left @error('phone') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none text-left"
                                                 dir="ltr" placeholder="{!! __('customers.phone') !!}">
                                             @error('phone')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -173,11 +174,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('id_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.id_number') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" wire:model.defer="id_number"
-                                                class="form-control premium-input shadow-none @error('id_number') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none"
                                                 placeholder="{!! __('customers.id_number') !!}">
                                             @error('id_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -188,13 +189,13 @@
 
                                 <div class="row mt-1">
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('nationality_id') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.nationality') !!} <span
                                                     class="text-danger">*</span></label>
                                             <div wire:ignore
                                                 wire:key="nationality-select-wrapper-{{ $tenant_type }}">
                                                 <select id="nationality_id" wire:model.defer="nationality_id"
-                                                    class="form-control premium-input shadow-none select2 @error('nationality_id') is-invalid-premium @enderror">
+                                                    class="form-control premium-input shadow-none select2">
                                                     <option value="">{!! __('general.select_from_list') !!}</option>
                                                     @foreach ($nationalities as $nationality)
                                                         <option value="{{ $nationality->id }}">
@@ -209,11 +210,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('email') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.email') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="email" wire:model.defer="email"
-                                                class="form-control premium-input shadow-none text-left @error('email') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none text-left"
                                                 dir="ltr" placeholder="{!! __('customers.email') !!}">
                                             @error('email')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -221,11 +222,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('address') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('customers.address') !!} <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" wire:model.defer="address"
-                                                class="form-control premium-input shadow-none @error('address') is-invalid-premium @enderror"
+                                                class="form-control premium-input shadow-none"
                                                 placeholder="{!! __('customers.address') !!}">
                                             @error('address')
                                                 <span class="text-danger error-text">{{ $message }}</span>
@@ -394,7 +395,7 @@
                     $this.select2({
                         width: '100%',
                         dir: $('html').attr('data-textdirection') || 'ltr',
-                        dropdownParent: $this.parent()
+                        dropdownParent: $('body')
                     }).on('change', function(e) {
                         if (model) {
                             @this.set(model, e.target.value);

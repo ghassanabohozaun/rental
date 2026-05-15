@@ -432,5 +432,12 @@ return [
         'identification_number' => 'رقم البطاقة الشخصية / السجل التجاري',
         'conclusion_date' => 'تاريخ إبرام العقد',
         'permissions' => 'الصلاحيات',
+
+        // Additional Customer Fields
+        'company_name' => 'اسم الشركة',
+        'establishment_number' => 'رقم المنشأة',
+        'cr_number' => 'رقم السجل التجاري',
+        'license_number' => 'رقم الرخصة',
+        'tenant_type' => 'نوع المستأجر',
     ],
 ];

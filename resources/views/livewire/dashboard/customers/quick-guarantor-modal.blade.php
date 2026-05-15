@@ -64,11 +64,11 @@
                         <div class="row mt-3">
                             <!-- Name AR -->
                             <div class="col-md-6 mb-2">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_name.ar') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.name_ar') !!}
                                         <span class="text-danger">*</span></label>
                                     <input type="text" wire:model.defer="quick_name.ar"
-                                        class="form-control premium-input shadow-none @error('quick_name.ar') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_name_ar') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_name.ar')
@@ -78,11 +78,11 @@
                             </div>
                             <!-- Name EN -->
                             <div class="col-md-6 mb-2">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_name.en') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.name_en') !!}
                                         <span class="text-danger">*</span></label>
                                     <input type="text" wire:model.defer="quick_name.en"
-                                        class="form-control premium-input shadow-none @error('quick_name.en') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_name_en') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_name.en')
@@ -95,11 +95,11 @@
                         <div class="row">
                             <!-- ID Number -->
                             <div class="col-md-6 mb-2">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_id_number') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.id_number') !!} <span
                                             class="text-danger">*</span></label>
                                     <input type="text" wire:model.defer="quick_id_number"
-                                        class="form-control premium-input shadow-none @error('quick_id_number') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_id_number') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_id_number')
@@ -109,10 +109,10 @@
                             </div>
                             <!-- Phone -->
                             <div class="col-md-6 mb-1">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_phone') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.phone') !!}</label>
                                     <input type="text" wire:model.defer="quick_phone"
-                                        class="form-control premium-input shadow-none @error('quick_phone') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_phone') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_phone')
@@ -125,10 +125,10 @@
                         <div class="row">
                             <!-- Relationship -->
                             <div class="col-md-4 mb-1">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_relationship') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.relationship') !!}</label>
                                     <select wire:model.live="quick_relationship"
-                                        class="form-control premium-input shadow-none @error('quick_relationship') is-invalid-premium @enderror">
+                                        class="form-control premium-input shadow-none">
                                         <option value="">{{ __('general.select_from_list') }}</option>
                                         @foreach (__('guarantors.relationships') as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
@@ -143,11 +143,11 @@
                             @if ($quick_relationship == self::RELATIONSHIP_OTHER)
                                 <!-- Relationship Details -->
                                 <div class="col-md-8 mb-1">
-                                    <div class="premium-form-group">
+                                    <div class="premium-form-group @error('quick_relationship_details') is-invalid-premium @enderror">
                                         <label class="font-weight-bold">{!! __('guarantors.relationship_details') !!} <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" wire:model.defer="quick_relationship_details"
-                                            class="form-control premium-input shadow-none @error('quick_relationship_details') is-invalid-premium @enderror"
+                                            class="form-control premium-input shadow-none"
                                             placeholder="{{ __('guarantors.relationship_details') }}">
                                         @error('quick_relationship_details')
                                             <span class="text-danger error-text">{{ $message }}</span>
@@ -160,10 +160,10 @@
                         <div class="row">
                             <!-- Address -->
                             <div class="col-md-12 mb-1">
-                                <div class="premium-form-group">
+                                <div class="premium-form-group @error('quick_address') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.address') !!}</label>
                                     <input type="text" wire:model.defer="quick_address"
-                                        class="form-control premium-input shadow-none @error('quick_address') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_address') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_address')
@@ -176,10 +176,10 @@
                         <div class="row">
                             <!-- Notes -->
                             <div class="col-md-12 mb-0">
-                                <div class="premium-form-group mb-0">
+                                <div class="premium-form-group mb-0 @error('quick_notes') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('guarantors.notes') !!}</label>
                                     <input type="text" wire:model.defer="quick_notes"
-                                        class="form-control premium-input shadow-none @error('quick_notes') is-invalid-premium @enderror"
+                                        class="form-control premium-input shadow-none"
                                         placeholder="{{ __('guarantors.enter_notes') }}"
                                         {{ $is_existing ? 'readonly' : '' }}>
                                     @error('quick_notes')
@@ -189,15 +189,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer border-0 pt-0">
+                    <div class="modal-footer border-0 pt-0 premium-modal-footer">
                         <button type="submit"
-                            class="btn btn-premium-save shadow-pulse px-4 font-weight-bold radius-10">
-                            <i class="fas fa-check-circle mr-1"></i> {{ __('guarantors.add_guarantor') }}
-                            <i wire:loading wire:target="saveQuickGuarantor" class="fas fa-spinner fa-spin ml-1"></i>
+                            class="btn btn-premium-save px-4 font-weight-bold">
+                            <i wire:loading.remove wire:target="saveQuickGuarantor" class="fas fa-check-circle mr-2"></i>
+                            <i wire:loading wire:target="saveQuickGuarantor" class="fas fa-sync fa-spin mr-2"></i>
+                            {{ __('guarantors.add_guarantor') }}
                         </button>
-                        <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold radius-10"
+                        <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold"
                             data-dismiss="modal">
-                            {{ __('general.cancel') }}
+                            <i class="fas fa-times-circle mr-2"></i> {{ __('general.cancel') }}
                         </button>
                     </div>
                 </form>

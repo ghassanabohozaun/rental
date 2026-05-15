@@ -24,19 +24,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right col-md-6 col-12 text-md-right">
-                    <div class="d-flex align-items-center justify-content-end mb-1">
-                        <a href="{!! route('dashboard.payments.index') !!}" class="btn-premium-back mr-1">
-                            <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
-                        </a>
-                        <button class="btn btn-premium-save shadow-pulse" type="submit" wire:loading.attr="disabled"
-                            wire:target="save">
-                            <i class="fas fa-save" wire:loading.remove wire:target="save"></i>
-                            {!! __('general.save') !!}
-                            <i class="fas fa-sync fa-spin ml-1" wire:loading wire:target="save"></i>
-                        </button>
+                    <div class="content-header-right col-md-6 col-12 text-md-right mb-2">
+                        <div class="d-flex justify-content-md-end justify-content-center gap-2">
+                            <a href="{!! route('dashboard.payments.index') !!}" class="btn-premium-back">
+                                <i class="fas fa-arrow-left"></i> {!! __('general.back') !!}
+                            </a>
+                            <button class="btn btn-premium-save" type="submit" wire:loading.attr="disabled"
+                                wire:target="save">
+                                <i wire:loading.remove wire:target="save" class="fas fa-save mr-2"></i>
+                                <i wire:loading wire:target="save" class="fas fa-sync fa-spin mr-2"></i>
+                                {!! __('general.save') !!}
+                            </button>
+                        </div>
                     </div>
-                </div>
             </div>
             <!-- end :content header -->
 
@@ -73,16 +73,15 @@
                                         <div class="row">
                                             @if (user()->company_id == 1)
                                                 <div class="col-md-12 mb-2" wire:key="company-select-container">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('company_id') is-invalid-premium @enderror">
                                                         <label for="company_id">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper @error('company_id') is-invalid-premium @enderror {{ $isEdit ? 'opacity-75' : '' }}" wire:ignore>
-                                                            <select class="form-control premium-input shadow-none js-select2" id='company_id' wire:model.live="company_id" {{ $isEdit ? 'disabled' : '' }}>
+                                                        <div wire:ignore>
+                                                            <select class="form-control premium-input shadow-none js-select2 {{ $isEdit ? 'opacity-75' : '' }}" id='company_id' wire:model.live="company_id" {{ $isEdit ? 'disabled' : '' }}>
                                                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                                                 @foreach ($companies as $company)
                                                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                                 @endforeach
                                                             </select>
-                                                            <i class="fas fa-{{ $isEdit ? 'lock' : 'briefcase' }} text-primary"></i>
                                                         </div>
                                                         @error('company_id') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
@@ -90,12 +89,12 @@
                                             @endif
 
                                             <div class="col-md-12">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('contract_id') is-invalid-premium @enderror">
                                                     <label for="contract_id" class="premium-label font-weight-bold">
                                                         {!! __('payments.contract') !!} <span class="text-danger">*</span>
                                                     </label>
-                                                    <div class="premium-input-wrapper @error('contract_id') is-invalid-premium @enderror {{ ($isEdit || !$company_id) ? 'opacity-75' : '' }}" wire:key="contract-wrapper-{{ $company_id }}" wire:ignore>
-                                                        <select class="form-control premium-input shadow-none js-select2" id='contract_id' wire:model.live="contract_id" {{ ($isEdit || !$company_id) ? 'disabled' : '' }}>
+                                                    <div wire:key="contract-wrapper-{{ $company_id }}" wire:ignore>
+                                                        <select class="form-control premium-input shadow-none js-select2 {{ ($isEdit || !$company_id) ? 'opacity-75' : '' }}" id='contract_id' wire:model.live="contract_id" {{ ($isEdit || !$company_id) ? 'disabled' : '' }}>
                                                             <option value="">{!! __('contracts.select_contract') !!}</option>
                                                             @foreach ($contracts as $contract)
                                                                 <option value="{{ $contract->id }}">
@@ -103,7 +102,6 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="fas fa-{{ $isEdit ? 'lock' : 'file-invoice' }} text-primary"></i>
                                                     </div>
                                                     @error('contract_id') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                 </div>
@@ -137,43 +135,40 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 mb-2">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('method') is-invalid-premium @enderror">
                                                         <label for="method" class="font-weight-bold">{!! __('payments.method') !!} <span class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper @error('method') is-invalid-premium @enderror" wire:ignore wire:key="method-wrapper-{{ $contract_id }}">
+                                                        <div wire:ignore wire:key="method-wrapper-{{ $contract_id }}">
                                                             <select class="form-control premium-input shadow-none js-select2" id="method" wire:model.live="method" {{ !$contract_id ? 'disabled' : '' }}>
                                                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                                                 @foreach (__('payments.methods') as $key => $value)
                                                                     <option value="{!! $key !!}">{!! $value !!}</option>
                                                                 @endforeach
                                                             </select>
-                                                            <i class="fas fa-credit-card text-primary"></i>
                                                         </div>
                                                         @error('method') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-4 mb-2">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('payment_date') is-invalid-premium @enderror">
                                                         <label for="payment_date" class="font-weight-bold">{!! __('payments.payment_date') !!} <span class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper @error('payment_date') is-invalid-premium @enderror" wire:ignore wire:key="date-wrapper-{{ $contract_id }}">
+                                                        <div wire:ignore wire:key="date-wrapper-{{ $contract_id }}">
                                                             <input type="text" class="form-control premium-input shadow-none ptc-datepicker" id="payment_date" wire:model.live="payment_date" autocomplete="off" placeholder="YYYY-MM-DD" {{ !$contract_id ? 'disabled' : '' }}>
-                                                            <i class="fas fa-calendar-alt text-primary"></i>
                                                         </div>
                                                         @error('payment_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-4 mb-2">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('status') is-invalid-premium @enderror">
                                                         <label for="status" class="font-weight-bold">{!! __('payments.status') !!} <span class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper @error('status') is-invalid-premium @enderror" wire:ignore wire:key="status-wrapper-{{ $contract_id }}">
+                                                        <div wire:ignore wire:key="status-wrapper-{{ $contract_id }}">
                                                             <select class="form-control premium-input shadow-none js-select2" id="status" wire:model.live="status" {{ !$contract_id ? 'disabled' : '' }}>
                                                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                                                 @foreach (__('payments.statuses') as $key => $value)
                                                                     <option value="{!! $key !!}">{!! $value !!}</option>
                                                                 @endforeach
                                                             </select>
-                                                            <i class="fas fa-info-circle text-primary"></i>
                                                         </div>
                                                         @error('status') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
@@ -181,9 +176,9 @@
 
                                                 @if($method === 'cheque')
                                                     <div class="col-md-12 mb-2 premium-fade-in" wire:key="cheque-selection-container-{{ $validation_fail_nonce }}">
-                                                        <div class="premium-form-group">
+                                                        <div class="premium-form-group @error('cheque_id') is-invalid-premium @enderror">
                                                             <label class="premium-label font-weight-bold">{!! __('payments.cheque') !!} <span class="text-danger">*</span></label>
-                                                            <div class="premium-input-wrapper @error('cheque_id') is-invalid-premium @enderror" wire:ignore>
+                                                            <div wire:ignore>
                                                                 <select id="cheque_id" class="form-control premium-input shadow-none js-select2" wire:model.live="cheque_id" data-placeholder="{!! __('cheques.select_cheque') !!}">
                                                                     <option value="">{!! __('cheques.select_cheque') !!}</option>
                                                                     @foreach($availableCheques as $chq)
@@ -192,7 +187,6 @@
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
-                                                                <i class="fas fa-university text-primary"></i>
                                                             </div>
                                                             @error('cheque_id') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                         </div>
@@ -224,32 +218,24 @@
                                                 @endif
 
                                                 <div class="col-md-6 mb-2">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('amount') is-invalid-premium @enderror">
                                                         <label for="amount" class="font-weight-bold">{!! __('payments.amount') !!} <span class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper @error('amount') is-invalid-premium @enderror">
-                                                            <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount" wire:model.live.debounce.250ms="amount" placeholder="0.00" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
-                                                            <i class="fas fa-dollar-sign text-primary"></i>
-                                                        </div>
+                                                        <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount" wire:model.live.debounce.250ms="amount" placeholder="0.00" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
                                                         @error('amount') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6 mb-2">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('reference_number') is-invalid-premium @enderror">
                                                         <label for="reference_number" class="font-weight-bold">{!! __('payments.reference_number') !!}</label>
-                                                        <div class="premium-input-wrapper @error('reference_number') is-invalid-premium @enderror">
-                                                            <input type="text" class="form-control premium-input shadow-none" id="reference_number" wire:model.live="reference_number" placeholder="Ref#" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
-                                                            <i class="fas fa-barcode text-primary"></i>
-                                                        </div>
+                                                        <input type="text" class="form-control premium-input shadow-none" id="reference_number" wire:model.live="reference_number" placeholder="Ref#" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
                                                         @error('reference_number') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mt-2">
-                                                    <div class="premium-form-group mb-0">
+                                                    <div class="premium-form-group mb-0 @error('notes') is-invalid-premium @enderror">
                                                         <label for="notes" class="font-weight-bold">{!! __('payments.notes') !!}</label>
-                                                        <div class="premium-input-wrapper no-icon @error('notes') is-invalid-premium @enderror">
-                                                            <textarea class="form-control premium-textarea-standalone shadow-none" id="notes" wire:model.live="notes" rows="3" placeholder="{!! __('payments.any_notes') !!}" {{ !$contract_id ? 'disabled' : '' }}></textarea>
-                                                        </div>
+                                                        <textarea class="form-control premium-input shadow-none h-80" id="notes" wire:model.live="notes" placeholder="{!! __('payments.any_notes') !!}" {{ !$contract_id ? 'disabled' : '' }}></textarea>
                                                         @error('notes') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
@@ -431,7 +417,8 @@
 
                     $el.select2({
                         width: '100%',
-                        dir: $('html').attr('data-textdirection') || 'ltr'
+                        dir: $('html').attr('data-textdirection') || 'ltr',
+                        dropdownParent: $('body')
                     }).on('change', function(e) {
                         let val = $(this).val();
                         let model = $(this).attr('wire:model.live') || $(this).attr('wire:model') || this.id;

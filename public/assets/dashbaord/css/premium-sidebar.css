@@ -145,17 +145,15 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
 .main-menu.menu-dark .navigation > li:hover > a {
     background: rgba(56, 189, 248, 0.08) !important;
     color: #f8fafc !important;
-    transform: translateX(5px);
     box-shadow: none !important; /* Truly Flat */
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li:hover > a {
-    transform: translateX(-5px);
+    transform: none !important; /* Explicitly disable movement */
 }
 
 .main-menu.menu-dark .navigation > li:hover > a > i {
     color: #38bdf8 !important; /* Neon Blue */
-    transform: scale(1.1) !important;
 }
 
 /* Active State */
@@ -245,12 +243,11 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
     color: #38bdf8 !important;
     border-radius: 2px !important;
     margin-right: 10px !important;
-    transform: translateX(8px) !important; /* Unified Translation */
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a,
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li.active > a {
-    transform: translateX(-8px) !important; /* Unified Translation for RTL */
+    transform: none !important; /* Explicitly disable movement */
 }
 
 .main-menu.menu-dark .navigation > li > ul > li.active > a {
@@ -278,7 +275,6 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
 .main-menu.menu-dark .navigation > li > ul > li.active > a::before,
 .main-menu.menu-dark .navigation > li > ul > li:hover > a::before {
     background: #38bdf8;
-    width: 18px;
     box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 

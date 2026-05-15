@@ -46,7 +46,7 @@
                                 <!-- Row 1: Company Selection (Admin Only, Locked in Edit) -->
                                 @if (user()->company_id == 1)
                                     <div class="col-md-12 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('company_id') is-invalid-premium @enderror">
                                             <div class="d-flex justify-content-between align-items-center mb-1">
                                                 <label class="premium-label mb-0">{!! __('companies.company') !!} <span
                                                         class="text-danger">*</span></label>
@@ -55,10 +55,9 @@
                                                     <i class="fas fa-lock mr-1"></i> {!! __('properties.company_locked_help') !!}
                                                 </span>
                                             </div>
-                                            <div class="@if ($errors->has('company_id')) is-invalid-premium @endif">
-                                                <div wire:ignore>
-                                                    <select id="company_id" wire:model.defer="company_id"
-                                                        class="form-control premium-input shadow-none select2" disabled>
+                                            <div wire:ignore>
+                                                <select id="company_id" wire:model.defer="company_id"
+                                                    class="form-control premium-input shadow-none select2" disabled>
                                                         <option value="">{!! __('general.select_company') !!}</option>
                                                         @foreach ($companies as $company)
                                                             <option value="{{ $company->id }}">{{ $company->name }}
@@ -78,13 +77,12 @@
                                 <!-- Row 1: Identity & File -->
                                 <div class="row w-100 m-0 p-0">
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('parent_id') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.parent_property') !!}</label>
-                                            <div class="@if ($errors->has('parent_id')) is-invalid-premium @endif">
-                                                <div wire:ignore>
-                                                    <select id="parent_id" wire:model.defer="parent_id"
-                                                        data-simple="true"
-                                                        class="form-control premium-input shadow-none select2 ajax-select">
+                                            <div wire:ignore>
+                                                <select id="parent_id" wire:model.defer="parent_id"
+                                                    data-simple="true"
+                                                    class="form-control premium-input shadow-none select2 ajax-select">
                                                         <option value="">{!! __('properties.standalone_property') !!}</option>
                                                         @foreach ($parent_properties as $p)
                                                             <option value="{{ $p->id }}">{{ $p->name }}
@@ -99,47 +97,35 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('name.ar') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.name_ar') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('name.ar')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="name.ar"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_name_ar') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="name.ar"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_name_ar') !!}">
                                             @error('name.ar')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('name.en') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.name_en') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('name.en')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="name.en"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_name_en') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="name.en"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_name_en') !!}">
                                             @error('name.en')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('file_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.file_number') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('file_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="file_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_file_number') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="file_number"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_file_number') !!}">
                                             @error('file_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -150,15 +136,13 @@
                                 <!-- Row 2: Categorization & Description -->
                                 <div class="row w-100 m-0 p-0">
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('property_type_id') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.type') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('property_type_id')) is-invalid-premium @endif">
-                                                <div wire:ignore>
-                                                    <select wire:model.defer="property_type_id"
-                                                        class="form-control premium-input shadow-none select2"
-                                                        id="property_type_id">
+                                            <div wire:ignore>
+                                                <select wire:model.defer="property_type_id"
+                                                    class="form-control premium-input shadow-none select2"
+                                                    id="property_type_id">
                                                         <option value="">{!! __('general.select_from_list') !!}</option>
                                                         @foreach ($property_types as $type)
                                                             <option value="{{ $type->id }}">{{ $type->name }}
@@ -173,15 +157,13 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('property_status_id') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.status') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('property_status_id')) is-invalid-premium @endif">
-                                                <div wire:ignore>
-                                                    <select wire:model.defer="property_status_id"
-                                                        class="form-control premium-input shadow-none select2"
-                                                        id="property_status_id">
+                                            <div wire:ignore>
+                                                <select wire:model.defer="property_status_id"
+                                                    class="form-control premium-input shadow-none select2"
+                                                    id="property_status_id">
                                                         <option value="">{!! __('general.select_from_list') !!}</option>
                                                         @foreach ($property_statuses as $status)
                                                             <option value="{{ $status->id }}">{{ $status->name }}
@@ -196,14 +178,11 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-12 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('description') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.description') !!}</label>
-                                            <div class="premium-input-wrapper">
-                                                <input type="text" wire:model.defer="description"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_description') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="description"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_description') !!}">
                                             @error('description')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -214,45 +193,33 @@
                                 <!-- Row 3: Financial & Location -->
                                 <div class="row w-100 m-0 p-0">
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('price') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.price') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('price')) is-invalid-premium @endif">
-                                                <input type="number" step="0.01" wire:model.defer="price"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_price') !!}">
-
-                                            </div>
+                                            <input type="number" step="0.01" wire:model.defer="price"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_price') !!}">
                                             @error('price')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('area') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.area') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('area')) is-invalid-premium @endif">
-                                                <input type="number" step="0.01" wire:model.defer="area"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_area') !!}">
-
-                                            </div>
+                                            <input type="number" step="0.01" wire:model.defer="area"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_area') !!}">
                                             @error('area')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-12 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('location') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.location') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('location')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="location"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_location') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="location"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_location') !!}">
                                             @error('location')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -263,62 +230,46 @@
                                 <!-- Row 4: Technical Numbers -->
                                 <div class="row w-100 m-0 p-0">
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('property_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.property_number') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('property_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="property_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_property_number') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="property_number"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_property_number') !!}">
                                             @error('property_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('title_deed_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.title_deed_number') !!}</label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('title_deed_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="title_deed_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_title_deed_number') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="title_deed_number"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_title_deed_number') !!}">
                                             @error('title_deed_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('electricity_account_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.electricity_account_number') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('electricity_account_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="electricity_account_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_electricity_account') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="electricity_account_number"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_electricity_account') !!}">
                                             @error('electricity_account_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-6 mb-2">
-                                        <div class="premium-form-group">
+                                        <div class="premium-form-group @error('water_account_number') is-invalid-premium @enderror">
                                             <label class="premium-label">{!! __('properties.water_account_number') !!} <span
                                                     class="text-danger">*</span></label>
-                                            <div
-                                                class="premium-input-wrapper @if ($errors->has('water_account_number')) is-invalid-premium @endif">
-                                                <input type="text" wire:model.defer="water_account_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_water_account') !!}">
-
-                                            </div>
+                                            <input type="text" wire:model.defer="water_account_number"
+                                                class="form-control premium-input shadow-none" autocomplete="off"
+                                                placeholder="{!! __('properties.enter_water_account') !!}">
                                             @error('water_account_number')
                                                 <span class="text-danger error-text">{{ $message }}</span>
                                             @enderror
@@ -410,17 +361,14 @@
                                                     </span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <div class="premium-form-group mb-0 mx-auto"
+                                                    <div class="premium-form-group mb-0 mx-auto @error("property_owners.$index.percentage") is-invalid-premium @enderror"
                                                         style="max-width: 100px;">
-                                                        <div
-                                                            class="premium-input-wrapper @if ($errors->has("property_owners.$index.percentage")) is-invalid-premium @endif">
-                                                            <input type="number" step="0.01"
-                                                                wire:model.live="property_owners.{{ $index }}.percentage"
-                                                                class="form-control premium-input shadow-none text-center compact-input"
-                                                                autocomplete="off"
-                                                                style="height: 32px !important; font-size: 0.9rem;"
-                                                                placeholder="0.00 %">
-                                                        </div>
+                                                        <input type="number" step="0.01"
+                                                            wire:model.live="property_owners.{{ $index }}.percentage"
+                                                            class="form-control premium-input shadow-none text-center compact-input"
+                                                            autocomplete="off"
+                                                            style="height: 32px !important; font-size: 0.9rem;"
+                                                            placeholder="0.00 %">
                                                         @error("property_owners.$index.percentage")
                                                             <span class="text-danger error-text d-block mt-1"
                                                                 style="font-size: 0.7rem;">{{ $message }}</span>
@@ -681,7 +629,7 @@
                 $(this).select2({
                     width: '100%',
                     dir: $('html').attr('data-textdirection') || 'ltr',
-                    dropdownParent: $(this).parent()
+                    dropdownParent: $('body')
                 }).on('change', function(e) {
                     let wireModel = $(this).attr('wire:model.defer');
                     if (wireModel) {
@@ -696,7 +644,7 @@
                 const existingConfig = $parentSelect.data('select2').options.options;
                 $parentSelect.select2($.extend(true, {}, existingConfig, {
                     width: '100%',
-                    dropdownParent: $parentSelect.parent(),
+                    dropdownParent: $('body'),
                     ajax: {
                         data: function(params) {
                             return {

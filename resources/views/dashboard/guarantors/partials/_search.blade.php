@@ -18,11 +18,8 @@
                 <div class="ptc-query-panel shadow-lg border-0 radius-16" id="guarantor_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('guarantors.guarantors') !!}</label>
-                        <div class="premium-input-wrapper">
-                            <input type="text" class="form-control premium-input shadow-none" name="keyword"
-                                placeholder="{!! __('general.search') !!}..." autocomplete="off">
-                            <i class="fas fa-search text-primary"></i>
-                        </div>
+                        <input type="text" class="form-control premium-input shadow-none" name="keyword"
+                            placeholder="{!! __('general.search') !!}..." autocomplete="off">
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
@@ -44,18 +41,15 @@
                 <div class="ptc-query-panel shadow-lg border-0 radius-16" id="company_search_popover" style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
-                        <div class="premium-input-wrapper">
-                            <select name="company_id" id="filter_company_id"
-                                class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all_companies') !!}"
-                                data-parent="#company_search_popover">
-                                <option value="">{!! __('general.all_companies') !!}</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
-                            <i class="fas fa-briefcase text-primary"></i>
-                        </div>
+                        <select name="company_id" id="filter_company_id"
+                            class="form-control premium-input shadow-none js-select2"
+                            data-placeholder="{!! __('general.all_companies') !!}"
+                            data-parent="#company_search_popover">
+                            <option value="">{!! __('general.all_companies') !!}</option>
+                            @foreach ($companies as $company)
+                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">

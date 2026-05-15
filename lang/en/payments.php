@@ -55,4 +55,11 @@ return [
     'financial_health' => 'Financial Coverage Index',
     'remaining' => 'Remaining',
     'paid' => 'Paid',
+    'cheques' => 'Cheques',
+
+    // Tips
+    'tip_verify_amount' => 'Please verify the entered amount carefully to ensure it matches the financial documents.',
+    'tip_check_date' => 'Make sure to select the correct payment date as recorded in the financial records.',
+    'tip_reference_number' => 'The reference number helps track the payment in bank records or accounting books.',
+    'tip_notes_importance' => 'Adding accurate notes facilitates the financial auditing process later.',
 ];

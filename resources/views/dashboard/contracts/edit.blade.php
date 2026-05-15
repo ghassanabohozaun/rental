@@ -40,13 +40,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="content-header-right col-md-6 col-12 text-md-right">
-                        <div class="d-flex align-items-center justify-content-end mb-1">
-                            <a href="{!! route('dashboard.contracts.index') !!}" class="btn-premium-back mr-1">
-                                <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
+                    <div class="content-header-right col-md-6 col-12 text-md-right mb-2">
+                        <div class="d-flex justify-content-md-end justify-content-center gap-2">
+                            <a href="{!! route('dashboard.contracts.index') !!}" class="btn-premium-back">
+                                <i class="fas fa-arrow-left"></i> {!! __('general.back') !!}
                             </a>
-                            <button class="btn btn-premium-save shadow-pulse" type="submit" id="saveBtn">
-                                <i class="fas fa-save"></i>
+                            <button class="btn btn-premium-save" type="submit" id="saveBtn">
+                                <i class="fas fa-save mr-2"></i>
                                 {!! __('general.save') !!}
                                 <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                             </button>

@@ -25,14 +25,14 @@
                     </div>
                 </div>
                 <div class="content-header-right col-md-6 col-12 text-md-right">
-                    <div class="d-flex align-items-center justify-content-end mb-1">
-                        <a href="{!! route('dashboard.cheques.index') !!}" class="btn-premium-back mr-1">
+                    <div class="d-flex align-items-center justify-content-end gap-2 mb-1">
+                        <a href="{!! route('dashboard.cheques.index') !!}" class="btn-premium-back">
                             <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
                         </a>
-                        <button class="btn btn-premium-save shadow-pulse" type="submit"
+                        <button class="btn btn-premium-save" type="submit"
                             wire:loading.attr="disabled" wire:target="update">
-                            <i class="fas fa-save" wire:loading.remove wire:target="update"></i>
-                            <i class="fas fa-sync fa-spin ml-1" wire:loading wire:target="update"></i>
+                            <i wire:loading.remove wire:target="update" class="fas fa-save mr-2"></i>
+                            <i wire:loading wire:target="update" class="fas fa-sync fa-spin mr-2"></i>
                             {!! __('general.save') !!}
                         </button>
                     </div>
@@ -73,13 +73,12 @@
                                         <div class="row">
                                             @if (user()->company_id == 1)
                                                 <div class="col-md-12 mb-2" wire:key="company-select-container">
-                                                    <div class="premium-form-group">
+                                                    <div class="premium-form-group @error('company_id') is-invalid-premium @enderror">
                                                         <label for="company_id">{!! __('companies.company') !!} <span
                                                                 class="text-danger">*</span></label>
-                                                        <div class="premium-input-wrapper opacity-75 @error('company_id') is-invalid-premium @enderror"
-                                                            wire:ignore>
+                                                        <div wire:ignore>
                                                             <select
-                                                                class="form-control premium-input shadow-none js-select2"
+                                                                class="form-control premium-input shadow-none js-select2 opacity-75"
                                                                 id='company_id' wire:model.live="company_id" disabled>
                                                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                                                 @foreach ($companies as $company)
@@ -88,7 +87,6 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
-                                                            <i class="fas fa-lock text-primary"></i>
                                                         </div>
                                                         @error('company_id')
                                                             <span class="text-danger error-text">{{ $message }}</span>
@@ -99,15 +97,14 @@
 
                                             <div class="col-md-12"
                                                 wire:key="contract-select-container-{{ $company_id }}-{{ $contract_id ? 'has-contract' : 'no-contract' }}-{{ $validation_fail_nonce }}">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('contract_id') is-invalid-premium @enderror">
                                                     <label for="contract_id"
                                                         class="premium-label font-weight-bold">{!! __('cheques.contract') !!}
                                                         <span class="text-danger">*</span></label>
-                                                    <div class="premium-input-wrapper opacity-75 @error('contract_id') is-invalid-premium @enderror"
-                                                        wire:ignore
+                                                    <div wire:ignore
                                                         wire:key="contract-id-wrapper">
                                                         <select
-                                                            class="form-control premium-input shadow-none js-select2"
+                                                            class="form-control premium-input shadow-none js-select2 opacity-75"
                                                             id='contract_id' wire:model.live="contract_id" disabled>
                                                             <option value="">
                                                                 {!! __('contracts.select_contract') !!}
@@ -118,7 +115,6 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="fas fa-lock text-primary"></i>
                                                     </div>
                                                     @error('contract_id')
                                                         <span class="text-danger error-text">{{ $message }}</span>
@@ -141,18 +137,14 @@
                                         class="card-body {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}">
                                         <div class="row">
                                             <div class="col-md-4 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('cheque_number') is-invalid-premium @enderror">
                                                     <label for="cheque_number">{!! __('cheques.cheque_number') !!} <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('cheque_number') is-invalid-premium @enderror">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="cheque_number" wire:model="cheque_number"
-                                                            placeholder="{!! __('cheques.cheque_number') !!}"
-                                                            autocomplete="off">
-                                                        <i class="fas fa-barcode text-primary"></i>
-                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control premium-input shadow-none"
+                                                        id="cheque_number" wire:model="cheque_number"
+                                                        placeholder="{!! __('cheques.cheque_number') !!}"
+                                                        autocomplete="off">
                                                     @error('cheque_number')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -160,19 +152,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('amount') is-invalid-premium @enderror">
                                                     <label for="amount">{!! __('cheques.amount') !!} <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('amount') is-invalid-premium @enderror {{ ($currentChequeUsedAmount > 0) ? 'opacity-75' : '' }}">
-                                                        <input type="number" step="0.01"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="amount" wire:model.live.debounce.150ms="amount"
-                                                            placeholder="0.00"
-                                                            {{ $currentChequeUsedAmount > 0 ? 'readonly' : '' }}
-                                                            autocomplete="off">
-                                                        <i class="fas fa-money-bill-wave text-primary"></i>
-                                                    </div>
+                                                    <input type="number" step="0.01"
+                                                        class="form-control premium-input shadow-none {{ ($currentChequeUsedAmount > 0) ? 'opacity-75' : '' }}"
+                                                        id="amount" wire:model.live.debounce.150ms="amount"
+                                                        placeholder="0.00"
+                                                        {{ $currentChequeUsedAmount > 0 ? 'readonly' : '' }}
+                                                        autocomplete="off">
                                                     @error('amount')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -188,11 +176,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('status') is-invalid-premium @enderror">
                                                     <label for="status">{!! __('cheques.status') !!} <span
                                                             class="text-danger">*</span></label>
-                                                    <div class="premium-input-wrapper @error('status') is-invalid-premium @enderror"
-                                                        wire:ignore
+                                                    <div wire:ignore
                                                         wire:key="status-wrapper-enabled">
                                                         <select
                                                             class="form-control premium-input shadow-none js-select2"
@@ -203,7 +190,6 @@
                                                                     {!! $value !!}</option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="fas fa-info-circle text-primary"></i>
                                                     </div>
                                                     @error('status')
                                                         <span
@@ -216,30 +202,25 @@
                                                 <div class="premium-form-group">
                                                     <label for="is_deposit">{!! __('cheques.is_deposit') !!} <span
                                                             class="text-danger">*</span></label>
-                                                    <div class="premium-input-wrapper opacity-75">
-                                                        <select class="form-control premium-input shadow-none"
-                                                            id="is_deposit_display" wire:model.live="is_deposit"
-                                                            disabled>
-                                                            <option value="0">{!! __('general.no') !!}
-                                                            </option>
-                                                            <option value="1">{!! __('general.yes') !!}
-                                                            </option>
-                                                        </select>
-                                                        <i class="fas fa-shield-alt text-primary"></i>
-                                                    </div>
+                                                    <select class="form-control premium-input shadow-none opacity-75"
+                                                        id="is_deposit_display" wire:model.live="is_deposit"
+                                                        disabled>
+                                                        <option value="0">{!! __('general.no') !!}
+                                                        </option>
+                                                        <option value="1">{!! __('general.yes') !!}
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('issue_date') is-invalid-premium @enderror">
                                                     <label for="issue_date">{!! __('cheques.issue_date') !!}</label>
-                                                    <div class="premium-input-wrapper @error('issue_date') is-invalid-premium @enderror"
-                                                        wire:ignore
+                                                    <div wire:ignore
                                                         wire:key="issue-date-wrapper-enabled">
                                                         <input type="text"
                                                             class="form-control premium-input shadow-none ptc-datepicker"
                                                             id="issue_date" wire:model="issue_date"
                                                             autocomplete="off" placeholder="YYYY-MM-DD">
-                                                        <i class="fas fa-calendar-alt text-primary"></i>
                                                     </div>
                                                     @error('issue_date')
                                                         <span
@@ -248,16 +229,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('due_date') is-invalid-premium @enderror">
                                                     <label for="due_date">{!! __('cheques.due_date') !!}</label>
-                                                    <div class="premium-input-wrapper @error('due_date') is-invalid-premium @enderror"
-                                                        wire:ignore
+                                                    <div wire:ignore
                                                         wire:key="due-date-wrapper-enabled">
                                                         <input type="text"
                                                             class="form-control premium-input shadow-none ptc-datepicker"
                                                             id="due_date" wire:model="due_date"
                                                             autocomplete="off" placeholder="YYYY-MM-DD">
-                                                        <i class="fas fa-calendar-check text-primary"></i>
                                                     </div>
                                                     @error('due_date')
                                                         <span
@@ -289,19 +268,15 @@
                                         class="card-body {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}">
                                         <div class="row">
                                             <div class="col-md-6 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('bank_name.ar') is-invalid-premium @enderror">
                                                     <label for="bank_name_ar">{!! __('cheques.bank_name') !!}
                                                         ({!! __('general.ar') !!}) <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('bank_name.ar') is-invalid-premium @enderror">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="bank_name_ar" wire:model="bank_name.ar"
-                                                            placeholder="{!! __('cheques.bank_name') !!}"
-                                                            autocomplete="off">
-                                                        <i class="fas fa-university text-primary"></i>
-                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control premium-input shadow-none"
+                                                        id="bank_name_ar" wire:model="bank_name.ar"
+                                                        placeholder="{!! __('cheques.bank_name') !!}"
+                                                        autocomplete="off">
                                                     @error('bank_name.ar')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -309,19 +284,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('bank_name.en') is-invalid-premium @enderror">
                                                     <label for="bank_name_en">{!! __('cheques.bank_name') !!}
                                                         ({!! __('general.en') !!}) <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('bank_name.en') is-invalid-premium @enderror">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="bank_name_en" wire:model="bank_name.en"
-                                                            placeholder="{!! __('cheques.bank_name') !!}"
-                                                            autocomplete="off">
-                                                        <i class="fas fa-university text-primary"></i>
-                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control premium-input shadow-none"
+                                                        id="bank_name_en" wire:model="bank_name.en"
+                                                        placeholder="{!! __('cheques.bank_name') !!}"
+                                                        autocomplete="off">
                                                     @error('bank_name.en')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -329,19 +300,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('cheque_owner_name.ar') is-invalid-premium @enderror">
                                                     <label for="owner_name_ar">{!! __('cheques.cheque_owner_name') !!}
                                                         ({!! __('general.ar') !!}) <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('cheque_owner_name.ar') is-invalid-premium @enderror">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="owner_name_ar" wire:model="cheque_owner_name.ar"
-                                                            placeholder="{!! __('cheques.cheque_owner_name') !!}"
-                                                            autocomplete="off">
-                                                        <i class="fas fa-user text-primary"></i>
-                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control premium-input shadow-none"
+                                                        id="owner_name_ar" wire:model="cheque_owner_name.ar"
+                                                        placeholder="{!! __('cheques.cheque_owner_name') !!}"
+                                                        autocomplete="off">
                                                     @error('cheque_owner_name.ar')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -349,19 +316,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <div class="premium-form-group">
+                                                <div class="premium-form-group @error('cheque_owner_name.en') is-invalid-premium @enderror">
                                                     <label for="owner_name_en">{!! __('cheques.cheque_owner_name') !!}
                                                         ({!! __('general.en') !!}) <span
                                                             class="text-danger">*</span></label>
-                                                    <div
-                                                        class="premium-input-wrapper @error('cheque_owner_name.en') is-invalid-premium @enderror">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none"
-                                                            id="owner_name_en" wire:model="cheque_owner_name.en"
-                                                            placeholder="{!! __('cheques.cheque_owner_name') !!}"
-                                                            autocomplete="off">
-                                                        <i class="fas fa-user text-primary"></i>
-                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control premium-input shadow-none"
+                                                        id="owner_name_en" wire:model="cheque_owner_name.en"
+                                                        placeholder="{!! __('cheques.cheque_owner_name') !!}"
+                                                        autocomplete="off">
                                                     @error('cheque_owner_name.en')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -369,13 +332,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="premium-form-group mb-0">
+                                                <div class="premium-form-group mb-0 @error('notes') is-invalid-premium @enderror">
                                                     <label for="notes">{!! __('cheques.notes') !!}</label>
-                                                    <div
-                                                        class="premium-input-wrapper no-icon @error('notes') is-invalid-premium @enderror">
-                                                        <textarea class="form-control premium-textarea-standalone shadow-none" id="notes" wire:model="notes" rows="3"
-                                                            placeholder="{!! __('cheques.any_notes') !!}"></textarea>
-                                                    </div>
+                                                    <textarea class="form-control premium-input shadow-none h-80" id="notes" wire:model="notes"
+                                                        placeholder="{!! __('cheques.any_notes') !!}"></textarea>
                                                     @error('notes')
                                                         <span
                                                             class="text-danger error-text">{{ $message }}</span>
@@ -518,7 +478,8 @@
                     }
                     $el.select2({
                         width: '100%',
-                        dir: $('html').attr('data-textdirection') || 'ltr'
+                        dir: $('html').attr('data-textdirection') || 'ltr',
+                        dropdownParent: $('body')
                     }).on('change', function(e) {
                         let val = $(this).val();
                         let model = $(this).attr('wire:model.live') || $(this).attr('wire:model') || this.id;

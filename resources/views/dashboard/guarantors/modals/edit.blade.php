@@ -27,19 +27,16 @@
                         <!-- Company -->
                         @if (user()->company_id == 1)
                             <div class="col-md-12 mb-1">
-                                <div class="premium-form-group">
-                                    <label for="edit_company_id">{!! __('companies.company') !!} <span
+                                <div class="premium-form-group" id="edit_company_id_group">
+                                    <label class="font-weight-bold">{!! __('companies.company') !!} <span
                                             class="text-danger">*</span></label>
-                                    <div class="premium-input-wrapper">
-                                        <select class="form-control premium-input shadow-none" id='edit_company_id'
-                                            name="company_id">
-                                            <option value="">{!! __('general.select_from_list') !!}</option>
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <i class="fas fa-briefcase text-primary"></i>
-                                    </div>
+                                    <select class="form-control premium-input shadow-none select2" id='edit_company_id'
+                                        name="company_id">
+                                        <option value="">{!! __('general.select_from_list') !!}</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <span class="text-danger error-text company_id_error"></span>
                                 </div>
                             </div>
@@ -48,15 +45,12 @@
                         <!-- Name AR -->
                         <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_name_ar">{!! __('guarantors.name') !!} ({!! __('general.ar') !!}) <span
+                                <label class="font-weight-bold">{!! __('guarantors.name') !!} ({!! __('general.ar') !!}) <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="edit_name_ar" name="name[ar]"
-                                        placeholder="{!! __('guarantors.name') !!} ({!! __('general.ar') !!})"
-                                        autocomplete="off">
-                                    <i class="fas fa-user text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="edit_name_ar" name="name[ar]"
+                                    placeholder="{!! __('guarantors.name') !!} ({!! __('general.ar') !!})"
+                                    autocomplete="off">
                                 <span class="text-danger error-text name_ar_error"></span>
                             </div>
                         </div>
@@ -64,15 +58,12 @@
                         <!-- Name EN -->
                         <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_name_en">{!! __('guarantors.name') !!} ({!! __('general.en') !!}) <span
+                                <label class="font-weight-bold">{!! __('guarantors.name') !!} ({!! __('general.en') !!}) <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="edit_name_en" name="name[en]"
-                                        placeholder="{!! __('guarantors.name') !!} ({!! __('general.en') !!})"
-                                        autocomplete="off">
-                                    <i class="fas fa-user text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="edit_name_en" name="name[en]"
+                                    placeholder="{!! __('guarantors.name') !!} ({!! __('general.en') !!})"
+                                    autocomplete="off">
                                 <span class="text-danger error-text name_en_error"></span>
                             </div>
                         </div>
@@ -80,14 +71,11 @@
                         <!-- ID Number -->
                         <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_id_number">{!! __('guarantors.id_number') !!} <span
+                                <label class="font-weight-bold">{!! __('guarantors.id_number') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="edit_id_number" name="id_number" placeholder="{!! __('guarantors.id_number') !!}"
-                                        autocomplete="off">
-                                    <i class="fas fa-credit-card text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="edit_id_number" name="id_number" placeholder="{!! __('guarantors.id_number') !!}"
+                                    autocomplete="off">
                                 <span class="text-danger error-text id_number_error"></span>
                             </div>
                         </div>
@@ -95,14 +83,11 @@
                         <!-- Phone -->
                         <div class="col-md-6 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_phone">{!! __('guarantors.phone') !!} <span
+                                <label class="font-weight-bold">{!! __('guarantors.phone') !!} <span
                                         class="text-danger">*</span></label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none text-left"
-                                        id="edit_phone" name="phone" placeholder="{!! __('guarantors.phone') !!}"
-                                        dir="ltr" autocomplete="off">
-                                    <i class="fas fa-phone text-primary"></i>
-                                </div>
+                                <input type="text" class="form-control premium-input shadow-none text-left"
+                                    id="edit_phone" name="phone" placeholder="{!! __('guarantors.phone') !!}"
+                                    dir="ltr" autocomplete="off">
                                 <span class="text-danger error-text phone_error"></span>
                             </div>
                         </div>
@@ -110,13 +95,10 @@
                         <!-- Address -->
                         <div class="col-md-12 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_address">{!! __('guarantors.address') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <input type="text" class="form-control premium-input shadow-none"
-                                        id="edit_address" name="address" placeholder="{!! __('guarantors.address') !!}"
-                                        autocomplete="off">
-                                    <i class="fas fa-map-marker text-primary"></i>
-                                </div>
+                                <label class="font-weight-bold">{!! __('guarantors.address') !!}</label>
+                                <input type="text" class="form-control premium-input shadow-none"
+                                    id="edit_address" name="address" placeholder="{!! __('guarantors.address') !!}"
+                                    autocomplete="off">
                                 <span class="text-danger error-text address_error"></span>
                             </div>
                         </div>
@@ -124,12 +106,9 @@
                         <!-- Notes -->
                         <div class="col-md-12 mb-1">
                             <div class="premium-form-group">
-                                <label for="edit_notes">{!! __('guarantors.notes') !!}</label>
-                                <div class="premium-input-wrapper">
-                                    <textarea class="form-control premium-input shadow-none" id="edit_notes" name="notes" rows="4"
-                                        placeholder="{!! __('guarantors.notes') !!}"></textarea>
-                                    <i class="fas fa-comment-dots text-primary"></i>
-                                </div>
+                                <label class="font-weight-bold">{!! __('guarantors.notes') !!}</label>
+                                <textarea class="form-control premium-input shadow-none" id="edit_notes" name="notes" rows="4"
+                                    placeholder="{!! __('guarantors.notes') !!}"></textarea>
                                 <span class="text-danger error-text notes_error"></span>
                             </div>
                         </div>

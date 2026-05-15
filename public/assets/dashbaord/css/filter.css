@@ -29,10 +29,11 @@
     color: #4b49ac;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
+    gap: 10px;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .filter-item {
@@ -43,7 +44,7 @@
 .filter-chip {
     background: #f8f9fa;
     border: 1.5px solid #e9ecef;
-    border-radius: 8px !important;
+    border-radius: 3px !important;
     padding: 8px 18px;
     cursor: pointer;
     display: flex;
@@ -51,23 +52,24 @@
     gap: 6px; /* Reduced gap */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    color: #6c757d;
+    color: #1e293b;
     font-size: 14px;
     user-select: none;
     font-weight: 500;
 }
 
 .filter-chip i {
-    font-size: 18px;
+    font-size: 13px;
     transition: transform 0.3s;
-    margin: 0 !important; /* Remove any inherited margins */
+    margin: 0 !important;
+    color: #1e293b;
 }
 
 .filter-chip:hover {
     background: #ffffff;
-    border-color: #4b49ac;
-    color: #4b49ac;
-    box-shadow: 0 4px 12px rgba(75, 73, 172, 0.12);
+    border-color: #1e293b;
+    color: #1e293b;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.12);
 }
 
 .filter-chip.active {
@@ -83,9 +85,9 @@
 }
 
 .filter-chip.popover-open {
-    border-color: #4b49ac;
+    border-color: #1e293b;
     background: #fff;
-    color: #4b49ac;
+    color: #1e293b;
 }
 
 .ptc-query-panel {
@@ -141,6 +143,28 @@
     box-shadow: 0 0 0 3px rgba(75, 73, 172, 0.1);
 }
 
+/* Select2 Vertical Centering Fix in Filters */
+.ptc-query-panel .select2-container--default .select2-selection--single {
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    border-color: #eee !important;
+    border-radius: 2px !important;
+}
+
+.ptc-query-panel .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 42px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    color: #1e293b !important;
+}
+
+.ptc-query-panel .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
 /* RTL Support for Query Bar Label */
 [data-textdirection="rtl"] .query-bar-label {
     margin-left: 0;
@@ -194,15 +218,24 @@
 }
 
 .reset-chip {
-    color: #ea5455;
-    border-color: #fadbd8;
-    background: #fdf2f2;
+    color: #4b49ac !important;
+    border-color: #d1d0f5 !important;
+    background: #f0f0ff !important;
+}
+
+.reset-chip i {
+    color: #4b49ac !important;
 }
 
 .reset-chip:hover {
-    background: #ea5455;
-    color: #fff;
-    border-color: #ea5455;
+    background: #4b49ac !important;
+    color: #ffffff !important;
+    border-color: #4b49ac !important;
+    box-shadow: 0 4px 15px rgba(75, 73, 172, 0.3);
+}
+
+.reset-chip:hover i {
+    color: #ffffff !important;
 }
 
 @media (max-width: 991px) {

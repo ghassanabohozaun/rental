@@ -11,10 +11,16 @@
     margin: 0 !important;
 }
 
+/* Global Premium Input Height Standardization (48px) */
+.premium-input:not(textarea) {
+    height: 3rem !important;
+    line-height: 3rem !important;
+}
+
 /* Prevent FOUC (Flash of Unstyled Content) & Browser Default Arrow */
 select.select2:not(.select2-hidden-accessible) {
     visibility: hidden !important;
-    height: 42px !important;
+    height: 3rem !important;
     padding: 0 !important;
     appearance: none !important;
     -webkit-appearance: none !important;
@@ -37,12 +43,12 @@ select.select2:not(.select2-hidden-accessible) {
 }
 
 /* Error State - Extreme Specificity to override defaults */
-div.is-invalid-premium .select2-container--default .select2-selection--single,
+.is-invalid-premium .select2-container--default .select2-selection--single,
 .is-invalid-premium + .select2-container--default .select2-selection--single,
-.select2-container--default .select2-selection--single.is-invalid-premium {
-    border-color: #ff4d4f !important;
-    box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.25) !important;
-    background-color: #fffafb !important;
+.select2-container--default.is-invalid-premium .select2-selection--single {
+    border: 1.5px solid #ef4444 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;
+    background-color: #fff5f5 !important;
 }
 
 div.is-invalid-premium .select2-container--default.select2-container--focus .select2-selection--single,
@@ -55,7 +61,7 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important; /* Standard gray border */
     border-radius: 4px !important;
-    height: 42px !important;
+    height: 3rem !important;
     display: flex !important;
     align-items: center !important;
     transition: all 0.2s ease !important;
@@ -93,11 +99,13 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
     color: #1e293b !important;
     font-weight: 500 !important;
     font-size: inherit !important;
-    padding: 2px 0 0 0 !important; /* Added 2px top padding to push text down */
+    padding: 0 !important;
     margin: 0 !important;
-    line-height: 40px !important; /* Adjusted line-height to maintain 42px total */
+    line-height: normal !important;
     width: 100% !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
 }
 
 /* Force Right Alignment in RTL */
@@ -212,10 +220,11 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 
 /* 
    Final Stacking & Clipping Fixes 
-   Elevate the active card above others when interacting with inputs
+   Elevate the active card and form group above others when interacting with inputs
 */
-.premium-card-anim:focus-within {
-    z-index: 10 !important;
+.premium-card-anim:focus-within,
+.premium-form-group:focus-within {
+    z-index: 9999 !important;
     position: relative !important;
 }
 
@@ -223,11 +232,12 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
     z-index: 10000 !important;
 }
 
-/* Definitive Select2 Error Glow Fix */
-.is-invalid-premium + .select2-container--default .select2-selection--single,
-.select2-container--default.is-invalid-premium .select2-selection--single,
-.is-invalid-premium.select2-container--default .select2-selection--single {
+/* Definitive Error Glow Fix for all Premium Inputs */
+.premium-form-group.is-invalid-premium .select2-container--default .select2-selection--single,
+.is-invalid-premium .premium-input,
+.premium-input.is-invalid-premium {
     border: 1.5px solid #ef4444 !important;
     background-color: #fff5f5 !important;
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;
 }
+
