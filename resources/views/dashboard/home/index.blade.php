@@ -420,16 +420,13 @@
                 chart: {
                     type: 'donut',
                     height: 320,
-                    fontFamily: 'Cairo, sans-serif',
-                    animations: {
-                        enabled: true
-                    }
+                    fontFamily: 'Cairo, sans-serif'
                 },
                 colors: ['#2ecc71', '#e0e6ed'],
                 series: {!! json_encode($occupancyChart['series']) !!},
                 labels: {!! json_encode($occupancyChart['labels']) !!},
                 legend: {
-                    show: false // Disabled default legend to prevent overlap
+                    position: 'bottom'
                 },
                 plotOptions: {
                     pie: {
@@ -467,6 +464,7 @@
                     occupancyOptions);
                 occupancyChart.render();
 
+                // Ensuring responsiveness on live servers like Hostinger
                 new ResizeObserver(() => {
                     occupancyChart.updateOptions({ chart: { width: '100%' } }, false, false);
                 }).observe(document.querySelector("#occupancy-donut-chart").parentElement);
