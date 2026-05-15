@@ -60,11 +60,11 @@
                             <div class="col-md-12">
                                 <div class="card premium-card shadow-lg border-0">
                                     <!-- begin: card header -->
-                                    <div class="card-header border-0 pb-0">
-                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
-                                            <i class="fas fa-plus-circle text-primary mr-2 icon-size-16"></i> 
-                                            {!! __('roles.create_new_role') !!}
-                                        </h6>
+                                    <div class="premium-mandatory-header py-2">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-users-cog"></i>
+                                            <span class="font-weight-bold">{!! __('roles.create_new_role') !!}</span>
+                                        </div>
                                     </div>
                                     <!-- end: card header -->
 

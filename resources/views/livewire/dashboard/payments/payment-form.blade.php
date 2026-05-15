@@ -65,9 +65,11 @@
                             <!-- Step 1: Contract Selection Card -->
                             <div class="premium-card-anim" wire:key="card-1-wrapper-{{ $validation_fail_nonce }}">
                                 <div class="card premium-card mb-2">
-                                    <div class="premium-mandatory-header">
-                                        <i class="fas fa-file-contract text-info"></i>
-                                        {!! __('payments.contract_selection') !!}
+                                    <div class="premium-mandatory-header py-2">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-file-contract"></i>
+                                            <span class="font-weight-bold">{!! __('payments.contract_selection') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -128,9 +130,11 @@
                             @if(!($contract_id && $financials['remaining'] <= 0 && !$isEdit))
                                 <div class="premium-fade-in {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}" wire:key="payment-inputs-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="card premium-card mb-2">
-                                        <div class="premium-mandatory-header">
-                                            <i class="fas fa-money-bill-wave text-success"></i>
-                                            {!! __('payments.payment_info') !!}
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-money-bill-wave"></i>
+                                                <span class="font-weight-bold">{!! __('payments.payment_info') !!}</span>
+                                            </div>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -252,9 +256,11 @@
                                 <!-- Contract Insight Card -->
                                 <div class="premium-card-anim" wire:key="summary-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="payment-summary-card-premium mb-3 {{ ($projectedRemaining ?? 0) < 0 ? 'pulse-red' : '' }}">
-                                        <div class="summary-header-premium">
-                                            <i class="fas fa-chart-pie"></i>
-                                            <div class="summary-title-premium">{!! __('payments.contract_financial_summary') !!}</div>
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-chart-pie"></i>
+                                                <span class="font-weight-bold">{!! __('payments.contract_financial_summary') !!}</span>
+                                            </div>
                                         </div>
 
                                         <div class="summary-body-premium" wire:loading.class.delay.500ms="opacity-50">
@@ -311,13 +317,13 @@
 
                                                 <!-- Portfolio Section -->
                                                 @if(count($allCheques) > 0)
-                                                    <div class="portfolio-section-premium">
-                                                        <div class="portfolio-title-box">
-                                                            <div class="portfolio-title-text">
-                                                                <i class="fas fa-wallet text-primary"></i> {!! __('payments.linked_cheques') !!}
-                                                            </div>
-                                                            <span class="badge badge-light-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ count($allCheques) }}</span>
-                                                        </div>
+                                                <div class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center" style="background: transparent;">
+                                                    <div class="title-wrapper">
+                                                        <i class="fas fa-wallet"></i>
+                                                        <span class="font-weight-bold" style="font-size: 0.95rem;">{!! __('payments.linked_cheques') !!}</span>
+                                                    </div>
+                                                    <span class="badge badge-light-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ count($allCheques) }}</span>
+                                                </div>
                                                         
                                                         <div class="linked-cheques-scrollable-premium">
                                                             @foreach($allCheques as $chq)
@@ -379,9 +385,11 @@
                                 <!-- Card 2: Quick Tips -->
                                 <div class="premium-card-anim mt-3" wire:key="tips-wrapper">
                                     <div class="legendary-tips-card">
-                                        <div class="legendary-header">
-                                            <i class="fas fa-lightbulb"></i>
-                                            <div class="legendary-title">{!! __('properties.quick_tips') !!}</div>
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-lightbulb"></i>
+                                                <span class="font-weight-bold">{!! __('properties.quick_tips') !!}</span>
+                                            </div>
                                         </div>
                                         <ul class="legendary-list">
                                             <li><i class="fas fa-check-circle"></i> {!! __('payments.tip_verify_amount') !!}</li>

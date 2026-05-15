@@ -4697,23 +4697,34 @@ margin-bottom: 2rem;
 }
 
 .premium-mandatory-header {
-background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-padding: 8px 8px;
-color: #991b1b;
-font-weight: 700;
-font-size: 1rem;
-display: flex;
-align-items: center;
-border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+    background: #f8fafc;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1.58rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.premium-mandatory-header .title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #1e293b;
+    font-weight: 800;
+    font-size: 1.27rem;
 }
 
 .premium-mandatory-header i {
-margin-right: 8px;
-font-size: 1.2rem;
+    font-size: 1.45rem;
+    color: #475569;
+    margin-right: 0;
 }
 
 .premium-mandatory-body {
-padding: 8px 8px 5px 8px;
+    padding: 25px 20px;
 }
 
 /* Icons in mandatory section (LTR) */
@@ -9255,23 +9266,34 @@ margin-bottom: 2rem;
 }
 
 html[dir='rtl'] .premium-mandatory-header {
-background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-padding: 8px 8px;
-color: #991b1b;
-font-weight: 700;
-font-size: 1.35rem;
-display: flex;
-align-items: center;
-border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+    background: #f8fafc;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1.27rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+html[dir='rtl'] .premium-mandatory-header .title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #1e293b;
+    font-weight: 800;
+    font-size: 1.27rem;
 }
 
 html[dir='rtl'] .premium-mandatory-header i {
-margin-left: 8px;
-font-size: 1.2rem;
+    margin-left: 0;
+    font-size: 1.45rem;
+    color: #475569;
 }
 
 html[dir='rtl'] .premium-mandatory-body {
-padding: 8px 8px 5px 8px;
+    padding: 25px 20px;
 }
 
 /* Icons in mandatory section - RTL Positioning */
@@ -10189,3 +10211,68 @@ html[dir="rtl"] .premium-label.d-flex {
 .gap-15px { gap: 15px !important; }
 
 textarea.premium-input, input.premium-input, select.premium-input { border: 1px solid #e2e8f0 !important; border-radius: 2px !important; display: block !important; }
+/* ==========================================================================
+   ROYAL PREMIUM CARDS - UNIFIED DESIGN SYSTEM
+   ========================================================================== */
+.premium-card {
+    background: #ffffff !important;
+    border: 1px solid #f1f5f9 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+    margin-bottom: 1.5rem !important;
+    overflow: hidden !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    position: relative !important;
+    will-change: transform, box-shadow, border-color !important;
+}
+
+/* Hover Effect for Animated Cards */
+.premium-card-anim {
+    cursor: default !important;
+}
+
+.premium-card-anim:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06) !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Premium Card Body Refinement */
+.premium-card .card-body {
+    padding: 1.5rem !important;
+}
+
+/* Entry Animation: Slide Up Fade In */
+.premium-fade-in {
+    animation: premiumSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes premiumSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RTL Specific Overrides for Cards */
+html[dir='rtl'] .premium-card {
+    text-align: right !important;
+}
+
+/* Glassmorphism subtle variant for sidebar cards */
+.payment-summary-card-premium {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.payment-summary-card-premium:hover {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07) !important;
+}

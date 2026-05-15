@@ -102,12 +102,12 @@
                         <div class="col-md-12">
                             <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
-                                <div class="card-header border-0 pb-0">
-                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
-                                        <i class="fas fa-users text-primary mr-2 icon-size-16"></i>
-                                        {!! __('customers.customers') !!}
+                                <div class="premium-mandatory-header py-2">
+                                    <div class="title-wrapper">
+                                        <i class="fas fa-users"></i>
+                                        <span class="font-weight-bold">{!! __('customers.customers') !!}</span>
                                         <span id="customersCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $customers->total() !!}</span>
-                                    </h6>
+                                    </div>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>

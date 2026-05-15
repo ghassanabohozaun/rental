@@ -103,13 +103,13 @@
                         <div class="col-md-12">
                             <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
-                                <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="fas fa-calculator text-primary mr-2" style="font-size: 24px;"></i>
-                                        {!! __('payments.payments') !!}
+                                <div class="premium-mandatory-header py-2">
+                                    <div class="title-wrapper">
+                                        <i class="fas fa-calculator"></i>
+                                        <span class="font-weight-bold">{!! __('payments.payments') !!}</span>
                                         <span id="paymentsCountBadge" class="badge badge-primary badge-pill badge-glow ml-2"
                                             style="font-size: 11px;">{!! $payments->total() !!}</span>
-                                    </h4>
+                                    </div>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>

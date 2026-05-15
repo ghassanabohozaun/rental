@@ -35,7 +35,10 @@
                     <!-- Section 1: Personal Information -->
                     <div class="card premium-card mb-2 premium-card-anim">
                         <div class="premium-mandatory-header py-2 border-bottom-0">
-                            <div class="font-weight-bold text-dark">{!! __('customers.personal_info') !!}</div>
+                            <div class="title-wrapper">
+                                <i class="fas fa-user-tie"></i>
+                                <span class="font-weight-bold">{!! __('customers.personal_info') !!}</span>
+                            </div>
                         </div>
                         <div class="card-body">
                             @if (user()->company_id == 1)
@@ -246,7 +249,10 @@
                     <div class="card premium-card mb-2 @error('customer_guarantors') premium-card-error-glow pulse-error @enderror"
                         wire:key="guarantors-card-wrapper-{{ $validation_fail_nonce }}">
                         <div class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center">
-                            <div class="font-weight-bold text-dark">{!! __('customers.guarantors') !!}</div>
+                            <div class="title-wrapper">
+                                <i class="fas fa-user-shield"></i>
+                                <span class="font-weight-bold">{!! __('customers.guarantors') !!}</span>
+                            </div>
                             <div class="text-center">
                                 <button type="button" wire:click="openGuarantorModal" class="btn-premium-add-guarantor"
                                     title="{{ __('guarantors.add_guarantor') }}">
@@ -327,6 +333,12 @@
 
                     <!-- Row 4: Notes -->
                     <div class="card premium-card mb-2 premium-card-anim">
+                        <div class="premium-mandatory-header py-2 border-bottom-0">
+                            <div class="title-wrapper">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="font-weight-bold">{!! __('customers.notes') !!}</span>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">

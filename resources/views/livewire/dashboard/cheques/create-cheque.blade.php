@@ -69,9 +69,11 @@
                             <!-- Card 1: Contract & Company -->
                             <div class="premium-fade-in" wire:key="card-1-wrapper-{{ $validation_fail_nonce }}">
                                 <div class="card premium-card mb-2">
-                                    <div class="premium-mandatory-header">
-                                        <i class="fas fa-file-contract text-primary"></i>
-                                        {!! __('cheques.contract_selection') !!}
+                                    <div class="premium-mandatory-header py-2">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-file-contract"></i>
+                                            <span class="font-weight-bold">{!! __('cheques.contract_selection') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -164,9 +166,11 @@
                                 <!-- Card 2: Cheque Details -->
                                 <div class="premium-card-anim" wire:key="card-2-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="card premium-card mb-2">
-                                        <div class="premium-mandatory-header">
-                                            <i class="fas fa-money-check-alt text-warning"></i>
-                                            {!! __('cheques.cheque_details') !!}
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-money-check-alt"></i>
+                                                <span class="font-weight-bold">{!! __('cheques.cheque_details') !!}</span>
+                                            </div>
                                         </div>
                                         <div
                                             class="card-body {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}">
@@ -291,9 +295,11 @@
                                 <div class="premium-card-anim"
                                     wire:key="card-3-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="card premium-card mb-2">
-                                        <div class="premium-mandatory-header">
-                                            <i class="fas fa-university text-danger"></i>
-                                            {!! __('cheques.bank_and_owner_info') !!}
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-university"></i>
+                                                <span class="font-weight-bold">{!! __('cheques.bank_and_owner_info') !!}</span>
+                                            </div>
                                         </div>
                                         <div
                                             class="card-body {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}">
@@ -391,9 +397,11 @@
                                 <!-- Card 1: Financial Summary -->
                                 <div class="premium-card-anim" wire:key="summary-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="payment-summary-card-premium mb-3 {{ $projectedRemaining < 0 ? 'pulse-red' : '' }}">
-                                        <div class="summary-header-premium">
-                                            <i class="fas fa-chart-pie"></i>
-                                            <div class="summary-title-premium">{!! __('payments.contract_financial_summary') !!}</div>
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-chart-pie"></i>
+                                                <span class="font-weight-bold">{!! __('payments.contract_financial_summary') !!}</span>
+                                            </div>
                                         </div>
 
                                         <div class="summary-body-premium" wire:loading.class.delay.500ms="opacity-50">
@@ -483,9 +491,11 @@
                                 <!-- Card 2: Quick Tips -->
                                 <div class="premium-card-anim" wire:key="tips-wrapper">
                                     <div class="legendary-tips-card">
-                                        <div class="legendary-header">
-                                            <i class="fas fa-lightbulb"></i>
-                                            <div class="legendary-title">{!! __('properties.quick_tips') !!}</div>
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-lightbulb"></i>
+                                                <span class="font-weight-bold">{!! __('properties.quick_tips') !!}</span>
+                                            </div>
                                         </div>
                                         <ul class="legendary-list">
                                             <li><i class="fas fa-check-circle"></i> {!! __('cheques.tip_1') !!}</li>

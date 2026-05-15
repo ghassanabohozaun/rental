@@ -4,9 +4,9 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <link href="{!! asset('vendor/summernote/summernote-bs4.css') !!}" rel="stylesheet">
-    
 @endpush
 
 @section('content')
@@ -61,11 +61,11 @@
                         <div class="row match-height">
                             <div class="col-md-12">
                                 <div class="card premium-card shadow-lg border-0 premium-card-anim">
-                                    <div class="card-header border-0 pb-0">
-                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                            <i class="fas fa-edit text-primary mr-2 icon-size-16"></i> 
-                                            {!! __('contracts.update_contract') !!}
-                                        </h6>
+                                    <div class="premium-mandatory-header py-2">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-file-signature"></i>
+                                            <span class="font-weight-bold">{!! __('contracts.update_contract') !!}</span>
+                                        </div>
                                     </div>
 
                                     <div class="card-content collapse show">
@@ -74,12 +74,15 @@
                                             <div class="d-flex justify-content-center w-100 mb-2">
                                                 <ul class="nav premium-nav-tabs" id="contractTabs" role="tablist">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" data-text="{!! __('contracts.basic_details_tab') !!}">
+                                                        <a class="nav-link active" id="basic-tab" data-toggle="tab"
+                                                            href="#basic" role="tab"
+                                                            data-text="{!! __('contracts.basic_details_tab') !!}">
                                                             <i class="fas fa-info-circle"></i> {!! __('contracts.basic_details_tab') !!}
                                                         </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms" role="tab" data-text="{!! __('contracts.contract_terms_tab') !!}">
+                                                        <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms"
+                                                            role="tab" data-text="{!! __('contracts.contract_terms_tab') !!}">
                                                             <i class="fas fa-file-invoice"></i> {!! __('contracts.contract_terms_tab') !!}
                                                         </a>
                                                     </li>
@@ -89,26 +92,28 @@
 
                                             <div class="tab-content tab-content-premium" id="contractTabsContent">
                                                 <!-- Tab 1: Basic & Financial Details -->
-                                                <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                                <div class="tab-pane fade show active" id="basic" role="tabpanel"
+                                                    aria-labelledby="basic-tab">
                                                     <div class="form-body">
 
-                                                    @include('dashboard.contracts.edit._basic')
-                                                </div> <!-- end: form-body (basic) -->
-                                            </div> <!-- end: tab-pane (basic) -->
+                                                        @include('dashboard.contracts.edit._basic')
+                                                    </div> <!-- end: form-body (basic) -->
+                                                </div> <!-- end: tab-pane (basic) -->
 
-                                            <!-- Tab 2: Contract Terms & Notes -->
-                                            <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
-                                                <div class="form-body">
-                                                    @include('dashboard.contracts.edit._terms')
+                                                <!-- Tab 2: Contract Terms & Notes -->
+                                                <div class="tab-pane fade" id="terms" role="tabpanel"
+                                                    aria-labelledby="terms-tab">
+                                                    <div class="form-body">
+                                                        @include('dashboard.contracts.edit._terms')
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            @include('dashboard.contracts.edit._cheques_list')
-                        </div>
+                                @include('dashboard.contracts.edit._cheques_list')
+                            </div>
                     </section>
                 </div>
             </div>
@@ -121,18 +126,18 @@
     <script>
         $(document).ready(function() {
             // Ensure tabs work correctly by explicitly calling tab('show')
-            $('#contractTabs .premium-tab-btn').on('click', function (e) {
+            $('#contractTabs .premium-tab-btn').on('click', function(e) {
                 e.preventDefault();
                 $(this).tab('show');
-                
+
                 // Handle active class for premium buttons
                 $('#contractTabs .premium-tab-btn').removeClass('active');
                 $(this).addClass('active');
             });
 
             // Fix Summernote issues in hidden tabs
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                if($(e.target).attr('id') == 'terms-tab') {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                if ($(e.target).attr('id') == 'terms-tab') {
                     $('.summernote').each(function() {
                         $(this).summernote('resize');
                     });
@@ -160,7 +165,9 @@
                 width: '100%',
                 dir: $('html').attr('data-textdirection') || 'ltr',
                 ajax: {
-                    url: function() { return $(this).data('url'); },
+                    url: function() {
+                        return $(this).data('url');
+                    },
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
@@ -245,7 +252,7 @@
             // Toggle Insurance Cheque Details
             function toggleChequeDetails() {
                 let depositType = $('#deposit_type').val();
-                
+
                 if (depositType === 'cheque') {
                     $('.cheque-details-section').slideDown(150);
                 } else {
@@ -265,7 +272,7 @@
                     $('#deposit_status').val('held').trigger('change');
                 }
             });
-            
+
             // Initial check on load (for validation errors repopulation)
             toggleChequeDetails();
         });
@@ -299,5 +306,3 @@
         });
     </script>
 @endpush
-
-

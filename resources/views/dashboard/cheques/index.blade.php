@@ -5,7 +5,8 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
 @endpush
 
 @section('content')
@@ -103,12 +104,13 @@
                         <div class="col-md-12">
                             <div class="card premium-card premium-card-anim">
                                 <!-- begin: card header -->
-                                <div class="card-header border-0 pb-0">
-                                    <h6 class="card-title text-dark font-weight-bold d-flex align-items-center mb-0">
-                                        <i class="fas fa-book text-primary mr-2 icon-size-16"></i>
-                                        {!! __('cheques.cheques') !!}
-                                        <span id="chequesCountBadge" class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $cheques->total() !!}</span>
-                                    </h6>
+                                <div class="premium-mandatory-header py-2">
+                                    <div class="title-wrapper">
+                                        <i class="fas fa-book"></i>
+                                        <span class="font-weight-bold">{!! __('cheques.cheques') !!}</span>
+                                        <span id="chequesCountBadge"
+                                            class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $cheques->total() !!}</span>
+                                    </div>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>
@@ -118,16 +120,19 @@
                                     </div>
                                 </div>
                                 <!-- end: card header -->
-                                
-                                <div class="card-header border-0 px-0 pt-0 mx-2 pb-2 text-center d-flex justify-content-center">
+
+                                <div
+                                    class="card-header border-0 px-0 pt-0 mx-2 pb-2 text-center d-flex justify-content-center">
                                     <ul class="nav premium-nav-tabs" id="chequeTabs" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="rent-cheques-tab" data-text="{!! __('cheques.rent_cheques') !!}" onclick="applyTabFilter(0)">
+                                            <a class="nav-link active" id="rent-cheques-tab"
+                                                data-text="{!! __('cheques.rent_cheques') !!}" onclick="applyTabFilter(0)">
                                                 <i class="fas fa-money-bill-wave"></i> {!! __('cheques.rent_cheques') !!}
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="insurance-cheques-tab" data-text="{!! __('cheques.insurance_cheques') !!}" onclick="applyTabFilter(1)">
+                                            <a class="nav-link" id="insurance-cheques-tab"
+                                                data-text="{!! __('cheques.insurance_cheques') !!}" onclick="applyTabFilter(1)">
                                                 <i class="fas fa-shield-alt"></i> {!! __('cheques.insurance_cheques') !!}
                                             </a>
                                         </li>
@@ -174,14 +179,14 @@
 
             // Update Add Cheque Button URL to maintain context
             let addBtn = $('#addChequeBtn');
-            if(addBtn.length) {
+            if (addBtn.length) {
                 let baseUrl = "{!! route('dashboard.cheques.create') !!}";
                 addBtn.attr('href', baseUrl + '?is_deposit=' + isDeposit);
             }
 
             // Set hidden filter input if exists, or append to form
             let filterSelect = $('#filter_is_deposit');
-            if(filterSelect.length) {
+            if (filterSelect.length) {
                 filterSelect.val(isDeposit).trigger('change');
                 if (trigger) {
                     $('.js-filter-form .js-apply-filter').first().trigger('click');
@@ -199,7 +204,7 @@
             if (typeof initFilterSystem === "function") {
                 initFilterSystem();
             }
-            
+
             // Set initial tab based on current filter state (server-side set)
             let currentIsDeposit = "{!! request('is_deposit', 0) !!}";
             applyTabFilter(currentIsDeposit, false);
@@ -231,17 +236,21 @@
                 }).then((isConfirm) => {
                     if (isConfirm) {
                         $.ajax({
-                            url: "{{ route('dashboard.cheques.return', ':id') }}".replace(':id', chequeId),
+                            url: "{{ route('dashboard.cheques.return', ':id') }}".replace(
+                                ':id', chequeId),
                             type: 'POST',
-                            data: { _token: '{{ csrf_token() }}' },
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
                             success: function(response) {
-                                if(response.status) {
+                                if (response.status) {
                                     swal.stopLoading();
                                     swal.close();
                                     if (typeof flasher !== 'undefined') {
                                         flasher.success(response.message);
                                     }
-                                    $('.js-filter-form').submit(); // Standard reload via filter form
+                                    $('.js-filter-form')
+                                .submit(); // Standard reload via filter form
                                 } else {
                                     swal.stopLoading();
                                     swal.close();
@@ -254,7 +263,8 @@
                                 swal.stopLoading();
                                 swal.close();
                                 if (typeof flasher !== 'undefined') {
-                                    flasher.error(xhr.responseJSON ? xhr.responseJSON.message : 'Error processing request');
+                                    flasher.error(xhr.responseJSON ? xhr.responseJSON
+                                        .message : 'Error processing request');
                                 }
                             }
                         });
@@ -289,17 +299,21 @@
                 }).then((isConfirm) => {
                     if (isConfirm) {
                         $.ajax({
-                            url: "{{ route('dashboard.cheques.cash', ':id') }}".replace(':id', chequeId),
+                            url: "{{ route('dashboard.cheques.cash', ':id') }}".replace(
+                                ':id', chequeId),
                             type: 'POST',
-                            data: { _token: '{{ csrf_token() }}' },
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
                             success: function(response) {
-                                if(response.status) {
+                                if (response.status) {
                                     swal.stopLoading();
                                     swal.close();
                                     if (typeof flasher !== 'undefined') {
                                         flasher.success(response.message);
                                     }
-                                    $('.js-filter-form').submit(); // Standard reload via filter form
+                                    $('.js-filter-form')
+                                .submit(); // Standard reload via filter form
                                 } else {
                                     swal.stopLoading();
                                     swal.close();
@@ -312,7 +326,8 @@
                                 swal.stopLoading();
                                 swal.close();
                                 if (typeof flasher !== 'undefined') {
-                                    flasher.error(xhr.responseJSON ? xhr.responseJSON.message : 'Error processing request');
+                                    flasher.error(xhr.responseJSON ? xhr.responseJSON
+                                        .message : 'Error processing request');
                                 }
                             }
                         });
@@ -322,5 +337,3 @@
         });
     </script>
 @endpush
-
-

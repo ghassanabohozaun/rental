@@ -31,7 +31,7 @@
                         @if(user()->company_id == 1)
                             <div class="col-md-12 mb-1">
                                 <div class="premium-form-group">
-                                    <label class="premium-label" for="company_id_edit">{!! __('companies.company') !!} <span class="text-danger">*</span></label>
+                                    <label class="premium-label" for="company_id_edit"><i class="fas fa-building mr-1 text-primary"></i> {!! __('companies.company') !!} <span class="text-danger">*</span></label>
                                     <select class="form-control premium-input shadow-none select2" id='company_id_edit' name="company_id">
                                         <option value="" selected>{!! __('general.select_from_list') !!}</option>
                                         @foreach ($companies as $company)
@@ -46,7 +46,7 @@
                         <!-- Name AR -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="name_ar_edit">{!! __('owners.name') !!} ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
+                                <label class="premium-label" for="name_ar_edit"><i class="fas fa-user mr-1 text-primary"></i> {!! __('owners.name') !!} ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control premium-input shadow-none" id="name_ar_edit"
                                     name="name[ar]" placeholder="{!! __('owners.name') !!} ({!! __('general.ar') !!})" autocomplete="off">
                                 <span class="text-danger error-text name_ar_error"></span>
@@ -56,7 +56,7 @@
                         <!-- Name EN -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="name_en_edit">{!! __('owners.name') !!} ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
+                                <label class="premium-label" for="name_en_edit"><i class="fas fa-user mr-1 text-primary"></i> {!! __('owners.name') !!} ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control premium-input shadow-none" id="name_en_edit"
                                     name="name[en]" placeholder="{!! __('owners.name') !!} ({!! __('general.en') !!})" autocomplete="off">
                                 <span class="text-danger error-text name_en_error"></span>
@@ -66,7 +66,7 @@
                         <!-- Type -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="type_edit">{!! __('owners.type') !!} <span class="text-danger">*</span></label>
+                                <label class="premium-label" for="type_edit"><i class="fas fa-tags mr-1 text-primary"></i> {!! __('owners.type') !!} <span class="text-danger">*</span></label>
                                 <select class="form-control premium-input shadow-none select2" id="type_edit" name="type">
                                     <option value="" selected>{!! __('general.select_from_list') !!}</option>
                                     @foreach(__('owners.owner_types') as $key => $value)
@@ -80,7 +80,7 @@
                         <!-- Identification Number -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="identification_number_edit">{!! __('owners.identification_number') !!} <span class="text-danger">*</span></label>
+                                <label class="premium-label" for="identification_number_edit"><i class="fas fa-id-card mr-1 text-primary"></i> {!! __('owners.identification_number') !!} <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control premium-input shadow-none" id="identification_number_edit"
                                     name="identification_number" placeholder="{!! __('owners.identification_number') !!}" autocomplete="off">
                                 <span class="text-danger error-text identification_number_error"></span>
@@ -90,7 +90,7 @@
                         <!-- Phone -->
                         <div class="col-md-12 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="phone_edit">{!! __('owners.phone') !!}</label>
+                                <label class="premium-label" for="phone_edit"><i class="fas fa-phone mr-1 text-primary"></i> {!! __('owners.phone') !!}</label>
                                 <input type="text" class="form-control premium-input shadow-none text-left" id="phone_edit"
                                     name="phone" placeholder="{!! __('owners.phone') !!}" dir="ltr" autocomplete="off">
                                 <span class="text-danger error-text phone_error"></span>
@@ -100,7 +100,7 @@
                         <!-- Email -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="email_edit">{!! __('owners.email') !!}</label>
+                                <label class="premium-label" for="email_edit"><i class="fas fa-envelope mr-1 text-primary"></i> {!! __('owners.email') !!}</label>
                                 <input type="email" class="form-control premium-input shadow-none" id="email_edit"
                                     name="email" placeholder="{!! __('owners.email') !!}" autocomplete="off">
                                 <span class="text-danger error-text email_error"></span>
@@ -110,7 +110,7 @@
                         <!-- Address -->
                         <div class="col-md-6 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="address_edit">{!! __('owners.address') !!}</label>
+                                <label class="premium-label" for="address_edit"><i class="fas fa-map-marker-alt mr-1 text-primary"></i> {!! __('owners.address') !!}</label>
                                 <input type="text" class="form-control premium-input shadow-none" id="address_edit"
                                     name="address" placeholder="{!! __('owners.address') !!}" autocomplete="off">
                                 <span class="text-danger error-text address_error"></span>
@@ -120,7 +120,7 @@
                         <!-- Notes -->
                         <div class="col-md-12 mb-2">
                             <div class="premium-form-group">
-                                <label class="premium-label" for="notes_edit">{!! __('owners.notes') !!}</label>
+                                <label class="premium-label" for="notes_edit"><i class="fas fa-sticky-note mr-1 text-primary"></i> {!! __('owners.notes') !!}</label>
                                 <textarea class="form-control premium-input shadow-none" id="notes_edit" name="notes" rows="4" placeholder="{!! __('owners.notes') !!}"></textarea>
                                 <span class="text-danger error-text notes_error"></span>
                             </div>

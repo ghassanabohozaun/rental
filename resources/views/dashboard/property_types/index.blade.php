@@ -48,13 +48,13 @@
                         <div class="col-md-12">
                             <div class="card premium-card">
                                 <!-- begin: card header -->
-                                <div class="card-header border-0 pb-0">
-                                    <h4 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                        <i class="fas fa-briefcase text-primary mr-2 font-24"></i>
-                                        {!! __('property_types.property_types') !!}
+                                <div class="premium-mandatory-header py-2">
+                                    <div class="title-wrapper">
+                                        <i class="fas fa-home"></i>
+                                        <span class="font-weight-bold">{!! __('property_types.property_types') !!}</span>
                                         <span id="property_typesCountBadge"
                                             class="badge badge-primary badge-pill badge-glow ml-2 font-11">{!! $property_types->total() !!}</span>
-                                    </h4>
+                                    </div>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="fas fa-minus"></i></a></li>

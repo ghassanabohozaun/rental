@@ -127,8 +127,10 @@
 
 <div class="premium-mandatory-section mb-4">
     <div class="premium-mandatory-header">
-        <i class="fas fa-shield-alt mr-1"></i>
-        {!! __('contracts.deposit_details_title') !!}
+        <div class="title-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <span class="font-weight-bold">{!! __('contracts.deposit_details_title') !!}</span>
+        </div>
     </div>
     <div class="premium-mandatory-body">
         <div class="row">
@@ -137,9 +139,9 @@
                     <label for="deposit_amount" class="premium-label">
                         {!! __('contracts.deposit_amount') !!}
                     </label>
-                        <input type="number" step="0.01" id="deposit_amount" name="deposit_amount"
-                            value="{!! old('deposit_amount', 0) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="0.00">
+                    <input type="number" step="0.01" id="deposit_amount" name="deposit_amount"
+                        value="{!! old('deposit_amount', 0) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="0.00">
                     <span class="text-danger error-text deposit_amount_error"></span>
                 </div>
             </div>
@@ -148,11 +150,11 @@
                     <label for="deposit_type" class="premium-label">
                         {!! __('contracts.deposit_type') !!}
                     </label>
-                        <select id="deposit_type" name="deposit_type"
-                            class="form-control premium-input shadow-none select2">
-                            <option value="cash">{!! __('contracts.deposit_type_cash') !!}</option>
-                            <option value="cheque">{!! __('contracts.deposit_type_cheque') !!}</option>
-                        </select>
+                    <select id="deposit_type" name="deposit_type"
+                        class="form-control premium-input shadow-none select2">
+                        <option value="cash">{!! __('contracts.deposit_type_cash') !!}</option>
+                        <option value="cheque">{!! __('contracts.deposit_type_cheque') !!}</option>
+                    </select>
                     <span class="text-danger error-text deposit_type_error"></span>
                 </div>
             </div>
@@ -161,12 +163,12 @@
                     <label for="deposit_status" class="premium-label">
                         {!! __('contracts.deposit_status') !!}
                     </label>
-                        <select id="deposit_status" name="deposit_status"
-                            class="form-control premium-input shadow-none select2">
-                            <option value="held">{!! __('contracts.deposit_status_held') !!}</option>
-                            <option value="returned">{!! __('contracts.deposit_status_returned') !!}</option>
-                            <option value="used">{!! __('contracts.deposit_status_used') !!}</option>
-                        </select>
+                    <select id="deposit_status" name="deposit_status"
+                        class="form-control premium-input shadow-none select2">
+                        <option value="held">{!! __('contracts.deposit_status_held') !!}</option>
+                        <option value="returned">{!! __('contracts.deposit_status_returned') !!}</option>
+                        <option value="used">{!! __('contracts.deposit_status_used') !!}</option>
+                    </select>
                     <span class="text-danger error-text deposit_status_error"></span>
                 </div>
             </div>
@@ -174,27 +176,29 @@
 
         <!-- Cheque Details Section (Hidden by default) -->
         <div class="row cheque-details-section mt-1 cheque-details-section-box" style="display: none;">
-            <div class="col-md-12">
-                <h6 class="text-primary mb-1"><i class="fas fa-money-bill-wave"></i> {!! __('cheques.cheque_details') !!} <small
-                        class="text-muted">({!! __('cheques.is_deposit') !!})</small></h6>
+            <div class="col-md-12 mt-2">
+                <div class="mandatory-sub-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h6>{!! __('cheques.cheque_details') !!} <small>({!! __('cheques.is_deposit') !!})</small></h6>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="premium-form-group">
                     <label for="deposit_cheque_number" class="premium-label">{!! __('cheques.cheque_number') !!} <span
                             class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_number" name="deposit_cheque_number"
-                            value="{!! old('deposit_cheque_number') !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}">
+                    <input type="text" id="deposit_cheque_number" name="deposit_cheque_number"
+                        value="{!! old('deposit_cheque_number') !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}">
                     <span class="text-danger error-text deposit_cheque_number_error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="premium-form-group">
-                    <label for="deposit_issue_date" class="premium-label"></label>
-                        <input type="text" id="deposit_issue_date" name="deposit_issue_date"
-                            value="{!! old('deposit_issue_date') !!}"
-                            class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
-                            autocomplete="off">
+                    <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!}</label>
+                    <input type="text" id="deposit_issue_date" name="deposit_issue_date"
+                        value="{!! old('deposit_issue_date') !!}"
+                        class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
+                        autocomplete="off">
                     <span class="text-danger error-text deposit_issue_date_error"></span>
                 </div>
             </div>
@@ -202,9 +206,9 @@
                 <div class="premium-form-group">
                     <label for="deposit_bank_name_ar" class="premium-label">{!! __('cheques.bank_name') !!}
                         ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_bank_name_ar" name="deposit_bank_name[ar]"
-                            value="{!! old('deposit_bank_name.ar') !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})">
+                    <input type="text" id="deposit_bank_name_ar" name="deposit_bank_name[ar]"
+                        value="{!! old('deposit_bank_name.ar') !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})">
                     <span class="text-danger error-text deposit_bank_name_ar_error"></span>
                 </div>
             </div>
@@ -212,9 +216,9 @@
                 <div class="premium-form-group">
                     <label for="deposit_bank_name_en" class="premium-label">{!! __('cheques.bank_name') !!}
                         ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_bank_name_en" name="deposit_bank_name[en]"
-                            value="{!! old('deposit_bank_name.en') !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})">
+                    <input type="text" id="deposit_bank_name_en" name="deposit_bank_name[en]"
+                        value="{!! old('deposit_bank_name.en') !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})">
                     <span class="text-danger error-text deposit_bank_name_en_error"></span>
                 </div>
             </div>
@@ -222,9 +226,9 @@
                 <div class="premium-form-group">
                     <label for="deposit_cheque_owner_name_ar" class="premium-label">{!! __('cheques.cheque_owner_name') !!}
                         ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_owner_name_ar" name="deposit_cheque_owner_name[ar]"
-                            value="{!! old('deposit_cheque_owner_name.ar') !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})">
+                    <input type="text" id="deposit_cheque_owner_name_ar" name="deposit_cheque_owner_name[ar]"
+                        value="{!! old('deposit_cheque_owner_name.ar') !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})">
                     <span class="text-danger error-text deposit_cheque_owner_name_ar_error"></span>
                 </div>
             </div>
@@ -232,9 +236,9 @@
                 <div class="premium-form-group">
                     <label for="deposit_cheque_owner_name_en" class="premium-label">{!! __('cheques.cheque_owner_name') !!}
                         ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_owner_name_en" name="deposit_cheque_owner_name[en]"
-                            value="{!! old('deposit_cheque_owner_name.en') !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})">
+                    <input type="text" id="deposit_cheque_owner_name_en" name="deposit_cheque_owner_name[en]"
+                        value="{!! old('deposit_cheque_owner_name.en') !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})">
                     <span class="text-danger error-text deposit_cheque_owner_name_en_error"></span>
                 </div>
             </div>

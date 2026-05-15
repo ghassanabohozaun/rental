@@ -126,8 +126,15 @@
 
 <div class="premium-mandatory-section mb-4 {{ $isDepositLocked ? 'premium-locked-section' : '' }}">
     <div class="premium-mandatory-header">
-        <i class="fas fa-shield-alt mr-1"></i>
-        {!! __('contracts.deposit_details_title') !!}
+        <div class="title-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <span class="font-weight-bold">{!! __('contracts.deposit_details_title') !!}</span>
+        </div>
+        @if ($isDepositLocked)
+            <div class="premium-badge-hint">
+                <i class="fas fa-lock mr-1"></i> {!! __('contracts.deposit_locked_hint') !!}
+            </div>
+        @endif
     </div>
     <div class="premium-mandatory-body">
         <div class="row">
@@ -136,9 +143,9 @@
                     <label for="deposit_amount" class="premium-label">
                         {!! __('contracts.deposit_amount') !!}
                     </label>
-                        <input type="number" step="0.01" id="deposit_amount" name="deposit_amount"
-                            value="{!! old('deposit_amount', $contract->deposit_amount) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="0.00" {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="number" step="0.01" id="deposit_amount" name="deposit_amount"
+                        value="{!! old('deposit_amount', $contract->deposit_amount) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="0.00" {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_amount" value="{{ $contract->deposit_amount }}">
                     @endif
@@ -150,12 +157,12 @@
                     <label for="deposit_type" class="premium-label">
                         {!! __('contracts.deposit_type') !!}
                     </label>
-                        <select id="deposit_type" name="deposit_type"
-                            class="form-control premium-input shadow-none select2"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
-                            <option value="cash" @selected($contract->deposit_type == 'cash')>{!! __('contracts.deposit_type_cash') !!}</option>
-                            <option value="cheque" @selected($contract->deposit_type == 'cheque')>{!! __('contracts.deposit_type_cheque') !!}</option>
-                        </select>
+                    <select id="deposit_type" name="deposit_type"
+                        class="form-control premium-input shadow-none select2"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
+                        <option value="cash" @selected($contract->deposit_type == 'cash')>{!! __('contracts.deposit_type_cash') !!}</option>
+                        <option value="cheque" @selected($contract->deposit_type == 'cheque')>{!! __('contracts.deposit_type_cheque') !!}</option>
+                    </select>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_type" value="{{ $contract->deposit_type }}">
                     @endif
@@ -167,38 +174,36 @@
                     <label for="deposit_status" class="premium-label">
                         {!! __('contracts.deposit_status') !!}
                     </label>
-                        <select id="deposit_status" name="deposit_status"
-                            class="form-control premium-input shadow-none select2"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
-                            <option value="held" @selected($contract->deposit_status == 'held')>{!! __('contracts.deposit_status_held') !!}</option>
-                            <option value="returned" @selected($contract->deposit_status == 'returned')>{!! __('contracts.deposit_status_returned') !!}</option>
-                            <option value="used" @selected($contract->deposit_status == 'used')>{!! __('contracts.deposit_status_used') !!}</option>
-                        </select>
+                    <select id="deposit_status" name="deposit_status"
+                        class="form-control premium-input shadow-none select2"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
+                        <option value="held" @selected($contract->deposit_status == 'held')>{!! __('contracts.deposit_status_held') !!}</option>
+                        <option value="returned" @selected($contract->deposit_status == 'returned')>{!! __('contracts.deposit_status_returned') !!}</option>
+                        <option value="used" @selected($contract->deposit_status == 'used')>{!! __('contracts.deposit_status_used') !!}</option>
+                    </select>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_status" value="{{ $contract->deposit_status }}">
-                        <div style="margin-top: -2px;">
-                            <small class="text-danger font-10">
-                                <i class="fas fa-lock"></i> {!! __('contracts.deposit_locked_hint') !!}
-                            </small>
-                        </div>
                     @endif
                     <span class="text-danger error-text deposit_status_error"></span>
                 </div>
             </div>
         </div>
+
         <!-- Cheque Details Section (Hidden by default) -->
         <div class="row cheque-details-section mt-1 cheque-details-section-box" {!! $contract->deposit_type == 'cheque' && $contract->deposit_amount > 0 ? '' : 'style="display: none;"' !!}>
-            <div class="col-md-12">
-                <h6 class="text-primary mb-1"><i class="fas fa-money-bill-wave"></i> {!! __('cheques.cheque_details') !!} <small
-                        class="text-muted">({!! __('cheques.is_deposit') !!})</small></h6>
+            <div class="col-md-12 mt-2">
+                <div class="mandatory-sub-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h6>{!! __('cheques.cheque_details') !!} <small>({!! __('cheques.is_deposit') !!})</small></h6>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="premium-form-group">
                     <label for="deposit_cheque_number" class="premium-label">{!! __('cheques.cheque_number') !!} <span
                             class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_number" name="deposit_cheque_number"
-                            value="{!! old('deposit_cheque_number', optional($contract->insuranceCheque)->cheque_number) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}" {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="text" id="deposit_cheque_number" name="deposit_cheque_number"
+                        value="{!! old('deposit_cheque_number', optional($contract->insuranceCheque)->cheque_number) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}" {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_cheque_number"
                             value="{{ optional($contract->insuranceCheque)->cheque_number }}">
@@ -208,16 +213,16 @@
             </div>
             <div class="col-md-6">
                 <div class="premium-form-group">
-                    <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!} </label>
-                        <input type="text" id="deposit_issue_date" name="deposit_issue_date"
-                            value="{!! old(
-                                'deposit_issue_date',
-                                $contract->insuranceCheque && $contract->insuranceCheque->issue_date
-                                    ? $contract->insuranceCheque->issue_date->format('Y-m-d')
-                                    : '',
-                            ) !!}"
-                            class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
-                            autocomplete="off" {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!}</label>
+                    <input type="text" id="deposit_issue_date" name="deposit_issue_date"
+                        value="{!! old(
+                            'deposit_issue_date',
+                            $contract->insuranceCheque && $contract->insuranceCheque->issue_date
+                                ? $contract->insuranceCheque->issue_date->format('Y-m-d')
+                                : '',
+                        ) !!}"
+                        class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
+                        autocomplete="off" {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_issue_date"
                             value="{{ $contract->insuranceCheque && $contract->insuranceCheque->issue_date ? $contract->insuranceCheque->issue_date->format('Y-m-d') : '' }}">
@@ -229,13 +234,13 @@
                 <div class="premium-form-group">
                     <label for="deposit_bank_name_ar" class="premium-label">{!! __('cheques.bank_name') !!}
                         ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_bank_name_ar" name="deposit_bank_name[ar]"
-                            value="{!! old(
-                                'deposit_bank_name.ar',
-                                $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'ar') : '',
-                            ) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="text" id="deposit_bank_name_ar" name="deposit_bank_name[ar]"
+                        value="{!! old(
+                            'deposit_bank_name.ar',
+                            $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'ar') : '',
+                        ) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.ar') !!})"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_bank_name[ar]"
                             value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'ar') : '' }}">
@@ -247,13 +252,13 @@
                 <div class="premium-form-group">
                     <label for="deposit_bank_name_en" class="premium-label">{!! __('cheques.bank_name') !!}
                         ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_bank_name_en" name="deposit_bank_name[en]"
-                            value="{!! old(
-                                'deposit_bank_name.en',
-                                $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'en') : '',
-                            ) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="text" id="deposit_bank_name_en" name="deposit_bank_name[en]"
+                        value="{!! old(
+                            'deposit_bank_name.en',
+                            $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'en') : '',
+                        ) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.bank_name') !!} ({!! __('general.en') !!})"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_bank_name[en]"
                             value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('bank_name', 'en') : '' }}">
@@ -265,13 +270,13 @@
                 <div class="premium-form-group">
                     <label for="deposit_cheque_owner_name_ar" class="premium-label">{!! __('cheques.cheque_owner_name') !!}
                         ({!! __('general.ar') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_owner_name_ar" name="deposit_cheque_owner_name[ar]"
-                            value="{!! old(
-                                'deposit_cheque_owner_name.ar',
-                                $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'ar') : '',
-                            ) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="text" id="deposit_cheque_owner_name_ar" name="deposit_cheque_owner_name[ar]"
+                        value="{!! old(
+                            'deposit_cheque_owner_name.ar',
+                            $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'ar') : '',
+                        ) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.ar') !!})"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_cheque_owner_name[ar]"
                             value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'ar') : '' }}">
@@ -283,13 +288,13 @@
                 <div class="premium-form-group">
                     <label for="deposit_cheque_owner_name_en" class="premium-label">{!! __('cheques.cheque_owner_name') !!}
                         ({!! __('general.en') !!}) <span class="text-danger">*</span></label>
-                        <input type="text" id="deposit_cheque_owner_name_en" name="deposit_cheque_owner_name[en]"
-                            value="{!! old(
-                                'deposit_cheque_owner_name.en',
-                                $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'en') : '',
-                            ) !!}" class="form-control premium-input shadow-none"
-                            autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})"
-                            {{ $isDepositLocked ? 'disabled' : '' }}>
+                    <input type="text" id="deposit_cheque_owner_name_en" name="deposit_cheque_owner_name[en]"
+                        value="{!! old(
+                            'deposit_cheque_owner_name.en',
+                            $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'en') : '',
+                        ) !!}" class="form-control premium-input shadow-none"
+                        autocomplete="off" placeholder="{!! __('cheques.cheque_owner_name') !!} ({!! __('general.en') !!})"
+                        {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_cheque_owner_name[en]"
                             value="{{ $contract->insuranceCheque ? $contract->insuranceCheque->getTranslation('cheque_owner_name', 'en') : '' }}">

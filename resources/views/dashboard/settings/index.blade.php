@@ -58,9 +58,11 @@
                                 
                                 <!-- Card 1: Basic Information -->
                                 <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header">
-                                        <i class="fas fa-globe text-primary"></i>
-                                        {!! __('settings.basic_settings_section') !!}
+                                    <div class="premium-mandatory-header py-2">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-globe"></i>
+                                            <span class="font-weight-bold">{!! __('settings.basic_settings_section') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -90,9 +92,11 @@
 
                                 <!-- Card 2: Social Media -->
                                 <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header" style="border-bottom-color: var(--premium-success);">
-                                        <i class="fas fa-share-alt text-success"></i>
-                                        {!! __('settings.social_section') !!}
+                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-success);">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-share-alt"></i>
+                                            <span class="font-weight-bold">{!! __('settings.social_section') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -142,9 +146,11 @@
 
                                 <!-- Card 3: Contact Information -->
                                 <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header" style="border-bottom-color: var(--premium-info);">
-                                        <i class="fas fa-headset text-info"></i>
-                                        {!! __('settings.contact_section') !!}
+                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-info);">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-headset"></i>
+                                            <span class="font-weight-bold">{!! __('settings.contact_section') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -205,9 +211,11 @@
 
                                 <!-- Card 4: Auth Welcome Content -->
                                 <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header" style="border-bottom-color: var(--premium-warning);">
-                                        <i class="fas fa-sign-in-alt text-warning"></i>
-                                        {!! __('settings.auth_welcome_section') !!}
+                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-warning);">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-sign-in-alt"></i>
+                                            <span class="font-weight-bold">{!! __('settings.auth_welcome_section') !!}</span>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -286,9 +294,11 @@
                                 <div class="sticky-top" style="top: 20px;">
                                     <!-- Identity & Media Card -->
                                     <div class="identity-summary-card mb-3 premium-fade-in">
-                                        <div class="summary-header">
-                                            <i class="fas fa-images"></i>
-                                            <div class="summary-title">{!! __('settings.media_section') !!}</div>
+                                        <div class="premium-mandatory-header py-2">
+                                            <div class="title-wrapper">
+                                                <i class="fas fa-images"></i>
+                                                <span class="font-weight-bold">{!! __('settings.media_section') !!}</span>
+                                            </div>
                                         </div>
                                         
                                         <div class="premium-form-group mb-3">

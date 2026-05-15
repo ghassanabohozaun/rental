@@ -7,7 +7,6 @@
     <link rel="stylesheet"
         href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <link href="{!! asset('vendor/summernote/summernote-bs4.css') !!}" rel="stylesheet">
-    
 @endpush
 
 @section('content')
@@ -61,11 +60,11 @@
                         <div class="row match-height">
                             <div class="col-md-12">
                                 <div class="card premium-card shadow-lg border-0 premium-card-anim">
-                                    <div class="card-header border-0 pb-0">
-                                        <h6 class="card-title text-dark font-weight-bold d-flex align-items-center">
-                                            <i class="fas fa-plus-circle text-primary mr-2 icon-size-16"></i> 
-                                            {!! __('contracts.create_new_contract') !!}
-                                        </h6>
+                                    <div class="property-mandatory-header">
+                                        <div class="title-wrapper">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <span>{!! __('contracts.create_new_contract') !!}</span>
+                                        </div>
                                     </div>
 
                                     <div class="card-content collapse show">
@@ -74,12 +73,15 @@
                                             <div class="d-flex justify-content-center w-100 mb-2">
                                                 <ul class="nav premium-nav-tabs" id="contractTabs" role="tablist">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" data-text="{!! __('contracts.basic_details_tab') !!}">
+                                                        <a class="nav-link active" id="basic-tab" data-toggle="tab"
+                                                            href="#basic" role="tab"
+                                                            data-text="{!! __('contracts.basic_details_tab') !!}">
                                                             <i class="fas fa-info-circle"></i> {!! __('contracts.basic_details_tab') !!}
                                                         </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms" role="tab" data-text="{!! __('contracts.contract_terms_tab') !!}">
+                                                        <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms"
+                                                            role="tab" data-text="{!! __('contracts.contract_terms_tab') !!}">
                                                             <i class="fas fa-file-invoice"></i> {!! __('contracts.contract_terms_tab') !!}
                                                         </a>
                                                     </li>
@@ -89,24 +91,26 @@
 
                                             <div class="tab-content tab-content-premium" id="contractTabsContent">
                                                 <!-- Tab 1: Basic & Financial Details -->
-                                                <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                                <div class="tab-pane fade show active" id="basic" role="tabpanel"
+                                                    aria-labelledby="basic-tab">
                                                     <div class="form-body">
 
-                                                    @include('dashboard.contracts.create._basic')
-                                                </div> <!-- end: form-body (basic) -->
-                                            </div> <!-- end: tab-pane (basic) -->
+                                                        @include('dashboard.contracts.create._basic')
+                                                    </div> <!-- end: form-body (basic) -->
+                                                </div> <!-- end: tab-pane (basic) -->
 
-                                            <!-- Tab 2: Contract Terms & Notes -->
-                                            <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
-                                                <div class="form-body">
-                                                    @include('dashboard.contracts.create._terms')
+                                                <!-- Tab 2: Contract Terms & Notes -->
+                                                <div class="tab-pane fade" id="terms" role="tabpanel"
+                                                    aria-labelledby="terms-tab">
+                                                    <div class="form-body">
+                                                        @include('dashboard.contracts.create._terms')
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </section>
                 </div>
             </div>
@@ -119,18 +123,18 @@
     <script>
         $(document).ready(function() {
             // Ensure tabs work correctly by explicitly calling tab('show')
-            $('#contractTabs .premium-tab-btn').on('click', function (e) {
+            $('#contractTabs .premium-tab-btn').on('click', function(e) {
                 e.preventDefault();
                 $(this).tab('show');
-                
+
                 // Handle active class for premium buttons
                 $('#contractTabs .premium-tab-btn').removeClass('active');
                 $(this).addClass('active');
             });
 
             // Fix Summernote issues in hidden tabs
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                if($(e.target).attr('id') == 'terms-tab') {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                if ($(e.target).attr('id') == 'terms-tab') {
                     $('.summernote').each(function() {
                         $(this).summernote('resize');
                     });
@@ -140,135 +144,135 @@
     </script>
     <script>
         $(document).ready(function() {
-                    // Initialize Select2
-                    $('.select2').select2({
-                        width: '100%',
-                        dir: $('html').attr('data-textdirection') || 'ltr'
-                    });
+            // Initialize Select2
+            $('.select2').select2({
+                width: '100%',
+                dir: $('html').attr('data-textdirection') || 'ltr'
+            });
 
-                    // Initialize Autocomplete Select2
-                    $('.js-autocomplete').each(function() {
-                        let url = $(this).data('url');
-                        let placeholder = $(this).data('placeholder');
-                        initGenericSelect2(this, url, placeholder);
-                    });
+            // Initialize Autocomplete Select2
+            $('.js-autocomplete').each(function() {
+                let url = $(this).data('url');
+                let placeholder = $(this).data('placeholder');
+                initGenericSelect2(this, url, placeholder);
+            });
 
-                    // Initialize Property AJAX Select2 with Company dependency
-                    $('#property_id.select2-ajax').select2({
-                        width: '100%',
-                        dir: $('html').attr('data-textdirection') || 'ltr',
-                        ajax: {
-                            url: function() {
-                                return $(this).data('url');
-                            },
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    company_id: $('#company_id').val(),
-                                    only_available: 1,
-                                    page: params.page
-                                };
-                            },
-                            processResults: function(data, params) {
-                                params.page = params.page || 1;
-                                return {
-                                    results: data.results,
-                                    pagination: {
-                                        more: (params.page * 30) < data.total_count
-                                    }
-                                };
-                            },
-                            cache: true
-                        },
-                        placeholder: $('#property_id').data('placeholder'),
-                        minimumInputLength: 0,
-                    });
+            // Initialize Property AJAX Select2 with Company dependency
+            $('#property_id.select2-ajax').select2({
+                width: '100%',
+                dir: $('html').attr('data-textdirection') || 'ltr',
+                ajax: {
+                    url: function() {
+                        return $(this).data('url');
+                    },
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            company_id: $('#company_id').val(),
+                            only_available: 1,
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.results,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: $('#property_id').data('placeholder'),
+                minimumInputLength: 0,
+            });
 
-                    // Reset and toggle property and customer if company changes
-                    $('#company_id').on('change', function() {
-                        let companyId = $(this).val();
-                        $('#property_id').val(null).trigger('change');
-                        $('#customer_id').val(null).trigger('change');
+            // Reset and toggle property and customer if company changes
+            $('#company_id').on('change', function() {
+                let companyId = $(this).val();
+                $('#property_id').val(null).trigger('change');
+                $('#customer_id').val(null).trigger('change');
 
-                        if (companyId) {
-                            $('#property_id, #customer_id').prop('disabled', false);
-                        } else {
-                            $('#property_id, #customer_id').prop('disabled', true);
-                        }
-                    });
+                if (companyId) {
+                    $('#property_id, #customer_id').prop('disabled', false);
+                } else {
+                    $('#property_id, #customer_id').prop('disabled', true);
+                }
+            });
 
-                    // Initialize Customer AJAX Select2 with Company dependency
-                    $('#customer_id.select2-ajax').select2({
-                        width: '100%',
-                        dir: $('html').attr('data-textdirection') || 'ltr',
-                        ajax: {
-                            url: function() {
-                                return $(this).data('url');
-                            },
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    company_id: $('#company_id').val(),
-                                    page: params.page
-                                };
-                            },
-                            processResults: function(data, params) {
-                                return {
-                                    results: data
-                                };
-                            },
-                            cache: true
-                        },
-                        placeholder: $('#customer_id').data('placeholder'),
-                        minimumInputLength: 0,
-                    });
+            // Initialize Customer AJAX Select2 with Company dependency
+            $('#customer_id.select2-ajax').select2({
+                width: '100%',
+                dir: $('html').attr('data-textdirection') || 'ltr',
+                ajax: {
+                    url: function() {
+                        return $(this).data('url');
+                    },
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            company_id: $('#company_id').val(),
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: $('#customer_id').data('placeholder'),
+                minimumInputLength: 0,
+            });
 
-                    // Sync Start and End Date (Frontend Validation)
-                    $('#start_date').on('changeDate', function(e) {
-                        if (e.date) {
-                            $('#end_date').datepicker('setStartDate', e.date);
-                        }
-                    });
+            // Sync Start and End Date (Frontend Validation)
+            $('#start_date').on('changeDate', function(e) {
+                if (e.date) {
+                    $('#end_date').datepicker('setStartDate', e.date);
+                }
+            });
 
-                    $('#end_date').on('changeDate', function(e) {
-                        if (e.date) {
-                            $('#start_date').datepicker('setEndDate', e.date);
-                        }
-                    });
+            $('#end_date').on('changeDate', function(e) {
+                if (e.date) {
+                    $('#start_date').datepicker('setEndDate', e.date);
+                }
+            });
 
-                    // Toggle Insurance Cheque Details
-                    function toggleChequeDetails() {
-                        let depositType = $('#deposit_type').val();
-                        
-                        if (depositType === 'cheque') {
-                            $('.cheque-details-section').slideDown(150);
-                        } else {
-                            $('.cheque-details-section').slideUp(150);
-                            // Optional: clear values when hidden
-                            // $('#deposit_cheque_number, #deposit_bank_name, #deposit_cheque_owner_name, #deposit_issue_date').val('');
-                        }
-                    }
+            // Toggle Insurance Cheque Details
+            function toggleChequeDetails() {
+                let depositType = $('#deposit_type').val();
 
-                    $('#deposit_amount').on('input change', toggleChequeDetails);
-                    $('#deposit_amount').on('blur', function() {
-                        if ($(this).val() === '') {
-                            $(this).val(0);
-                        }
-                    });
-                    $('#deposit_type').on('change', function() {
-                        toggleChequeDetails();
-                        if ($(this).val() === 'cash') {
-                            $('#deposit_status').val('held').trigger('change');
-                        }
-                    });
-                    
-                    // Initial check on load (for validation errors repopulation)
-                    toggleChequeDetails();
-                });
+                if (depositType === 'cheque') {
+                    $('.cheque-details-section').slideDown(150);
+                } else {
+                    $('.cheque-details-section').slideUp(150);
+                    // Optional: clear values when hidden
+                    // $('#deposit_cheque_number, #deposit_bank_name, #deposit_cheque_owner_name, #deposit_issue_date').val('');
+                }
+            }
+
+            $('#deposit_amount').on('input change', toggleChequeDetails);
+            $('#deposit_amount').on('blur', function() {
+                if ($(this).val() === '') {
+                    $(this).val(0);
+                }
+            });
+            $('#deposit_type').on('change', function() {
+                toggleChequeDetails();
+                if ($(this).val() === 'cash') {
+                    $('#deposit_status').val('held').trigger('change');
+                }
+            });
+
+            // Initial check on load (for validation errors repopulation)
+            toggleChequeDetails();
+        });
     </script>
 @endpush
 
@@ -297,5 +301,3 @@
         });
     </script>
 @endpush
-
-
