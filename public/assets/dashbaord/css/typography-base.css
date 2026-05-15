@@ -200,7 +200,20 @@ html[data-textdirection="ltr"] .breadcrumb {
 
 html[data-textdirection="ltr"] .form-control,
 html[data-textdirection="ltr"] .premium-input {
-    font-size: 0.85rem !important;
+    font-size: 1.05rem !important; /* Increased by 2px from 0.85rem (~11px to ~13px relative to 13px base, but 15px is target) */
+}
+
+/* Explicit Forms & Labels Overrides */
+label {
+    font-size: 15px !important; /* 13px base + 2px */
+    font-weight: 600;
+}
+
+.form-control,
+.premium-input,
+.select2-selection__rendered,
+.select2-results__option {
+    font-size: 15px !important; /* 13px base + 2px */
 }
 
 /* RTL Specific Refinements - Balanced and Compact */
@@ -226,5 +239,5 @@ html[data-textdirection="rtl"] .btn {
 
 html[data-textdirection="rtl"] .form-control,
 html[data-textdirection="rtl"] .premium-input {
-    font-size: 0.9rem !important;
+    font-size: 1.05rem !important; /* Increased by 2px from 0.9rem */
 }

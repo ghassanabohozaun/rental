@@ -83,13 +83,13 @@ html[data-textdirection="rtl"] .sidebar-search-input {
     color: #94a3b8 !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-size: 0.8rem; /* Reduced by 1px from 0.85rem */
+    font-size: 0.8rem; /* Restored original */
     font-weight: 800;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation-header {
     font-family: 'Tajawal', sans-serif !important;
-    font-size: 1.05rem !important;
+    font-size: 1.05rem !important; /* Restored original */
     letter-spacing: 0;
 }
 
@@ -138,7 +138,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
     vertical-align: middle !important;
     display: inline-block !important;
     padding-top: 2px !important;
-    font-size: 0.95rem !important; /* Reduced by 1px from 1rem */
+    font-size: 0.95rem !important; /* Restored original */
 }
 
 /* Hover State */
@@ -227,7 +227,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul {
     padding: 10px 18px 10px 24px !important;
     color: #64748b !important;
     position: relative;
-    font-size: 0.9rem; /* Reduced by 1px from 0.95rem */
+    font-size: 0.9rem; /* Restored original */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 

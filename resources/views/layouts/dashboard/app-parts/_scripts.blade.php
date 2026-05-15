@@ -31,10 +31,9 @@
 
     <!-- 2. INLINE SCRIPTS & CONFIGURATIONS -->
     <script type="text/javascript">
-        // Lock Screen Config
         window.LockScreenConfig = {
             lock_route: "{{ route('dashboard.lock.screen') }}",
-            idle_limit: 300 // 5 minutes
+            idle_limit: 900 // 15 minutes
         };
 
         // Premium Global Settings
