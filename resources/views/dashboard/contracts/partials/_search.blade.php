@@ -15,7 +15,6 @@
                 <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.property') !!}</label>
-                        <div class="premium-input-wrapper">
                             <select name="property_id" id="filter_property" 
                                 class="form-control premium-input shadow-none js-select2"
                                 data-placeholder="{!! __('general.all') !!}"
@@ -25,8 +24,6 @@
                                     <option value="{{ $property->id }}">{{ $property->name }}</option>
                                 @endforeach
                             </select>
-                            <i class="fas fa-building text-primary"></i>
-                        </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
@@ -46,7 +43,6 @@
                 <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="customer_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.customer') !!}</label>
-                        <div class="premium-input-wrapper">
                             <select name="customer_id" id="filter_customer" 
                                 class="form-control premium-input shadow-none js-select2"
                                 data-placeholder="{!! __('general.all') !!}"
@@ -56,8 +52,6 @@
                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                 @endforeach
                             </select>
-                            <i class="fas fa-user text-primary"></i>
-                        </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
@@ -77,7 +71,6 @@
                 <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.status') !!}</label>
-                        <div class="premium-input-wrapper">
                             <select name="status" id="filter_status" class="form-control premium-input shadow-none js-select2" 
                                 data-placeholder="{!! __('general.all') !!}"
                                 data-parent="#status_search_popover">
@@ -86,8 +79,6 @@
                                 <option value="ended">{!! __('contracts.status_ended') !!}</option>
                                 <option value="cancelled">{!! __('contracts.status_cancelled') !!}</option>
                             </select>
-                            <i class="fas fa-check-circle text-primary"></i>
-                        </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
@@ -107,7 +98,6 @@
                 <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="cycle_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.payment_cycle') !!}</label>
-                        <div class="premium-input-wrapper">
                             <select name="payment_cycle" id="filter_cycle" class="form-control premium-input shadow-none js-select2" 
                                 data-placeholder="{!! __('general.all') !!}"
                                 data-parent="#cycle_search_popover">
@@ -115,8 +105,6 @@
                                 <option value="monthly">{!! __('contracts.payment_cycle_monthly') !!}</option>
                                 <option value="yearly">{!! __('contracts.payment_cycle_yearly') !!}</option>
                             </select>
-                            <i class="fas fa-sync text-primary"></i>
-                        </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
@@ -137,19 +125,13 @@
                     <div class="row">
                         <div class="col-12 mb-2">
                             <label class="premium-label mb-2">{!! __('general.min') !!}</label>
-                            <div class="premium-input-wrapper">
                                 <input type="number" class="form-control premium-input shadow-none" name="rent_min"
                                     placeholder="0" autocomplete="off">
-                                <i class="fas fa-money-bill-wave text-primary"></i>
-                            </div>
                         </div>
                         <div class="col-12">
                             <label class="premium-label mb-2">{!! __('general.max') !!}</label>
-                            <div class="premium-input-wrapper">
                                 <input type="number" class="form-control premium-input shadow-none" name="rent_max"
                                     placeholder="..." autocomplete="off">
-                                <i class="fas fa-money-bill-wave text-primary"></i>
-                            </div>
                         </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
@@ -171,7 +153,6 @@
                 <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="company_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
-                        <div class="premium-input-wrapper">
                             <select name="company_id" id="filter_company_id" 
                                 class="form-control premium-input shadow-none js-select2"
                                 data-placeholder="{!! __('general.all_companies') !!}"
@@ -181,8 +162,6 @@
                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
                                 @endforeach
                             </select>
-                            <i class="fas fa-briefcase text-primary"></i>
-                        </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
                         <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">

@@ -36,12 +36,12 @@
                     <!-- end: content header left-->
 
                     <!-- begin: content header right-->
-                    <div class="content-header-right col-md-6 col-12 text-md-right">
-                        <div class="mb-1">
-                            <button class="btn btn-premium-save shadow-pulse" type="submit" id="saveBtn">
-                                <i class="fas fa-save"></i>
+                    <div class="content-header-right col-md-6 col-12 text-md-right mb-2">
+                        <div class="d-flex justify-content-md-end justify-content-center gap-2">
+                            <button class="btn btn-premium-save" type="submit" id="saveBtn">
+                                <i class="fas fa-save mr-2 save-icon"></i>
+                                <i class="fas fa-sync fa-spin spinner_loading d-none mr-2"></i>
                                 {!! __('general.save') !!}
-                                <i class="fas fa-sync fa-spin spinner_loading d-none"></i>
                             </button>
                         </div>
                     </div>
@@ -358,6 +358,8 @@
                 processData: false,
                 beforeSend: function() {
                     $('.spinner_loading').removeClass('d-none');
+                    $('.save-icon').addClass('d-none');
+                    $('#saveBtn').prop('disabled', true);
                 },
                 success: function(data) {
                     if (data.status == true) {
@@ -392,6 +394,8 @@
                 },
                 complete: function() {
                     $('.spinner_loading').addClass('d-none');
+                    $('.save-icon').removeClass('d-none');
+                    $('#saveBtn').prop('disabled', false);
                 }
             });
         });

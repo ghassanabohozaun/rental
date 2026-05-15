@@ -28,7 +28,7 @@
                     <tbody style="font-size: 14px;">
                         @forelse($property->maintenances as $maintenance)
                         <tr>
-                            <td class="py-2">#{!! $maintenance->id !!}</td>
+                            <td class="py-2">#{!! $loop->iteration !!}</td>
                             <td class="py-2">
                                 <div class="font-weight-bold">{!! Str::limit($maintenance->description, 50) !!}</div>
                             </td>

@@ -23,7 +23,7 @@
                     <tbody style="font-size: 14px;">
                         @forelse($customer->contracts as $contract)
                         <tr>
-                            <td class="py-2">#{!! $contract->id !!}</td>
+                            <td class="py-2">#{!! $loop->iteration !!}</td>
                             <td class="py-2">
                                 <div class="font-weight-bold text-dark">{!! optional($contract->property)->name !!}</div>
                                 <small class="text-muted">{!! optional($contract->property->propertyType)->name !!}</small>

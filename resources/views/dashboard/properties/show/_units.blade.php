@@ -7,9 +7,9 @@
             </h5>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="table-responsive" @if($property->units->count() > 15) style="max-height: 650px; overflow-y: auto;" @endif>
                 <table class="table table-hover mb-0">
-                    <thead class="bg-light">
+                    <thead class="bg-light" @if($property->units->count() > 15) style="position: sticky; top: 0; z-index: 2; background: #f8f9fa;" @endif>
                         <tr class="text-muted" style="font-size: 14px;">
                             <th class="border-top-0">#</th>
                             <th class="border-top-0">{!! __('properties.property') !!}</th>
@@ -23,7 +23,7 @@
                     <tbody style="font-size: 14px;">
                         @forelse($property->units as $unit)
                         <tr>
-                            <td class="py-2 align-middle">#{!! $unit->id !!}</td>
+                            <td class="py-2 align-middle">#{!! $loop->iteration !!}</td>
                             <td class="py-2 align-middle">
                                 <div class="font-weight-bold">{!! $unit->name !!}</div>
                                 <small class="text-muted">{!! $unit->property_number !!}</small>

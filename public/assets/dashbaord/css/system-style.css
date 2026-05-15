@@ -23,6 +23,19 @@ border: 2px solid #f1f5f9;
 background: #94a3b8;
 }
 
+/* Hide Horizontal Scrollbar for Responsive Tables */
+.table-responsive::-webkit-scrollbar {
+    height: 0px !important;
+    width: 0px !important;
+    display: none !important;
+}
+
+.table-responsive {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 select, select.form-control {
 appearance: none !important;
 -webkit-appearance: none !important;
@@ -1675,9 +1688,6 @@ box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
     height: 100% !important;
     width: 100% !important;
 }
-    outline: none !important;
-}
-
 
 .form-group-premium:focus-within .premium-input-wrapper,
 .form-group-premium:focus-within .premium-textarea-wrapper {
@@ -4173,7 +4183,7 @@ Premium Permission Cards Design
     margin-bottom: 0;
     line-height: 1.3;
 }
-}
+
 
 .permission-item:hover {
 background: #f1f5f9;

@@ -163,6 +163,17 @@ body.rtl .contract-header-premium .col-lg-7 p {
     line-height: 1.2;
 }
 
+/* RTL Alignment Fixes */
+[data-textdirection="rtl"] .data-grid-label,
+[data-textdirection="rtl"] .data-grid-value {
+    text-align: right;
+    width: 100%;
+}
+
+[data-textdirection="rtl"] .data-grid-content {
+    text-align: right;
+}
+
 .data-grid-value.text-primary { color: #3b82f6 !important; }
 .data-grid-value.text-success { color: #10b981 !important; }
 .data-grid-value.text-warning { color: #f59e0b !important; }

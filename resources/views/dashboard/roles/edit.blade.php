@@ -36,15 +36,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="content-header-right col-md-6 col-12 text-md-right">
+                    <div class="content-header-right col-md-6 col-12 text-md-right mb-2">
                         <div class="d-flex align-items-center justify-content-end mb-1 gap-15px">
                             <a href="{!! route('dashboard.roles.index') !!}" class="btn-premium-back">
                                 <i class="fas fa-arrow-right"></i> {!! __('general.back') !!}
                             </a>
                             @if ($role->id !== 1)
                                 <button class="btn btn-premium-save" type="submit" id="saveBtn">
-                                    <i class="fas fa-save mr-2"></i>
-                                    <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
+                                    <i class="fas fa-save mr-2 save-icon"></i>
+                                    <i class="fas fa-sync fa-spin d-none spinner_loading mr-2"></i>
                                     {!! __('general.save') !!}
                                 </button>
                             @endif

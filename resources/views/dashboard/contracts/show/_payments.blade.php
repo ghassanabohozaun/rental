@@ -31,7 +31,7 @@
                     <tbody style="font-size: 15px;">
                         @forelse($contract->payments as $payment)
                         <tr>
-                            <td class="py-2">{!! $payment->id !!}</td>
+                            <td class="py-2">#{!! $loop->iteration !!}</td>
                             <td class="py-2">{!! $payment->payment_date->format('Y-m-d') !!}</td>
                             <td class="py-2 font-weight-bold text-success">{!! number_format($payment->amount, 2) !!}</td>
                             <td class="py-2">

@@ -7,12 +7,12 @@
             </h5>
             <a href="{!! route('dashboard.customers.index') !!}?id={!! $contract->customer_id !!}"
                 class="btn btn-sm btn-light-primary px-2 py-0 font-small-3 radius-6">
-                {!! __('customers.view_customer') !!} <i class="fas fa-external-link-alt ml-1"></i>
+                {!! __('customers.view_customer') !!} <i class="fas fa-external-link-alt mx-1"></i>
             </a>
         </div>
         <div class="card-body pt-3 pb-3">
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-primary-opacity">
                             <i class="fas fa-user text-primary"></i>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
+                <div class="col-md-3 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-warning-opacity">
                             <i class="fas fa-phone text-warning"></i>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="col-12">
                     <div class="p-2 border-dashed-premium rounded bg-light-blue-info d-flex align-items-center">
-                        <i class="fas fa-map-marker-alt text-danger mr-2 ml-2"></i>
-                        <span class="text-muted mr-2">{!! __('customers.address') !!}:</span>
+                        <i class="fas fa-map-marker-alt text-danger mx-2"></i>
+                        <span class="text-muted mx-2">{!! __('customers.address') !!}:</span>
                         <span class="text-dark font-weight-bold">{!! optional($contract->customer)->address ?? '---' !!}</span>
                     </div>
                 </div>

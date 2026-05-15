@@ -46,9 +46,9 @@
                                 <i class="fas fa-arrow-left"></i> {!! __('general.back') !!}
                             </a>
                             <button class="btn btn-premium-save" type="submit" id="saveBtn">
-                                <i class="fas fa-save mr-2"></i>
+                                <i class="fas fa-save mr-2 save-icon"></i>
+                                <i class="fas fa-sync fa-spin spinner_loading d-none mr-2"></i>
                                 {!! __('general.save') !!}
-                                <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
                             </button>
                         </div>
                     </div>
