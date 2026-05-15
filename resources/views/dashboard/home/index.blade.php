@@ -420,13 +420,16 @@
                 chart: {
                     type: 'donut',
                     height: 320,
-                    fontFamily: 'Cairo, sans-serif'
+                    fontFamily: 'Cairo, sans-serif',
+                    animations: {
+                        enabled: true
+                    }
                 },
                 colors: ['#2ecc71', '#e0e6ed'],
                 series: {!! json_encode($occupancyChart['series']) !!},
                 labels: {!! json_encode($occupancyChart['labels']) !!},
                 legend: {
-                    position: 'bottom'
+                    show: false // Disabled default legend to prevent overlap
                 },
                 plotOptions: {
                     pie: {
@@ -463,6 +466,10 @@
                 var occupancyChart = new ApexCharts(document.querySelector("#occupancy-donut-chart"),
                     occupancyOptions);
                 occupancyChart.render();
+
+                new ResizeObserver(() => {
+                    occupancyChart.updateOptions({ chart: { width: '100%' } }, false, false);
+                }).observe(document.querySelector("#occupancy-donut-chart").parentElement);
             }
         });
 
