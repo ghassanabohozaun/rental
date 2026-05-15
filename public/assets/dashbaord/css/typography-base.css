@@ -202,3 +202,29 @@ html[data-textdirection="ltr"] .form-control,
 html[data-textdirection="ltr"] .premium-input {
     font-size: 0.85rem !important;
 }
+
+/* RTL Specific Refinements - Balanced and Compact */
+html[data-textdirection="rtl"],
+html[data-textdirection="rtl"] body {
+    font-size: 13px; /* Reduced from 14px for a cleaner look */
+}
+
+html[data-textdirection="rtl"] th {
+    font-weight: 700 !important;
+    font-size: 0.92rem !important; /* ~12px */
+}
+
+html[data-textdirection="rtl"] .card-title {
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+}
+
+html[data-textdirection="rtl"] .btn {
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+}
+
+html[data-textdirection="rtl"] .form-control,
+html[data-textdirection="rtl"] .premium-input {
+    font-size: 0.9rem !important;
+}

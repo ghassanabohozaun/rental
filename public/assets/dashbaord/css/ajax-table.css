@@ -383,7 +383,7 @@ html[dir="rtl"] .table td {
 .table thead th,
 [data-textdirection="rtl"] .table th,
 html[dir="rtl"] .table th {
-    font-size: 10px !important;
+    font-size: 12px !important;
 }
 [data-textdirection="rtl"] .font-11, html[dir="rtl"] .font-11 { font-size: 11px !important; }
 [data-textdirection="rtl"] .font-12, html[dir="rtl"] .font-12 { font-size: 12px !important; }

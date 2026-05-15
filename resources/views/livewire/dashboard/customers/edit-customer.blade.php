@@ -455,7 +455,7 @@
                     $this.select2({
                         width: '100%',
                         dir: $('html').attr('data-textdirection') || 'ltr',
-                        dropdownParent: $(document.body)
+                        dropdownParent: $this.parent()
                     }).on('change', function(e) {
                         if (model) {
                             @this.set(model, e.target.value);

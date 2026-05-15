@@ -43,7 +43,7 @@ select option, select, select.form-control {
     font-size: 0.9rem !important;
 }
 
-html[data-textdirection="rtl"] select, 
+html[data-textdirection="rtl"] select,
 html[data-textdirection="rtl"] select option,
 html[data-textdirection="rtl"] select.form-control {
     font-size: 0.925rem !important;
@@ -1645,42 +1645,35 @@ border-color: #6366f1;
 box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
 }
 .premium-input-wrapper, .premium-textarea-wrapper {
-background: #ffffff;
-border: 1.5px solid #e2e8f0 !important;
-border-radius: 6px;
-transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform
-0.15s ease, opacity 0.15s ease;
-height: auto !important;
-width: 100% !important;
-display: flex !important;
-align-items: center !important;
-position: relative;
-box-sizing: border-box !important;
-overflow: visible !important;
-padding: 1px !important; /* Prevents child elements from clipping the wrapper's border */
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 42px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important; /* Thinner border like Properties */
+    border-radius: 4px !important; /* Slightly softer radius */
+    transition: all 0.2s ease !important;
 }
 
-/* General Fix for Bottom Border Clipping */
-.premium-input-wrapper::after {
-    content: "";
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: transparent;
-    pointer-events: none;
+.premium-input-wrapper:focus-within {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important; /* Softer glow */
 }
 
-/* Nuclear Fix for Double Borders - Removes inner borders when using wrappers */
-.premium-input-wrapper .form-control,
+/* Remove inner borders to prevent double-bordering */
 .premium-input-wrapper .premium-input,
-.premium-input-wrapper select,
-.premium-input-wrapper select:focus,
+.premium-input-wrapper .form-control,
 .premium-input-wrapper .select2-container--default .select2-selection--single {
     border: none !important;
-    background-color: transparent !important;
+    background: transparent !important;
     box-shadow: none !important;
+    height: 100% !important;
+    width: 100% !important;
+}
     outline: none !important;
 }
 
@@ -1974,19 +1967,20 @@ display: block; opacity: 0.85;
 }
 
 .premium-input:not(textarea) {
-height: 3rem !important;
-appearance: none !important;
--webkit-appearance: none !important;
--moz-appearance: none !important;
-padding: 0 1.25rem !important;
-border: 1.5px solid #e2e8f0 !important;
-border-radius: 2px !important;
-background: #ffffff !important;
-transition: background-color 0.15s ease , color 0.15s ease , border-color 0.15s ease , box-shadow 0.15s ease , transform
-0.15s ease , opacity 0.15s ease !important;
-font-size: 1.15rem !important;
-font-weight: 500 !important;
-color: #1e293b !important;
+    height: 42px !important;
+    line-height: 42px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    padding: 0 1.25rem !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 2px !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    transition: all 0.15s ease !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    color: #1e293b !important;
 }
 select.premium-input,
 select.form-control.premium-input {
@@ -1998,8 +1992,8 @@ background-image: var(--icon-chevron-indigo) !important;
 background-repeat: no-repeat !important;
 background-position: right 1.25rem center !important; /* Arrow on the right in LTR */
 background-size: 1.2rem !important;
-padding-right: 3rem !important;
-padding-left: 1.25rem !important;
+padding-right: 0.75rem !important;
+padding-left: 0.75rem !important;
 border: 1.5px solid #e2e8f0 !important;
 border-radius: 2px !important;
 height: 3rem !important;
@@ -2011,7 +2005,7 @@ color: #1e293b !important;
 input.premium-input:not(textarea) {
 background: #ffffff !important;
 background-image: none !important;
-padding-left: 3.125rem !important;
+padding-left: 1.25rem !important;
 padding-right: 1.25rem !important;
 border: 1.5px solid #e2e8f0 !important;
 border-radius: 2px !important;
@@ -2209,7 +2203,7 @@ background-image: var(--icon-chevron-indigo) !important;
 background-repeat: no-repeat !important;
 background-position: right 1.2rem center !important;
 background-size: 1.1rem !important;
-padding-right: 3rem !important;
+padding-right: 1.25rem !important;
 padding-left: 1.25rem !important;
 display: block !important;
 width: 100% !important;
@@ -2321,18 +2315,7 @@ align-items: flex-start !important;
 }
 
 .premium-input-wrapper i {
-position: absolute !important;
-font-size: 1.35rem !important;
-z-index: 10 !important;
-color: #6366f1 !important;
-top: 50% !important;
-transform: translateY(-50%) !important;
-display: flex !important;
-align-items: center !important;
-
-transition: background-color 0.15s ease , color 0.15s ease , border-color 0.15s ease , box-shadow 0.15s ease , transform
-0.15s ease , opacity 0.15s ease !important;
-pointer-events: none !important;
+    display: none !important;
 }
 
 /* Icon inside textarea wrapper: pin to top instead of center */
@@ -2348,32 +2331,20 @@ cursor: pointer !important;
 }
 
 /* LTR Specific (English) */
-html[data-textdirection="ltr"] .premium-input-wrapper i:not(.premium-icon-opposite) {
-left: 0.9rem !important;
-right: auto !important;
-}
-html[data-textdirection="ltr"] .premium-input-wrapper i.premium-icon-opposite {
-right: 1.15rem !important;
-/* left: auto !important; */
-}
+
 html[data-textdirection="ltr"] .premium-input-wrapper .premium-input:not(.select2-hidden-accessible) {
-    padding-left: 3.125rem !important; /* Added 2px extra space (Total 50px) */
-    padding-right: 1.25rem !important;
+    padding: 0 1rem !important;
 }
 
 /* RTL Specific (Arabic) */
-html[data-textdirection="rtl"] .premium-input-wrapper i:not(.premium-icon-opposite) {
-right: 0.9rem !important;
-/* left: auto !important; */
-}
-html[data-textdirection="rtl"] .premium-input-wrapper i.premium-icon-opposite {
-left: 0.9rem !important;
-right: auto !important;
-}
 html[data-textdirection="rtl"] .premium-input-wrapper .premium-input:not(.select2-hidden-accessible) {
-    padding-right: 3.125rem !important; /* Synced with LTR (50px) */
-    padding-left: 1.25rem !important;
+    padding: 0 1rem !important;
 }
+
+
+
+
+
 
 /* ===================================================
 Global Textarea Fix inside premium-input-wrapper
@@ -2856,7 +2827,7 @@ background-repeat: no-repeat !important;
 [dir="rtl"] .premium-switch,
 [data-textdirection='rtl'] .premium-switch {
     padding-left: 0 !important;
-    padding-right: 3.25rem !important;
+    padding-right: 1.25rem !important;
 }
 [dir="rtl"] .premium-switch .custom-control-label::before,
 [data-textdirection='rtl'] .premium-switch .custom-control-label::before {
@@ -3094,42 +3065,6 @@ align-items: center !important;
 border: 1px solid #d1d5db !important;
 }
 
-/* LTR: push rendered text to the right of the icon */
-html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single {
-padding-left: 3rem !important; /* Unified with text inputs */
-}
-html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single {
-padding-left: 0.8rem !important;
-}
-
-/* RTL: push rendered text to the left of the icon */
-html[data-textdirection="rtl"] .premium-input-wrapper .select2-container--default .select2-selection--single {
-padding-right: 3rem !important; /* Synced with LTR (48px) */
-padding-left: 0.5rem !important;
-}
-html[data-textdirection="rtl"] .premium-input-wrapper.no-icon .select2-container--default .select2-selection--single {
-padding-right: 0.8rem !important;
-padding-left: 0.5rem !important;
-}
-
-.premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
-padding-left: 0 !important;
-padding-right: 0 !important;
-line-height: normal !important;
-color: #3d3d3d !important;
-}
-
-
-[dir='rtl'] .premium-input-wrapper .select2-container--default .select2-selection--single {
-padding-left: 1rem !important;
-padding-right: 2.8rem !important;
-}
-
-[dir='rtl'] .premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
-padding-right: 0 !important;
-padding-left: 0 !important;
-color: #3d3d3d !important;
-}
 
 /* Textarea Placeholder alignment fix */
 .premium-textarea-md {
@@ -3288,14 +3223,13 @@ background: transparent !important;
 .premium-label {
     font-weight: 700 !important;
     color: #1e293b !important;
-    margin-bottom: 8px !important;
-    display: flex !important;
+    margin-bottom: 10px !important;
+    display: block !important;
     width: 100% !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 10px;
-    font-size: 1.125rem !important;
+    font-size: 0.95rem !important; /* Standardized size */
     letter-spacing: 0.3px;
+    line-height: 1.5 !important;
+    min-height: 1.5rem;
 }
 .premium-label i {
 font-size: 1.4rem;
@@ -3854,60 +3788,7 @@ box-shadow: none !important; /* Removed shadow as requested */
     background-image: none !important;
 }
 
-.premium-input-wrapper .select2-container--default .select2-selection--single::after,
-.premium-input-wrapper .select2-container--default .select2-selection--single::before {
-    display: none !important;
-}
 
-.premium-input-wrapper .select2-container .select2-selection--single {
-    height: 42px !important;
-    display: flex !important;
-    align-items: center !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background: #fff !important;
-}
-
-.premium-input-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: normal !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
-}
-.select2-dropdown {
-border-radius: 2px !important;
-border: none !important;
-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12) !important;
-overflow: hidden !important;
-margin-top: 5px !important;
-z-index: 10001 !important;
-}
-.select2-results__option {
-padding: 10px 15px !important;
-font-size: 0.9rem !important;
-transition: background-color 0.2s ease , color 0.2s ease , border-color 0.2s ease , box-shadow 0.2s ease , transform
-0.2s ease , opacity 0.2s ease !important;
-color: #3d3d3d !important;
-background-color: #fff !important;
-}
-.select2-results__option--highlighted[aria-selected] {
-background-color: #666ee8 !important;
-color: #fff !important;
-}
-.select2-results__option[aria-selected="true"] {
-background-color: #eef2ff !important;
-color: #4f46e5 !important;
-font-weight: 600 !important;
-}
-.select2-container--default .select2-search--dropdown .select2-search__field {
-border-radius: 2px !important;
-border: 1px solid #f1f5f9 !important;
-padding: 8px 8px !important;
-margin-bottom: 5px !important;
-outline: none !important;
-}
 
 /* Premium Secondary Button */
 .btn-premium-secondary {
@@ -4819,7 +4700,7 @@ right: auto !important;
 }
 
 html[data-textdirection="ltr"] .premium-mandatory-body .premium-input {
-padding-left: 3.125rem !important;
+padding-left: 1.25rem !important;
 padding-right: 1.25rem !important;
 }
 
@@ -4835,8 +4716,8 @@ right: 0.9rem !important;
 }
 
 html[data-textdirection="rtl"] .premium-mandatory-body .premium-input {
-padding-right: 3.125rem !important;
-padding-left: 1.25rem !important;
+padding-right: 0.75rem !important;
+padding-left: 0.75rem !important;
 }
 
 .premium-mandatory-body .premium-input:focus {
@@ -6903,19 +6784,38 @@ color: #1e293b !important;
 }
 
 html[dir='rtl'] input.premium-input {
-background: #ffffff !important;
-background-image: none !important;
-padding-right: 3.2rem !important;
-padding-left: 1.25rem !important;
-border: 1.5px solid #e2e8f0 !important;
-border-radius: 2px !important;
-height: 3rem !important;
-font-size: 1.0rem !important;
-font-weight: 500 !important;
-color: #1e293b !important;
-line-height: 3rem !important;
-padding-top: 0 !important;
-padding-bottom: 0 !important;
+    background: #ffffff !important;
+    background-image: none !important;
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 2px !important;
+    height: 3rem !important;
+.premium-label {
+    display: block !important;
+    font-size: 0.85rem !important; /* Smaller like Properties */
+    font-weight: 600 !important;
+    color: #475569 !important; /* Muted Slate 600 */
+    margin-bottom: 0.4rem !important;
+    text-align: inherit !important;
+    transition: color 0.2s ease !important;
+}
+    font-size: 1.0rem !important;
+    font-weight: 500 !important;
+    color: #1e293b !important;
+    line-height: 3rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.premium-input.is-invalid-premium,
+input.is-invalid-premium,
+select.is-invalid-premium,
+.is-invalid-premium .select2-selection--single,
+.is-invalid-premium.select2-container--default .select2-selection--single {
+    border: 1.5px solid #ef4444 !important;
+    background-color: #fff5f5 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
 }
 
 html[dir='rtl'] .form-control.premium-input:not(select):not(input) {
@@ -7113,7 +7013,7 @@ color: #1e293b !important;
 
 html[dir='rtl'] [data-textdirection="ltr"] select.premium-input {
 background-position: right 1.2rem center !important;
-padding-right: 3rem !important;
+padding-right: 1.25rem !important;
 padding-left: 1.25rem !important;
 }
 
@@ -7239,8 +7139,8 @@ transform: none !important;
 
 html[dir='rtl'] [data-textdirection="rtl"] .premium-input-wrapper .premium-input:not(textarea),
 html[dir='rtl'] html[dir="rtl"] .premium-input-wrapper .premium-input:not(textarea) {
-padding-right: 3.2rem !important;
-padding-left: 1.25rem !important;
+padding-right: 0.75rem !important;
+padding-left: 0.75rem !important;
 }
 
 /* ===================================================
@@ -7521,7 +7421,7 @@ html[dir='rtl'] .premium-breadcrumb .breadcrumb-item + .breadcrumb-item::before 
 
 /* Premium Switch with Embedded SVG Icon - RTL Mirror - Scaled up +5px */
 html[dir='rtl'] .premium-switch {
-padding-right: 3.25rem !important;
+padding-right: 1.25rem !important;
 padding-left: 0 !important;
 min-height: 1.75rem !important;
 display: inline-flex !important;
@@ -9341,8 +9241,8 @@ position: absolute !important;
 }
 
 html[dir='rtl'] .premium-mandatory-body .premium-input {
-padding-right: 3.2rem !important;
-padding-left: 1.25rem !important;
+padding-right: 0.75rem !important;
+padding-left: 0.75rem !important;
 }
 
 html[dir='rtl'] .premium-mandatory-body .premium-input:focus {
@@ -9671,34 +9571,6 @@ html[dir='rtl'] #editCompanyModalLabel i,
     direction: ltr !important;
 }
 
-/* Force RTL Overrides - Supporting both dir='rtl' and data-textdirection='rtl' */
-html[dir='rtl'] .select2-container,
-html[dir='rtl'] .select2-dropdown,
-html[dir='rtl'] .select2-results__option,
-html[dir='rtl'] .select2-results__option *,
-html[dir='rtl'] .select2-selection__rendered,
-[data-textdirection='rtl'] .select2-container,
-[data-textdirection='rtl'] .select2-dropdown,
-[data-textdirection='rtl'] .select2-results__option,
-[data-textdirection='rtl'] .select2-results__option *,
-[data-textdirection='rtl'] .select2-selection__rendered {
-    text-align: right !important;
-    direction: rtl !important;
-}
-
-/* Special Padding for Options in RTL */
-html[dir='rtl'] .select2-results__option,
-[data-textdirection='rtl'] .select2-results__option {
-    padding-right: 1.25rem !important;
-    padding-left: 0.5rem !important;
-}
-
-/* Ensure Search Field in RTL is right-aligned */
-html[dir='rtl'] .select2-search__field,
-[data-textdirection='rtl'] .select2-search__field {
-    text-align: right !important;
-    direction: rtl !important;
-}
 
 /* Action Buttons Refinements - Font Size & RTL Arrow Fix */
 html[dir='rtl'] .btn-premium-white,
@@ -10046,35 +9918,6 @@ html[dir="rtl"] .premium-label.d-flex {
     line-height: 1 !important;
 }
 
-/* Premium Select2 Small Version for Modals */
-.premium-select2-sm + .select2-container--default .select2-selection--single {
-    font-size: 13px !important;
-    height: 42px !important;
-    display: flex !important;
-    align-items: center !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 2px !important;
-    background-color: #ffffff !important;
-}
-
-.premium-select2-sm + .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 42px !important;
-    padding-right: 35px !important;
-    padding-left: 35px !important;
-    color: #1e293b !important;
-    font-weight: 500 !important;
-}
-
-.premium-select2-sm + .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 40px !important;
-    right: auto !important;
-    left: 8px !important;
-}
-
-html[data-textdirection="ltr"] .premium-select2-sm + .select2-container--default .select2-selection--single .select2-selection__arrow {
-    left: auto !important;
-    right: 8px !important;
-}
 
 /* Status Management Switch Centering */
 .premium-switch-centered-wrapper {

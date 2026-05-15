@@ -1,179 +1,167 @@
+/*
+    Premium Select2 Component - Final Unified Design
+    All Select2 styles consolidated here for absolute pixel-perfect alignment.
+*/
+
 .select2-container {
     width: 100% !important;
     min-width: 100% !important;
     display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-/* Prevent FOUC (Flash of Unstyled Content) - Hides raw select border & text before Select2 init */
+/* Prevent FOUC (Flash of Unstyled Content) & Browser Default Arrow */
 select.select2:not(.select2-hidden-accessible) {
     visibility: hidden !important;
-    height: 42px !important; /* Match final select2 height to prevent layout jump */
+    height: 42px !important;
+    padding: 0 !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 2px !important;
+    position: relative !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    background: #fff !important;
 }
 
-.select2-container--default .select2-selection--single {
-    height: 42px !important;
+[wire\:ignore] {
     width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
     display: block !important;
     position: relative !important;
+}
+
+/* Error State - Extreme Specificity to override defaults */
+div.is-invalid-premium .select2-container--default .select2-selection--single,
+.is-invalid-premium + .select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--single.is-invalid-premium {
+    border-color: #ff4d4f !important;
+    box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.25) !important;
+    background-color: #fffafb !important;
+}
+
+div.is-invalid-premium .select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--single.is-invalid-premium {
+    box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.3) !important;
+}
+
+/* Global Selection Styling */
+.select2-container--default .select2-selection--single {
+    background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
-    border-radius: 6px !important; /* Unified with standard inputs */
-    padding: 0 !important;
-    background-color: transparent !important;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important; /* Smoother transition */
+    border-radius: 4px !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--single,
 .select2-container--default.select2-container--open .select2-selection--single {
-    border-color: #667eea !important;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15) !important;
-    transform: translateY(-1px);
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    outline: none !important;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 40px !important;
-    color: #475569 !important;
-    display: block !important;
-    width: 100% !important;
-    font-size: 1.0rem !important; /* Base text size */
+/* RTL Specific Selection & Text Alignment */
+[dir="rtl"] .select2-container--default .select2-selection--single,
+[data-textdirection="rtl"] .select2-container--default .select2-selection--single,
+.rtl .select2-container--default .select2-selection--single {
+    direction: rtl !important;
+    padding-right: 1rem !important;
+    padding-left: 2.5rem !important; /* Space for arrow on the left */
 }
 
+/* LTR Specific Selection & Text Alignment */
+[dir="ltr"] .select2-container--default .select2-selection--single,
+[data-textdirection="ltr"] .select2-container--default .select2-selection--single,
+.ltr .select2-container--default .select2-selection--single {
+    direction: ltr !important;
+    padding-left: 1rem !important;
+    padding-right: 2.5rem !important; /* Space for arrow on the right */
+}
+
+/* Rendered Text & Placeholder Positioning */
+.select2-container--default .select2-selection--single .select2-selection__rendered,
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-    color: #94a3b8 !important;
-    font-size: 0.9rem !important;
-    opacity: 0.85 !important;
+    color: #1e293b !important;
     font-weight: 500 !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: #475569 transparent transparent transparent !important;
-    border-style: solid !important;
-    border-width: 5px 4px 0 4px !important;
-    height: 0 !important;
-    left: 50% !important;
-    margin-left: -4px !important;
-    margin-top: -2px !important;
-    position: absolute !important;
-    top: 50% !important;
-    width: 0 !important;
-    display: block !important;
-}
-
-/* Rotate arrow when open */
-.select2-container--open .select2-selection--single .select2-selection__arrow b {
-    border-color: transparent transparent #475569 transparent !important;
-    border-width: 0 4px 5px 4px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 42px !important;
-    width: 30px !important;
-    position: absolute !important;
-    top: 0 !important;
-    z-index: 10 !important;
-    display: block !important;
-}
-
-/* Clear Icon Base */
-.select2-container--default .select2-selection--single .select2-selection__clear {
-    display: none !important; /* Hidden in favor of custom premium reset icon */
-}
-
-/* LTR Support (Default) */
-html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__rendered {
-    text-align: left;
-}
-/* LTR Support - Force Arrow to RIGHT */
-html[dir="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
-html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
-[dir="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow {
-    right: 12px !important;
-    left: auto !important;
-}
-html[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__clear {
-    position: absolute !important;
-    right: 32px !important; /* Positioned to the left of the arrow */
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: inherit !important;
+    padding: 2px 0 0 0 !important; /* Added 2px top padding to push text down */
     margin: 0 !important;
-    padding: 0 !important;
-}
-html[data-textdirection="ltr"] .select2-results__option {
-    text-align: left;
-}
-
-/* RTL Global Fix */
-[data-textdirection="rtl"] .select2-container {
-    direction: rtl;
+    line-height: 40px !important; /* Adjusted line-height to maintain 42px total */
+    width: 100% !important;
+    display: block !important;
 }
 
-/* RTL Support */
-html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__rendered {
-    text-align: right;
-    padding-right: 2.2rem !important; /* Reduced from 3rem for better spacing from premium icon */
-    padding-left: 2.5rem !important; /* Space for dropdown arrow */
-    font-size: 1rem !important;
+/* Force Right Alignment in RTL */
+[dir="rtl"] .select2-selection__rendered,
+[data-textdirection="rtl"] .select2-selection__rendered,
+.rtl .select2-selection__rendered,
+[dir="rtl"] .select2-selection__placeholder,
+[data-textdirection="rtl"] .select2-selection__placeholder,
+.rtl .select2-selection__placeholder {
+    text-align: right !important;
 }
 
-/* ================================================================
-   NO ICON Adjustments
-   ================================================================ */
-/* LTR No Icon */
-html[data-textdirection="ltr"] .premium-input-wrapper.no-icon .select2-selection__rendered {
-    padding-left: 12px !important;
+/* Force Left Alignment in LTR */
+[dir="ltr"] .select2-selection__rendered,
+[data-textdirection="ltr"] .select2-selection__rendered,
+.ltr .select2-selection__rendered,
+[dir="ltr"] .select2-selection__placeholder,
+[data-textdirection="ltr"] .select2-selection__placeholder,
+.ltr .select2-selection__placeholder {
+    text-align: left !important;
 }
-/* RTL No Icon */
-html[data-textdirection="rtl"] .premium-input-wrapper.no-icon .select2-selection__rendered {
-    padding-right: 12px !important;
-}
-/* RTL Support - Force Arrow to LEFT (Final & Clean) */
+
+/* Dropdown Arrow Positioning - RTL (Arrow on Left) */
 [dir="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow,
-html[dir="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow,
-[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow {
-    left: 12px !important;
+[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+.rtl .select2-container--default .select2-selection--single .select2-selection__arrow {
     right: auto !important;
+    left: 0 !important; /* Absolute far left as requested */
+    height: 100% !important;
+    top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 25px !important;
 }
 
-/* Premium Input Wrapper Icon Positioning */
-.premium-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.premium-input-wrapper > i {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-    z-index: 10000 !important; /* Ultimate high z-index to stay above everything */
-    pointer-events: none;
-}
-
-html[data-textdirection="ltr"] .premium-input-wrapper > i {
-    left: 0.9rem !important;
-    right: auto !important;
-}
-
-html[data-textdirection="rtl"] .premium-input-wrapper > i {
-    right: 0.9rem !important;
+/* Dropdown Arrow Positioning - LTR (Arrow on Right) */
+[dir="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+[data-textdirection="ltr"] .select2-container--default .select2-selection--single .select2-selection__arrow,
+.ltr .select2-container--default .select2-selection--single .select2-selection__arrow {
     left: auto !important;
-}
-html[data-textdirection="rtl"] .select2-container--default .select2-selection--single .select2-selection__clear {
-    position: absolute !important;
-    left: 32px !important; /* Positioned to the right of the arrow */
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 !important;
-    padding: 0 !important;
-}
-html[data-textdirection="rtl"] .select2-container .select2-search--dropdown .select2-search__field {
-    text-align: right;
-}
-html[data-textdirection="rtl"] .select2-results__option {
-    text-align: right;
+    right: 0.75rem !important;
+    height: 100% !important;
+    top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-/* Dropdown Premium Styling */
+/* Fix the arrow icon itself to not have offset */
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 0 !important;
+    top: auto !important;
+    position: relative !important;
+    display: block !important;
+}
+
+/* Error State */
+.is-invalid-premium.select2-container--default .select2-selection--single,
+.is-invalid-premium .select2-selection--single {
+    border-color: #ef4444 !important;
+    background-color: #fff5f5 !important;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Dropdown Menu Styling */
 .select2-dropdown {
     border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
@@ -183,189 +171,41 @@ html[data-textdirection="rtl"] .select2-results__option {
     background-color: #ffffff !important;
 }
 
-.select2-results,
-.select2-results__options {
-    background-color: #ffffff !important;
-    color: #1e293b !important;
+/* RTL Dropdown Content */
+[dir="rtl"] .select2-results__option,
+[data-textdirection="rtl"] .select2-results__option,
+.rtl .select2-results__option {
+    text-align: right !important;
+    direction: rtl !important;
+    padding: 8px 0.75rem !important;
 }
 
-.select2-container--default .select2-results__option {
-    padding: 8px 16px !important;
-    font-size: 0.95rem !important;
-    color: #1e293b !important;
-    background-color: #ffffff !important;
+/* Search Field Styling (Global) */
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    outline: none !important;
+    font-size: 0.9rem !important;
+    background-color: #f8fafc !important; /* Light gray background like RTL */
+    transition: all 0.2s ease !important;
 }
 
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* RTL Search Field Alignment */
+[dir="rtl"] .select2-search__field,
+[data-textdirection="rtl"] .select2-search__field,
+.rtl .select2-search__field {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+/* Hover/Active states */
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #667eea !important;
-    color: white !important;
-}
-
-.select2-container--default .select2-results__option[aria-selected="true"]:not(.select2-results__option--highlighted) {
-    background-color: #eef2ff !important;
+    background-color: #f1f5f9 !important;
     color: #4f46e5 !important;
 }
-
-.select2-container--default .select2-search--dropdown .select2-search__field {
-    border-radius: 6px !important;
-    border: 1px solid #cbd5e1 !important;
-    padding: 6px 12px !important;
-}
-.select2-container--default .select2-search--dropdown .select2-search__field:focus {
-    border-color: #667eea !important;
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
-    outline: none;
-}
-
-/* Custom Professional Reset Icon for Select2 */
-.premium-input-wrapper .select2-custom-reset {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.35rem;
-    color: #4b49ac; /* Premium Purple */
-    cursor: pointer;
-    z-index: 999 !important; /* High z-index to ensure it's above select2 layers */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: all 0.3s ease;
-}
-
-.premium-input-wrapper .select2-custom-reset.visible {
-    opacity: 0.8;
-    visibility: visible;
-    pointer-events: auto !important; /* Force clickability */
-}
-
-.premium-input-wrapper .select2-custom-reset:hover {
-    opacity: 1;
-    color: #ff5b5c; /* Red on hover to indicate clear action */
-    transform: translateY(-50%) scale(1.1);
-}
-
-/* LTR Positioning */
-html[data-textdirection="ltr"] .premium-input-wrapper .select2-custom-reset {
-    right: 3.2rem; /* Positioned further away from the dropdown arrow for a clean look */
-}
-
-/* RTL Positioning */
-html[data-textdirection="rtl"] .premium-input-wrapper .select2-custom-reset {
-    left: 3.2rem; /* Positioned further away from the dropdown arrow for a clean look */
-}
-
-/* ================================================================
-   Premium Select2 Selected Item (Avatar + Text) - NUCLEAR FIX
-   This must be here to override all inherited paddings
-   ================================================================ */
-.premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
-    height: 42px !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    border: 1px solid #e2e8f0 !important;
-    background-color: #ffffff !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    position: relative !important;
-}
-
-.premium-ajax-selection::after,
-.premium-ajax-selection::before,
-.premium-ajax-selection .select2-selection__arrow::after,
-.premium-ajax-selection .select2-selection__arrow::before {
-    display: none !important;
-}
-
-/* LTR Adjustments for Ajax Select2 with Avatar */
-html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
-    padding-left: 6px !important;
-    padding-right: 0 !important;
-}
-html[data-textdirection="ltr"] .premium-ajax-selection .select2-selection__rendered {
-    padding-left: 0 !important;
-    text-align: left !important;
-}
-
-/* RTL Adjustments for Ajax Select2 with Avatar/Icon */
-html[data-textdirection="rtl"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
-    padding-right: 2.2rem !important;
-    padding-left: 0.5rem !important;
-}
-html[data-textdirection="rtl"] .premium-ajax-selection .select2-selection__rendered {
-    padding-right: 0 !important;
-    text-align: right !important;
-}
-
-/* LTR Adjustments for Ajax Select2 with Avatar/Icon */
-html[data-textdirection="ltr"] .premium-input-wrapper .select2-container--default .select2-selection--single.premium-ajax-selection {
-    padding-left: 3.2rem !important;
-    padding-right: 0.5rem !important;
-}
-
-.premium-ajax-selection .select2-selection__rendered {
-    margin: 0 !important;
-    line-height: 40px !important;
-    display: flex !important;
-    align-items: center !important;
-    width: 100% !important;
-}
-
-.select2-selected-repo {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    width: 100% !important;
-}
-
-.select2-selection-avatar,
-.select2-selection-avatar-initials {
-    width: 26px !important;
-    height: 26px !important;
-    border-radius: 7px !important;
-    object-fit: cover !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
-    animation: avatarScaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.select2-selection-avatar-initials {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    position: relative !important;
-    overflow: hidden !important;
-}
-
-.select2-selection-avatar-initials::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%) !important;
-    pointer-events: none;
-}
-
-@keyframes avatarScaleIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.select2-selected-repo__text {
-    font-weight: 600 !important;
-    color: #334155 !important;
-    font-size: 0.95rem !important;
-}
-
-/* ====================================================================
-   🔥 PROFESSIONAL VALIDATION ERROR STATES FOR SELECT2
-   ==================================================================== */
-.premium-input-wrapper.is-invalid-premium .select2-container--default .select2-selection--single {
-    border: 1px solid #ef4444 !important;
-    background-color: #fff5f5 !important;
-    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
-    border-radius: 6px !important; /* Exactly 6px as requested */
-}
-
