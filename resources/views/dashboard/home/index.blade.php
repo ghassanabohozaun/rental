@@ -463,11 +463,6 @@
                 var occupancyChart = new ApexCharts(document.querySelector("#occupancy-donut-chart"),
                     occupancyOptions);
                 occupancyChart.render();
-
-                // Ensuring responsiveness on live servers like Hostinger
-                new ResizeObserver(() => {
-                    occupancyChart.updateOptions({ chart: { width: '100%' } }, false, false);
-                }).observe(document.querySelector("#occupancy-donut-chart").parentElement);
             }
         });
 
