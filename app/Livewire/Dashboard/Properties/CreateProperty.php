@@ -276,7 +276,7 @@ class CreateProperty extends Component
 
         $property_types = PropertyType::orderByDesc('id')->get();
         $property_statuses = PropertyStatus::orderByDesc('id')->get();
-        $companies = Company::orderByDesc('id')->get();
+        $companies = Company::active()->orderByDesc('id')->get();
         $parent_properties = Property::whereNull('parent_id')->orderByDesc('id')->get();
 
         return view('livewire.dashboard.properties.create-property', [

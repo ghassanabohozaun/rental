@@ -107,8 +107,8 @@ class ChequeRepository
         $rent_total = $this->model->where('is_deposit', false)->sum('amount');
         $insurance_total = $this->model->where('is_deposit', true)->sum('amount');
 
-        // Sum of all payments related to these cheques
-        $cashed_total = \App\Models\Payment::whereIn('cheque_id', $this->model->pluck('id'))->sum('amount');
+        // Sum of all cleared cheques (Cashed)
+        $cashed_total = $this->model->where('status', 'cleared')->sum('amount');
 
         return [
             'total_amount' => $total_amount,

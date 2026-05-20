@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
+        \App\Models\Cheque::observe(\App\Observers\ChequeObserver::class);
+
         // Dynamic Flasher Position (Check URL segment as fallback if locale is not yet set by middleware)
         $currentLocale = request()->segment(1);
         if (!in_array($currentLocale, ['ar', 'en'])) {

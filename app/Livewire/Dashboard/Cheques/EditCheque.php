@@ -33,13 +33,20 @@ class EditCheque extends Component
     public $isContractFulfilled = false;
     public $currentChequeUsedAmount = 0;
     public $dateWarning = '';
+    public $amountExceedsRemaining = false;
+    public $availableToCover = 0;
+    public $paid_pct = 0;
+    public $pending_pct = 0;
+    public $paid_pct_previous = 0;
+    public $current_pct_dynamic = 0;
+    public $smart_assistant_message = '';
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount(Cheque $cheque)
     {
         $this->cheque = $cheque;
-        
+
         $this->contract_id = $cheque->contract_id;
         $this->customer_id = $cheque->customer_id;
         $this->company_id = $cheque->company_id;
@@ -97,6 +104,17 @@ class EditCheque extends Component
         if ($this->issue_date && $this->due_date) {
             if (strtotime($this->due_date) < strtotime($this->issue_date)) {
                 $this->dateWarning = __('cheques.due_date_before_issue_date');
+                return;
+            }
+        }
+
+        $dateToCheck = $this->due_date ?: $this->issue_date;
+        if ($dateToCheck) {
+            $dateObj = \Carbon\Carbon::parse($dateToCheck);
+            if ($dateObj->copy()->addMonths(6)->isPast()) {
+                $this->dateWarning = __('cheques.date_too_old_warning') ?? 'تنبيه: تاريخ الشيك قديم (أكثر من 6 أشهر)';
+            } elseif ($dateObj->copy()->subYear()->isFuture()) {
+                $this->dateWarning = __('cheques.date_too_far_future_warning') ?? 'تنبيه: تاريخ الشيك بعيد جداً في المستقبل (أكثر من سنة)';
             }
         }
     }
@@ -109,7 +127,7 @@ class EditCheque extends Component
         }
 
         $contract = Contract::with(['cheques', 'customer', 'property'])->find($this->contract_id);
-        
+
         if (!$contract) {
             $this->resetFinancials();
             $this->contract_id = null;
@@ -127,6 +145,12 @@ class EditCheque extends Component
         $pendingOriginal = $allCheques->where('status', 'pending')->sum('amount');
         $pendingTotal = $allCheques->where('status', 'pending')->sum('remaining_amount');
 
+        // Sum of all other pending cheques (excluding current)
+        $otherPendingCheques = $allCheques->where('status', 'pending')->where('id', '!=', $this->cheque->id);
+        $totalOtherUnused = $otherPendingCheques->sum('remaining_amount');
+
+        $insuranceCovered = $allCheques->where('is_deposit', true)->whereIn('status', ['pending', 'held', 'cleared'])->where('id', '!=', $this->cheque->id)->sum('amount');
+
         $this->financials = [
             'total_amount' => $totalAmount,
             'paid_amount' => $paidAmount,
@@ -134,17 +158,18 @@ class EditCheque extends Component
             'pending_total' => $pendingTotal,
             'pending_original' => $pendingOriginal,
             'deposit_amount' => $contract->deposit_amount,
+            'other_pending_total' => $totalOtherUnused,
+            'covered_by_cheques' => min($remaining, $totalOtherUnused),
+            'uncovered_debt' => max(0.0, $remaining - $totalOtherUnused),
+            'insurance_covered' => $insuranceCovered,
+            'insurance_uncovered' => max(0.0, $contract->deposit_amount - $insuranceCovered),
         ];
 
         // Projected Remaining
         $contractRemaining = $remaining;
 
-        // Sum of all other pending cheques (excluding current)
-        $otherPendingCheques = $allCheques->where('status', 'pending')->where('id', '!=', $this->cheque->id);
-        $totalOtherUnused = $otherPendingCheques->sum('remaining_amount');
-
         // Current cheque unused portion
-        $currentChequeUnused = max(0, (float)$this->amount - $this->currentChequeUsedAmount);
+        $currentChequeUnused = max(0, (float) $this->amount - $this->currentChequeUsedAmount);
 
         if ($this->is_deposit == 1) {
             // For insurance cheques, we check against deposit amount
@@ -156,6 +181,75 @@ class EditCheque extends Component
         // We don't need to check if contract is fully covered in edit mode to block saving,
         // but we can set it for UI purposes if needed.
         $this->isContractFulfilled = false;
+
+        // Exceeds remaining validation display
+        $this->availableToCover = max(0, (float)($totalAmount - $paidAmount - $totalOtherUnused)) + $this->currentChequeUsedAmount;
+        if ($this->is_deposit == 0 && (float)$this->amount > $this->availableToCover) {
+            $this->amountExceedsRemaining = true;
+        } else {
+            $this->amountExceedsRemaining = false;
+        }
+
+        // Progress bar calculations
+        if ($this->is_deposit == 1) {
+            $total = $contract->deposit_amount ?: 1;
+            
+            $realizedPrevious = $allCheques->where('is_deposit', true)->whereIn('status', ['cleared', 'held'])->where('id', '!=', $this->cheque->id)->sum('amount');
+            $pendingPrevious = $allCheques->where('is_deposit', true)->where('status', 'pending')->where('id', '!=', $this->cheque->id)->sum('amount');
+
+            $this->paid_pct_previous = ($realizedPrevious / $total) * 100;
+            $this->pending_pct = ($pendingPrevious / $total) * 100;
+            
+            $currentAmt = 0;
+            if (in_array($this->status, ['pending', 'held', 'cleared'])) {
+                $currentAmt = max(0, (float) $this->amount);
+            }
+            $this->current_pct_dynamic = ($currentAmt / $total) * 100;
+            
+            $this->paid_pct = $this->paid_pct_previous + $this->current_pct_dynamic;
+        } else {
+            $total = $totalAmount ?: 1;
+
+            // Realized Paid (Cash/Bank, or Cleared Cheques)
+            $realizedPaid = $contract->payments()
+                ->whereIn('status', ['paid', 'pending'])
+                ->where(function ($query) {
+                    $query->whereNull('cheque_id')
+                        ->orWhereHas('cheque', function ($q) {
+                            $q->where('is_deposit', false)->where('status', 'cleared')->where('id', '!=', $this->cheque->id);
+                        });
+                })
+                ->sum('amount');
+            
+            // Pending Cheques (excluding current)
+            $pendingChequeVal = 0;
+            $pendingChequeVal += $contract->payments()
+                ->whereIn('status', ['paid', 'pending'])
+                ->whereHas('cheque', function ($q) {
+                    $q->where('is_deposit', false)
+                      ->where('status', 'pending')
+                      ->where('id', '!=', $this->cheque->id);
+                })
+                ->sum('amount');
+            $pendingChequeVal += $allCheques
+                ->where('is_deposit', false)
+                ->where('status', 'pending')
+                ->where('id', '!=', $this->cheque->id)
+                ->sum('remaining_amount');
+
+            $this->paid_pct_previous = ($realizedPaid / $total) * 100;
+            $this->pending_pct = ($pendingChequeVal / $total) * 100;
+            
+            $currentAmt = 0;
+            if (in_array($this->status, ['pending', 'held', 'cleared'])) {
+                $currentAmt = max(0, (float) $this->amount);
+            }
+            $this->current_pct_dynamic = ($currentAmt / $total) * 100;
+            
+            $this->paid_pct = $this->paid_pct_previous + $this->current_pct_dynamic;
+        }
+
+        $this->updateSmartAssistantMessage();
     }
 
     public function resetFinancials()
@@ -167,9 +261,63 @@ class EditCheque extends Component
             'pending_total' => 0,
             'pending_original' => 0,
             'deposit_amount' => 0,
+            'covered_by_cheques' => 0,
+            'uncovered_debt' => 0,
+            'insurance_covered' => 0,
+            'insurance_uncovered' => 0,
         ];
         $this->projectedRemaining = 0;
         $this->isContractFulfilled = false;
+        $this->amountExceedsRemaining = false;
+        $this->availableToCover = 0;
+        $this->paid_pct = 0;
+        $this->pending_pct = 0;
+        $this->paid_pct_previous = 0;
+        $this->current_pct_dynamic = 0;
+        $this->smart_assistant_message = '';
+    }
+
+    public function updateSmartAssistantMessage()
+    {
+        if (!$this->contract_id) {
+            $this->smart_assistant_message = __('cheques.smart_assistant.select_contract');
+            return;
+        }
+
+        $amt = (float)$this->amount;
+        if ($amt <= 0) {
+            $this->smart_assistant_message = __('cheques.smart_assistant.enter_cheque_value');
+            return;
+        }
+
+        if ($this->is_deposit == 1) {
+            $uncovered = (float)$this->financials['insurance_uncovered'];
+            
+            if ($amt > $uncovered) {
+                $surplus = $amt - $uncovered;
+                $this->smart_assistant_message = __('cheques.smart_assistant.deposit_exceeds', ['amount' => number_format($surplus, 0)]);
+            } else {
+                $newUncovered = $uncovered - $amt;
+                if ($newUncovered <= 0) {
+                    $this->smart_assistant_message = __('cheques.smart_assistant.deposit_fully_covered');
+                } else {
+                    $this->smart_assistant_message = __('cheques.smart_assistant.deposit_partially_covered_edit', ['amount' => number_format($newUncovered, 0)]);
+                }
+            }
+        } else {
+            $uncovered = (float)$this->financials['uncovered_debt'];
+            
+            if ($amt > $this->availableToCover + $this->currentChequeUsedAmount + 0.01) {
+                $this->smart_assistant_message = __('cheques.smart_assistant.rent_exceeds_general');
+            } else {
+                $newUncovered = max(0, $uncovered - $amt);
+                if ($newUncovered == 0) {
+                    $this->smart_assistant_message = __('cheques.smart_assistant.rent_fully_covered');
+                } else {
+                    $this->smart_assistant_message = __('cheques.smart_assistant.rent_partially_covered_edit', ['amount' => number_format($newUncovered, 0)]);
+                }
+            }
+        }
     }
 
     public function update()
@@ -187,7 +335,7 @@ class EditCheque extends Component
             'cheque_owner_name.en' => 'required|string|max:255',
             'issue_date' => 'nullable|date',
             'due_date' => 'nullable|date',
-            'status' => 'required|string|in:pending,paid,cancelled,returned',
+            'status' => 'required|string|in:pending,cleared,bounced,held,returned',
             'notes' => 'nullable|string',
         ];
 
@@ -210,11 +358,14 @@ class EditCheque extends Component
         $validatedData['issue_date'] = $validatedData['issue_date'] ?: null;
 
         // Ensure amount is not less than used amount
-        if ($this->currentChequeUsedAmount > 0 && (float)$this->amount < $this->currentChequeUsedAmount) {
+        if ($this->currentChequeUsedAmount > 0 && (float) $this->amount < $this->currentChequeUsedAmount) {
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'amount' => __('cheques.amount_cannot_be_less_than_used') . ' (' . number_format($this->currentChequeUsedAmount, 2) . ')'
+                'amount' => __('cheques.amount_cannot_be_less_than_used') . ' (' . number_format($this->currentChequeUsedAmount, 2) . ')',
             ]);
         }
+
+        // Prevent Duplication
+        $this->validateDuplicate($validatedData);
 
         // Complex Balance Validation
         $this->validateBalance($validatedData['amount']);
@@ -231,9 +382,28 @@ class EditCheque extends Component
         }
     }
 
+    protected function validateDuplicate($validatedData)
+    {
+        $companyId = $validatedData['company_id'] ?? $this->company_id;
+        $query = Cheque::where('company_id', $companyId)
+            ->where('cheque_number', $validatedData['cheque_number'])
+            ->where('id', '!=', $this->cheque->id)
+            ->where(function ($q) use ($validatedData) {
+                $q->where('bank_name->ar', $validatedData['bank_name']['ar'])->orWhere('bank_name->en', $validatedData['bank_name']['en']);
+            });
+
+        if ($query->exists()) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'cheque_number' => __('cheques.cheque_already_exists') ?? 'تم تسجيل هذا الشيك مسبقاً لنفس البنك والشركة',
+            ]);
+        }
+    }
+
     protected function validateBalance($amount)
     {
-        if ($this->is_deposit == 1) return;
+        if ($this->is_deposit == 1) {
+            return;
+        }
 
         $contract = Contract::with('cheques')->find($this->contract_id);
         $totalAmount = $contract->total_amount;
@@ -246,20 +416,20 @@ class EditCheque extends Component
 
         if ($amount > $availableToCover + $this->currentChequeUsedAmount + 0.01) {
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'amount' => __('cheques.amount_exceeds_contract_remaining') . ' (' . number_format($availableToCover + $this->currentChequeUsedAmount, 2) . ')'
+                'amount' => __('cheques.amount_exceeds_contract_remaining') . ' (' . number_format($availableToCover + $this->currentChequeUsedAmount, 2) . ')',
             ]);
         }
     }
 
     public function render()
     {
-        $companies = Company::orderBy('id', 'desc')->get();
+        $companies = Company::active()
+            ->orWhere('id', $this->company_id)
+            ->orderBy('id', 'desc')
+            ->get();
         $contracts = collect();
         if ($this->company_id) {
-            $contracts = Contract::where('company_id', $this->company_id)
-                ->with('customer', 'property')
-                ->orderBy('id', 'desc')
-                ->get();
+            $contracts = Contract::where('company_id', $this->company_id)->with('customer', 'property')->orderBy('id', 'desc')->get();
         }
 
         return view('livewire.dashboard.cheques.edit-cheque', [

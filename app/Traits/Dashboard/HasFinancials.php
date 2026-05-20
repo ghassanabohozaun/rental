@@ -19,7 +19,7 @@ trait HasFinancials
      */
     public function getTotalAmountAttribute()
     {
-        return round((float) $this->rent_amount, 0);
+        return round((float) $this->rent_amount, 2);
     }
 
     /**
@@ -39,7 +39,7 @@ trait HasFinancials
                         $q->where('is_deposit', false);
                     });
             })
-            ->sum('amount'), 0);
+            ->sum('amount'), 2);
     }
 
     /**
@@ -49,6 +49,6 @@ trait HasFinancials
      */
     public function getRemainingAmountAttribute()
     {
-        return round((float) max(0, $this->total_amount - $this->paid_amount), 0);
+        return round((float) max(0, $this->total_amount - $this->paid_amount), 2);
     }
 }

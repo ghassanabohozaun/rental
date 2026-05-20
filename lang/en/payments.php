@@ -52,14 +52,40 @@ return [
     'contract_selection' => 'Contract Selection',
     'any_notes' => 'Enter any additional notes here...',
     'projected_remaining' => 'Projected Remaining (After Cheque)',
+    'projected_surplus' => 'Projected Financial Surplus',
     'financial_health' => 'Financial Coverage Index',
+    'financial_coverage_index' => 'Financial Coverage Index',
     'remaining' => 'Remaining',
     'paid' => 'Paid',
     'cheques' => 'Cheques',
+    'payment_type' => 'Payment Type',
+    'rent_payment' => 'Rent',
+    'deposit_payment' => 'Deposit',
+    'over_coverage_warning_title' => 'Warning: Financial Over-Coverage',
+    'over_coverage_warning_desc' => 'This cash payment will cause the total available cheques to exceed the remaining contract balance. You must review the Cheques section and return some cheques to the customer after saving this payment.',
 
-    // Tips
-    'tip_verify_amount' => 'Please verify the entered amount carefully to ensure it matches the financial documents.',
-    'tip_check_date' => 'Make sure to select the correct payment date as recorded in the financial records.',
-    'tip_reference_number' => 'The reference number helps track the payment in bank records or accounting books.',
-    'tip_notes_importance' => 'Adding accurate notes facilitates the financial auditing process later.',
+
+    // Extra keys
+    'covered_by_cheques' => 'Covered by Cheques',
+    'current_transaction' => 'Current Transaction',
+    'guarantees' => 'Guarantees',
+    'total_amount' => 'Total Amount',
+    'available_for_cashing' => 'Available for Cashing',
+    'fully_consumed' => 'Fully Consumed',
+    'all_amounts_are_without_currency' => 'All amounts are displayed without currency',
+    'max_allowed_is' => 'Maximum allowed is',
+    
+    // Smart assistant messages
+    'smart_assistant' => [
+        'select_contract' => 'Please select a contract to view the interactive cash flow route.',
+        'contract_fully_paid' => 'The contract is fully paid! No further payments are required.',
+        'select_method_and_amount' => 'Please select a payment method and enter an amount to start the cash flow analysis.',
+        'amount_exceeds_remaining' => '⚠️ Warning: The entered amount (:amount) exceeds the total remaining contract balance (:remaining). Please check the amount.',
+        'cash_surplus' => '⚠️ Warning: Over-coverage surplus. The amount :amount will be registered as new cash liquidity. This amount covers the uncovered balance fully and exceeds it by :surplus over cheques. You will need to return some cheques to the customer after saving this payment.',
+        'cash_partially_covered' => '💡 Step Progress: A new cash payment of :amount will be recorded. This action will reduce the actual uncovered balance from :uncovered to :new_uncovered.',
+        'select_cheque_to_cash' => 'Please select the cheque to cash out from its available balance.',
+        'cheque_amount_exceeds' => '❌ Error: The entered amount (:amount) exceeds the available cheque balance (:remaining).',
+        'cheque_cash_flow' => '💡 Step Progress: An amount of :amount will be cashed from pending cheque #:cheque_no. This converts the paper guarantee into actual cash liquidity, reducing the available cheque balance to :new_remaining. There is no change to the overall contract coverage.',
+        'select_valid_cheque' => 'Please select a valid cheque.',
+    ],
 ];

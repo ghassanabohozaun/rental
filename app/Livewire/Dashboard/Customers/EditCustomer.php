@@ -289,7 +289,10 @@ class EditCustomer extends Component
 
     public function render()
     {
-        $companies = Company::orderByDesc('id')->get();
+        $companies = Company::active()
+            ->orWhere('id', $this->company_id)
+            ->orderByDesc('id')
+            ->get();
         $nationalities = Nationality::all();
         $guarantors = Guarantor::with('company')
             ->when(user()->company_id != 1, function ($q) {

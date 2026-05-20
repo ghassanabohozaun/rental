@@ -115,4 +115,20 @@ class Payment extends Model implements MustBelongToCompany
         if($status == 'failed') return 'danger';
         return 'secondary';
     }
+
+    public function getTypeLabelAttribute()
+    {
+        if ($this->cheque_id && $this->cheque && $this->cheque->is_deposit) {
+            return __('payments.deposit_payment');
+        }
+        return __('payments.rent_payment');
+    }
+
+    public function getTypeColorAttribute()
+    {
+        if ($this->cheque_id && $this->cheque && $this->cheque->is_deposit) {
+            return 'danger';
+        }
+        return 'primary';
+    }
 }

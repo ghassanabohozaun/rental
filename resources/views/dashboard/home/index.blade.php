@@ -160,7 +160,6 @@
                                 <div class="card-header">
                                     <h4 class="card-title"><i class="fas fa-chart-line text-primary"></i>
                                         {!! __('dashboard.financial_trend') ?? 'Financial Trend' !!}</h4>
-                                    <p class="text-muted mb-0 mt-1">{!! __('dashboard.monthly_collections') ?? 'Monthly rent collections overview' !!}</p>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body pt-0">
@@ -408,10 +407,14 @@
                 var financialChart = new ApexCharts(document.querySelector("#premium-area-chart"),
                     financialOptions);
                 financialChart.render();
-                
+
                 // Professional way to ensure chart fills container dynamically
                 new ResizeObserver(() => {
-                    financialChart.updateOptions({ chart: { width: '100%' } }, false, false);
+                    financialChart.updateOptions({
+                        chart: {
+                            width: '100%'
+                        }
+                    }, false, false);
                 }).observe(document.querySelector("#premium-area-chart").parentElement);
             }
 

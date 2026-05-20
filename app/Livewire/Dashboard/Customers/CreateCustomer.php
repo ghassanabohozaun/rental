@@ -241,7 +241,7 @@ class CreateCustomer extends Component
 
     public function render()
     {
-        $companies = Company::orderByDesc('id')->get();
+        $companies = Company::active()->orderByDesc('id')->get();
         $nationalities = Nationality::all();
         $guarantors = Guarantor::with('company')->when(user()->company_id != 1, function($q) {
             return $q->where('company_id', user()->company_id);

@@ -54,10 +54,10 @@ class ChequeService
         $cheque = $this->repository->find($id);
         if (!$cheque) return false;
 
-        // Debug: Check payments count
+        // Check payments count
         $paymentsCount = $cheque->payments()->count();
         if ($paymentsCount > 0) {
-            throw new \Exception("Cannot delete: This cheque has $paymentsCount associated payments in the database.");
+            throw new \App\Exceptions\DeleteRestrictionException(__('cheques.cannot_delete_has_payments'));
         }
 
         return \DB::transaction(function () use ($cheque) {

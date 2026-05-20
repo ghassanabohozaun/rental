@@ -33,9 +33,20 @@ class ChequeObserver
     }
 
     /**
-     * Handle the Cheque "restored" event.
-     * Optional: If we restore the cheque, should we restore the contract info? 
-     * Usually safer to let the user re-confirm, but for symmetry we could.
-     * For now, we only focus on the deletion issue reported.
+     * Handle the Cheque "updated" event.
+     * When a rent cheque status changes, we update the status of the related payments automatically.
      */
+    public function updated(Cheque $cheque): void
+    {
+        if ($cheque->wasChanged('status')) {
+            $newStatus = strtolower($cheque->status);
+            if ($newStatus === 'cleared') {
+                $cheque->payments()->update(['status' => 'paid']);
+            } elseif ($newStatus === 'bounced' || $newStatus === 'returned') {
+                $cheque->payments()->update(['status' => 'bounced']);
+            } else {
+                $cheque->payments()->update(['status' => 'pending']);
+            }
+        }
+    }
 }

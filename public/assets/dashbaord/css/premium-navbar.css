@@ -282,11 +282,11 @@ body .header-navbar .navbar-container {
     /* CENTERED DROPDOWN MENUS FOR MOBILE */
     #navbar-mobile .nav-item .dropdown-menu {
         position: fixed !important;
-        top: 10rem !important; /* ADJUSTED FOR NEW POSITION */
+        top: 5.1rem !important; /* REDUCED TOP TO CLOSE THE GAP */
         left: 50% !important;
         right: auto !important;
         transform: translateX(-50%) !important; /* PERFECT CENTERING */
-        width: 85% !important; /* REDUCED WIDTH */
+        width: 90% !important; /* SLIGHTLY WIDER */
         max-width: 350px !important; /* STRICT CAP */
         margin: 0 !important;
         z-index: 1000001 !important;

@@ -317,7 +317,10 @@ use Illuminate\Support\Facades\Storage;
 
         $property_types = PropertyType::orderByDesc('id')->get();
         $property_statuses = PropertyStatus::orderByDesc('id')->get();
-        $companies = Company::orderByDesc('id')->get();
+        $companies = Company::active()
+            ->orWhere('id', $this->company_id)
+            ->orderByDesc('id')
+            ->get();
         $parent_properties = Property::whereNull('parent_id')->where('id', '!=', $this->property->id)->orderByDesc('id')->get();
 
         return view('livewire.dashboard.properties.edit-property', [

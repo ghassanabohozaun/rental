@@ -31,7 +31,6 @@ return [
     
     // Enums - Deposit Status
     'deposit_status_held' => 'محفوظ',
-    'deposit_status_received' => 'محجوز',
     'deposit_status_returned' => 'مسترجع',
     'deposit_status_used' => 'مستخدم',
     

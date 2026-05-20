@@ -92,7 +92,7 @@ class Cheque extends Model implements MustBelongToCompany
     {
         return round((float) $this->payments()
             ->whereIn('status', ['paid', 'pending'])
-            ->sum('amount'), 0);
+            ->sum('amount'), 2);
     }
 
     /**
@@ -100,7 +100,7 @@ class Cheque extends Model implements MustBelongToCompany
      */
     public function getRemainingAmountAttribute()
     {
-        return round((float) max(0, $this->amount - $this->used_amount), 0);
+        return round((float) max(0, $this->amount - $this->used_amount), 2);
     }
 
     /*

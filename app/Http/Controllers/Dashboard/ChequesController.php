@@ -181,12 +181,12 @@ class ChequesController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'total_amount' => round($contract->total_amount, 0),
-                'total_paid' => round($contract->paid_amount, 0),
-                'remaining' => round($contract->remaining_amount, 0),
-                'total_pending_rent' => round($contract->cheques()->where('is_deposit', false)->get()->sum('remaining_amount'), 0),
-                'total_pending_rent_original' => round($contract->cheques()->where('is_deposit', false)->sum('amount'), 0),
-                'deposit_amount' => round($contract->deposit_amount, 0),
+                'total_amount' => round($contract->total_amount, 2),
+                'total_paid' => round($contract->paid_amount, 2),
+                'remaining' => round($contract->remaining_amount, 2),
+                'total_pending_rent' => round($contract->cheques()->where('is_deposit', false)->get()->sum('remaining_amount'), 2),
+                'total_pending_rent_original' => round($contract->cheques()->where('is_deposit', false)->sum('amount'), 2),
+                'deposit_amount' => round($contract->deposit_amount, 2),
                 'has_insurance_cheque' => $contract->insuranceCheque()->exists(),
                 'customer_id' => $contract->customer_id,
                 'customer_name' => optional($contract->customer)->name,

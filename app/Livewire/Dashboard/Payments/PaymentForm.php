@@ -45,11 +45,21 @@ class PaymentForm extends Component
         'pending_cheques_count' => 0,
         'paid_pct' => 0,
         'pending_pct' => 0,
+        'covered_by_cheques' => 0,
+        'uncovered_debt' => 0,
     ];
 
     public $projectedRemaining = 0;
 
     public $selectedChequeDetails = null;
+
+    public $paid_pct_dynamic = 0;
+    public $pending_pct_dynamic = 0;
+    public $paid_pct_previous = 0;
+    public $current_pct_dynamic = 0;
+    public $smart_assistant_message = '';
+    public $hasOverCoverage = false;
+    public $amountExceedsRemaining = false;
 
     protected $listeners = ['reinit-plugins' => '$refresh'];
 
@@ -68,12 +78,20 @@ class PaymentForm extends Component
             }
         }
         $this->calculateProjected();
+        $this->calculateProgressBar();
     }
 
     protected function loadInitialData()
     {
         if (user()->company_id == 1) {
-            $this->companies = Company::orderByDesc('id')->get();
+            if ($this->isEdit && $this->company_id) {
+                $this->companies = Company::active()
+                    ->orWhere('id', $this->company_id)
+                    ->orderByDesc('id')
+                    ->get();
+            } else {
+                $this->companies = Company::active()->orderByDesc('id')->get();
+            }
             $this->contracts = []; // Keep empty for super admin until company is selected
         } else {
             $this->company_id = user()->company_id;
@@ -121,6 +139,7 @@ class PaymentForm extends Component
         } else {
             $this->resetFinancials();
         }
+        $this->calculateProgressBar();
         $this->dispatch('reinit-plugins');
     }
 
@@ -161,6 +180,8 @@ class PaymentForm extends Component
             'pending_cheques_count' => 0,
             'paid_pct' => 0,
             'pending_pct' => 0,
+            'covered_by_cheques' => 0,
+            'uncovered_debt' => 0,
         ];
     }
 
@@ -202,6 +223,8 @@ class PaymentForm extends Component
             'pending_cheques_count' => $this->allCheques->count(),
             'paid_pct' => $total > 0 ? ($paid / $total) * 100 : 0,
             'pending_pct' => $total > 0 ? ($pendingTotal / $total) * 100 : 0,
+            'covered_by_cheques' => min($remaining, $pendingTotal),
+            'uncovered_debt' => max(0.0, $remaining - $pendingTotal),
             'customer_name' => optional($contract->customer)->name,
             'property_name' => optional($contract->property)->name,
         ];
@@ -210,6 +233,7 @@ class PaymentForm extends Component
     public function updatedAmount($value)
     {
         $this->calculateProjected();
+        $this->calculateProgressBar();
     }
 
     public function calculateProjected()
@@ -230,7 +254,34 @@ class PaymentForm extends Component
             }
         }
 
-        $this->projectedRemaining = max(0, $remaining - $amt);
+        // Sum remaining of all pending cheques
+        $contract = Contract::with('cheques')->find($this->contract_id);
+        $pendingChequesVal = 0;
+        if ($contract) {
+            $pendingChequesVal = $contract->cheques
+                ->where('is_deposit', false)
+                ->where('status', 'pending')
+                ->sum('remaining_amount');
+
+            // If editing and the payment is linked to a pending cheque, the cheque's remaining_amount was reduced by this payment.
+            // We should add it back to get the original state.
+            if ($this->isEdit && $this->method === 'cheque' && $this->cheque_id) {
+                $payment = Payment::find($this->paymentId);
+                if ($payment && $payment->cheque_id == $this->cheque_id && in_array($payment->status, ['paid', 'pending'])) {
+                    $pendingChequesVal += (float)$payment->amount;
+                }
+            }
+        }
+
+        // Subtract pending cheques and this payment (unless this payment is cheque-backed, in which case the cheque is already in $pendingChequesVal)
+        if ($this->method === 'cheque' && $this->cheque_id) {
+            // Cheque-backed payment: the cheque already covers it, so we don't subtract $amt (it's not new money).
+            $this->projectedRemaining = $remaining - $pendingChequesVal;
+        } else {
+            // Cash or online payment: this is new money being added.
+            $this->projectedRemaining = $remaining - $pendingChequesVal - $amt;
+        }
+        $this->updateSmartAssistantMessage();
     }
 
     public function updatedMethod($value)
@@ -242,6 +293,8 @@ class PaymentForm extends Component
             $this->selectedChequeDetails = null;
             $this->status = '';
         }
+        $this->calculateProjected();
+        $this->calculateProgressBar();
         $this->dispatch('reinit-plugins');
     }
 
@@ -249,12 +302,188 @@ class PaymentForm extends Component
     {
         if ($value) {
             $this->loadSelectedChequeDetails();
-            // Auto-fill amount with remaining cheque balance
-            if ($this->selectedChequeDetails) {
-                $this->amount = $this->selectedChequeDetails['remaining_amount'];
-            }
         } else {
             $this->selectedChequeDetails = null;
+        }
+        $this->calculateProjected();
+        $this->calculateProgressBar();
+    }
+
+    public function updatedStatus($value)
+    {
+        $this->calculateProjected();
+        $this->calculateProgressBar();
+    }
+
+    public function calculateProgressBar()
+    {
+        if (!$this->contract_id) {
+            $this->paid_pct_dynamic = 0;
+            $this->pending_pct_dynamic = 0;
+            return;
+        }
+
+        $contract = Contract::with(['payments.cheque', 'cheques'])->find($this->contract_id);
+        if (!$contract) {
+            $this->paid_pct_dynamic = 0;
+            $this->pending_pct_dynamic = 0;
+            return;
+        }
+
+        $total = (float)$contract->total_amount ?: 1;
+        $realizedPaid = 0;
+        $pendingChequesVal = 0;
+
+        // 1. Process existing DB payments (excluding deposit-linked ones)
+        foreach ($contract->payments as $p) {
+            if ($this->isEdit && $this->paymentId && $p->id == $this->paymentId) continue;
+            if ($p->cheque_id && $p->cheque && $p->cheque->is_deposit) continue;
+
+            if (in_array($p->status, ['paid', 'pending'])) {
+                if ($p->cheque_id && $p->cheque) {
+                    if ($p->cheque->status === 'cleared') {
+                        $realizedPaid += $p->amount;
+                    } else {
+                        $pendingChequesVal += $p->amount;
+                    }
+                } else {
+                    if ($p->method === 'cheque' && $p->status === 'pending') {
+                        $pendingChequesVal += $p->amount;
+                    } else {
+                        $realizedPaid += $p->amount;
+                    }
+                }
+            }
+        }
+
+        // 2. Process non-deposit cheques remaining balances
+        $currentAmt = (float)$this->amount;
+        foreach ($contract->cheques->where('is_deposit', false) as $chq) {
+            if ($chq->status === 'pending') {
+                $chqRemaining = (float)$chq->remaining_amount;
+
+                if ($this->method === 'cheque' && $this->cheque_id && $chq->id == $this->cheque_id) {
+                    // In edit mode, add back the old payment amount to restore cheque balance
+                    if ($this->isEdit && $this->paymentId) {
+                        $oldPayment = \App\Models\Payment::find($this->paymentId);
+                        if ($oldPayment && $oldPayment->cheque_id == $this->cheque_id) {
+                            $chqRemaining += (float)$oldPayment->amount;
+                        }
+                    }
+                    $chqRemaining = max(0, $chqRemaining - $currentAmt);
+                }
+
+                $pendingChequesVal += $chqRemaining;
+            }
+        }
+
+        // 3. Account for the current payment being entered
+        $realizedPaidPrevious = $realizedPaid;
+        
+        if ($this->status !== 'failed') {
+            $this->current_pct_dynamic = ($currentAmt / $total) * 100;
+        } else {
+            $this->current_pct_dynamic = 0;
+        }
+        
+        $this->paid_pct_previous = ($realizedPaidPrevious / $total) * 100;
+        $this->pending_pct_dynamic = ($pendingChequesVal / $total) * 100;
+        
+        $this->paid_pct_dynamic = $this->paid_pct_previous + ($this->method !== 'cheque' ? $this->current_pct_dynamic : 0);
+        
+        $this->amountExceedsRemaining = false;
+        $this->hasOverCoverage = false;
+        
+        $remaining = (float)$this->financials['remaining'];
+        if ($this->isEdit && $this->paymentId) {
+            $oldPayment = \App\Models\Payment::find($this->paymentId);
+            if ($oldPayment && $oldPayment->status === 'paid') {
+                $remaining += (float)$oldPayment->amount;
+            }
+        }
+
+        if ($currentAmt > $remaining) {
+            $this->amountExceedsRemaining = true;
+        } elseif (($this->paid_pct_previous + $this->current_pct_dynamic + $this->pending_pct_dynamic) > 100.01) {
+            $this->hasOverCoverage = true;
+        }
+        $this->updateSmartAssistantMessage();
+    }
+
+    public function updateSmartAssistantMessage()
+    {
+        if (!$this->contract_id) {
+            $this->smart_assistant_message = __('payments.smart_assistant.select_contract');
+            return;
+        }
+
+        $remaining = (float)$this->financials['remaining'];
+        if ($remaining <= 0 && !$this->isEdit) {
+            $this->smart_assistant_message = __('payments.smart_assistant.contract_fully_paid');
+            return;
+        }
+
+        $amt = (float)$this->amount;
+        if (!$this->method || $amt <= 0) {
+            $this->smart_assistant_message = __('payments.smart_assistant.select_method_and_amount');
+            return;
+        }
+
+        $uncovered = (float)$this->financials['uncovered_debt'];
+
+        if ($this->method !== 'cheque') {
+            if ($amt > $remaining) {
+                $this->smart_assistant_message = __('payments.smart_assistant.amount_exceeds_remaining', [
+                    'amount' => number_format($amt, 2),
+                    'remaining' => number_format($remaining, 2)
+                ]);
+            } elseif ($amt > $uncovered) {
+                $surplus = $amt - $uncovered;
+                $this->smart_assistant_message = __('payments.smart_assistant.cash_surplus', [
+                    'amount' => number_format($amt, 2),
+                    'surplus' => number_format($surplus, 2)
+                ]);
+            } else {
+                $newUncovered = $uncovered - $amt;
+                $this->smart_assistant_message = __('payments.smart_assistant.cash_partially_covered', [
+                    'amount' => number_format($amt, 2),
+                    'uncovered' => number_format($uncovered, 2),
+                    'new_uncovered' => number_format($newUncovered, 2)
+                ]);
+            }
+        } else {
+            if (!$this->cheque_id) {
+                $this->smart_assistant_message = __('payments.smart_assistant.select_cheque_to_cash');
+                return;
+            }
+
+            if ($this->selectedChequeDetails) {
+                $chqNo = $this->selectedChequeDetails['cheque_number'];
+                $chqRemaining = (float)$this->selectedChequeDetails['remaining_amount'];
+
+                if ($this->isEdit && $this->paymentId) {
+                    $oldPayment = Payment::find($this->paymentId);
+                    if ($oldPayment && $oldPayment->cheque_id == $this->cheque_id) {
+                        $chqRemaining += (float)$oldPayment->amount;
+                    }
+                }
+
+                if ($amt > $chqRemaining) {
+                    $this->smart_assistant_message = __('payments.smart_assistant.cheque_amount_exceeds', [
+                        'amount' => number_format($amt, 2),
+                        'remaining' => number_format($chqRemaining, 2)
+                    ]);
+                } else {
+                    $newChqRemaining = $chqRemaining - $amt;
+                    $this->smart_assistant_message = __('payments.smart_assistant.cheque_cash_flow', [
+                        'amount' => number_format($amt, 2),
+                        'cheque_no' => $chqNo,
+                        'new_remaining' => number_format($newChqRemaining, 2)
+                    ]);
+                }
+            } else {
+                $this->smart_assistant_message = __('payments.smart_assistant.select_valid_cheque');
+            }
         }
     }
 

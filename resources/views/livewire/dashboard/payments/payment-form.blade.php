@@ -137,6 +137,23 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
+                                            @if($amountExceedsRemaining && $method !== 'cheque')
+                                                <div class="alert alert-premium-danger premium-fade-in d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fce4e4;">
+                                                    <i class="fas fa-times-circle font-large-1 mr-2 text-danger"></i>
+                                                    <div>
+                                                        <strong class="text-danger">{!! __('payments.amount_exceeds_remaining') !!}</strong>
+                                                        <p class="mb-0 small text-danger">الحد الأقصى المسموح به هو: {{ number_format($financials['remaining'], 2) }}</p>
+                                                    </div>
+                                                </div>
+                                            @elseif($hasOverCoverage && $method !== 'cheque')
+                                                <div class="alert alert-premium-warning premium-fade-in d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fff3cd;">
+                                                    <i class="fas fa-exclamation-triangle font-large-1 mr-2 text-warning"></i>
+                                                    <div>
+                                                        <strong class="text-warning">{!! __('payments.over_coverage_warning_title') !!}</strong>
+                                                        <p class="mb-0 small text-muted">{!! __('payments.over_coverage_warning_desc') !!}</p>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="row">
                                                 <div class="col-md-4 mb-2">
                                                     <div class="premium-form-group @error('method') is-invalid-premium @enderror">
@@ -201,15 +218,15 @@
                                                                     <div class="pill-info-section">
                                                                         <div class="pill-stat">
                                                                             <span class="pill-label">{!! __('payments.cheque_original_amount') !!}</span>
-                                                                            <span class="pill-value text-info">{{ number_format($selectedChequeDetails['amount'], 0) }}</span>
+                                                                            <span class="pill-value text-info">{{ number_format($selectedChequeDetails['amount'], 2) }}</span>
                                                                         </div>
                                                                         <div class="pill-stat">
                                                                             <span class="pill-label">{!! __('payments.cheque_used_amount') !!}</span>
-                                                                            <span class="pill-value text-danger">{{ number_format($selectedChequeDetails['used_amount'], 0) }}</span>
+                                                                            <span class="pill-value text-danger">{{ number_format($selectedChequeDetails['used_amount'], 2) }}</span>
                                                                         </div>
                                                                         <div class="pill-stat border-0">
                                                                             <span class="pill-label">{!! __('payments.cheque_available_total') !!}</span>
-                                                                            <span class="pill-value text-success">{{ number_format($selectedChequeDetails['remaining_amount'], 0) }}</span>
+                                                                            <span class="pill-value text-success">{{ number_format($selectedChequeDetails['remaining_amount'], 2) }}</span>
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-info btn-sm pill-action-btn" wire:click="$set('amount', {{ $selectedChequeDetails['remaining_amount'] }})">
@@ -265,98 +282,128 @@
 
                                         <div class="summary-body-premium" wire:loading.class.delay.500ms="opacity-50">
                                             @if($contract_id)
-                                                <!-- Financial Status Rows -->
-                                                <div class="summary-stat-row">
-                                                    <span class="summary-stat-label">{!! __('contracts.total_amount') !!}</span>
-                                                    <span class="summary-stat-value">{{ number_format($financials['total_amount'], 0) }}</span>
-                                                </div>
-                                                <div class="summary-stat-row">
-                                                    <span class="summary-stat-label text-success">{!! __('payments.paid_amount') !!}</span>
-                                                    <span class="summary-stat-value text-success">{{ number_format($financials['paid_amount'], 0) }}</span>
-                                                </div>
-                                                <div class="summary-stat-row mb-0">
-                                                    <span class="summary-stat-label text-danger">{!! __('payments.remaining_amount') !!}</span>
-                                                    <span class="summary-stat-value text-danger">{{ number_format($financials['remaining'], 0) }}</span>
+                                                <!-- Smart Balance Breakdown -->
+                                                <div class="smart-balance-card mb-3">
+                                                    <div class="smart-balance-header d-flex justify-content-between align-items-center mb-2">
+                                                        <span class="font-weight-bold text-dark">{!! __('contracts.total_amount') !!}</span>
+                                                        <span class="font-weight-bold text-dark" style="font-size: 1.1rem;">{{ number_format($financials['total_amount'], 2) }}</span>
+                                                    </div>
+                                                    
+                                                    <div class="smart-balance-breakdown">
+                                                        <div class="breakdown-item paid-item">
+                                                            <div class="breakdown-label"><i class="fas fa-check-circle mr-1"></i> {!! __('payments.paid_amount') !!}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['paid_amount'], 2) }}</div>
+                                                        </div>
+                                                        <div class="breakdown-item covered-item">
+                                                            <div class="breakdown-label"><i class="fas fa-shield-alt mr-1"></i> {!! __('payments.covered_by_cheques') !!}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['covered_by_cheques'], 2) }}</div>
+                                                        </div>
+                                                        <div class="breakdown-item uncovered-item {{ $financials['uncovered_debt'] > 0 ? 'has-debt' : '' }}">
+                                                            <div class="breakdown-label"><i class="fas fa-exclamation-circle mr-1"></i> {!! __('cheques.uncovered_debt') !!}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['uncovered_debt'], 2) }}</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Financial Indicator Section -->
-                                                <div class="financial-indicator-section">
+                                                <div class="financial-indicator-section mt-4">
                                                     <span class="indicator-title">{!! __('payments.financial_coverage_index') !!}</span>
-                                                    <span class="indicator-percentage">{{ round($financials['paid_pct']) }}%</span>
                                                     
-                                                    <div class="financial-progress-premium">
-                                                        <div class="financial-progress-bar-premium financial-progress-bar-paid" style="width: {{ $financials['paid_pct'] }}%;"></div>
-                                                        @if($financials['pending_pct'] > 0)
-                                                            <div class="financial-progress-bar-premium financial-progress-bar-cheques" style="width: {{ $financials['pending_pct'] }}%;"></div>
+                                                    <span class="indicator-percentage {{ ($hasOverCoverage || $amountExceedsRemaining) && $method !== 'cheque' ? 'text-danger' : '' }}">
+                                                        {{ round(min(120, $paid_pct_dynamic + $pending_pct_dynamic)) }}%
+                                                    </span>
+                                                    
+                                                    <div class="financial-progress-premium triple-segment {{ ($hasOverCoverage || $amountExceedsRemaining) && $method !== 'cheque' ? 'border-danger' : '' }}" style="{{ ($hasOverCoverage || $amountExceedsRemaining) && $method !== 'cheque' ? 'border: 1px solid #ea5455; box-shadow: 0 0 0 3px rgba(234,84,85,0.2);' : '' }}">
+                                                        <!-- Segment 1: Previous Paid -->
+                                                        <div class="financial-progress-bar-premium financial-progress-bar-paid" style="width: {{ min(100, $paid_pct_previous) }}%;"></div>
+                                                        
+                                                        <!-- Segment 2: Current Active Input (Pulsing) -->
+                                                        @if($current_pct_dynamic > 0)
+                                                            <div class="financial-progress-bar-premium financial-progress-bar-current-pulse" style="width: {{ min(100 - min(100, $paid_pct_previous), $current_pct_dynamic) }}%;"></div>
+                                                        @endif
+                                                        
+                                                        <!-- Segment 3: Pending Cheques (Striped) -->
+                                                        @if($pending_pct_dynamic > 0)
+                                                            <div class="financial-progress-bar-premium financial-progress-bar-cheques-striped" style="width: {{ min(100 - min(100, $paid_pct_previous + $current_pct_dynamic), $pending_pct_dynamic) }}%; {{ ($hasOverCoverage || $amountExceedsRemaining) && $method !== 'cheque' ? 'background-color: #ea5455 !important;' : '' }}"></div>
                                                         @endif
                                                     </div>
 
                                                     <!-- Legend -->
-                                                    <div class="financial-legend-premium">
+                                                    <div class="financial-legend-premium mt-2">
                                                         <div class="legend-item-premium text-success">
                                                             <i class="fas fa-circle legend-dot-premium"></i> {!! __('payments.paid') !!}
                                                         </div>
-                                                        <div class="legend-item-premium text-warning">
-                                                            <i class="fas fa-circle legend-dot-premium"></i> {!! __('cheques.cheques') !!}
+                                                        <div class="legend-item-premium text-success pulse-legend-dot" style="opacity: 0.8;">
+                                                            <i class="fas fa-circle legend-dot-premium" style="color: #34d399;"></i> {!! __('payments.current_transaction') !!}
                                                         </div>
-                                                        <div class="legend-item-premium text-muted">
-                                                            <i class="fas fa-circle legend-dot-premium"></i> {!! __('payments.remaining') !!}
+                                                        <div class="legend-item-premium text-warning">
+                                                            <i class="fas fa-circle legend-dot-premium"></i> {!! __('payments.guarantees') !!}
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <!-- Projected After This Payment -->
-                                                @if($amount > 0)
-                                                    <div class="projected-balance-box-premium">
-                                                        <div class="projected-label-premium">{!! __('payments.projected_remaining') !!}</div>
-                                                        <div class="projected-value-premium {{ $projectedRemaining < 0 ? 'negative' : '' }}">
-                                                            {{ number_format($projectedRemaining, 0) }}
+                                                <!-- Smart Assistant Box -->
+                                                @if($smart_assistant_message)
+                                                    <div class="smart-assistant-box premium-fade-in mt-3 {{ str_contains($smart_assistant_message, '❌') || str_contains($smart_assistant_message, 'تنبيه') || str_contains($smart_assistant_message, 'Warning') || str_contains($smart_assistant_message, 'Error') ? 'alert-state' : '' }}">
+                                                        <div class="assistant-icon">
+                                                            @if(str_contains($smart_assistant_message, '❌') || str_contains($smart_assistant_message, 'تنبيه') || str_contains($smart_assistant_message, 'Warning') || str_contains($smart_assistant_message, 'Error'))
+                                                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                                                            @elseif(str_contains($smart_assistant_message, 'مسدد بالكامل') || str_contains($smart_assistant_message, 'fully paid') || str_contains($smart_assistant_message, 'fully settled') || str_contains($smart_assistant_message, 'fully_paid'))
+                                                                <i class="fas fa-check-double text-success"></i>
+                                                            @else
+                                                                <i class="fas fa-robot text-primary"></i>
+                                                            @endif
+                                                        </div>
+                                                        <div class="assistant-text">
+                                                            {{ $smart_assistant_message }}
                                                         </div>
                                                     </div>
                                                 @endif
 
                                                 <!-- Portfolio Section -->
                                                 @if(count($allCheques) > 0)
-                                                <div class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center" style="background: transparent;">
-                                                    <div class="title-wrapper">
-                                                        <i class="fas fa-wallet"></i>
-                                                        <span class="font-weight-bold" style="font-size: 0.95rem;">{!! __('payments.linked_cheques') !!}</span>
+                                                    <div class="premium-mandatory-header mt-4 py-1 border-bottom-0 d-flex justify-content-between align-items-center" style="background: transparent;">
+                                                        <div class="title-wrapper">
+                                                            <i class="fas fa-wallet text-warning"></i>
+                                                            <span class="font-weight-bold" style="font-size: 0.95rem;">{!! __('payments.linked_cheques') !!}</span>
+                                                        </div>
+                                                        <span class="badge badge-light-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ count($allCheques) }}</span>
                                                     </div>
-                                                    <span class="badge badge-light-primary rounded-pill px-2" style="font-size: 0.7rem;">{{ count($allCheques) }}</span>
-                                                </div>
                                                         
-                                                        <div class="linked-cheques-scrollable-premium">
-                                                            @foreach($allCheques as $chq)
-                                                                <div class="cheque-portfolio-item {{ $chq->remaining_amount <= 0 ? 'fully-used' : '' }}"
-                                                                     style="border-right: 4px solid {{ $chq->remaining_amount <= 0 ? '#cbd5e1' : '#10b981' }};">
-                                                                    <div class="cheque-item-left">
-                                                                        <span class="cheque-number-premium">
-                                                                            #{{ $chq->cheque_number }}
-                                                                            @if($chq->remaining_amount <= 0)
-                                                                                <i class="fas fa-check-circle text-success ml-1" style="font-size: 0.7rem;"></i>
-                                                                            @endif
-                                                                        </span>
-                                                                        <span class="cheque-bank-premium">
-                                                                            {{ is_array($chq->bank_name) ? ($chq->bank_name[app()->getLocale()] ?? current($chq->bank_name)) : $chq->bank_name }}
-                                                                        </span>
+                                                    <div class="linked-cheques-scrollable-premium digital-wallet-drawer">
+                                                        @foreach($allCheques as $chq)
+                                                            <div class="cheque-card-premium {{ $cheque_id == $chq->id && $method === 'cheque' ? 'selected-glow' : '' }} {{ $chq->remaining_amount <= 0 ? 'fully-used-card' : '' }}">
+                                                                <div class="cheque-card-inner">
+                                                                    <div class="cheque-card-header">
+                                                                        <div class="bank-info">
+                                                                            <i class="fas fa-university bank-icon"></i>
+                                                                            <span class="bank-name">{{ is_array($chq->bank_name) ? ($chq->bank_name[app()->getLocale()] ?? current($chq->bank_name)) : $chq->bank_name }}</span>
+                                                                        </div>
+                                                                        <div class="cheque-number">#{{ $chq->cheque_number }}</div>
                                                                     </div>
-                                                                    <div class="cheque-item-right">
-                                                                        <div class="cheque-amount-total">
-                                                                            {{ number_format($chq->amount, 0) }}
+                                                                    <div class="cheque-card-body">
+                                                                        <div class="cheque-amount-display">
+                                                                            <span class="amount-label">{!! __('payments.total_amount') !!}:</span>
+                                                                            <span class="amount-value">{{ number_format($chq->amount, 2) }}</span>
                                                                         </div>
                                                                         @if($chq->remaining_amount > 0)
-                                                                            <div class="cheque-amount-available">
-                                                                                {{ __('payments.available') }}: {{ number_format($chq->remaining_amount, 0) }}
+                                                                            <div class="cheque-amount-display available">
+                                                                                <span class="amount-label text-success">{!! __('payments.available_for_cashing') !!}:</span>
+                                                                                <span class="amount-value text-success font-weight-bold">{{ number_format($chq->remaining_amount, 2) }}</span>
+                                                                            </div>
+                                                                            <!-- Mini Progress for Cheque -->
+                                                                            <div class="cheque-mini-progress mt-1">
+                                                                                <div class="mini-progress-bar" style="width: {{ (($chq->amount - $chq->remaining_amount) / $chq->amount) * 100 }}%"></div>
                                                                             </div>
                                                                         @else
-                                                                            <div class="extra-small text-muted italic" style="font-size: 0.65rem;">
-                                                                                {{ __('payments.fully_used') }}
+                                                                            <div class="cheque-amount-display fully-used">
+                                                                                <span class="amount-label text-muted"><i class="fas fa-check-circle text-success"></i> {!! __('payments.fully_consumed') !!}</span>
                                                                             </div>
                                                                         @endif
                                                                     </div>
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
+                                                            </div>
+                                                        @endforeach
                                                     </div>
                                                 @endif
                                             @else
@@ -370,35 +417,15 @@
                                         </div>
 
                                         @if($contract_id)
-                                            <div class="summary-footer-premium">
-                                                <div class="footer-balance-row">
-                                                    <span class="footer-balance-label">{!! __('payments.cheques_balance') !!}:</span>
-                                                    <span class="footer-balance-value">
-                                                        {{ number_format($financials['pending_cheques_total'], 0) }} <span class="text-muted" style="font-size: 0.7rem; font-weight: 500;">/ {{ number_format($financials['pending_cheques_original_total'], 0) }}</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        @endif
+                                             <div class="summary-footer-premium">
+                                                 <div class="footer-balance-row justify-content-center">
+                                                     <span class="footer-balance-label text-muted" style="font-size: 0.8rem;"><i class="fas fa-lock mr-1"></i> {!! __('payments.all_amounts_are_without_currency') !!}</span>
+                                                 </div>
+                                             </div>
+                                         @endif
                                     </div>
                                 </div>
 
-                                <!-- Card 2: Quick Tips -->
-                                <div class="premium-card-anim mt-3" wire:key="tips-wrapper">
-                                    <div class="legendary-tips-card">
-                                        <div class="premium-mandatory-header py-2">
-                                            <div class="title-wrapper">
-                                                <i class="fas fa-lightbulb"></i>
-                                                <span class="font-weight-bold">{!! __('properties.quick_tips') !!}</span>
-                                            </div>
-                                        </div>
-                                        <ul class="legendary-list">
-                                            <li><i class="fas fa-check-circle"></i> {!! __('payments.tip_verify_amount') !!}</li>
-                                            <li><i class="fas fa-check-circle"></i> {!! __('payments.tip_check_date') !!}</li>
-                                            <li><i class="fas fa-check-circle"></i> {!! __('payments.tip_reference_number') !!}</li>
-                                            <li><i class="fas fa-check-circle"></i> {!! __('payments.tip_notes_importance') !!}</li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div> <!-- end : col-lg-4 -->
                     </div> <!-- end : row -->
@@ -406,6 +433,7 @@
             </div>
         </div>
     </form>
+
 
     @push('scripts')
         <script>

@@ -79,4 +79,5 @@ return [
     'total_revenue' => 'Total Revenue',
     'financial_summary' => 'Financial Summary',
     'deposit_locked_hint' => 'Deposit details cannot be modified after it has been returned or used.',
+    'select_contract_to_view_details' => 'Select a contract to view its financial details.',
 ];

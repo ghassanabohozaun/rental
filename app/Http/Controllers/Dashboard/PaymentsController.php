@@ -76,12 +76,12 @@ class PaymentsController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'total_amount' => round($contract->total_amount, 0),
-                'total_paid' => round($contract->paid_amount, 0),
-                'remaining' => round($contract->remaining_amount, 0),
+                'total_amount' => round($contract->total_amount, 2),
+                'total_paid' => round($contract->paid_amount, 2),
+                'remaining' => round($contract->remaining_amount, 2),
                 'cheques' => $cheques,
-                'pending_cheques_total' => round($cheques->sum('remaining_amount') + (float)$current_payment_amount, 0),
-                'pending_cheques_original_total' => round($original_total, 0),
+                'pending_cheques_total' => round($cheques->sum('remaining_amount') + (float)$current_payment_amount, 2),
+                'pending_cheques_original_total' => round($original_total, 2),
                 'pending_cheques_count' => $cheques->count(),
                 'customer_id' => $contract->customer_id,
                 'customer_name' => optional($contract->customer)->name,

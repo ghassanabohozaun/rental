@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center justify-content-center">
     @can('payments_update')
         {{-- Edit --}}
-        @if(!$payment->cheque_id)
+        @if(!$payment->cheque_id || ($payment->cheque && $payment->cheque->status !== 'cleared'))
             <a href="{!! route('dashboard.payments.edit', $payment->id) !!}" class="btn-premium-action btn-premium-action-edit mr-1"
                 title="{!! __('general.edit') !!}">
                 <i class="fas fa-edit"></i>
@@ -11,7 +11,7 @@
 
     @can('payments_delete')
         {{-- Delete --}}
-        @if(!$payment->cheque_id)
+        @if(!$payment->cheque_id || ($payment->cheque && $payment->cheque->status !== 'cleared'))
             <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger delete-confirm"
                 data-id="{!! $payment->id !!}" data-route="{!! route('dashboard.payments.destroy') !!}" data-title="{!! __('general.ask_delete_record') !!}"
                 data-text="{!! __('general.delete_warning_text') !!}" data-confirm-btn="{!! __('general.yes') !!}"
