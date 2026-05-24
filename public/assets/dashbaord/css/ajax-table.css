@@ -359,6 +359,18 @@ html[dir="rtl"] .company-chip {
 }
 [data-textdirection="rtl"] .area-badge, html[dir="rtl"] .area-badge { font-size: 11px !important; }
 
+.file-number-badge {
+    background: #f0f9ff !important;
+    color: #0369a1 !important;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+    border: 1px solid #e0f2fe;
+}
+[data-textdirection="rtl"] .file-number-badge, html[dir="rtl"] .file-number-badge { font-size: 11px !important; }
+
 .property-info-td {
     text-align: left !important;
 }

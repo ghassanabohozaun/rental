@@ -232,25 +232,25 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="permission-card-body">
-                                                                        @foreach (config('global.crud_operations') as $opKey => $opLangKey)
+                                                                        @php 
+                                                                            $operations = config("global.custom_operations.{$moduleKey}") ?? config('global.crud_operations');
+                                                                        @endphp
+                                                                        @foreach ($operations as $opKey => $opLangKey)
                                                                             @php $permName = $moduleKey . '_' . $opKey; @endphp
-                                                                            <div class="permission-item">
-                                                                                <div class="permission-info">
-                                                                                    <label
-                                                                                        class="permission-label">{!! __($opLangKey) !!}</label>
-                                                                                    <p class="permission-desc">
-                                                                                        {!! __($opLangKey . '_desc') !!}</p>
+                                                                            {{-- Only show permission if the current user HAS it --}}
+                                                                            @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility($permName))
+                                                                                <div class="permission-item">
+                                                                                    <div class="permission-info">
+                                                                                        <label class="permission-label">{!! __($opLangKey) !!}</label>
+                                                                                        <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
+                                                                                    </div>
+                                                                                    <label class="modern-switch">
+                                                                                        <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}"
+                                                                                        {{ in_array($permName, $rolePermissions) ? 'checked' : '' }} @disabled($role->id === 1)>
+                                                                                        <span class="modern-slider"></span>
+                                                                                    </label>
                                                                                 </div>
-                                                                                <label class="modern-switch">
-                                                                                    <input type="checkbox"
-                                                                                        class="permission-checkbox module-{{ $moduleKey }}"
-                                                                                        name="permissions[]"
-                                                                                        value="{{ $permName }}"
-                                                                                        @checked($role->id === 1 || in_array($permName, $rolePermissions))
-                                                                                        @disabled($role->id === 1)>
-                                                                                    <span class="modern-slider"></span>
-                                                                                </label>
-                                                                            </div>
+                                                                            @endif
                                                                         @endforeach
                                                                     </div>
                                                                 </div>

@@ -63,9 +63,10 @@ a.btn-premium-back {
     align-items: center !important;
     justify-content: center !important;
     gap: 10px !important;
-    padding: 8px 24px !important;
-    margin-top: 5px !important;
-    border-radius: 2px !important;
+    padding: 0 24px !important;
+    height: 42px !important;
+    margin: 0 4px !important;
+    border-radius: 4px !important;
     /* Unified rounded style matching cancel button */
     font-weight: 700 !important;
     font-size: 1rem !important;
@@ -1651,9 +1652,15 @@ html[dir="rtl"] .premium-tab-btn,
 
 /* --- Premium Minimalist Nav Tabs --- */
 .premium-nav-tabs {
-    border-bottom: none !important;
+    border-bottom: 2px solid #f1f3f4 !important;
     margin-bottom: 8px !important;
-    padding: 0 5px !important;
+    padding: 0 1rem !important;
+    background: #fff !important;
+    margin-top: 0.5rem !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    /* Centered tabs navigation */
 }
 
 .premium-nav-tabs .nav-item {
@@ -1663,39 +1670,53 @@ html[dir="rtl"] .premium-tab-btn,
 .premium-nav-tabs .nav-link {
     border: none !important;
     background: transparent !important;
-    color: #828d99 !important;
-    font-weight: 500;
+    color: #64748b !important;
+    font-weight: 600 !important;
     padding: 12px 20px !important;
-    position: relative;
-    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
     border-radius: 0 !important;
-    font-size: 1rem;
+    font-size: 1rem !important;
+    /* Enlarge font size in main tabs to be larger than fields */
+    box-shadow: none !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
+    flex-direction: row !important;
+    /* Fix RTL icon issue globally for premium tabs */
+    cursor: pointer !important;
+}
+
+.premium-nav-tabs .nav-link::after {
+    display: none !important;
 }
 
 .premium-nav-tabs .nav-link i {
     font-size: 1.1rem;
     vertical-align: middle;
+    margin-inline-end: 5px;
+}
+
+.premium-nav-tabs .nav-link:focus,
+.premium-nav-tabs .nav-link:active {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .premium-nav-tabs .nav-link:hover {
-    color: #5A8DEE !important;
+    color: #7367f0 !important;
+    background-color: #f8f9fa !important;
+    border-radius: 6px 6px 0 0 !important;
+    cursor: pointer !important;
 }
 
 .premium-nav-tabs .nav-link.active {
-    color: #5A8DEE !important;
+    color: #7367f0 !important;
+    border-bottom: 2px solid #7367f0 !important;
+    background: transparent !important;
     font-weight: 700 !important;
-}
-
-.premium-nav-tabs .nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 20%;
-    right: 20%;
-    height: 3px;
-    background: #5A8DEE;
-    border-radius: 2px 10px 0 0;
-    box-shadow: 0 -2px 10px rgba(90, 141, 238, 0.3);
 }
 
 /* --- PREMIUM QUICK SEARCH AREA --- */
@@ -2614,4 +2635,378 @@ section#basic-form-layouts {
     text-align: center;
     color: #94a3b8;
     font-style: italic;
+}
+
+/* Maintenance Module Styles */
+.maintenance-item-row {
+    background-color: #f9fbfd;
+    border-radius: 8px;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #e1e5eb;
+    transition: all 0.3s ease;
+}
+
+.maintenance-item-row:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Contract Clause Builder */
+.cursor-move {
+    cursor: move;
+}
+
+.clause-item {
+    transition: all 0.2s;
+}
+
+.clause-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+/* Premium Clause Library Styles */
+.premium-clause-card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    background: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+    padding: 16px;
+}
+
+.premium-clause-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(135deg, #7367f0 0%, #9e95f5 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.premium-clause-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.05);
+    border-color: rgba(115, 103, 240, 0.2);
+}
+
+.premium-clause-card:hover::before {
+    opacity: 1;
+}
+
+.premium-clause-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+    padding-bottom: 10px;
+}
+
+.premium-clause-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #4b4b4b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.premium-clause-icon {
+    color: #7367f0;
+    font-size: 1.1rem;
+}
+
+html[dir="rtl"] .premium-clause-title {
+    margin-right: 0;
+}
+
+html[dir="rtl"] .premium-clause-icon {
+    margin-left: 8px;
+}
+
+html[dir="ltr"] .premium-clause-icon {
+    margin-right: 8px;
+}
+
+.premium-clause-btn {
+    background: rgba(40, 199, 111, 0.1);
+    color: #28c76f;
+    border: 1px solid rgba(40, 199, 111, 0.2);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    outline: none;
+}
+
+.premium-clause-btn:hover {
+    background: #28c76f;
+    color: #ffffff;
+    border-color: #28c76f;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(40, 199, 111, 0.3);
+}
+
+.premium-clause-content {
+    font-size: 0.95rem;
+    color: #6e6b7b;
+    line-height: 1.6;
+    text-align: right;
+    width: 100%;
+    direction: rtl;
+    margin: 0;
+}
+
+.clause-library-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 5px;
+    padding-left: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #7367f0 rgba(0, 0, 0, 0.05);
+}
+
+.clause-library-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.clause-library-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+}
+
+.clause-library-container::-webkit-scrollbar-thumb {
+    background: #d8d6f9;
+    border-radius: 10px;
+}
+
+.clause-library-container::-webkit-scrollbar-thumb:hover {
+    background: #7367f0;
+}
+
+/* Modern Smart Tags Tabs Styling (iOS-Style Segmented Control Pills) */
+.smart-tags-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-bottom: 10px !important;
+}
+.smart-tags-tabs {
+    border: none !important;
+    background: #f1f5f9 !important; /* light slate background */
+    padding: 4px !important;
+    border-radius: 30px !important; /* pill container */
+    display: inline-flex !important;
+    justify-content: center !important;
+    margin: 12px auto !important; /* centered horizontally */
+    align-items: center !important;
+    width: auto !important; /* only occupies as much space as the tabs need */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06) !important;
+}
+.smart-tags-tabs .nav-item {
+    margin: 0 !important;
+}
+.smart-tags-tabs .nav-link {
+    border: none !important;
+    background: transparent !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
+    padding: 8px 20px !important;
+    border-radius: 30px !important;
+    font-size: 0.95rem !important;
+    transition: all 0.25s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    cursor: pointer !important;
+}
+.smart-tags-tabs .nav-link:focus,
+.smart-tags-tabs .nav-link:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.smart-tags-tabs .nav-link:hover {
+    color: #7367f0 !important;
+    background-color: transparent !important;
+}
+.smart-tags-tabs .nav-link.active {
+    background: #ffffff !important; /* white pill for active tab */
+    color: #7367f0 !important;
+    box-shadow: 0 4px 10px rgba(115, 103, 240, 0.15) !important;
+}
+.smart-tags-tabs .nav-link i {
+    margin-inline-end: 5px;
+}
+
+/* Tag Cards Styling */
+.smart-tag-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    height: 100%;
+}
+
+.smart-tag-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+}
+
+.smart-tag-card.copied-success {
+    border-color: #28c76f !important;
+    background-color: rgba(40, 199, 111, 0.05) !important;
+    transform: scale(0.98);
+}
+
+.tag-label {
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.tag-code {
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+.bg-light-primary {
+    background-color: rgba(115, 103, 240, 0.1) !important;
+}
+
+.text-primary {
+    color: #7367f0 !important;
+}
+
+.bg-light-success {
+    background-color: rgba(40, 199, 111, 0.1) !important;
+}
+
+.text-success {
+    color: #28c76f !important;
+}
+
+.bg-light-warning {
+    background-color: rgba(255, 159, 67, 0.1) !important;
+}
+
+.text-warning {
+    color: #ff9f43 !important;
+}
+
+.bg-light-danger {
+    background-color: rgba(234, 84, 85, 0.1) !important;
+}
+
+.text-danger {
+    color: #ea5455 !important;
+}
+
+/* Custom Smart Tags Layout Overrides (Dashed Pill Alert) */
+.smart-tags-hint-bar {
+    background: linear-gradient(135deg, rgba(115, 103, 240, 0.06) 0%, rgba(115, 103, 240, 0.02) 100%) !important;
+    border: 1px dashed rgba(115, 103, 240, 0.25) !important;
+    border-radius: 12px !important;
+    padding: 12px 20px !important;
+    margin: 16px 16px 8px 16px !important; /* Margin around it to float inside the card */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.smart-tags-hint-bar p {
+    color: #7367f0 !important;
+    font-size: 0.98rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.smart-tags-hint-bar p i {
+    color: #7367f0 !important;
+    font-size: 1.15rem !important;
+    margin-inline-end: 0 !important;
+    animation: pulse-info 2s infinite !important;
+}
+
+@keyframes pulse-info {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.smart-tags-collapse-body {
+    background-color: #fff !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+}
+
+.smart-tags-content {
+    padding: 12px 16px 8px 16px !important;
+}
+
+/* Tab Error Indicator */
+.tab-error-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff4d4d;
+    animation: pulse-red 1.5s infinite;
+    z-index: 10;
+}
+
+.premium-tab-btn {
+    position: relative !important;
+}
+
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 77, 77, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
+    }
 }

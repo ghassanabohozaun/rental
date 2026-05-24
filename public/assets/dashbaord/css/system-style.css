@@ -3018,6 +3018,18 @@ html[dir='rtl'] .error-message-premium {
     box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3);
 }
 
+.btn-premium-action-primary {
+    background: rgba(139, 92, 246, 0.12) !important;
+    color: #8b5cf6 !important;
+}
+
+.btn-premium-action-primary:hover {
+    background: #8b5cf6 !important;
+    color: #ffffff !important;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(139, 92, 246, 0.3);
+}
+
 .premium-photo-preview {
     width: 85px;
     height: 85px;
@@ -3550,7 +3562,7 @@ Monthly Reports & Premium UI Modernization Classes
 .premium-status-badge {
     padding: 0.5rem 0.8rem !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     letter-spacing: 0.2px !important;
 }
 
@@ -5794,8 +5806,8 @@ a.btn-premium-back {
     vertical-align: middle !important;
     /* Force baseline alignment */
     line-height: 1 !important;
-    margin: 0 !important;
-    /* Eliminate any shifting margins */
+    margin: 0 4px !important;
+    /* Spacing between buttons */
     box-sizing: border-box !important;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
@@ -8156,6 +8168,18 @@ html[dir='rtl'] .btn-premium-action-success:hover {
     box-shadow: 0 8px 15px rgba(16, 185, 129, 0.3);
 }
 
+html[dir='rtl'] .btn-premium-action-primary {
+    background: rgba(139, 92, 246, 0.12) !important;
+    color: #8b5cf6 !important;
+}
+
+html[dir='rtl'] .btn-premium-action-primary:hover {
+    background: #8b5cf6 !important;
+    color: #ffffff !important;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(139, 92, 246, 0.3);
+}
+
 html[dir='rtl'] .premium-photo-preview {
     width: 85px;
     height: 85px;
@@ -8529,7 +8553,7 @@ html[dir='rtl'] .premium-textarea-md {
 html[dir='rtl'] .premium-status-badge {
     padding: 0.5rem 0.8rem !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     letter-spacing: 0.2px !important;
 }
 
@@ -10850,8 +10874,6 @@ html[dir="rtl"] .premium-label.d-flex {
     border: 2px solid #ef4444 !important;
     outline: 4px solid rgba(239, 68, 68, 0.25) !important;
     box-shadow: 0 0 25px rgba(239, 68, 68, 0.6) !important;
-    z-index: 10 !important;
-    position: relative !important;
     transition: all 0.3s ease !important;
 }
 
@@ -10873,7 +10895,7 @@ html[dir="rtl"] .premium-label.d-flex {
 }
 
 .premium-card {
-    will-change: transform, box-shadow;
+    will-change: box-shadow;
     /* Optimize GPU rendering */
 }
 
@@ -11226,7 +11248,7 @@ select.premium-input {
     overflow: hidden !important;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
     position: relative !important;
-    will-change: transform, box-shadow, border-color !important;
+    will-change: box-shadow, border-color !important;
 }
 
 /* Hover Effect for Animated Cards */

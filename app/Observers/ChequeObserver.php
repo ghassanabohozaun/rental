@@ -26,7 +26,7 @@ class ChequeObserver
                 $contract->update([
                     'deposit_type' => 'cash',
                     'deposit_amount' => 0,
-                    'deposit_status' => null,
+                    'deposit_status' => 'held',
                 ]);
             }
         }
@@ -40,6 +40,16 @@ class ChequeObserver
     {
         if ($cheque->wasChanged('status')) {
             $newStatus = strtolower($cheque->status);
+            
+            // Sync contract deposit_status if it is an insurance cheque
+            if ($cheque->is_deposit && $cheque->contract_id) {
+                if ($newStatus === 'cleared') {
+                    Contract::where('id', $cheque->contract_id)->update(['deposit_status' => 'used']);
+                } elseif ($newStatus === 'returned') {
+                    Contract::where('id', $cheque->contract_id)->update(['deposit_status' => 'returned']);
+                }
+            }
+
             if ($newStatus === 'cleared') {
                 $cheque->payments()->update(['status' => 'paid']);
             } elseif ($newStatus === 'bounced' || $newStatus === 'returned') {

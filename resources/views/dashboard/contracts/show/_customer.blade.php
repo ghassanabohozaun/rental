@@ -1,4 +1,61 @@
 <div class="tab-pane fade" id="customer" role="tabpanel">
+    <!-- 0. First Party Card -->
+    <div class="card detail-card-master border-0 shadow-sm mb-4 radius-15">
+        <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center justify-content-between" style="height: 50px;">
+            <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
+                <i class="fas fa-building text-warning mr-1" style="font-size: 1.2rem !important;"></i> {!! __('contracts.first_party_company') !!}
+            </h5>
+        </div>
+        <div class="card-body pt-3 pb-3">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-warning-opacity">
+                            <i class="fas fa-building text-warning"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('contracts.first_party_name_ar') !!}</label>
+                            <span class="data-grid-value">{!! $contract->live_first_party_data['name_ar'] !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-primary-opacity">
+                            <i class="fas fa-user-tie text-primary"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('contracts.first_party_owner_name') !!}</label>
+                            <span class="data-grid-value">{!! $contract->live_first_party_data['owner_name'] !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-info-opacity">
+                            <i class="fas fa-id-card text-info"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('contracts.first_party_owner_qid') !!}</label>
+                            <span class="data-grid-value">{!! $contract->live_first_party_data['owner_qid'] !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-success-opacity">
+                            <i class="fas fa-phone text-success"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('contracts.first_party_owner_phone') !!}</label>
+                            <span class="data-grid-value">{!! $contract->live_first_party_data['owner_phone'] !!}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 1. Main Tenant Horizontal Card -->
     <div class="card detail-card-master border-0 shadow-sm mb-4 radius-15">
         <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center justify-content-between" style="height: 50px;">
@@ -12,18 +69,71 @@
         </div>
         <div class="card-body pt-3 pb-3">
             <div class="row">
-                <div class="col-md-3 mb-3">
+                @if(!empty(optional($contract->customer)->company_name))
+
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-warning-opacity">
+                            <i class="fas fa-building text-warning"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('customers.customer_company_name') !!}</label>
+                            <span class="data-grid-value">{!! optional($contract->customer)->company_name ?? '---' !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-primary-opacity">
+                            <i class="fas fa-file-contract text-primary"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('customers.cr_number') !!}</label>
+                            <span class="data-grid-value">{!! optional($contract->customer)->cr_number ?? '---' !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-info-opacity">
+                            <i class="fas fa-id-badge text-info"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('customers.license_number') !!}</label>
+                            <span class="data-grid-value">{!! optional($contract->customer)->license_number ?? '---' !!}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="data-grid-item">
+                        <div class="data-grid-icon bg-light-danger-opacity">
+                            <i class="fas fa-hashtag text-danger"></i>
+                        </div>
+                        <div class="data-grid-content">
+                            <label class="data-grid-label">{!! __('customers.establishment_number') !!}</label>
+                            <span class="data-grid-value">{!! optional($contract->customer)->establishment_number ?? '---' !!}</span>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                <div class="col-md-6 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-primary-opacity">
                             <i class="fas fa-user text-primary"></i>
                         </div>
                         <div class="data-grid-content">
-                            <label class="data-grid-label">{!! __('customers.full_name') !!}</label>
+                            <label class="data-grid-label">
+                                @if(!empty(optional($contract->customer)->company_name))
+                                    {!! __('customers.representative_name_ar') !!}
+                                @else
+                                    {!! __('customers.full_name') !!}
+                                @endif
+                            </label>
                             <span class="data-grid-value">{!! optional($contract->customer)->name !!}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-info-opacity">
                             <i class="fas fa-id-card text-info"></i>
@@ -34,7 +144,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-warning-opacity">
                             <i class="fas fa-phone text-warning"></i>
@@ -45,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="data-grid-item">
                         <div class="data-grid-icon bg-light-success-opacity">
                             <i class="fas fa-globe text-success"></i>
@@ -56,6 +166,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-12">
                     <div class="p-2 border-dashed-premium rounded bg-light-blue-info d-flex align-items-center">
                         <i class="fas fa-map-marker-alt text-danger mx-2"></i>

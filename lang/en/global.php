@@ -15,6 +15,8 @@ return [
     'customers' => 'Customers Management',
     'maintenances' => 'Maintenance Management',
     'contracts' => 'Contracts Management',
-    'cheques' => 'Cheques Management',
-    'payments' => 'Payments Management',
+    'cheques' => 'Cheques',
+    'payments' => 'Receipt Vouchers',
+    'reports' => 'Reports',
+    'properties_reports' => 'Properties Reports',
 ];

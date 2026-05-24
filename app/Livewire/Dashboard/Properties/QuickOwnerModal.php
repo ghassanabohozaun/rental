@@ -8,13 +8,29 @@ use Livewire\Component;
 class QuickOwnerModal extends Component
 {
     public $quick_name = ['ar' => '', 'en' => ''];
-    public $quick_phone, $quick_email, $quick_id_number, $quick_address, $quick_notes, $quick_type;
+
+    public $quick_phone;
+
+    public $quick_email;
+
+    public $quick_id_number;
+
+    public $quick_address;
+
+    public $quick_notes;
+
+    public $quick_type;
+
     public $selected_owner_id = null;
+
     public $is_existing = false;
+
     public $quick_percentage = 0;
+
     public $quick_is_primary = false;
 
     public $searchTerm = '';
+
     public $searchResults = [];
 
     protected $listeners = ['ownerSelected' => 'loadOwnerData'];
@@ -37,8 +53,8 @@ class QuickOwnerModal extends Component
     public function validationAttributes()
     {
         return [
-            'quick_name.ar' => __('owners.name') . ' (' . __('general.ar') . ')',
-            'quick_name.en' => __('owners.name') . ' (' . __('general.en') . ')',
+            'quick_name.ar' => __('owners.name').' ('.__('general.ar').')',
+            'quick_name.en' => __('owners.name').' ('.__('general.en').')',
             'quick_id_number' => __('owners.identification_number'),
             'quick_phone' => __('owners.phone'),
             'quick_email' => __('owners.email'),
@@ -58,26 +74,35 @@ class QuickOwnerModal extends Component
 
     public function updatedSearchTerm($value)
     {
+        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
+
         if (strlen($value) < 1) {
-            $this->searchResults = [];
+            if ($companyId && ! $this->is_existing) {
+                $this->searchResults = Owner::active()
+                    ->where('company_id', $companyId)
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            } else {
+                $this->searchResults = [];
+            }
+
             return;
         }
-
-        // Determine the actual company ID
-        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
 
         if (empty($companyId)) {
             flash()->warning(message: __('properties.please_select_company_first'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
             $this->searchResults = [];
+
             return;
         }
 
         $this->searchResults = Owner::active()
             ->where('company_id', $companyId)
             ->where(function ($q) use ($value) {
-                $q->where('name', 'like', '%' . $value . '%')
-                  ->orWhere('phone', 'like', '%' . $value . '%')
-                  ->orWhere('identification_number', 'like', '%' . $value . '%');
+                $q->where('name', 'like', '%'.$value.'%')
+                    ->orWhere('phone', 'like', '%'.$value.'%')
+                    ->orWhere('identification_number', 'like', '%'.$value.'%');
             })
             ->limit(30)
             ->get()
@@ -91,10 +116,20 @@ class QuickOwnerModal extends Component
         $this->searchTerm = '';
     }
 
+    public function updatedQuickIsPrimary($value)
+    {
+        if ($value) {
+            $this->quick_percentage = 100;
+        } else {
+            $this->quick_percentage = 0;
+        }
+    }
+
     public function loadOwnerData($id)
     {
         if (empty($id)) {
             $this->resetOwnerData();
+
             return;
         }
 
@@ -157,6 +192,20 @@ class QuickOwnerModal extends Component
 
     public function render()
     {
+        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
+
+        if (empty($this->searchTerm) && ! $this->is_existing) {
+            if ($companyId) {
+                $this->searchResults = Owner::active()
+                    ->where('company_id', $companyId)
+                    ->limit(10)
+                    ->get()
+                    ->toArray();
+            } else {
+                $this->searchResults = [];
+            }
+        }
+
         return view('livewire.dashboard.properties.quick-owner-modal');
     }
 }

@@ -43,23 +43,72 @@ class MaintenancesController extends Controller
         return view('dashboard.maintenances.index', compact('title', 'maintenances', 'companies', 'properties'));
     }
 
+    public function create()
+    {
+        Gate::authorize('maintenances_create');
+
+        $title = __('maintenances.create_maintenance');
+        $companies = null;
+
+        if (user()->company_id == 1) {
+            $companies = $this->companyService->getAll(new Request());
+        }
+
+        $properties = $this->propertyService->getAll(new Request());
+
+        return view('dashboard.maintenances.create', compact('title', 'companies', 'properties'));
+    }
+
     public function store(MaintenanceRequest $request)
     {
         Gate::authorize('maintenances_create');
 
         try {
             $maintenance = $this->maintenanceService->store($request->validated());
-            return response()->json([
-                'status' => true,
-                'message' => __('general.add_success_message'),
-                'data' => $maintenance
-            ], 200);
+            
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => __('general.add_success_message'),
+                    'data' => $maintenance
+                ], 200);
+            }
+            
+            flash()->success(__('general.add_success_message'));
+            return redirect()->route('dashboard.maintenances.index');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('general.add_error_message')
-            ], 500);
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('general.add_error_message')
+                ], 500);
+            }
+            
+            flash()->error(__('general.add_error_message'));
+            return redirect()->back()->withInput();
         }
+    }
+
+    public function edit(string $id)
+    {
+        Gate::authorize('maintenances_update');
+
+        $title = __('maintenances.update_maintenance');
+        $maintenance = $this->maintenanceService->getOne($id);
+
+        if (!$maintenance) {
+            flash()->error(__('general.no_record_found'));
+            return redirect()->route('dashboard.maintenances.index');
+        }
+
+        $companies = null;
+        if (user()->company_id == 1) {
+            $companies = $this->companyService->getAll(new Request());
+        }
+
+        $properties = $this->propertyService->getAll(new Request());
+
+        return view('dashboard.maintenances.edit', compact('title', 'maintenance', 'companies', 'properties'));
     }
 
     public function update(MaintenanceRequest $request, string $id)
@@ -70,16 +119,26 @@ class MaintenancesController extends Controller
             $this->maintenanceService->update($id, $request->validated());
             $maintenance = $this->maintenanceService->getOne($id);
 
-            return response()->json([
-                'status' => true,
-                'message' => __('general.update_success_message'),
-                'data' => $maintenance
-            ], 201);
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => __('general.update_success_message'),
+                    'data' => $maintenance
+                ], 201);
+            }
+            
+            flash()->success(__('general.update_success_message'));
+            return redirect()->route('dashboard.maintenances.index');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('general.update_error_message')
-            ], 500);
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('general.update_error_message')
+                ], 500);
+            }
+            
+            flash()->error(__('general.update_error_message'));
+            return redirect()->back()->withInput();
         }
     }
 

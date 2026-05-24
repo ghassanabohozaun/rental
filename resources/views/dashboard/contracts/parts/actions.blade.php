@@ -12,6 +12,12 @@
         <i class="fas fa-edit"></i>
     </a>
 
+    {{-- Print --}}
+    <a href="{!! route('dashboard.contracts.print', $contract->id) !!}" class="btn-premium-action btn-premium-action-primary mr-1"
+        title="{!! __('general.print') !!} {!! __('contracts.contract') !!}">
+        <i class="fas fa-print"></i>
+    </a>
+
     {{-- Add Cheque --}}
     @can('cheques_create')
         <a href="{!! route('dashboard.cheques.create') !!}?contract_id={!! $contract->id !!}&company_id={!! $contract->company_id !!}&is_deposit=0"

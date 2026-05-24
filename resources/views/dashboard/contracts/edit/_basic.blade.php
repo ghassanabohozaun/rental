@@ -26,7 +26,7 @@
                     data-url="{!! route('dashboard.properties.autocomplete') !!}" data-placeholder="{!! __('contracts.select_property') !!}">
                     <option value="">{!! __('contracts.select_property') !!}</option>
                     @if ($contract->property_id)
-                        <option value="{{ $contract->property_id }}" selected>{{ $contract->property->name }}</option>
+                        <option value="{{ $contract->property_id }}" selected>{{ $contract->property->name }}{{ $contract->property->file_number ? ' (' . $contract->property->file_number . ')' : '' }}</option>
                     @endif
                 </select>
             <span class="text-danger error-text property_id_error"></span>
@@ -100,6 +100,8 @@
                     class="form-control premium-input shadow-none select2">
                     <option value="">{!! __('general.select_from_list') !!}</option>
                     <option value="monthly" @selected($contract->payment_cycle == 'monthly')>{!! __('contracts.payment_cycle_monthly') !!}</option>
+                    <option value="quarterly" @selected($contract->payment_cycle == 'quarterly')>{!! __('contracts.payment_cycle_quarterly') !!}</option>
+                    <option value="semi_annually" @selected($contract->payment_cycle == 'semi_annually')>{!! __('contracts.payment_cycle_semi_annually') !!}</option>
                     <option value="yearly" @selected($contract->payment_cycle == 'yearly')>{!! __('contracts.payment_cycle_yearly') !!}</option>
                 </select>
             <span class="text-danger error-text payment_cycle_error"></span>

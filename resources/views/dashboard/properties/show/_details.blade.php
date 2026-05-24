@@ -49,15 +49,41 @@
                             </div>
                         </div>
 
-                        <!-- Location -->
+                        <!-- Zone -->
                         <div class="col-md-4 mb-3">
                             <div class="data-grid-item">
                                 <div class="data-grid-icon bg-light-danger-opacity">
                                     <i class="fas fa-map-marker-alt text-danger"></i>
                                 </div>
                                 <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.location') !!}</label>
-                                    <span class="data-grid-value">{!! $property->location !!}</span>
+                                    <label class="data-grid-label">{!! __('properties.zone_number') !!}</label>
+                                    <span class="data-grid-value">{!! $property->zone_number ?? '---' !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Street -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-info-opacity">
+                                    <i class="fas fa-road text-info"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('properties.street_number') !!}</label>
+                                    <span class="data-grid-value">{!! $property->street_number ?? '---' !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Building -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-warning-opacity">
+                                    <i class="fas fa-building text-warning"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('properties.building_number') !!}</label>
+                                    <span class="data-grid-value">{!! $property->building_number ?? '---' !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -87,6 +113,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Floor -->
+                        @if($property->floor)
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item">
+                                <div class="data-grid-icon bg-light-success-opacity">
+                                    <i class="fas fa-layer-group text-success"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('properties.floor') !!}</label>
+                                    <span class="data-grid-value">{!! $property->floor !!}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

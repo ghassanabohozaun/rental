@@ -222,9 +222,8 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
    Final Stacking & Clipping Fixes 
    Elevate the active card and form group above others when interacting with inputs
 */
-.premium-card-anim:focus-within,
 .premium-form-group:focus-within {
-    z-index: 9999 !important;
+    z-index: 10 !important;
     position: relative !important;
 }
 

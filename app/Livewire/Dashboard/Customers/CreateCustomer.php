@@ -87,7 +87,7 @@ class CreateCustomer extends Component
             'name.ar' => 'required|string|max:255',
             'name.en' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
+            'email' => 'nullable|email|max:255',
             'id_number' => [
                 'required',
                 'string',
@@ -96,7 +96,7 @@ class CreateCustomer extends Component
                     ->where('company_id', $current_company_id)
                     ->whereNull('deleted_at')
             ],
-            'address' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
             'nationality_id' => 'required|exists:nationalities,id',
             'tenant_type' => 'required|in:individual,company',
             'notes' => 'nullable|string',

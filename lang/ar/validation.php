@@ -385,7 +385,7 @@ return [
         'property_owners' => 'ملاك العقار',
         'ownership_percentage' => 'نسبة الملكية',
         'is_primary' => 'مالك رئيسي',
-        'file_number' => 'رقم الملف',
+        'file_number' => 'رقم الملف الورقي',
         'title_deed_number' => 'رقم الصك',
         'electricity_account_number' => 'رقم حساب الكهرباء',
         'water_account_number' => 'رقم حساب المياه',
@@ -439,5 +439,10 @@ return [
         'cr_number' => 'رقم السجل التجاري',
         'license_number' => 'رقم الرخصة',
         'tenant_type' => 'نوع المستأجر',
+        
+        // Maintenances Items
+        'items.*.type' => 'نوع الصيانة',
+        'items.*.cost' => 'تكلفة البند',
+        'items.*.attachment' => 'مرفق البند',
     ],
 ];

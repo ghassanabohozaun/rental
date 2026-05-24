@@ -1,0 +1,20 @@
+<?php
+return [
+    'reports' => 'Reports',
+    'properties_reports' => 'Properties Reports',
+    'export_excel' => 'Export as Excel',
+    'select_columns' => 'Select columns to export',
+    'search_filters' => 'Advanced Search Filters',
+    'select_all' => 'Select All',
+    'deselect_all' => 'Deselect All',
+    'owner' => 'Owner',
+    'select_owner' => 'Select Owner',
+    'property_type' => 'Property Type',
+    'select_property_type' => 'Select Property Type',
+    'property_status' => 'Property Status',
+    'select_property_status' => 'Select Property Status',
+    'all_owners' => 'All Owners',
+    'all_types' => 'All Types',
+    'all_statuses' => 'All Statuses',
+    'reset' => 'Reset',
+];

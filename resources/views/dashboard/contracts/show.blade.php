@@ -112,7 +112,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="customer-tab" data-toggle="tab" href="#customer" role="tab">
-                                        <i class="fas fa-user-tie"></i> {!! __('contracts.customer') !!}
+                                        <i class="fas fa-users"></i> {!! __('contracts.contract_parties') !!}
                                     </a>
                                 </li>
                             </ul>

@@ -18,6 +18,14 @@ return [
         'contracts' => 'global.contracts',
         'cheques' => 'global.cheques',
         'payments' => 'global.payments',
+        'reports' => 'global.reports',
+    ],
+
+    // Define custom operations for specific modules that don't follow standard CRUD
+    'custom_operations' => [
+        'reports' => [
+            'properties' => 'reports.properties_reports',
+        ],
     ],
 
     // Define icons for each module to keep Blade files clean
@@ -39,6 +47,7 @@ return [
         'contracts' => 'fas fa-file-contract fa-fw',
         'cheques' => 'fas fa-money-check-alt fa-fw',
         'payments' => 'fas fa-file-invoice-dollar fa-fw',
+        'reports' => 'fas fa-chart-line fa-fw',
     ],
 
     // Define the CRUD operations available for these modules

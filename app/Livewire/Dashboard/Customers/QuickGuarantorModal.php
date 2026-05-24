@@ -61,26 +61,35 @@ class QuickGuarantorModal extends Component
 
     public function updatedSearchTerm($value)
     {
+        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
+
         if (strlen($value) < 1) {
-            $this->searchResults = [];
+            if ($companyId && ! $this->is_existing) {
+                $this->searchResults = \App\Models\Guarantor::active()
+                    ->where('company_id', $companyId)
+                    ->limit(10)
+                    ->get()
+                    ->toArray();
+            } else {
+                $this->searchResults = [];
+            }
+
             return;
         }
-
-        // Determine the actual company ID
-        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
 
         if (empty($companyId)) {
             flash()->warning(message: __('guarantors.please_select_company_first'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
             $this->searchResults = [];
+
             return;
         }
 
         $this->searchResults = \App\Models\Guarantor::active()
             ->where('company_id', $companyId)
             ->where(function ($q) use ($value) {
-                $q->where('name', 'like', '%' . $value . '%')
-                  ->orWhere('phone', 'like', '%' . $value . '%')
-                  ->orWhere('id_number', 'like', '%' . $value . '%');
+                $q->where('name', 'like', '%'.$value.'%')
+                  ->orWhere('phone', 'like', '%'.$value.'%')
+                  ->orWhere('id_number', 'like', '%'.$value.'%');
             })
             ->limit(30)
             ->get()
@@ -152,6 +161,20 @@ class QuickGuarantorModal extends Component
 
     public function render()
     {
+        $companyId = user()->company_id == 1 ? $this->parent_company_id : user()->company_id;
+
+        if (empty($this->searchTerm) && ! $this->is_existing) {
+            if ($companyId) {
+                $this->searchResults = \App\Models\Guarantor::active()
+                    ->where('company_id', $companyId)
+                    ->limit(10)
+                    ->get()
+                    ->toArray();
+            } else {
+                $this->searchResults = [];
+            }
+        }
+
         return view('livewire.dashboard.customers.quick-guarantor-modal');
     }
 }

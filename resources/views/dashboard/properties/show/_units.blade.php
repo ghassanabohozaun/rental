@@ -14,7 +14,7 @@
                             <th class="border-top-0">#</th>
                             <th class="border-top-0">{!! __('properties.property') !!}</th>
                             <th class="border-top-0 text-center">{!! __('properties.type') !!}</th>
-                            <th class="border-top-0 text-center">{!! __('properties.area') !!}</th>
+                            <th class="border-top-0 text-center">{!! __('properties.file_number') !!}</th>
                             <th class="border-top-0 text-center">{!! __('properties.price') !!}</th>
                             <th class="border-top-0 text-center">{!! __('properties.status') !!}</th>
                             <th class="border-top-0 text-center">{!! __('general.actions') !!}</th>
@@ -38,7 +38,9 @@
                                 @endif
                             </td>
                             <td class="py-2 align-middle text-center">
-                                {!! $unit->area ?? '---' !!}
+                                <span class="file-number-badge">
+                                    {!! $unit->file_number ?? '---' !!}
+                                </span>
                             </td>
                             <td class="py-2 align-middle text-center font-weight-bold text-success">
                                 {!! number_format($unit->price, 2) !!}

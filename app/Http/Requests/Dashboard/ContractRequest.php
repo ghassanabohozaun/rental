@@ -32,7 +32,7 @@ class ContractRequest extends FormRequest
             'deposit_amount' => 'nullable|numeric|min:0',
             'deposit_type' => 'required|string|in:cash,cheque',
             'deposit_status' => 'required|string|in:held,returned,used',
-            'payment_cycle' => 'required|string|in:monthly,yearly',
+            'payment_cycle' => 'required|string|in:monthly,quarterly,semi_annually,yearly',
             'status' => 'required|string|in:active,ended,cancelled',
             'contract_text' => 'nullable|string',
             'notes' => 'nullable|string',
@@ -42,6 +42,15 @@ class ContractRequest extends FormRequest
             'deposit_cheque_owner_name.ar' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_cheque_owner_name.en' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_issue_date' => 'nullable|date',
+            'contract_detail' => 'nullable|array',
+            'contract_detail.grace_period' => 'nullable|string',
+            'contract_detail.contract_clauses' => 'nullable|array',
+            'contract_detail.contract_clauses.*.title' => 'nullable|string',
+            'contract_detail.contract_clauses.*.content' => 'nullable|string',
+            'contract_detail.first_party_data' => 'nullable|array',
+            'contract_detail.second_party_data' => 'nullable|array',
+            'contract_detail.property_data' => 'nullable|array',
+            'contract_detail.utilities_data' => 'nullable|array',
         ];
 
         // If user is super admin, they must select a company

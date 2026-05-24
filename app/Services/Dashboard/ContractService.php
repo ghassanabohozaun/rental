@@ -54,6 +54,11 @@ class ContractService
             $this->syncInsuranceCheque($contract, $data);
         }
 
+        // Handle Contract Details Snapshot
+        if ($contract) {
+            $this->syncContractDetail($contract, $data);
+        }
+
         return $contract;
     }
 
@@ -80,7 +85,87 @@ class ContractService
             $contract->insuranceCheque->delete();
         }
 
+        // Handle Contract Details Snapshot
+        if ($contract) {
+            $this->syncContractDetail($contract, $data);
+        }
+
         return $contract;
+    }
+
+    protected function syncContractDetail(Contract $contract, array $data)
+    {
+        $contractDetail = $contract->contractDetail;
+
+        $detailData = [
+            'grace_period' => \Illuminate\Support\Arr::get($data, 'contract_detail.grace_period', $contractDetail->grace_period ?? null),
+            'contract_clauses' => \Illuminate\Support\Arr::get($data, 'contract_detail.contract_clauses', $contractDetail->contract_clauses ?? null),
+        ];
+
+        if (!$contractDetail) {
+            // First time creating the snapshot (Store)
+            $property = $contract->property;
+            $customer = $contract->customer;
+            
+            if ($property) {
+                $property->loadMissing(['owners']);
+                $detailData['property_data'] = $property->toArray();
+                
+                if ($property->units && $property->units->count() > 0) {
+                    $detailData['utilities_data'] = $property->units->map(function ($unit) {
+                        return [
+                            'electricity_account_number' => $unit->electricity_account_number,
+                            'water_account_number' => $unit->water_account_number,
+                            'name' => $unit->name,
+                            'unit_rent_amount' => $unit->price,
+                            'unit_deposit_amount' => '', // Units don't have a specific deposit in DB yet
+                        ];
+                    })->toArray();
+                } else {
+                    $detailData['utilities_data'] = [
+                        [
+                            'electricity_account_number' => $property->electricity_account_number,
+                            'water_account_number' => $property->water_account_number,
+                            'name' => $property->name,
+                            'unit_rent_amount' => $property->price,
+                            'unit_deposit_amount' => '',
+                        ]
+                    ];
+                }
+
+                if (isset($data['contract_detail']['first_party_data'])) {
+                    $detailData['first_party_data'] = $data['contract_detail']['first_party_data'];
+                } elseif ($contract->company) {
+                    $detailData['first_party_data'] = $contract->company->toArray();
+                }
+            }
+
+            if ($customer) {
+                $detailData['second_party_data'] = $customer->toArray();
+            }
+
+            $contract->contractDetail()->create($detailData);
+        } else {
+            // Updating existing snapshot (Update)
+            // Instead of pulling from relations, we update from the submitted UI data
+            
+            if (isset($data['contract_detail']['first_party_data'])) {
+                $detailData['first_party_data'] = $data['contract_detail']['first_party_data'];
+            }
+            if (isset($data['contract_detail']['second_party_data'])) {
+                $detailData['second_party_data'] = $data['contract_detail']['second_party_data'];
+            }
+            if (isset($data['contract_detail']['property_data'])) {
+                $detailData['property_data'] = $data['contract_detail']['property_data'];
+            }
+            // For utilities_data, since it's an array of arrays, we handle it if submitted
+            if (isset($data['contract_detail']['utilities_data'])) {
+                // Ensure it's stored sequentially
+                $detailData['utilities_data'] = array_values($data['contract_detail']['utilities_data']);
+            }
+
+            $contractDetail->update($detailData);
+        }
     }
 
     protected function syncInsuranceCheque(Contract $contract, array $data)

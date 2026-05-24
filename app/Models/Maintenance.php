@@ -35,4 +35,12 @@ class Maintenance extends Model implements MustBelongToCompany
     {
         return $this->belongsTo(Property::class, 'property_id');
     }
+
+    /**
+     * Get the items for the maintenance.
+     */
+    public function items()
+    {
+        return $this->hasMany(MaintenanceItem::class);
+    }
 }

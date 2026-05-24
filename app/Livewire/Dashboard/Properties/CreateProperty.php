@@ -20,8 +20,8 @@ class CreateProperty extends Component
 
     // Property Fields
     public $name = ['ar' => '', 'en' => ''];
-    public $location, $property_type_id, $area, $price, $property_status_id, $description;
-    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id;
+    public $zone_number, $street_number, $building_number, $property_type_id, $area, $price, $property_status_id, $description;
+    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
 
     // Attachments
     public $rental_contract_original, $building_completion_certificate, $other_documents;
@@ -128,7 +128,9 @@ class CreateProperty extends Component
         return [
             'name.ar' => 'required|string|max:255',
             'name.en' => 'required|string|max:255',
-            'location' => 'nullable|string|max:255',
+            'zone_number' => 'nullable|string|max:255',
+            'street_number' => 'nullable|string|max:255',
+            'building_number' => 'nullable|string|max:255',
             'property_type_id' => 'required|exists:property_types,id',
             'area' => 'nullable|string|max:255',
             'price' => 'nullable|numeric|min:0|max:999999999999',
@@ -139,6 +141,7 @@ class CreateProperty extends Component
             'electricity_account_number' => 'required|string|max:255',
             'water_account_number' => 'required|string|max:255',
             'file_number' => ['nullable', 'string', 'max:255', Rule::unique('properties', 'file_number')->where('company_id', $current_company_id)],
+            'floor' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:properties,id',
             'company_id' => user()->company_id == 1 ? 'required|exists:companies,id' : 'nullable',
 
@@ -208,7 +211,9 @@ class CreateProperty extends Component
 
         $data = [
             'name' => $this->name,
-            'location' => $this->location,
+            'zone_number' => $this->zone_number,
+            'street_number' => $this->street_number,
+            'building_number' => $this->building_number,
             'property_type_id' => $this->property_type_id,
             'area' => $this->area,
             'price' => $this->price,
@@ -219,6 +224,7 @@ class CreateProperty extends Component
             'electricity_account_number' => $this->electricity_account_number,
             'water_account_number' => $this->water_account_number,
             'file_number' => $this->file_number,
+            'floor' => $this->floor,
             'parent_id' => $this->parent_id ?: null,
             'company_id' => user()->company_id == 1 ? $this->company_id : user()->company_id,
         ];

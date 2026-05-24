@@ -12,9 +12,11 @@ class PermissionSeeder extends Seeder
         $modules = config('global.modules');
         $operations = config('global.crud_operations');
 
-        if ($modules && $operations) {
+        if ($modules) {
             foreach ($modules as $moduleKey => $moduleLangKey) {
-                foreach ($operations as $opKey => $opLangKey) {
+                $moduleOperations = config("global.custom_operations.{$moduleKey}") ?? $operations;
+                
+                foreach ($moduleOperations as $opKey => $opLangKey) {
                     $permissionName = $moduleKey . '_' . $opKey;
                     $description = "Can {$opKey} {$moduleKey}";
                     Permission::firstOrCreate(

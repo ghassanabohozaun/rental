@@ -1,20 +1,8 @@
 <div class="d-flex justify-content-center align-items-center mb-0">
     <div class="btn-group" role="group">
         @can('maintenances_update')
-            <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-edit js-edit-btn"
-                title="{!! __('general.edit') !!}" 
-                data-url="{!! route('dashboard.maintenances.update', $maintenance->id) !!}"
-                data-id="{!! $maintenance->id !!}" 
-                data-description_ar="{!! $maintenance->getTranslation('description', 'ar') !!}"
-                data-description_en="{!! $maintenance->getTranslation('description', 'en') !!}" 
-                data-property_id="{!! $maintenance->property_id !!}"
-                data-property_name="{!! optional($maintenance->property)->name !!}"
-                data-date="{!! $maintenance->date !!}" 
-                data-cost="{!! $maintenance->cost !!}"
-                data-status="{!! $maintenance->status !!}" 
-                data-company_id="{!! $maintenance->company_id !!}" 
-                data-company="{!! optional($maintenance->company)->name !!}"
-                data-toggle="modal" data-target="#editModal">
+            <a href="{!! route('dashboard.maintenances.edit', $maintenance->id) !!}" class="btn-premium-action btn-premium-action-edit"
+                title="{!! __('general.edit') !!}">
                 <i class="fas fa-edit"></i>
             </a>
         @endcan

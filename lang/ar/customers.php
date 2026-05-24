@@ -10,6 +10,10 @@ return [
     // Attributes
     'name_ar' => 'الاسم (العربية)',
     'name_en' => 'الاسم (الإنجليزية)',
+    'tenant_name_ar' => 'اسم المستأجر (العربية)',
+    'tenant_name_en' => 'اسم المستأجر (الإنجليزية)',
+    'representative_name_ar' => 'اسم من يمثلها (العربية)',
+    'representative_name_en' => 'اسم من يمثلها (الإنجليزية)',
     'full_name' => 'الاسم بالكامل',
     'personal_id' => 'رقم البطاقة الشخصية / السجل التجاري',
     'phone' => 'الهاتف',

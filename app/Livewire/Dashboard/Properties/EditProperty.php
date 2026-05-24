@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Storage;
 
     // Property Fields
     public $name = ['ar' => '', 'en' => ''];
-    public $location, $property_type_id, $area, $price, $property_status_id, $description;
-    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id;
+    public $zone_number, $street_number, $building_number, $property_type_id, $area, $price, $property_status_id, $description;
+    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
 
     // Attachments
     public $rental_contract_original, $building_completion_certificate, $other_documents;
@@ -40,7 +40,9 @@ use Illuminate\Support\Facades\Storage;
     {
         $this->property = $property;
         $this->name = $property->getTranslations('name');
-        $this->location = $property->location;
+        $this->zone_number = $property->zone_number;
+        $this->street_number = $property->street_number;
+        $this->building_number = $property->building_number;
         $this->property_type_id = $property->property_type_id;
         $this->area = $property->area;
         $this->price = $property->price;
@@ -52,6 +54,7 @@ use Illuminate\Support\Facades\Storage;
         $this->water_account_number = $property->water_account_number;
         $this->parent_id = $property->parent_id;
         $this->file_number = $property->file_number;
+        $this->floor = $property->floor;
         $this->company_id = $property->company_id;
 
         $this->existing_rental_contract_original = $property->rental_contract_original;
@@ -182,7 +185,9 @@ use Illuminate\Support\Facades\Storage;
         return [
             'name.ar' => 'required|string|max:255',
             'name.en' => 'required|string|max:255',
-            'location' => 'nullable|string|max:255',
+            'zone_number' => 'nullable|string|max:255',
+            'street_number' => 'nullable|string|max:255',
+            'building_number' => 'nullable|string|max:255',
             'property_type_id' => 'required|exists:property_types,id',
             'area' => 'nullable|string|max:255',
             'price' => 'nullable|numeric|min:0|max:999999999999',
@@ -193,6 +198,7 @@ use Illuminate\Support\Facades\Storage;
             'electricity_account_number' => 'required|string|max:255',
             'water_account_number' => 'required|string|max:255',
             'file_number' => ['nullable', 'string', 'max:255', Rule::unique('properties', 'file_number')->where('company_id', $current_company_id)->ignore($this->property->id)],
+            'floor' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:properties,id',
             'company_id' => user()->company_id == 1 ? 'required|exists:companies,id' : 'nullable',
 
@@ -254,7 +260,9 @@ use Illuminate\Support\Facades\Storage;
 
         $data = [
             'name' => $this->name,
-            'location' => $this->location,
+            'zone_number' => $this->zone_number,
+            'street_number' => $this->street_number,
+            'building_number' => $this->building_number,
             'property_type_id' => $this->property_type_id,
             'area' => $this->area,
             'price' => $this->price,
@@ -265,6 +273,7 @@ use Illuminate\Support\Facades\Storage;
             'electricity_account_number' => $this->electricity_account_number,
             'water_account_number' => $this->water_account_number,
             'file_number' => $this->file_number,
+            'floor' => $this->floor,
             'parent_id' => $this->parent_id ?: null,
             'company_id' => user()->company_id == 1 ? $this->company_id : user()->company_id,
         ];

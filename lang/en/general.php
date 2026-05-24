@@ -244,5 +244,7 @@ return [
     'system' => 'System',
     'view_all' => 'View All',
     'currency' => 'SAR',
+    'qatari_riyal' => 'Qatari Riyal',
+    'dirham' => 'Dirham',
     'usage_summary' => 'Usage Summary',
 ];

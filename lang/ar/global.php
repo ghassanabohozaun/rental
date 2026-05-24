@@ -15,6 +15,8 @@ return [
     'customers' => 'إدارة المستأجرين',
     'maintenances' => 'إدارة الصيانة',
     'contracts' => 'إدارة العقود',
-    'cheques' => 'إدارة الشيكات',
-    'payments' => 'إدارة الدفعات',
+    'cheques' => 'الشيكات',
+    'payments' => 'سندات القبض',
+    'reports' => 'التقارير',
+    'properties_reports' => 'تقارير العقارات',
 ];

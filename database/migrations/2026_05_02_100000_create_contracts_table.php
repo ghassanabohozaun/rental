@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('deposit_type')->default('cash'); // cash, cheque
             $table->string('deposit_status')->default('held'); // held, returned, used
 
-            $table->string('payment_cycle')->default('monthly'); // monthly, yearly
+            $table->string('payment_cycle')->default('monthly'); // monthly,quarterly, semi-Annually ,yearly
             $table->string('status')->default('active'); // active, ended, cancelled
 
             $table->longText('contract_text')->nullable();

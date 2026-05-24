@@ -6,11 +6,12 @@ return [
     'create_new_contract' => 'إضافة عقد جديد',
     'update_contract' => 'تعديل بيانات العقد',
     'show_all_contracts' => 'عرض جميع العقود',
-    
+
     // Fields
     'property' => 'العقار',
     'available_properties_hint' => 'العقارات المتاحة للتأجير',
     'customer' => 'المستأجر',
+    'contract_parties' => 'أطراف العقد',
     'available_customers_hint' => 'المستأجرون المتاحون',
     'conclusion_date' => 'تاريخ إبرام العقد',
     'start_date' => 'تاريخ البدء',
@@ -24,31 +25,61 @@ return [
     'status' => 'حالة العقد',
     'contract_text' => 'نص العقد',
     'notes' => 'ملاحظات إضافية',
-    
+
     // Enums - Deposit Type
     'deposit_type_cash' => 'نقداً',
     'deposit_type_cheque' => 'شيك',
-    
+
     // Enums - Deposit Status
     'deposit_status_held' => 'محفوظ',
     'deposit_status_returned' => 'مسترجع',
     'deposit_status_used' => 'مستخدم',
-    
+
     // Enums - Payment Cycle
     'payment_cycle_monthly' => 'شهرياً',
+    'payment_cycle_quarterly' => 'ربعي',
+    'payment_cycle_semi_annually' => 'نصفي',
     'payment_cycle_yearly' => 'سنوياً',
-    
+
     // Enums - Contract Status
     'status_active' => 'ساري',
     'status_ended' => 'منتهي',
     'status_cancelled' => 'ملغي',
-    
+
     // UI Elements
     'financial_details_title' => 'التفاصيل المالية والتواريخ',
     'deposit_details_title' => 'تفاصيل التأمين (المبلغ والحالة)',
+    'deposit_locked_help' => 'لا يمكن تعديل التأمين بعد استرجاعه أو تسييله',
     'no_deposit' => 'لا يوجد تأمين',
     'no_contracts_found' => 'لا يوجد عقود حالياً!',
-    
+    'first_party_company' => 'الطرف الأول (الشركة / المالك)',
+    'first_party_hint' => 'هذه البيانات ستطبع في العقد كـ "الطرف الأول". التعديل هنا فقط للطباعة.',
+    'first_party_name_ar' => 'اسم الطرف الأول (عربي)',
+    'first_party_name_en' => 'اسم الطرف الأول (إنجليزي)',
+    'first_party_owner_name' => 'اسم الممثل / المالك',
+    'first_party_owner_qid' => 'رقم البطاقة (QID)',
+    'first_party_owner_phone' => 'رقم الهاتف',
+    'second_party_customer' => 'الطرف الثاني (المستأجر)',
+    'second_party_hint' => 'هذه البيانات ستطبع في العقد كـ "الطرف الثاني".',
+    'second_party_name_ar' => 'اسم الطرف الثاني (عربي)',
+    'second_party_name_en' => 'اسم الطرف الثاني (إنجليزي)',
+    'id_number' => 'رقم الهوية/الجواز',
+    'nationality' => 'الجنسية',
+    'phone_number' => 'رقم الجوال',
+    'property_data' => 'بيانات العقار',
+    'zone_number' => 'رقم المنطقة',
+    'street_number' => 'رقم / اسم الشارع',
+    'building_number' => 'رقم المبنى',
+    'title_deed_number' => 'رقم سند الملكية',
+    'utilities_numbers' => 'أرقام الكهرباء والماء',
+    'utilities_info_hint' => 'هذه الأرقام هي التي ستطبع في جدول الوورد. عدد العدادات يحدد عدد صفوف الجدول. التعديل هنا لا يغير بيانات العدادات الأصلية في النظام.',
+    'unit_name' => 'اسم الوحدة',
+    'electricity' => 'الكهرباء',
+    'water' => 'الماء',
+    'unit_rent_amount' => 'إيجار الوحدة',
+    'unit_deposit_amount' => 'تأمين الوحدة',
+    'no_utilities_data' => 'لا توجد بيانات عدادات مسجلة لهذا العقد.',
+
     // Placeholders
     'select_property' => 'اختر العقار...',
     'select_customer' => 'اختر المستأجر...',
@@ -56,19 +87,21 @@ return [
     'enter_deposit_amount' => 'أدخل قيمة التأمين...',
     'enter_contract_text' => 'اكتب نص العقد هنا...',
     'enter_notes' => 'أدخل أي ملاحظات إضافية...',
-    
+
     // Errors
     'cannot_delete_has_payments' => 'لا يمكن حذف العقد لوجود دفعات مالية مرتبطة به.',
     'cannot_delete_has_cheques' => 'لا يمكن حذف العقد لوجود شيكات مرتبطة به.',
     'contract_details' => 'تفاصيل العقد',
-    'basic_details_tab' => 'البيانات الأساسية والمالية',
-    'contract_terms_tab' => 'شروط العقد والملاحظات',
+    'basic_details_tab' => 'البيانات الأساسية',
+    'contract_terms_tab' => 'بنود العقد',
+    'parties_property_tab' => 'الأطراف والعقار',
+    'utilities_tab' => 'عدادات الخدمات',
     'contract_terms' => 'بنود العقد',
     'select_contract' => 'اختر من العقود...',
     'overlap_error' => 'هذا العقار محجوز ضمن عقد آخر فعال في نفس الفترة الزمنية المحددة.',
     'remaining_amount' => 'المبلغ المتبقي',
     'paid_amount' => 'المبلغ المدفوع',
-    
+
     // Insurance Cheque
     'insurance_cheque_for_contract' => 'شيك تأمين تم إنشاؤه آلياً للعقد رقم #:id',
     'cheque_edit_info' => 'ملاحظة: تعبئة هذه الحقول سيقوم بإنشاء شيك تأمين جديد. إذا كان للعقد شيك تأمين مسبق، يرجى إدارته من قسم الشيكات.',
@@ -81,4 +114,84 @@ return [
     'select_contract_to_view_details' => 'اختر العقد لعرض التفاصيل المالية',
     'financial_summary' => 'الملخص المالي',
     'deposit_locked_hint' => 'لا يمكن تعديل بيانات التأمين بعد استرجاعه أو تسييله.',
+
+    // Contract Clauses
+    'contract_clauses_library' => 'مكتبة بنود العقود',
+    'grace_period' => 'فترة السماح (إن وجدت)',
+    'grace_period_placeholder' => 'مثال: شهرين',
+    'contract_clauses_builder_title' => 'بنود العقد (المنشئ الذكي)',
+    'add_clause_from_library' => 'إضافة بند من المكتبة',
+    'clauses_hint_text' => 'هذه البنود سيتم إدراجها في العقد بالترتيب. يمكنك تعديل النص وتغيير المتغيرات مثل',
+    'clauses_new_hint_text' => 'ملاحظة: إذا كان العقد جديداً، سيقوم النظام تلقائياً بتحميل البنود الافتراضية إذا قمت بحفظ العقد وهي فارغة.',
+    'add_empty_custom_clause' => 'إضافة بند فارغ مخصص',
+    'loading' => 'جاري التحميل...',
+    'close' => 'إغلاق',
+    'previous_clauses' => 'البنود السابقة',
+    'clause_title_placeholder' => 'عنوان البند (مثال: البند الأول)',
+    'clause_content_placeholder' => 'نص البند... (يدعم الأكواد الذكية مثل ${deposit_amount})',
+    'confirm_delete_clause' => 'هل أنت متأكد من حذف هذا البند؟',
+    'empty_library_message' => 'المكتبة فارغة. يمكنك إضافة البنود من الإعدادات.',
+    'insert_clause' => 'إدراج',
+    'clause_inserted_success' => 'تم إدراج البند بنجاح',
+
+    // Clause Templates CRUD
+    'add_new_clause' => 'إضافة بند جديد',
+    'smart_tags_hint' => 'تلميح: يمكنك استخدام الأكواد التالية داخل نصوص البنود لكي يتم استبدالها تلقائياً عند طباعة العقد:',
+    'deposit_tag' => 'رقم التأمين',
+    'deposit_ar_tag' => 'التأمين تفقيط',
+    'rent_tag' => 'رقم الإيجار',
+    'rent_ar_tag' => 'الإيجار تفقيط',
+    'start_date_tag' => 'بداية العقد',
+    'end_date_tag' => 'نهاية العقد',
+    'clause_title' => 'عنوان البند',
+    'clause_title_hint' => 'عنوان البند (للتوضيح الداخلي)',
+    'is_default_clause' => 'بند افتراضي؟',
+    'is_default_clause_hint' => 'بند افتراضي (يضاف تلقائياً لأي عقد جديد)',
+    'order_num' => 'الترتيب',
+    'order_num_hint' => 'ترتيب الظهور',
+    'clause_status_active' => 'حالة البند (نشط)',
+    'edit_clause' => 'تعديل بند',
+    'save_changes' => 'حفظ التعديلات',
+    'save' => 'حفظ',
+    'back' => 'رجوع',
+
+    // Smart Tags Hint Box
+    'smart_tags_title' => 'الأكواد الذكية المتاحة للاستخدام (Smart Tags)',
+    'smart_tags_click_hint' => 'يمكنك النقر على أي كود لنسخه مباشرة ثم لصقه في محرر النصوص أدناه.',
+    'smart_tags_copied' => 'تم النسخ',
+    'smart_tags_group_contract' => 'بيانات العقد',
+    'smart_tags_group_financials' => 'البيانات المالية',
+    'smart_tags_group_parties' => 'أطراف العقد',
+    'smart_tags_group_property' => 'بيانات العقار',
+    
+    'tag_conclusion_date' => 'تاريخ التحرير',
+    'tag_start_date' => 'بداية العقد',
+    'tag_end_date' => 'نهاية العقد',
+    'tag_contract_duration' => 'مدة العقد',
+    'tag_grace_period' => 'فترة السماح',
+    
+    'tag_rent_amount' => 'الإيجار (أرقام)',
+    'tag_rent_amount_ar' => 'الإيجار (تفقيط)',
+    'tag_deposit_amount' => 'التأمين (أرقام)',
+    'tag_deposit_amount_ar' => 'التأمين (تفقيط)',
+    
+    'tag_first_party_name' => 'الطرف الأول',
+    'tag_second_party_name' => 'الطرف الثاني',
+    'tag_second_party_id' => 'رقم الهوية',
+    'tag_second_party_nationality' => 'الجنسية',
+    'tag_second_party_phone' => 'رقم الهاتف',
+    'tag_second_party_company_name' => 'اسم الشركة (المستأجر)',
+    'tag_second_party_cr_number' => 'السجل التجاري (المستأجر)',
+    'tag_second_party_license_number' => 'رقم الرخصة (المستأجر)',
+    'tag_second_party_establishment_number' => 'قيد منشأة (المستأجر)',
+    
+    'tag_property_zone' => 'المنطقة',
+    'tag_property_street' => 'الشارع',
+    'tag_property_building' => 'رقم المبنى',
+    'tag_property_deed' => 'رقم سند الملكية',
+    'tag_property_name_ar' => 'اسم العقار (عربي)',
+    'tag_property_name_en' => 'اسم العقار (إنجليزي)',
+    'tag_property_type' => 'نوع العقار',
+    'tag_property_floor' => 'طابق العقار',
+    'tag_property_description' => 'وصف العقار',
 ];

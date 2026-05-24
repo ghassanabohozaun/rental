@@ -378,5 +378,10 @@ return [
         'cr_number' => 'CR Number',
         'license_number' => 'License Number',
         'tenant_type' => 'Tenant Type',
+        
+        // Maintenances Items
+        'items.*.type' => 'Maintenance Type',
+        'items.*.cost' => 'Item Cost',
+        'items.*.attachment' => 'Item Attachment',
     ],
 ];

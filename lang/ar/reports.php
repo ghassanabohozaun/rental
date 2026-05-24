@@ -1,0 +1,20 @@
+<?php
+return [
+    'reports' => 'التقارير',
+    'properties_reports' => 'تقارير العقارات',
+    'export_excel' => 'تصدير كملف Excel',
+    'select_columns' => 'حدد الأعمدة المراد تصديرها',
+    'search_filters' => 'فلاتر البحث المتقدم',
+    'select_all' => 'تحديد الكل',
+    'deselect_all' => 'إلغاء التحديد',
+    'owner' => 'المالك',
+    'select_owner' => 'اختر المالك',
+    'property_type' => 'نوع العقار',
+    'select_property_type' => 'اختر نوع العقار',
+    'property_status' => 'حالة العقار',
+    'select_property_status' => 'اختر حالة العقار',
+    'all_owners' => 'جميع الملاك',
+    'all_types' => 'جميع الأنواع',
+    'all_statuses' => 'جميع الحالات',
+    'reset' => 'إعادة تعيين',
+];

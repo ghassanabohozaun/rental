@@ -110,8 +110,9 @@ class PropertyRepository
             ->map(function ($property) {
                 return [
                     'id' => $property->id,
-                    'text' => $property->name . ' (' . $property->property_number . ')',
+                    'text' => $property->name . ($property->file_number ? ' (' . $property->file_number . ')' : ''),
                     'property_number' => $property->property_number,
+                    'file_number' => $property->file_number,
                     'location' => $property->location
                 ];
             });

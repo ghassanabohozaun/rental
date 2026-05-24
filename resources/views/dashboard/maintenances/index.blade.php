@@ -35,11 +35,10 @@
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
                         @can('maintenances_create')
-                            <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
-                                data-target="#createModal">
+                            <a href="{!! route('dashboard.maintenances.create') !!}" class="btn btn-premium-add shadow-pulse">
                                 <i class="fas fa-plus-circle"></i>
                                 {!! __('maintenances.add_maintenance') !!}
-                            </button>
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -94,9 +93,6 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
-    @include('dashboard.maintenances.modals.create')
-    @include('dashboard.maintenances.modals.edit')
-    @include('dashboard.maintenances.modals.details')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/dashbaord/js/ajax-table.js') }}"></script>

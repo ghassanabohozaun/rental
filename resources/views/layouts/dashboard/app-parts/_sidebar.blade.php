@@ -64,12 +64,11 @@
                     </ul>
                 </li>
 
-                {{-- Group 2: Support & Access (Maintenance, Users, Roles) --}}
+                {{-- Group 2: Support & Access (Users, Roles) --}}
                 @php
                     $isSupportActive =
                         Request::routeIs('dashboard.users.*') ||
-                        Request::routeIs('dashboard.roles.*') ||
-                        Request::routeIs('dashboard.maintenances.*');
+                        Request::routeIs('dashboard.roles.*');
                 @endphp
                 <li class="nav-item has-sub @if ($isSupportActive) open @endif">
                     <a href="javascript:void(0)">
@@ -91,13 +90,6 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('maintenances_read')
-                            <li class="@if (Request::routeIs('dashboard.maintenances.*')) active @endif">
-                                <a class="menu-item" href="{!! route('dashboard.maintenances.index') !!}">
-                                    {!! __('maintenances.maintenances') !!}
-                                </a>
-                            </li>
-                        @endcan
                     </ul>
                 </li>
 
@@ -108,7 +100,8 @@
                         Request::routeIs('dashboard.owners.*') ||
                         Request::routeIs('dashboard.properties.*') ||
                         Request::routeIs('dashboard.property_types.*') ||
-                        Request::routeIs('dashboard.property_statuses.*');
+                        Request::routeIs('dashboard.property_statuses.*') ||
+                        Request::routeIs('dashboard.maintenances.*');
                 @endphp
                 <li class="nav-item has-sub @if ($isAssetActive) open @endif">
                     <a href="javascript:void(0)">
@@ -141,6 +134,13 @@
                             <li class="@if (Request::routeIs('dashboard.property_statuses.*')) active @endif">
                                 <a class="menu-item" href="{!! route('dashboard.property_statuses.index') !!}">
                                     {!! __('property_statuses.property_statuses') !!}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('maintenances_read')
+                            <li class="@if (Request::routeIs('dashboard.maintenances.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.maintenances.index') !!}">
+                                    {!! __('maintenances.maintenances') !!}
                                 </a>
                             </li>
                         @endcan
@@ -177,14 +177,33 @@
                 </li>
 
                 <!-- begin: Contracts -->
-                @can('contracts_read')
-                    <li class="nav-item @if (Request::routeIs('dashboard.contracts.*')) active @endif">
-                        <a href="{!! route('dashboard.contracts.index') !!}">
-                            <i class="fas fa-file-contract"></i>
-                            <span class="menu-title">{!! __('contracts.contracts') !!}</span>
-                        </a>
-                    </li>
-                @endcan
+                @php
+                    $isContractsActive =
+                        Request::routeIs('dashboard.contracts.*') ||
+                        Request::routeIs('dashboard.contract_clause_templates.*');
+                @endphp
+                <li class="nav-item has-sub @if ($isContractsActive) open @endif">
+                    <a href="javascript:void(0)">
+                        <i class="fas fa-file-contract"></i>
+                        <span class="menu-title">{!! __('contracts.contracts') !!}</span>
+                    </a>
+                    <ul class="menu-content">
+                        @can('contracts_read')
+                            <li class="@if (Request::routeIs('dashboard.contracts.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.contracts.index') !!}">
+                                    {!! __('contracts.contracts') !!}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('contracts_read')
+                            <li class="@if (Request::routeIs('dashboard.contract_clause_templates.*')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.contract_clause_templates.index') !!}">
+                                    {!! __('contracts.contract_clauses_library') !!}
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
                 <!-- end: Contracts -->
 
                 <!-- begin: Cheques -->
@@ -208,6 +227,26 @@
                     </li>
                 @endcan
                 <!-- end: Payments -->
+
+                {{-- Group 5: Reports --}}
+                @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties'))
+                <li class="nav-item {{ Route::is('dashboard.reports.*') ? 'open' : '' }}">
+                    <a href="#">
+                        <i class="la la-bar-chart"></i>
+                        <span class="menu-title" data-i18n="nav.reports">{!! __('global.reports') !!}</span>
+                    </a>
+                    <ul class="menu-content">
+                        @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties'))
+                            <li class="{{ Route::is('dashboard.reports.properties.*') ? 'active' : '' }}">
+                                <a class="menu-item" href="{!! route('dashboard.reports.properties.index') !!}">
+                                    <i class="la la-building"></i>
+                                    <span data-i18n="nav.reports.properties">{!! __('reports.properties_reports') !!}</span>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
             </ul>
         </div>
 

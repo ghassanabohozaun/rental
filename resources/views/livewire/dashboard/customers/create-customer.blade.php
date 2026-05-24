@@ -142,11 +142,11 @@
                                     <div class="row">
                                         <div class="col-md-3 mb-2">
                                             <div class="premium-form-group @error('name.ar') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('customers.name_ar') !!} <span
+                                                <label class="premium-label">{!! $tenant_type == 'company' ? __('customers.representative_name_ar') : __('customers.tenant_name_ar') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="name.ar"
                                                     class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.name_ar') !!}">
+                                                    placeholder="{!! $tenant_type == 'company' ? __('customers.representative_name_ar') : __('customers.tenant_name_ar') !!}">
                                                 @error('name.ar')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -154,11 +154,11 @@
                                         </div>
                                         <div class="col-md-3 mb-2">
                                             <div class="premium-form-group @error('name.en') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('customers.name_en') !!} <span
+                                                <label class="premium-label">{!! $tenant_type == 'company' ? __('customers.representative_name_en') : __('customers.tenant_name_en') !!} <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" wire:model.defer="name.en"
                                                     class="form-control premium-input shadow-none"
-                                                    placeholder="{!! __('customers.name_en') !!}">
+                                                    placeholder="{!! $tenant_type == 'company' ? __('customers.representative_name_en') : __('customers.tenant_name_en') !!}">
                                                 @error('name.en')
                                                     <span class="text-danger error-text">{{ $message }}</span>
                                                 @enderror
@@ -211,8 +211,7 @@
                                         </div>
                                         <div class="col-md-3 mb-2">
                                             <div class="premium-form-group @error('email') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('customers.email') !!} <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="premium-label">{!! __('customers.email') !!}</label>
                                                 <input type="email" wire:model.defer="email"
                                                     class="form-control premium-input shadow-none text-left"
                                                     dir="ltr" placeholder="{!! __('customers.email') !!}">
@@ -223,8 +222,7 @@
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <div class="premium-form-group @error('address') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('customers.address') !!} <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="premium-label">{!! __('customers.address') !!}</label>
                                                 <input type="text" wire:model.defer="address"
                                                     class="form-control premium-input shadow-none"
                                                     placeholder="{!! __('customers.address') !!}">

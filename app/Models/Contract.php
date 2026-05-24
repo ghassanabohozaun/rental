@@ -96,6 +96,37 @@ class Contract extends Model implements MustBelongToCompany
     }
 
     /**
+     * Get the details/snapshot for printing.
+     */
+    public function contractDetail()
+    {
+        return $this->hasOne(ContractDetail::class);
+    }
+
+    /**
+     * Get the live first party data based on property relationships.
+     */
+    public function getLiveFirstPartyDataAttribute()
+    {
+        $company = optional($this->property)->company;
+        
+        $primaryOwner = null;
+        if ($this->property && $this->property->owners) {
+            $primaryOwner = $this->property->owners->where('pivot.is_primary', 1)->first();
+            if (!$primaryOwner) {
+                $primaryOwner = $this->property->owners->first();
+            }
+        }
+        
+        return [
+            'name_ar' => $company ? $company->getTranslation('name', 'ar') : '---',
+            'owner_name' => $primaryOwner ? $primaryOwner->name : '---',
+            'owner_qid' => $primaryOwner ? $primaryOwner->identification_number : '---',
+            'owner_phone' => $primaryOwner ? $primaryOwner->phone : '---',
+        ];
+    }
+
+    /**
      * Get the creator of the contract.
      */
     public function creator()

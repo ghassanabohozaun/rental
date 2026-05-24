@@ -43,13 +43,36 @@
                                 <span>{!! optional($contract->property->owner)->name ?? '---' !!}</span>
                             </span>
                         </div>
-                        <div class="col-md-8 mb-3">
-                            <span class="text-muted font-small-3 d-block">{!! __('properties.location') !!}</span>
+                        <div class="col-md-4 mb-3">
+                            <span class="text-muted font-small-3 d-block">{!! __('properties.zone_number') !!}</span>
                             <span class="text-dark font-weight-bold d-flex align-items-center">
                                 <i class="fas fa-map-marker-alt text-danger mr-1 font-small-2"></i>
-                                <span>{!! optional($contract->property)->location !!}</span>
+                                <span>{!! optional($contract->property)->zone_number ?? '---' !!}</span>
                             </span>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <span class="text-muted font-small-3 d-block">{!! __('properties.street_number') !!}</span>
+                            <span class="text-dark font-weight-bold d-flex align-items-center">
+                                <i class="fas fa-road text-info mr-1 font-small-2"></i>
+                                <span>{!! optional($contract->property)->street_number ?? '---' !!}</span>
+                            </span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <span class="text-muted font-small-3 d-block">{!! __('properties.building_number') !!}</span>
+                            <span class="text-dark font-weight-bold d-flex align-items-center">
+                                <i class="fas fa-building text-warning mr-1 font-small-2"></i>
+                                <span>{!! optional($contract->property)->building_number ?? '---' !!}</span>
+                            </span>
+                        </div>
+                        @if(optional($contract->property)->floor)
+                        <div class="col-md-4 mb-3">
+                            <span class="text-muted font-small-3 d-block">{!! __('properties.floor') !!}</span>
+                            <span class="text-dark font-weight-bold d-flex align-items-center">
+                                <i class="fas fa-layer-group text-success mr-1 font-small-2"></i>
+                                <span>{!! optional($contract->property)->floor !!}</span>
+                            </span>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -10,6 +10,10 @@ return [
     // Attributes
     'name_ar' => 'Name (Arabic)',
     'name_en' => 'Name (English)',
+    'tenant_name_ar' => 'Tenant Name (Arabic)',
+    'tenant_name_en' => 'Tenant Name (English)',
+    'representative_name_ar' => 'Representative Name (Arabic)',
+    'representative_name_en' => 'Representative Name (English)',
     'full_name' => 'Full Name',
     'personal_id' => 'Personal ID',
     'phone' => 'Phone',

@@ -97,6 +97,12 @@
                     <option value="monthly"
                         {{ old('payment_cycle', isset($contract) ? $contract->payment_cycle : '') == 'monthly' ? 'selected' : '' }}>
                         {!! __('contracts.payment_cycle_monthly') !!}</option>
+                    <option value="quarterly"
+                        {{ old('payment_cycle', isset($contract) ? $contract->payment_cycle : '') == 'quarterly' ? 'selected' : '' }}>
+                        {!! __('contracts.payment_cycle_quarterly') !!}</option>
+                    <option value="semi_annually"
+                        {{ old('payment_cycle', isset($contract) ? $contract->payment_cycle : '') == 'semi_annually' ? 'selected' : '' }}>
+                        {!! __('contracts.payment_cycle_semi_annually') !!}</option>
                     <option value="yearly"
                         {{ old('payment_cycle', isset($contract) ? $contract->payment_cycle : '') == 'yearly' ? 'selected' : '' }}>
                         {!! __('contracts.payment_cycle_yearly') !!}</option>

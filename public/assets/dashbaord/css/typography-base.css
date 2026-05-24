@@ -112,7 +112,7 @@ b, strong {
     color: #828d99 !important;
     font-weight: 500;
     padding: 12px 20px !important;
-    font-size: 1rem;
+    font-size: 1.2rem !important;
 }
 .premium-nav-tabs .nav-link.active {
     color: #5A8DEE !important;

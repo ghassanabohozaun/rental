@@ -32,6 +32,7 @@ return [
         'bounced' => 'Bounced',
         'held' => 'Held',
         'returned' => 'Returned',
+        'used' => 'Used',
     ],
     'rent_cheques' => 'Rent Cheques',
     'insurance_cheques' => 'Insurance Cheques',

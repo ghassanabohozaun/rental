@@ -22,7 +22,7 @@ return [
     'good_afternoon' => 'طاب مساؤك',
     'good_evening' => 'مساء الخير',
     'good_night' => 'تصبح على خير',
-    'your_performance_summary_this_week'=>'ملخص أدائك هذا الأسبوع',
+    'your_performance_summary_this_week' => 'ملخص أدائك هذا الأسبوع',
 
     'duration' => 'المدة',
     'sar' => 'ريال سعودي',
@@ -183,8 +183,8 @@ return [
     'tax' => 'الضريبة',
     'captcha' => 'الرجاء التاكد من كلمة التحقق ',
 
-    ///////////////////////////////////////////////////////
-    /// Select 2
+    // /////////////////////////////////////////////////////
+    // / Select 2
     'searching' => 'بحث',
     'noResults' => 'لا يوجد نتائج للاضافة',
     'noResults2' => 'لا يوجد نتائج ',
@@ -236,7 +236,7 @@ return [
     'additional_details' => 'تفاصيل إضافية',
     'min' => 'الحد الأدنى',
     'max' => 'الحد الأقصى',
-    'all'=>'عرض الكل',
+    'all' => 'عرض الكل',
     'selected_color' => 'اللون المختار',
     'ok' => 'موافق',
     'no_data_found' => 'لا يوجد بيانات !',
@@ -250,6 +250,8 @@ return [
     'system' => 'النظام',
     'view_all' => 'عرض الكل',
     'currency' => 'ريال',
+    'qatari_riyal' => 'ريال قطري',
+    'dirham' => 'درهم',
     'usage_summary' => 'ملخص الاستخدام',
     'total_records' => 'إجمالي السجلات',
     'active_requests' => 'الطلبات النشطة',

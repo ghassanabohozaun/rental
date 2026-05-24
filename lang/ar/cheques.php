@@ -29,6 +29,7 @@ return [
         'bounced' => 'مرتجع',
         'held' => 'محجوز',
         'returned' => 'مسترجع',
+        'used' => 'مستخدم',
     ],
     'cannot_delete_has_payments' => 'لا يمكن حذف الشيك لوجود دفعات مالية مرتبطة به.',
     'select_cheque' => 'اختر من الشيكات...',

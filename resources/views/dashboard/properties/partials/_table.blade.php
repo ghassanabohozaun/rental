@@ -11,7 +11,7 @@
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('properties.property') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.type') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.parent_property') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.area') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.file_number') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('properties.price') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
@@ -42,8 +42,8 @@
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
                                         <div class="detail-info-box text-left">
-                                            <span class="detail-info-label">{!! __('properties.location') !!}</span>
-                                            <span class="detail-info-value text-muted small">{!! $property->location ?? '---' !!}</span>
+                                            <span class="detail-info-label">{!! __('properties.zone_number') !!}</span>
+                                            <span class="detail-info-value text-muted small">{!! $property->zone_number ?? '---' !!}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -68,11 +68,11 @@
                         </td>
                     @endif
 
-                    <!-- Property Info (Name + Location) -->
+                    <!-- Property Info (Name + Address) -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text">{!! $property->name !!}</span>
-                            <span class="user-email-text"><i class="fas fa-map-marker-alt mr-25"></i> {!! Str::limit($property->location, 30) ?? '---' !!}</span>
+                            <span class="user-email-text"><i class="fas fa-map-marker-alt mr-25"></i> {!! Str::limit($property->zone_number . ' - ' . $property->street_number, 30) ?? '---' !!}</span>
                         </div>
                     </td>
 
@@ -98,10 +98,10 @@
                         @endif
                     </td>
 
-                    <!-- Area -->
+                    <!-- File Number -->
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <span class="area-badge">
-                            {!! $property->area ?? '---' !!}
+                        <span class="file-number-badge">
+                            {!! $property->file_number ?? '---' !!}
                         </span>
                     </td>
 

@@ -21,7 +21,7 @@
                                 data-parent="#property_search_popover">
                                 <option value="">{!! __('general.all') !!}</option>
                                 @foreach ($properties as $property)
-                                    <option value="{{ $property->id }}">{{ $property->name }}</option>
+                                    <option value="{{ $property->id }}">{{ $property->name }}{{ $property->file_number ? ' (' . $property->file_number . ')' : '' }}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -103,6 +103,8 @@
                                 data-parent="#cycle_search_popover">
                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                 <option value="monthly">{!! __('contracts.payment_cycle_monthly') !!}</option>
+                                <option value="quarterly">{!! __('contracts.payment_cycle_quarterly') !!}</option>
+                                <option value="semi_annually">{!! __('contracts.payment_cycle_semi_annually') !!}</option>
                                 <option value="yearly">{!! __('contracts.payment_cycle_yearly') !!}</option>
                             </select>
                     </div>

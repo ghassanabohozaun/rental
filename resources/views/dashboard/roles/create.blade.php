@@ -171,7 +171,10 @@
                                                                             </label>
                                                                         </div>
                                                                         <div class="permission-card-body">
-                                                                            @foreach (config('global.crud_operations') as $opKey => $opLangKey)
+                                                                            @php 
+                                                                                $operations = config("global.custom_operations.{$moduleKey}") ?? config('global.crud_operations');
+                                                                            @endphp
+                                                                            @foreach ($operations as $opKey => $opLangKey)
                                                                                 @php $permName = $moduleKey . '_' . $opKey; @endphp
                                                                                 {{-- Only show permission if the current user HAS it --}}
                                                                                 @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility($permName))

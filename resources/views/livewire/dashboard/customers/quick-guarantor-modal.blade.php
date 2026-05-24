@@ -20,13 +20,26 @@
                                 <div class="premium-form-group mb-0">
                                     <label class="font-weight-bold text-primary">
                                         {!! __('guarantors.search_existing_guarantor') !!}</label>
-                                    <div class="position-relative w-100">
+                                    <div class="position-relative w-100" x-data="{ focused: false }" x-on:click.outside="focused = false">
                                         <input type="text" wire:model.live.debounce.300ms="searchTerm"
                                             class="form-control premium-input shadow-none"
-                                            placeholder="{!! __('guarantors.search_by_id_name_phone') !!}" autocomplete="off">
+                                            placeholder="{{ $is_existing ? (app()->getLocale() == 'ar' ? 'تم تحديد الكفيل بنجاح ✓' : 'Guarantor selected successfully ✓') : __('guarantors.search_by_id_name_phone') }}" autocomplete="off"
+                                            {{ $is_existing ? 'disabled style=background-color:#f1f3f5;font-weight:600;color:#495057;border-color:#ced4da;' : '' }}
+                                            x-on:focus="focused = true"
+                                            x-on:click="focused = true">
 
-                                        @if (strlen($searchTerm) > 0)
-                                            <div class="position-absolute w-100 mt-1" style="z-index: 9999;">
+                                        @if ($is_existing)
+                                            <button type="button" wire:click="resetGuarantorData" x-on:click="focused = true" 
+                                                class="btn btn-sm position-absolute shadow-none" 
+                                                style="top: 50%; {{ app()->getLocale() == 'ar' ? 'left: 10px;' : 'right: 10px;' }} transform: translateY(-50%); z-index: 10; border-radius: 25px; font-size: 0.8rem; padding: 4px 12px; background: rgba(220, 53, 69, 0.08); color: #dc3545; border: none; font-weight: 700; transition: all 0.2s ease-in-out; cursor: pointer;"
+                                                onmouseover="this.style.background='rgba(220, 53, 69, 0.15)'; this.style.color='#bd2130'; this.style.transform='translateY(-50%) scale(1.03)';"
+                                                onmouseout="this.style.background='rgba(220, 53, 69, 0.08)'; this.style.color='#dc3545'; this.style.transform='translateY(-50%) scale(1)';">
+                                                <i class="fas fa-times-circle mr-1"></i> {{ app()->getLocale() == 'ar' ? 'إلغاء التحديد' : 'Clear Selection' }}
+                                            </button>
+                                        @endif
+
+                                        @if (!$is_existing && (strlen($searchTerm) > 0 || count($searchResults) > 0))
+                                            <div class="position-absolute w-100 mt-1" style="z-index: 9999;" x-show="focused" x-transition>
                                                 <span
                                                     class="select2-container select2-container--default select2-container--open w-100">
                                                     <span class="select2-dropdown select2-dropdown--below"
@@ -38,9 +51,11 @@
                                                                         <li class="select2-results__option py-2 px-3"
                                                                             role="option"
                                                                             wire:click="selectGuarantor({{ $result['id'] }})"
+                                                                            x-on:click="focused = false"
                                                                             onmouseover="this.classList.add('select2-results__option--highlighted')"
                                                                             onmouseout="this.classList.remove('select2-results__option--highlighted')">
                                                                             {{ is_array($result['name']) ? $result['name'][app()->getLocale()] ?? $result['name']['en'] : $result['name'] }}
+                                                                            - {{ $result['id_number'] ?? '' }}
                                                                             - {{ $result['phone'] ?? '' }}
                                                                         </li>
                                                                     @endforeach

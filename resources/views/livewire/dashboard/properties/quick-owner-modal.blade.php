@@ -22,13 +22,26 @@
                                 <div class="premium-form-group mb-0">
                                     <label class="font-weight-bold text-primary">
                                         {!! __('owners.search_existing_owner') !!}</label>
-                                    <div class="position-relative w-100">
+                                    <div class="position-relative w-100" x-data="{ focused: false }" x-on:click.outside="focused = false">
                                         <input type="text" wire:model.live.debounce.300ms="searchTerm"
                                             class="form-control premium-input shadow-none"
-                                            placeholder="{!! __('owners.search_by_id_name_phone') !!}" autocomplete="off">
+                                            placeholder="{{ $is_existing ? (app()->getLocale() == 'ar' ? 'تم تحديد مالك موجود بنجاح ✓' : 'Owner selected successfully ✓') : __('owners.search_by_id_name_phone') }}" autocomplete="off"
+                                            {{ $is_existing ? 'disabled style=background-color:#f1f3f5;font-weight:600;color:#495057;border-color:#ced4da;' : '' }}
+                                            x-on:focus="focused = true"
+                                            x-on:click="focused = true">
 
-                                        @if (strlen($searchTerm) > 0)
-                                            <div class="position-absolute w-100 mt-1" style="z-index: 9999;">
+                                        @if ($is_existing)
+                                            <button type="button" wire:click="resetOwnerData" x-on:click="focused = true" 
+                                                class="btn btn-sm position-absolute shadow-none" 
+                                                style="top: 50%; {{ app()->getLocale() == 'ar' ? 'left: 10px;' : 'right: 10px;' }} transform: translateY(-50%); z-index: 10; border-radius: 25px; font-size: 0.8rem; padding: 4px 12px; background: rgba(220, 53, 69, 0.08); color: #dc3545; border: none; font-weight: 700; transition: all 0.2s ease-in-out; cursor: pointer;"
+                                                onmouseover="this.style.background='rgba(220, 53, 69, 0.15)'; this.style.color='#bd2130'; this.style.transform='translateY(-50%) scale(1.03)';"
+                                                onmouseout="this.style.background='rgba(220, 53, 69, 0.08)'; this.style.color='#dc3545'; this.style.transform='translateY(-50%) scale(1)';">
+                                                <i class="fas fa-times-circle mr-1"></i> {{ app()->getLocale() == 'ar' ? 'إلغاء التحديد' : 'Clear Selection' }}
+                                            </button>
+                                        @endif
+
+                                        @if (!$is_existing && (strlen($searchTerm) > 0 || count($searchResults) > 0))
+                                            <div class="position-absolute w-100 mt-1" style="z-index: 9999;" x-show="focused" x-transition>
                                                 <span
                                                     class="select2-container select2-container--default select2-container--open w-100">
                                                     <span class="select2-dropdown select2-dropdown--below"
@@ -40,6 +53,7 @@
                                                                         <li class="select2-results__option py-2 px-3"
                                                                             role="option"
                                                                             wire:click="selectOwner({{ $result['id'] }})"
+                                                                            x-on:click="focused = false"
                                                                             onmouseover="this.classList.add('select2-results__option--highlighted')"
                                                                             onmouseout="this.classList.remove('select2-results__option--highlighted')">
                                                                             {{ is_array($result['name']) ? $result['name'][app()->getLocale()] ?? $result['name']['en'] : $result['name'] }}
@@ -164,33 +178,32 @@
                         </div>
 
                         <div class="row align-items-center">
+                            <!-- Is Primary -->
+                            <div class="col-md-6 mb-2">
+                                <div class="premium-form-group">
+                                    <label class="font-weight-bold d-none d-md-block" style="opacity: 0; user-select: none;">{!! __('properties.is_primary') !!}</label>
+                                    <label class="d-flex align-items-center form-control premium-input shadow-none mb-0 w-100" 
+                                         for="quick_is_primary"
+                                         style="background-color: #f8f9fa; border-color: #e2e5e8; cursor: pointer; transition: all 0.2s;">
+                                        <div class="custom-control custom-switch custom-switch-glow custom-switch-primary mb-0" style="pointer-events: none;">
+                                            <input type="checkbox" class="custom-control-input" id="quick_is_primary" wire:model.live="quick_is_primary">
+                                            <label class="custom-control-label" for="quick_is_primary"></label>
+                                        </div>
+                                        <span class="font-weight-bold text-dark" style="font-size: 0.95rem; padding-inline-start: 10px;">
+                                            {!! __('properties.is_primary') !!}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                             <!-- Ownership Percentage -->
                             <div class="col-md-6 mb-2">
                                 <div class="premium-form-group @error('quick_percentage') is-invalid-premium @enderror">
                                     <label class="font-weight-bold">{!! __('properties.ownership_percentage') !!}</label>
-                                    <input type="number" step="0.01" wire:model.defer="quick_percentage"
+                                    <input type="number" step="0.01" min="0" max="100" wire:model.defer="quick_percentage"
                                         class="form-control premium-input shadow-none" placeholder="0.00" autocomplete="off">
                                     @error('quick_percentage')
                                         <span class="text-danger error-text">{{ $message }}</span>
                                     @enderror
-                                </div>
-                            </div>
-                            <!-- Is Primary -->
-                            <div class="col-md-6 mb-2 d-flex align-items-end">
-                                <div class="premium-form-group mb-2 w-100">
-                                    <div class="d-flex align-items-center h-100 mt-4 px-2">
-                                        <div
-                                            class="custom-control custom-switch custom-switch-glow custom-switch-primary">
-                                            <input type="checkbox" class="custom-control-input" id="quick_is_primary"
-                                                wire:model.defer="quick_is_primary">
-                                            <label class="custom-control-label" for="quick_is_primary"></label>
-                                        </div>
-                                        <label class="font-weight-bold text-dark cursor-pointer mb-0"
-                                            for="quick_is_primary"
-                                            style="font-size: 1.1rem; padding-inline-start: 10px;">
-                                            {!! __('properties.is_primary') !!}
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>

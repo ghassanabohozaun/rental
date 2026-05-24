@@ -81,6 +81,15 @@ return [
             'report' => false,
         ],
 
+        'maintenances' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/maintenances'),
+            'url' => env('APP_URL') . '/uploads/maintenances',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

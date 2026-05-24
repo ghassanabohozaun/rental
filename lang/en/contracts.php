@@ -6,12 +6,13 @@ return [
     'create_new_contract' => 'Create New Contract',
     'update_contract' => 'Update Contract',
     'show_all_contracts' => 'Show All Contracts',
-    
+
     // Fields
     'property' => 'Property',
-    'available_properties_hint' => 'Available properties for rent',
-    'customer' => 'Customer',
-    'available_customers_hint' => 'Available Customers',
+    'available_properties_hint' => 'Properties available for rent',
+    'customer' => 'Tenant',
+    'contract_parties' => 'Contract Parties',
+    'available_customers_hint' => 'Available tenants',
     'conclusion_date' => 'Contract Conclusion Date',
     'start_date' => 'Start Date',
     'end_date' => 'End Date',
@@ -24,31 +25,61 @@ return [
     'status' => 'Status',
     'contract_text' => 'Contract Text',
     'notes' => 'Additional Notes',
-    
+
     // Enums - Deposit Type
     'deposit_type_cash' => 'Cash',
     'deposit_type_cheque' => 'Cheque',
-    
+
     // Enums - Deposit Status
     'deposit_status_held' => 'Held',
     'deposit_status_returned' => 'Returned',
     'deposit_status_used' => 'Used',
-    
+
     // Enums - Payment Cycle
     'payment_cycle_monthly' => 'Monthly',
+    'payment_cycle_quarterly' => 'Quarterly',
+    'payment_cycle_semi_annually' => 'Semi-Annually',
     'payment_cycle_yearly' => 'Yearly',
-    
+
     // Enums - Contract Status
     'status_active' => 'Active',
     'status_ended' => 'Ended',
     'status_cancelled' => 'Cancelled',
-    
+
     // UI Elements
     'financial_details_title' => 'Financial Details & Dates',
     'deposit_details_title' => 'Deposit Details (Amount & Status)',
+    'deposit_locked_help' => 'Deposit details cannot be modified after it is returned or cashed',
     'no_deposit' => 'No Deposit',
     'no_contracts_found' => 'No contracts found!',
-    
+    'first_party_company' => 'First Party (Company / Owner)',
+    'first_party_hint' => 'This data will be printed in the contract as "First Party".',
+    'first_party_name_ar' => 'First Party Name (Arabic)',
+    'first_party_name_en' => 'First Party Name (English)',
+    'first_party_owner_name' => 'Representative / Owner Name',
+    'first_party_owner_qid' => 'ID Number (QID)',
+    'first_party_owner_phone' => 'Phone Number',
+    'second_party_customer' => 'Second Party (Customer)',
+    'second_party_hint' => 'This data will be printed in the contract as "Second Party".',
+    'second_party_name_ar' => 'Second Party Name (Arabic)',
+    'second_party_name_en' => 'Second Party Name (English)',
+    'id_number' => 'ID / Passport Number',
+    'nationality' => 'Nationality',
+    'phone_number' => 'Phone Number',
+    'property_data' => 'Property Details',
+    'zone_number' => 'Zone Number',
+    'street_number' => 'Street Number / Name',
+    'building_number' => 'Building Number',
+    'title_deed_number' => 'Title Deed Number',
+    'utilities_numbers' => 'Electricity & Water Numbers',
+    'utilities_info_hint' => 'These numbers will print on the MS Word document table. Number of meters determines the table rows.',
+    'unit_name' => 'Unit Name',
+    'electricity' => 'Electricity',
+    'water' => 'Water',
+    'unit_rent_amount' => 'Unit Rent',
+    'unit_deposit_amount' => 'Unit Deposit',
+    'no_utilities_data' => 'No utility meter data recorded for this contract.',
+
     // Placeholders
     'select_property' => 'Select Property...',
     'select_customer' => 'Select Customer...',
@@ -56,28 +87,111 @@ return [
     'enter_deposit_amount' => 'Enter deposit amount...',
     'enter_contract_text' => 'Enter contract text here...',
     'enter_notes' => 'Enter any additional notes...',
-    
+
     // Errors
     'cannot_delete_has_payments' => 'Cannot delete contract because it has associated payments.',
     'cannot_delete_has_cheques' => 'Cannot delete contract because it has associated cheques.',
     'contract_details' => 'Contract Details',
-    'basic_details_tab' => 'Basic & Financial Details',
-    'contract_terms_tab' => 'Contract Terms & Notes',
+    'basic_details_tab' => 'Basic Info',
+    'contract_terms_tab' => 'Contract Clauses',
+    'parties_property_tab' => 'Parties & Property',
+    'utilities_tab' => 'Service Meters',
     'contract_terms' => 'Contract Terms',
     'select_contract' => 'Select from contracts...',
     'overlap_error' => 'This property is already booked under another active contract during the specified time period.',
     'remaining_amount' => 'Remaining Amount',
     'paid_amount' => 'Paid Amount',
-    
+
     // Insurance Cheque
     'insurance_cheque_for_contract' => 'Insurance cheque auto-generated for contract #:id',
     'cheque_edit_info' => 'Note: Filling these fields will create a NEW insurance cheque. If the contract already has an insurance cheque, please manage it from the Cheques section.',
     'amount_exceeds_deposit' => 'The amount exceeds the deposit amount specified in the contract',
     'active_contracts' => 'Active Contracts',
+    'no_contract_text' => 'No contract text has been recorded.',
     'total_rent_value' => 'Total Rent Value',
     'expiring_soon' => 'Expiring Soon',
     'total_revenue' => 'Total Revenue',
     'financial_summary' => 'Financial Summary',
     'deposit_locked_hint' => 'Deposit details cannot be modified after it has been returned or used.',
     'select_contract_to_view_details' => 'Select a contract to view its financial details.',
+
+    // Contract Clauses
+    'contract_clauses_library' => 'Contract Clauses Library',
+    'grace_period' => 'Grace Period (if any)',
+    'grace_period_placeholder' => 'e.g. Two months',
+    'contract_clauses_builder_title' => 'Contract Clauses (Smart Builder)',
+    'add_clause_from_library' => 'Add Clause from Library',
+    'clauses_hint_text' => 'These clauses will be inserted into the contract in order. You can edit the text and change variables like',
+    'clauses_new_hint_text' => 'Note: If the contract is new, the system will automatically load the default clauses if you save the contract while it is empty.',
+    'add_empty_custom_clause' => 'Add Empty Custom Clause',
+    'loading' => 'Loading...',
+    'close' => 'Close',
+    'previous_clauses' => 'Previous Clauses',
+    'clause_title_placeholder' => 'Clause Title (e.g. First Clause)',
+    'clause_content_placeholder' => 'Clause text... (Supports smart tags like ${deposit_amount})',
+    'confirm_delete_clause' => 'Are you sure you want to delete this clause?',
+    'empty_library_message' => 'The library is empty. You can add clauses from settings.',
+    'insert_clause' => 'Insert',
+    'clause_inserted_success' => 'Clause inserted successfully',
+
+    // Clause Templates CRUD
+    'add_new_clause' => 'Add New Clause',
+    'smart_tags_hint' => 'Hint: You can use the following codes inside clause texts to be automatically replaced when printing the contract:',
+    'deposit_tag' => 'Deposit Number',
+    'deposit_ar_tag' => 'Deposit in Words (Arabic)',
+    'rent_tag' => 'Rent Number',
+    'rent_ar_tag' => 'Rent in Words (Arabic)',
+    'start_date_tag' => 'Contract Start Date',
+    'end_date_tag' => 'Contract End Date',
+    'clause_title' => 'Clause Title',
+    'clause_title_hint' => 'Clause Title (For internal reference)',
+    'is_default_clause' => 'Default Clause?',
+    'is_default_clause_hint' => 'Default clause (Added automatically to any new contract)',
+    'order_num' => 'Order',
+    'order_num_hint' => 'Display Order',
+    'clause_status_active' => 'Clause Status (Active)',
+    'edit_clause' => 'Edit Clause',
+    'save_changes' => 'Save Changes',
+    'save' => 'Save',
+    'back' => 'Back',
+
+    // Smart Tags Hint Box
+    'smart_tags_title' => 'Available Smart Tags',
+    'smart_tags_click_hint' => 'You can click on any code to copy it directly, then paste it in the text editor below.',
+    'smart_tags_copied' => 'Copied',
+    'smart_tags_group_contract' => 'Contract Data',
+    'smart_tags_group_financials' => 'Financial Data',
+    'smart_tags_group_parties' => 'Contract Parties',
+    'smart_tags_group_property' => 'Property Data',
+    
+    'tag_conclusion_date' => 'Conclusion Date',
+    'tag_start_date' => 'Start Date',
+    'tag_end_date' => 'End Date',
+    'tag_contract_duration' => 'Contract Duration',
+    'tag_grace_period' => 'Grace Period',
+    
+    'tag_rent_amount' => 'Rent Amount',
+    'tag_rent_amount_ar' => 'Rent (in words)',
+    'tag_deposit_amount' => 'Deposit Amount',
+    'tag_deposit_amount_ar' => 'Deposit (in words)',
+    
+    'tag_first_party_name' => 'First Party',
+    'tag_second_party_name' => 'Second Party',
+    'tag_second_party_id' => 'ID Number',
+    'tag_second_party_nationality' => 'Nationality',
+    'tag_second_party_phone' => 'Phone Number',
+    'tag_second_party_company_name' => 'Company Name (Tenant)',
+    'tag_second_party_cr_number' => 'CR Number (Tenant)',
+    'tag_second_party_license_number' => 'License Number (Tenant)',
+    'tag_second_party_establishment_number' => 'Establishment No. (Tenant)',
+    
+    'tag_property_zone' => 'Zone',
+    'tag_property_street' => 'Street',
+    'tag_property_building' => 'Building',
+    'tag_property_deed' => 'Title Deed Number',
+    'tag_property_name_ar' => 'Property Name (Arabic)',
+    'tag_property_name_en' => 'Property Name (English)',
+    'tag_property_type' => 'Property Type',
+    'tag_property_floor' => 'Property Floor',
+    'tag_property_description' => 'Property Description',
 ];

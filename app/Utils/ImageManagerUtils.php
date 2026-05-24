@@ -119,7 +119,12 @@ class ImageManagerUtils
      */
     public function generateImageName($image)
     {
-        return Str::uuid() . time() . '.' . $image->getClientOriginalExtension();
+        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeName = preg_replace('/[^\p{L}\p{N}\-_]/u', '', str_replace(' ', '_', $originalName));
+        if (empty($safeName)) {
+            $safeName = 'file';
+        }
+        return $safeName . '_' . time() . '.' . $image->getClientOriginalExtension();
     }
 
     /**
