@@ -4,7 +4,7 @@
         <thead class="bg-white">
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
-                <th class="text-center align-middle py-3 border-top-0">#</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">#</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.bank_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.account_number') !!}</th>
@@ -147,7 +147,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="8" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('bank_accounts.no_bank_accounts_found') !!}
                     </td>
                 </tr>
