@@ -437,6 +437,7 @@ body.fixed-navbar {
     color: var(--primary);
     text-decoration: none;
     transition: all 0.3s;
+    white-space: nowrap !important;
 }
 
 .forgot-modern:hover {

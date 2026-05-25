@@ -253,7 +253,7 @@ class EditContract extends Component
         $template = ContractClauseTemplate::find($id);
         if ($template) {
             $this->addClause($template->title, $template->content);
-            flash()->success(message: __('contracts.clause_inserted_success'), options: ['position' => App::getLocale() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('contracts.clause_inserted_success'), type: 'success');
         }
     }
 
@@ -316,7 +316,8 @@ class EditContract extends Component
             $this->validate();
         } catch (ValidationException $e) {
             $this->validation_fail_nonce++;
-            flash()->error(message: __('general.validation_error_message'), options: ['position' => App::getLocale() == 'ar' ? 'top-left' : 'top-right']);
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
             throw $e;
         }
 
@@ -335,7 +336,7 @@ class EditContract extends Component
             if ($overlappingContract) {
                 $this->validation_fail_nonce++;
                 $this->addError('property_id', __('contracts.overlap_error'));
-                flash()->error(message: __('contracts.overlap_error'), options: ['position' => App::getLocale() == 'ar' ? 'top-left' : 'top-right']);
+                $this->dispatch('notify', message: __('contracts.overlap_error'), type: 'error');
                 return;
             }
         }
@@ -375,11 +376,11 @@ class EditContract extends Component
 
         try {
             $service->update($this->contract->id, $data);
-            flash()->success(message: __('general.update_success_message'), options: ['position' => App::getLocale() == 'ar' ? 'top-left' : 'top-right']);
+            flash()->success(__('general.update_success_message'));
             return redirect()->route('dashboard.contracts.index');
         } catch (\Exception $e) {
             \Log::error('Contract Update Livewire Error: ' . $e->getMessage());
-            flash()->error(message: __('general.update_error_message') . ' - ' . $e->getMessage(), options: ['position' => App::getLocale() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('general.update_error_message') . ' - ' . $e->getMessage(), type: 'error');
             $this->validation_fail_nonce++;
         }
     }

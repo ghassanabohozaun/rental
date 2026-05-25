@@ -26,7 +26,7 @@
 
     @stack('scripts')
     @livewireScripts
-    @flasher_render
+    @include('layouts.dashboard.app-parts._premium_toast')
 </body>
 
 </html>

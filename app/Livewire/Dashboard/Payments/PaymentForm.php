@@ -526,16 +526,18 @@ class PaymentForm extends Component
 
         try {
             $validatedData = $this->validate($rules);
+            
+            $validatedData['customer_id'] = $this->customer_id;
+
+            // Custom Validation
+            $this->validateBalance($validatedData['amount']);
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->validation_fail_nonce++;
             $this->dispatch('reinit-plugins');
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
             throw $e;
         }
-
-        $validatedData['customer_id'] = $this->customer_id;
-
-        // Custom Validation
-        $this->validateBalance($validatedData['amount']);
 
         $service = app(PaymentService::class);
 
@@ -551,6 +553,7 @@ class PaymentForm extends Component
         } catch (\Exception $e) {
             \Log::error('Payment Save Error: ' . $e->getMessage());
             $this->addError('general', $e->getMessage());
+            $this->dispatch('notify', message: $e->getMessage(), type: 'error');
         }
     }
 

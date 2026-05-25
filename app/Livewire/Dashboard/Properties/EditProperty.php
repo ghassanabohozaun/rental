@@ -95,7 +95,7 @@ use Illuminate\Support\Facades\Storage;
             });
 
             if ($exists) {
-                flash()->warning(message: __('properties.duplicate_owner_error'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+                $this->dispatch('notify', message: __('properties.duplicate_owner_error'), type: 'warning');
                 return;
             }
         }
@@ -122,14 +122,14 @@ use Illuminate\Support\Facades\Storage;
             'is_primary' => $data['is_primary'] ?? (count($this->property_owners) === 0)
         ]);
 
-        flash()->success(message: __('properties.owner_row_added'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+        $this->dispatch('notify', message: __('properties.owner_row_added'), type: 'success');
     }
 
     public function openOwnerModal()
     {
         if (user()->company_id == 1 && empty($this->company_id)) {
             $this->addError('company_id', __('properties.please_select_company_first'));
-            flash()->warning(message: __('properties.please_select_company_first'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('properties.please_select_company_first'), type: 'warning');
             $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             return;
@@ -237,8 +237,8 @@ use Illuminate\Support\Facades\Storage;
         } catch (ValidationException $e) {
             $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2 after DOM refresh
-            $message = __('general.validation_error_message');
-            flash()->error(message: $message, options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
             throw $e;
         }
 
@@ -318,6 +318,7 @@ use Illuminate\Support\Facades\Storage;
             $this->property->update(['other_documents' => $this->other_documents->store('docs', 'properties')]);
         }
 
+        flash()->success(__('general.update_success_message'));
         return redirect(route('dashboard.properties.index'));
     }
 

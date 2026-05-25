@@ -78,7 +78,7 @@ class QuickGuarantorModal extends Component
         }
 
         if (empty($companyId)) {
-            flash()->warning(message: __('guarantors.please_select_company_first'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('guarantors.please_select_company_first'), type: 'warning');
             $this->searchResults = [];
 
             return;
@@ -139,7 +139,13 @@ class QuickGuarantorModal extends Component
 
     public function saveQuickGuarantor()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
+            throw $e;
+        }
 
         $data = [
             'guarantor_id' => $this->selected_guarantor_id,

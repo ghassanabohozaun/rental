@@ -162,3 +162,35 @@ if (!function_exists('contract_duration_arabic')) {
         return $rlm . $months . ' ' . __('employeeContracts.months_11');
     }
 }
+
+// Custom flash helper to replace the deleted php-flasher/php-flasher library
+if (!function_exists('flash')) {
+    function flash()
+    {
+        return new class {
+            public function success($message, $options = [])
+            {
+                session()->flash('success', $message);
+                return $this;
+            }
+
+            public function error($message, $options = [])
+            {
+                session()->flash('error', $message);
+                return $this;
+            }
+
+            public function warning($message, $options = [])
+            {
+                session()->flash('warning', $message);
+                return $this;
+            }
+
+            public function info($message, $options = [])
+            {
+                session()->flash('info', $message);
+                return $this;
+            }
+        };
+    }
+}

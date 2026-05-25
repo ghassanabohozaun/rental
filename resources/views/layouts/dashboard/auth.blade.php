@@ -35,11 +35,8 @@
     @endif
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/system-style.css') }}?v={{ time() }}">
-
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/pages.css') }}?v={{ time() }}">
     <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/login.css') }}?v={{ time() }}">
-    <link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
-
 
     @stack('style')
 </head>
@@ -80,42 +77,7 @@
 
     @stack('scripts')
 
-    @if(session('error') || session('success') || $errors->any())
-        <div class="premium-floating-chip {{ (session('error') || $errors->any()) ? 'chip-error' : 'chip-success' }}" id="notification-chip" style="z-index: 9999999 !important; display: flex !important;">
-            <div class="chip-icon">
-                <i class="fas {{ (session('error') || $errors->any()) ? 'fa-exclamation-circle' : 'fa-check-circle' }}"></i>
-            </div>
-            <div class="chip-text">
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
-                @else
-                    {{ session('error') ?: session('success') }}
-                @endif
-            </div>
-            <button class="chip-close" onclick="dismissChip()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <script>
-            console.log("!!! Premium Notification Debug !!!");
-            console.log("Errors Any: {{ $errors->any() ? 'Yes' : 'No' }}");
-            console.log("Session Error: {{ session('error') ?: 'None' }}");
-
-            function dismissChip() {
-                const chip = document.getElementById('notification-chip');
-                if (chip) {
-                    chip.classList.add('chip-hide');
-                    setTimeout(() => { if(chip) chip.remove(); }, 500);
-                }
-            }
-            
-            // Auto dismiss after 8 seconds
-            setTimeout(dismissChip, 8000);
-        </script>
-    @endif
+    @include('layouts.dashboard.app-parts._premium_toast')
 </body>
 
 </html>

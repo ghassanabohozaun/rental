@@ -13,33 +13,18 @@ class EditCheque extends Component
 {
     public Cheque $cheque;
 
-    public $contract_id;
-    public $customer_id;
-    public $company_id;
-    public $cheque_number;
-    public $amount;
-    public $status;
-    public $is_deposit;
-    public $issue_date;
-    public $due_date;
-    public $bank_name = ['ar' => '', 'en' => ''];
-    public $cheque_owner_name = ['ar' => '', 'en' => ''];
-    public $notes;
+    public $contract_id, $customer_id, $company_id;
+    public $cheque_number, $amount, $issue_date, $due_date, $notes;
+    public $status, $is_deposit;
+    public $bank_name = ['ar' => '', 'en' => ''], $cheque_owner_name = ['ar' => '', 'en' => ''];
 
     public $validation_fail_nonce = 0;
 
     public $financials = [];
-    public $projectedRemaining = 0;
-    public $isContractFulfilled = false;
-    public $currentChequeUsedAmount = 0;
-    public $dateWarning = '';
-    public $amountExceedsRemaining = false;
-    public $availableToCover = 0;
-    public $paid_pct = 0;
-    public $pending_pct = 0;
-    public $paid_pct_previous = 0;
-    public $current_pct_dynamic = 0;
-    public $smart_assistant_message = '';
+    public $projectedRemaining = 0, $availableToCover = 0, $currentChequeUsedAmount = 0;
+    public $isContractFulfilled = false, $amountExceedsRemaining = false;
+    public $paid_pct = 0, $pending_pct = 0, $paid_pct_previous = 0, $current_pct_dynamic = 0;
+    public $smart_assistant_message = '', $dateWarning = '';
 
     protected $listeners = ['refresh' => '$refresh'];
 
@@ -345,30 +330,31 @@ class EditCheque extends Component
 
         try {
             $validatedData = $this->validate($rules);
+
+            $validatedData['is_deposit'] = $this->is_deposit;
+            $validatedData['due_date'] = $validatedData['due_date'] ?: null;
+            $validatedData['issue_date'] = $validatedData['issue_date'] ?: null;
+
+            // Ensure amount is not less than used amount
+            if ($this->currentChequeUsedAmount > 0 && (float) $this->amount < $this->currentChequeUsedAmount) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'amount' => __('cheques.amount_cannot_be_less_than_used') . ' (' . number_format($this->currentChequeUsedAmount, 2) . ')',
+                ]);
+            }
+
+            // Prevent Duplication
+            $this->validateDuplicate($validatedData);
+
+            // Complex Balance Validation
+            $this->validateBalance($validatedData['amount']);
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->validation_fail_nonce++;
             $this->dispatch('reinit-plugins');
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
             throw $e;
         }
-
-        $validatedData['is_deposit'] = $this->is_deposit;
-
-        // Convert empty strings to null for nullable dates
-        $validatedData['due_date'] = $validatedData['due_date'] ?: null;
-        $validatedData['issue_date'] = $validatedData['issue_date'] ?: null;
-
-        // Ensure amount is not less than used amount
-        if ($this->currentChequeUsedAmount > 0 && (float) $this->amount < $this->currentChequeUsedAmount) {
-            throw \Illuminate\Validation\ValidationException::withMessages([
-                'amount' => __('cheques.amount_cannot_be_less_than_used') . ' (' . number_format($this->currentChequeUsedAmount, 2) . ')',
-            ]);
-        }
-
-        // Prevent Duplication
-        $this->validateDuplicate($validatedData);
-
-        // Complex Balance Validation
-        $this->validateBalance($validatedData['amount']);
 
         $service = app(ChequeService::class);
 
@@ -379,6 +365,7 @@ class EditCheque extends Component
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Cheque Livewire Update Error: ' . $e->getMessage());
             $this->addError('general', $e->getMessage());
+            $this->dispatch('notify', message: $e->getMessage(), type: 'error');
         }
     }
 
@@ -394,7 +381,7 @@ class EditCheque extends Component
 
         if ($query->exists()) {
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'cheque_number' => __('cheques.cheque_already_exists') ?? 'تم تسجيل هذا الشيك مسبقاً لنفس البنك والشركة',
+                'cheque_number' => __('cheques.duplicate_cheque_number'),
             ]);
         }
     }

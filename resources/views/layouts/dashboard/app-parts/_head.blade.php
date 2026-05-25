@@ -34,7 +34,7 @@
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/vendors/fontawesome/css/all.min.css') !!}">
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/fonts/feather/style.min.css') !!}">
 
-<link rel="stylesheet" href="{!! asset('vendor/flasher/flasher.min.css') !!}">
+
 
 <!-- BEGIN: Dashboard Core CSS -->
 <!-- Vendor Assets (Load first to allow overrides) -->
@@ -87,8 +87,7 @@
 <!-- Ultra Premium Styles -->
 <link rel="stylesheet" type="text/css"
     href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v={{ time() }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/system-flasher.css') }}?v={{ time() }}">
+
 <link rel="stylesheet" type="text/css"
     href="{{ asset('assets/dashbaord/css/premium-fileinput.css') }}?v={{ time() }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}">

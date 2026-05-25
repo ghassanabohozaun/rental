@@ -186,8 +186,17 @@ class EditCustomer extends Component
 
     public function update()
     {
+        try {
+            $this->validate();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->validation_fail_nonce++;
+            $this->dispatch('reinitSelect2');
+            $errors = $e->validator->errors()->all();
+            $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
+            throw $e;
+        }
+
         $this->validation_fail_nonce++;
-        $this->validate();
 
         $customer = Customer::findOrFail($this->customer_id);
         $data = [
@@ -245,7 +254,7 @@ class EditCustomer extends Component
         }
         $customer->guarantors()->sync($guarantorSyncData);
 
-        flash()->success(message: __('general.update_success_message'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+        flash()->success(__('general.update_success_message'));
         return redirect()->route('dashboard.customers.index');
     }
 
@@ -254,7 +263,7 @@ class EditCustomer extends Component
         // Check if guarantor already exists in the list by ID Number
         $existingIds = array_column($this->customer_guarantors, 'id_number');
         if (in_array($data['id_number'], $existingIds)) {
-            flash()->warning(message: __('guarantors.guarantor_already_exists'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('guarantors.guarantor_already_exists'), type: 'warning');
             return;
         }
 
@@ -268,7 +277,7 @@ class EditCustomer extends Component
         // Add to the beginning of the array so it appears at the top
         array_unshift($this->customer_guarantors, $data);
 
-        flash()->success(message: __('customers.guarantor_added_to_list'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+        $this->dispatch('notify', message: __('customers.guarantor_added_to_list'), type: 'success');
 
         $this->dispatch('reinitSelect2');
     }
@@ -280,7 +289,7 @@ class EditCustomer extends Component
         if (user()->company_id == 1 && empty($companyId)) {
             $this->validation_fail_nonce++;
             $this->addError('company_id', __('guarantors.please_select_company_first'));
-            flash()->warning(message: __('guarantors.please_select_company_first'), options: ['position' => Lang() == 'ar' ? 'top-left' : 'top-right']);
+            $this->dispatch('notify', message: __('guarantors.please_select_company_first'), type: 'warning');
             return;
         }
 

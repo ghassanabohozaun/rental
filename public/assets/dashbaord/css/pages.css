@@ -454,17 +454,13 @@ form.ajax-form .row {
 }
 
 .error-text {
-    position: absolute !important;
-    bottom: -21px !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
+    position: relative !important;
+    margin-top: 4px !important;
     font-size: 0.8rem !important;
     font-weight: 600 !important;
     display: block !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
     animation: premiumFadeInUp 0.3s ease-out !important;
     z-index: 10 !important;
 }
