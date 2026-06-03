@@ -104,13 +104,20 @@ class PropertyRepository
         $totalCount = $query->count();
         $limit = empty($searchValue) ? 10 : 30;
 
-        $results = $query->orderByDesc('id')
+        $results = $query->with('parent')->orderByDesc('id')
             ->limit($limit)
             ->get()
             ->map(function ($property) {
+                $text = $property->name;
+                if ($property->parent) {
+                    $text .= ' - ' . $property->parent->name;
+                }
+                if ($property->file_number) {
+                    $text .= ' (' . $property->file_number . ')';
+                }
                 return [
                     'id' => $property->id,
-                    'text' => $property->name . ($property->file_number ? ' (' . $property->file_number . ')' : ''),
+                    'text' => $text,
                     'property_number' => $property->property_number,
                     'file_number' => $property->file_number,
                     'location' => $property->location

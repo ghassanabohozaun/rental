@@ -34,8 +34,6 @@ use Illuminate\Support\Facades\Storage;
     // Owners Repeater
     public $property_owners = [];
 
-    public $validation_fail_nonce = 0;
-
     public function mount(Property $property)
     {
         $this->property = $property;
@@ -130,7 +128,6 @@ use Illuminate\Support\Facades\Storage;
         if (user()->company_id == 1 && empty($this->company_id)) {
             $this->addError('company_id', __('properties.please_select_company_first'));
             $this->dispatch('notify', message: __('properties.please_select_company_first'), type: 'warning');
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             return;
         }
@@ -235,7 +232,6 @@ use Illuminate\Support\Facades\Storage;
         try {
             $this->validate();
         } catch (ValidationException $e) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2 after DOM refresh
             $errors = $e->validator->errors()->all();
             $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
@@ -244,7 +240,6 @@ use Illuminate\Support\Facades\Storage;
 
         $totalPercentage = collect($this->property_owners)->sum('percentage');
         if ($totalPercentage != 100) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             $this->addError('property_owners_total', __('properties.percentage_must_be_100'));
             return;
@@ -252,7 +247,6 @@ use Illuminate\Support\Facades\Storage;
 
         $hasPrimary = collect($this->property_owners)->contains('is_primary', true);
         if (!$hasPrimary) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             $this->addError('property_owners_primary', __('properties.must_select_primary_owner'));
             return;

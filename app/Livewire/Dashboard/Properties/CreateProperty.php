@@ -29,8 +29,6 @@ class CreateProperty extends Component
     // Owners Repeater
     public $property_owners = [];
 
-    public $validation_fail_nonce = 0;
-
     public function mount()
     {
         // Initialize with empty array, owners will be added via modal
@@ -92,7 +90,6 @@ class CreateProperty extends Component
         if (user()->company_id == 1 && empty($this->company_id)) {
             $this->addError('company_id', __('properties.please_select_company_first'));
             $this->dispatch('notify', message: __('properties.please_select_company_first'), type: 'warning');
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             return;
         }
@@ -181,7 +178,6 @@ class CreateProperty extends Component
         try {
             $this->validate();
         } catch (ValidationException $e) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2 after DOM refresh
             $errors = $e->validator->errors()->all();
             $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
@@ -191,7 +187,6 @@ class CreateProperty extends Component
         // Calculate total percentage
         $totalPercentage = collect($this->property_owners)->sum('percentage');
         if ($totalPercentage != 100) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             $this->addError('property_owners_total', __('properties.percentage_must_be_100'));
             return;
@@ -200,7 +195,6 @@ class CreateProperty extends Component
         // Ensure at least one primary
         $hasPrimary = collect($this->property_owners)->contains('is_primary', true);
         if (!$hasPrimary) {
-            $this->validation_fail_nonce++;
             $this->dispatch('rowAdded'); // Re-init Select2
             $this->addError('property_owners_primary', __('properties.must_select_primary_owner'));
             return;

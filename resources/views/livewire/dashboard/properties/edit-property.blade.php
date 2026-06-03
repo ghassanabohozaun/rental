@@ -326,7 +326,7 @@
 
                     <!-- Row 3: Owners & Ownership (Repeater) -->
                     <div class="card premium-card mb-2 premium-card-anim @if ($errors->has('property_owners') || $errors->has('property_owners_total') || $errors->has('property_owners_primary')) premium-card-error-glow pulse-error @endif"
-                        wire:key="owners-card-wrapper-{{ $validation_fail_nonce }}">
+                        wire:key="owners-card-wrapper">
                         <div
                             class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center position-relative">
                             <div class="title-wrapper">
@@ -380,7 +380,7 @@
                                     <tbody>
                                         @forelse ($property_owners as $index => $owner)
                                             <tr class="owner-row"
-                                                wire:key="owner-row-{{ $index }}-{{ $validation_fail_nonce }}">
+                                                wire:key="owner-row-{{ $index }}">
                                                 <td class="align-middle">
                                                     <div class="user-info-cell">
                                                         <span
@@ -403,7 +403,7 @@
                                                     <div class="premium-form-group mb-0 mx-auto @error("property_owners.$index.percentage") is-invalid-premium @enderror"
                                                         style="max-width: 100px;">
                                                         <input type="number" step="0.01"
-                                                            wire:model.live="property_owners.{{ $index }}.percentage"
+                                                            wire:model.blur="property_owners.{{ $index }}.percentage"
                                                             class="form-control premium-input shadow-none text-center compact-input"
                                                             autocomplete="off"
                                                             style="height: 32px !important; font-size: 0.9rem;"
