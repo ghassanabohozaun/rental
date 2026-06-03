@@ -11292,3 +11292,132 @@ html[dir='rtl'] .premium-card {
     overflow: hidden !important;
     transition: all 0.3s ease !important;
 }
+
+/* Premium Excel Import Modal Styles */
+.excel-import-modal .modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.excel-import-modal .modal-header {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.25rem 1.5rem;
+}
+
+.excel-dropzone {
+    border: 2px dashed #cbd5e1 !important;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.excel-dropzone:hover {
+    border-color: #3b82f6 !important;
+    background-color: #eff6ff;
+    box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+.excel-dropzone-icon {
+    font-size: 4.5rem;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.2));
+    transition: all 0.3s ease;
+}
+
+.excel-dropzone:hover .excel-dropzone-icon {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.btn-excel-upload {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white !important;
+    border: none;
+    border-radius: 50rem;
+    padding: 0.75rem 2.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: all 0.3s ease;
+}
+
+.btn-excel-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+}
+
+.excel-table-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.excel-table-wrapper table {
+    margin-bottom: 0;
+}
+
+.excel-table-wrapper thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.excel-table-wrapper tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+}
+
+.excel-table-wrapper tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.excel-amount-badge {
+    background: #ecfdf5;
+    color: #059669;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: inline-block;
+}
+
+.btn-excel-select {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+    border-radius: 50rem;
+    padding: 0.4rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-excel-select:hover {
+    background: #10b981;
+    color: white;
+    border-color: #10b981;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.btn-excel-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

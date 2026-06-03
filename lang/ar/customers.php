@@ -12,8 +12,8 @@ return [
     'name_en' => 'الاسم (الإنجليزية)',
     'tenant_name_ar' => 'اسم المستأجر (العربية)',
     'tenant_name_en' => 'اسم المستأجر (الإنجليزية)',
-    'representative_name_ar' => 'اسم من يمثلها (العربية)',
-    'representative_name_en' => 'اسم من يمثلها (الإنجليزية)',
+    'representative_name_ar' => 'اسم من يمثله / ـا (العربية)',
+    'representative_name_en' => 'اسم من يمثله / ـا (الإنجليزية)',
     'full_name' => 'الاسم بالكامل',
     'personal_id' => 'رقم البطاقة الشخصية / السجل التجاري',
     'phone' => 'الهاتف',
@@ -59,4 +59,5 @@ return [
     'license_number' => 'رقم الرخصة التجارية',
     'guarantor_added_to_list' => 'تم إضافة الكفيل للقائمة بنجاح!',
     'company_locked_help' => 'لا يمكن تغيير الشركة بعد إنشاء العميل.',
+    'cannot_delete_has_contracts' => 'لا يمكن حذف المستأجر لوجود عقود مرتبطة به',
 ];

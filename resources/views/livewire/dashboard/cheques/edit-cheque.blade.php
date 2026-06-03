@@ -131,11 +131,16 @@
                             <!-- Card 2: Cheque Details -->
                             <div class="" wire:key="card-2-wrapper-{{ $validation_fail_nonce }}">
                                 <div class="card premium-card mb-2">
-                                    <div class="premium-mandatory-header py-2">
+                                    <div class="premium-mandatory-header py-2 d-flex justify-content-between align-items-center">
                                         <div class="title-wrapper">
                                             <i class="fas fa-money-check-alt"></i>
                                             <span class="font-weight-bold">{!! __('cheques.cheque_details') !!}</span>
                                         </div>
+                                        @if($contract_id)
+                                            <button type="button" class="btn btn-sm btn-premium-save shadow-sm" data-toggle="modal" data-target="#excelImportModal" style="border-radius: 8px;">
+                                                <i class="fas fa-file-excel mr-1"></i> {!! __('cheques.import_from_excel') !!}
+                                            </button>
+                                        @endif
                                     </div>
                                     <div
                                         class="card-body {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}">
@@ -539,8 +544,101 @@
                 </section>
             </div>
         </div>
+            <!-- end :content body -->
+        </div>
     </form>
 
+    <!-- Excel Import Modal -->
+    <div wire:ignore.self class="modal fade premium-modal" id="excelImportModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h6 class="modal-title font-weight-bold text-dark d-flex align-items-center">
+                        {!! __('cheques.import_from_excel') !!}
+                    </h6>
+                    <button type="button" class="close premium-modal-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-3 px-4">
+                    @if(empty($importedCheques))
+                        <div class="text-center excel-dropzone">
+                            <div class="mb-3">
+                                <i class="fas fa-cloud-upload-alt excel-dropzone-icon"></i>
+                            </div>
+                            <h4 class="font-weight-bold text-dark mb-2">{!! __('cheques.upload_excel_file') !!}</h4>
+                            <p class="text-muted mb-4">{!! __('cheques.upload_excel_file_hint') !!}</p>
+                            
+                            <div class="d-flex justify-content-center">
+                                <input type="file" wire:model="excelFile" class="d-none" id="excelFileInput" accept=".xlsx,.xls,.csv">
+                                <label for="excelFileInput" class="btn btn-outline-primary px-4 py-2 cursor-pointer mb-0 font-weight-bold" style="border-radius: 8px;">
+                                    <i class="fas fa-search mr-2"></i> {!! __('cheques.choose_file') !!}
+                                </label>
+                            </div>
+                            <div wire:loading wire:target="excelFile" class="text-primary mt-4 font-weight-bold">
+                                <i class="fas fa-spinner fa-spin mr-2"></i> {!! __('cheques.uploading_and_analyzing') !!}
+                            </div>
+                            @error('excelFile') <div class="alert alert-danger mt-4 border-0 shadow-sm"><i class="fas fa-exclamation-circle mr-2"></i>{{ $message }}</div> @enderror
+                            
+                            @if($excelFile)
+                                <div class="mt-4 pt-3 border-top border-light">
+                                    <button type="button" wire:click="importFromExcel" class="btn btn-excel-upload" wire:loading.attr="disabled" wire:target="importFromExcel">
+                                        <i wire:loading.remove wire:target="importFromExcel" class="fas fa-file-import mr-2"></i>
+                                        <i wire:loading wire:target="importFromExcel" class="fas fa-spinner fa-spin mr-2"></i>
+                                        {!! __('cheques.upload') !!}
+                                    </button>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="font-weight-bold text-dark mb-0">
+                                <i class="fas fa-list-ul mr-2 text-primary"></i>{!! __('cheques.excel_cheques_list') !!}
+                            </h5>
+                            <button type="button" class="btn btn-light-secondary btn-sm rounded-pill px-3 font-weight-bold" wire:click="$set('importedCheques', [])">
+                                <i class="fas fa-redo mr-1"></i> {!! __('cheques.upload_another_file') !!}
+                            </button>
+                        </div>
+                        <div class="excel-table-wrapper" style="max-height: 500px; overflow-y: auto;">
+                            <table class="table table-hover text-center w-100">
+                                <thead class="sticky-top">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{!! __('cheques.cheque_number') !!}</th>
+                                        <th>{!! __('cheques.amount') !!}</th>
+                                        <th>{!! __('cheques.bank_name') !!}</th>
+                                        <th>{!! __('cheques.date') !!}</th>
+                                        <th>الإجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($importedCheques as $index => $cheque)
+                                        <tr>
+                                            <td class="text-muted">{{ $index + 1 }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $cheque['cheque_number'] }}</td>
+                                            <td><span class="excel-amount-badge">{{ number_format($cheque['amount'], 2) }}</span></td>
+                                            <td>{{ $cheque['bank_name'] }}</td>
+                                            <td class="text-muted">{{ $cheque['issue_date'] ?: '-' }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-excel-select" wire:click="selectExcelCheque({{ $index }})" data-dismiss="modal">
+                                                    <i class="fas fa-check mr-1"></i> {!! __('cheques.select_this_cheque') !!}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer border-0 pt-0 premium-modal-footer">
+                    <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold" data-dismiss="modal">
+                        <i class="fas fa-times-circle mr-2"></i> {{ __('general.cancel') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         <script>

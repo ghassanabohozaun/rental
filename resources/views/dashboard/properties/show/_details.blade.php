@@ -101,18 +101,7 @@
                             </div>
                         </div>
 
-                        <!-- Price -->
-                        <div class="col-md-4 mb-3">
-                            <div class="data-grid-item">
-                                <div class="data-grid-icon bg-light-primary-opacity">
-                                    <i class="fas fa-tag text-primary"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.price') !!}</label>
-                                    <span class="data-grid-value text-primary font-weight-bolder">{!! number_format($property->price, 0) !!} {!! __('general.currency') !!}</span>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <!-- Floor -->
                         @if($property->floor)

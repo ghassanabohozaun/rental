@@ -238,96 +238,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <div class="premium-form-group @error('selected_guarantors') is-invalid-premium @enderror">
+                                                <label class="premium-label">{!! __('customers.guarantors') !!}</label>
+                                                <div wire:ignore>
+                                                    <select id="selected_guarantors" wire:model.defer="selected_guarantors" data-placeholder="{!! __('general.select_from_list') !!}" class="form-control premium-input shadow-none select2" multiple>
+                                                        <option value=""></option>
+                                                        @foreach ($guarantors as $guarantor)
+                                                            <option value="{{ $guarantor->id }}">{{ $guarantor->name }} - {{ $guarantor->id_number }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('selected_guarantors')
+                                                    <span class="text-danger error-text">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
                         </div>
                     </div>
 
-                    <!-- Section 2: Guarantors (Repeater) -->
-                    <div class="card premium-card mb-2 @error('customer_guarantors') premium-card-error-glow pulse-error @enderror"
-                        wire:key="guarantors-card-wrapper-{{ $validation_fail_nonce }}">
-                        <div class="premium-mandatory-header py-1 border-bottom-0 d-flex justify-content-between align-items-center">
-                            <div class="title-wrapper">
-                                <i class="fas fa-user-shield"></i>
-                                <span class="font-weight-bold">{!! __('customers.guarantors') !!}</span>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" wire:click="openGuarantorModal" class="btn-premium-add-guarantor"
-                                    title="{{ __('guarantors.add_guarantor') }}">
-                                    <i class="fas fa-user-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-0 pb-3">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead class="bg-light-primary-opacity">
-                                        <tr>
-                                            <th class="align-middle py-3 border-top-0">{!! __('guarantors.name_ar') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">{!! __('guarantors.name_en') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">{!! __('customers.id_number') !!}</th>
-                                            <th class="align-middle py-3 border-top-0">{!! __('customers.phone') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">{!! __('guarantors.relationship') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
-                                                <i class="fas fa-trash-alt header-trash-icon"></i>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($customer_guarantors as $index => $guarantor)
-                                            <tr class="owner-row" wire:key="guarantor-row-{{ $index }}">
-                                                <td class="align-middle">
-                                                    <div class="user-info-cell">
-                                                        <span class="user-name-text">{{ $guarantor['name_ar'] ?: '---' }}</span>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <span class="text-muted small">{{ $guarantor['name_en'] ?: '---' }}</span>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <span class="text-dark font-weight-bold">{{ $guarantor['id_number'] ?: '---' }}</span>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <span class="text-dark font-weight-bold text-left ltr-text">{{ $guarantor['phone'] ?? '---' }}</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    @php
-                                                        $relKey = $guarantor['relationship'] ?? '';
-                                                        $relName = __('guarantors.relationships.' . $relKey);
-                                                        if (strpos($relName, 'guarantors.relationships') !== false) { $relName = $relKey; }
-                                                    @endphp
-                                                    <span class="badge badge-light-info-opacity text-info badge-pill border-0 px-2 font-weight-bold">
-                                                        {{ $relName ?: '---' }}
-                                                    </span>
-                                                    @if (($guarantor['relationship'] ?? '') == 10 && !empty($guarantor['relationship_details']))
-                                                        <div class="small text-muted mt-1">({{ $guarantor['relationship_details'] }})</div>
-                                                    @endif
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <button type="button" wire:click="removeGuarantor({{ $index }})"
-                                                        class="btn-premium-action btn-premium-action-danger remove-guarantor-btn shadow-none btn-trash-cell">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="6" class="text-center p-3 text-dark font-weight-bold">
-                                                    <i class="fas fa-info-circle mr-1 text-primary"></i>
-                                                    {!! __('customers.no_guarantors_added') !!}
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            @error('customer_guarantors')
-                                <div class="text-danger p-2 font-weight-bold small animated headShake text-center">
-                                    <i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
+
 
                     <!-- Row 4: Notes -->
                     <div class="card premium-card mb-2 premium-card-anim">
@@ -354,7 +288,7 @@
         </section>
     </div>
 
-    <livewire:dashboard.customers.quick-guarantor-modal :parent_company_id="$company_id" />
+
 </div>
 
 @push('scripts')
@@ -378,20 +312,12 @@
                         dir: $('html').attr('data-textdirection') || 'ltr',
                         dropdownParent: $('body')
                     }).on('change', function(e) {
-                        if (model) { @this.set(model, e.target.value); }
+                        if (model) { @this.set(model, $(this).val()); }
                     });
                 });
             }
             initSelects();
-            Livewire.on('guarantorUpdated', (data) => {
-                let index = data[0].index;
-                let companyId = data[0].company_id;
-                let $companySelect = $('#edit_company_select_' + index);
-                if ($companySelect.length) {
-                    $companySelect.val(companyId).trigger('change');
-                    $companySelect.trigger('change.select2');
-                }
-            });
+
             window.addEventListener('reinitSelect2', event => {
                 setTimeout(() => { initSelects(); }, 50);
             });

@@ -20,17 +20,10 @@
             <div class="stat-section mb-2 p-2 rounded border-dashed-premium">
                 <div class="row no-gutters align-items-center">
                     <!-- Total Revenue -->
-                    <div class="col-6 text-center border-right-light">
+                    <div class="col-12 text-center">
                         <span
                             class="sidebar-meta-label text-muted d-block font-medium-1 mb-1">{!! __('contracts.total_revenue') !!}</span>
                         <span class="font-weight-bold font-large-2 text-success">{!! number_format($property->contracts->sum('total_amount'), 0) !!}</span>
-                    </div>
-
-                    <!-- Rental Price -->
-                    <div class="col-6 text-center">
-                        <span
-                            class="sidebar-meta-label text-muted d-block font-medium-1 mb-1">{!! __('properties.price') !!}</span>
-                        <span class="font-weight-bold font-large-2 text-primary">{!! number_format($property->price, 0) !!}</span>
                     </div>
                 </div>
             </div>

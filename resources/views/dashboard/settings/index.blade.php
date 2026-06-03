@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <!-- end: content header right-->
-                </div> 
+                </div>
                 <!-- end :content header -->
 
                 <!-- begin: content body -->
@@ -55,9 +55,9 @@
                         <div class="row">
                             <!-- Main Form Column (8) -->
                             <div class="col-lg-8 col-md-12">
-                                
+
                                 <!-- Card 1: Basic Information -->
-                                <div class="card premium-card mb-3 premium-fade-in">
+                                <div class="card premium-card mb-3">
                                     <div class="premium-mandatory-header py-2">
                                         <div class="title-wrapper">
                                             <i class="fas fa-globe"></i>
@@ -68,9 +68,10 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="premium-form-group mb-2">
-                                                    <label class="premium-label">{!! __('settings.site_name_ar') !!} <span class="text-danger">*</span></label>
+                                                    <label class="premium-label">{!! __('settings.site_name_ar') !!} <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" id="site_name_ar" name="site_name[ar]"
-                                                        value="{!! old('site_name.ar', setting()->getTranslation('site_name', 'ar')) !!}" 
+                                                        value="{!! old('site_name.ar', setting()->getTranslation('site_name', 'ar')) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_site_name_ar') !!}">
                                                     <span class="text-danger error-text site_name_ar_error"></span>
@@ -78,9 +79,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="premium-form-group mb-2">
-                                                    <label class="premium-label">{!! __('settings.site_name_en') !!} <span class="text-danger">*</span></label>
+                                                    <label class="premium-label">{!! __('settings.site_name_en') !!} <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" id="site_name_en" name="site_name[en]"
-                                                        value="{!! old('site_name.en', setting()->getTranslation('site_name', 'en')) !!}" 
+                                                        value="{!! old('site_name.en', setting()->getTranslation('site_name', 'en')) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_site_name_en') !!}">
                                                     <span class="text-danger error-text site_name_en_error"></span>
@@ -91,8 +93,9 @@
                                 </div>
 
                                 <!-- Card 2: Social Media -->
-                                <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-success);">
+                                <div class="card premium-card mb-3">
+                                    <div class="premium-mandatory-header py-2"
+                                        style="border-bottom-color: var(--premium-success);">
                                         <div class="title-wrapper">
                                             <i class="fas fa-share-alt"></i>
                                             <span class="font-weight-bold">{!! __('settings.social_section') !!}</span>
@@ -104,7 +107,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.facebook') !!}</label>
                                                     <input type="text" id="facebook" name="facebook"
-                                                        value="{!! old('facebook', setting()->facebook) !!}" 
+                                                        value="{!! old('facebook', setting()->facebook) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_facebook') !!}">
                                                     <span class="text-danger error-text facebook_error"></span>
@@ -113,9 +116,9 @@
                                             <div class="col-md-6">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.twitter') !!}</label>
-                                                    <input type="text" id="twitter" name="twitter" 
+                                                    <input type="text" id="twitter" name="twitter"
                                                         value="{!! old('twitter', setting()->twitter) !!}"
-                                                        class="form-control premium-input shadow-none" 
+                                                        class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_twitter') !!}">
                                                     <span class="text-danger error-text twitter_error"></span>
                                                 </div>
@@ -124,7 +127,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.instegram') !!}</label>
                                                     <input type="text" id="instegram" name="instegram"
-                                                        value="{!! old('instegram', setting()->instegram) !!}" 
+                                                        value="{!! old('instegram', setting()->instegram) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_instegram') !!}">
                                                     <span class="text-danger error-text instegram_error"></span>
@@ -134,7 +137,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.youtube') !!}</label>
                                                     <input type="text" id="youtube" name="youtube"
-                                                        value="{!! old('youtube', setting()->youtube) !!}" 
+                                                        value="{!! old('youtube', setting()->youtube) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_youtube') !!}">
                                                     <span class="text-danger error-text youtube_error"></span>
@@ -145,8 +148,9 @@
                                 </div>
 
                                 <!-- Card 3: Contact Information -->
-                                <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-info);">
+                                <div class="card premium-card mb-3">
+                                    <div class="premium-mandatory-header py-2"
+                                        style="border-bottom-color: var(--premium-info);">
                                         <div class="title-wrapper">
                                             <i class="fas fa-headset"></i>
                                             <span class="font-weight-bold">{!! __('settings.contact_section') !!}</span>
@@ -158,7 +162,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.phone') !!}</label>
                                                     <input type="text" id="phone" name="phone"
-                                                        value="{!! old('phone', setting()->phone) !!}" 
+                                                        value="{!! old('phone', setting()->phone) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_phone') !!}">
                                                     <span class="text-danger error-text phone_error"></span>
@@ -168,7 +172,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.mobile') !!}</label>
                                                     <input type="text" id="mobile" name="mobile"
-                                                        value="{!! old('mobile', setting()->mobile) !!}" 
+                                                        value="{!! old('mobile', setting()->mobile) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_mobile') !!}">
                                                     <span class="text-danger error-text mobile_error"></span>
@@ -178,7 +182,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.whatsapp') !!}</label>
                                                     <input type="text" id="whatsapp" name="whatsapp"
-                                                        value="{!! old('whatsapp', setting()->whatsapp) !!}" 
+                                                        value="{!! old('whatsapp', setting()->whatsapp) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_whatsapp') !!}">
                                                     <span class="text-danger error-text whatsapp_error"></span>
@@ -189,7 +193,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.email') !!}</label>
                                                     <input type="email" id="email" name="email"
-                                                        value="{!! old('email', setting()->email) !!}" 
+                                                        value="{!! old('email', setting()->email) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_email') !!}">
                                                     <span class="text-danger error-text email_error"></span>
@@ -199,7 +203,7 @@
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.email_support') !!}</label>
                                                     <input type="email" id="email_support" name="email_support"
-                                                        value="{!! old('email_support', setting()->email_support) !!}" 
+                                                        value="{!! old('email_support', setting()->email_support) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_email_support') !!}">
                                                     <span class="text-danger error-text email_support_error"></span>
@@ -210,8 +214,9 @@
                                 </div>
 
                                 <!-- Card 4: Auth Welcome Content -->
-                                <div class="card premium-card mb-3 premium-fade-in">
-                                    <div class="premium-mandatory-header py-2" style="border-bottom-color: var(--premium-warning);">
+                                <div class="card premium-card mb-3">
+                                    <div class="premium-mandatory-header py-2"
+                                        style="border-bottom-color: var(--premium-warning);">
                                         <div class="title-wrapper">
                                             <i class="fas fa-sign-in-alt"></i>
                                             <span class="font-weight-bold">{!! __('settings.auth_welcome_section') !!}</span>
@@ -223,23 +228,35 @@
                                             <div class="col-md-6">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_badge') !!}</label>
-                                                    <input type="text" id="auth_welcome_badge" name="auth_welcome_badge[{{ app()->getLocale() }}]"
-                                                        value="{!! old('auth_welcome_badge.' . app()->getLocale(), setting()->getTranslation('auth_welcome_badge', app()->getLocale())) !!}" 
+                                                    <input type="text" id="auth_welcome_badge"
+                                                        name="auth_welcome_badge[{{ app()->getLocale() }}]"
+                                                        value="{!! old(
+                                                            'auth_welcome_badge.' . app()->getLocale(),
+                                                            setting()->getTranslation('auth_welcome_badge', app()->getLocale()),
+                                                        ) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_auth_welcome_badge') !!}">
-                                                    <span class="text-danger error-text auth_welcome_badge_ar_error"></span>
-                                                    <span class="text-danger error-text auth_welcome_badge_en_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_badge_ar_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_badge_en_error"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_footer') !!}</label>
-                                                    <input type="text" id="auth_welcome_footer" name="auth_welcome_footer[{{ app()->getLocale() }}]"
-                                                        value="{!! old('auth_welcome_footer.' . app()->getLocale(), setting()->getTranslation('auth_welcome_footer', app()->getLocale())) !!}" 
+                                                    <input type="text" id="auth_welcome_footer"
+                                                        name="auth_welcome_footer[{{ app()->getLocale() }}]"
+                                                        value="{!! old(
+                                                            'auth_welcome_footer.' . app()->getLocale(),
+                                                            setting()->getTranslation('auth_welcome_footer', app()->getLocale()),
+                                                        ) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_auth_welcome_footer') !!}">
-                                                    <span class="text-danger error-text auth_welcome_footer_ar_error"></span>
-                                                    <span class="text-danger error-text auth_welcome_footer_en_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_footer_ar_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_footer_en_error"></span>
                                                 </div>
                                             </div>
 
@@ -247,21 +264,23 @@
                                             <div class="col-md-6 mt-1">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_title') !!} (AR)</label>
-                                                    <input type="text" id="auth_welcome_title_ar" name="auth_welcome_title[ar]"
-                                                        value="{!! old('auth_welcome_title.ar', setting()->getTranslation('auth_welcome_title', 'ar')) !!}" 
+                                                    <input type="text" id="auth_welcome_title_ar"
+                                                        name="auth_welcome_title[ar]" value="{!! old('auth_welcome_title.ar', setting()->getTranslation('auth_welcome_title', 'ar')) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_auth_welcome_title') !!}">
-                                                    <span class="text-danger error-text auth_welcome_title_ar_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_title_ar_error"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mt-1">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_title') !!} (EN)</label>
-                                                    <input type="text" id="auth_welcome_title_en" name="auth_welcome_title[en]"
-                                                        value="{!! old('auth_welcome_title.en', setting()->getTranslation('auth_welcome_title', 'en')) !!}" 
+                                                    <input type="text" id="auth_welcome_title_en"
+                                                        name="auth_welcome_title[en]" value="{!! old('auth_welcome_title.en', setting()->getTranslation('auth_welcome_title', 'en')) !!}"
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_auth_welcome_title') !!}">
-                                                    <span class="text-danger error-text auth_welcome_title_en_error"></span>
+                                                    <span
+                                                        class="text-danger error-text auth_welcome_title_en_error"></span>
                                                 </div>
                                             </div>
 
@@ -269,18 +288,18 @@
                                             <div class="col-md-12 mt-1">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_desc') !!} (AR)</label>
-                                                    <textarea name="auth_welcome_desc[ar]" id="auth_welcome_desc_ar" class="form-control premium-input shadow-none" rows="3"
-                                                        placeholder="{!! __('settings.enter_auth_welcome_desc') !!}">{!! old('auth_welcome_desc.ar', setting()->getTranslation('auth_welcome_desc', 'ar')) !!}</textarea>
+                                                    <textarea name="auth_welcome_desc[ar]" id="auth_welcome_desc_ar" class="form-control premium-input shadow-none"
+                                                        rows="3" placeholder="{!! __('settings.enter_auth_welcome_desc') !!}">{!! old('auth_welcome_desc.ar', setting()->getTranslation('auth_welcome_desc', 'ar')) !!}</textarea>
                                                     <span class="text-danger error-text auth_welcome_desc_ar_error"></span>
                                                 </div>
                                             </div>
-                                            
+
                                             <!-- Description En -->
                                             <div class="col-md-12 mt-1">
                                                 <div class="premium-form-group mb-2">
                                                     <label class="premium-label">{!! __('settings.auth_welcome_desc') !!} (EN)</label>
-                                                    <textarea name="auth_welcome_desc[en]" id="auth_welcome_desc_en" class="form-control premium-input shadow-none" rows="3"
-                                                        placeholder="{!! __('settings.enter_auth_welcome_desc') !!}">{!! old('auth_welcome_desc.en', setting()->getTranslation('auth_welcome_desc', 'en')) !!}</textarea>
+                                                    <textarea name="auth_welcome_desc[en]" id="auth_welcome_desc_en" class="form-control premium-input shadow-none"
+                                                        rows="3" placeholder="{!! __('settings.enter_auth_welcome_desc') !!}">{!! old('auth_welcome_desc.en', setting()->getTranslation('auth_welcome_desc', 'en')) !!}</textarea>
                                                     <span class="text-danger error-text auth_welcome_desc_en_error"></span>
                                                 </div>
                                             </div>
@@ -293,19 +312,20 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="sticky-top" style="top: 20px;">
                                     <!-- Identity & Media Card -->
-                                    <div class="identity-summary-card mb-3 premium-fade-in">
+                                    <div class="identity-summary-card mb-3">
                                         <div class="premium-mandatory-header py-2">
                                             <div class="title-wrapper">
                                                 <i class="fas fa-images"></i>
                                                 <span class="font-weight-bold">{!! __('settings.media_section') !!}</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="premium-form-group mb-3">
                                             <label class="premium-label">{!! __('settings.logo') !!}</label>
                                             <div class="premium-photo-container">
-                                                <input type="file" name="logo" id="settings_logo" class="form-control"
-                                                    accept="image/*" data-show-caption="true" data-show-upload="false">
+                                                <input type="file" name="logo" id="settings_logo"
+                                                    class="form-control" accept="image/*" data-show-caption="true"
+                                                    data-show-upload="false">
                                             </div>
                                             <span class="text-danger error-text logo_error"></span>
                                         </div>
@@ -313,22 +333,23 @@
                                         <div class="premium-form-group">
                                             <label class="premium-label">{!! __('settings.favicon') !!}</label>
                                             <div class="premium-photo-container">
-                                                <input type="file" id="settings_favicon" name="favicon" class="form-control"
-                                                    accept="image/*" data-show-caption="true" data-show-upload="false">
+                                                <input type="file" id="settings_favicon" name="favicon"
+                                                    class="form-control" accept="image/*" data-show-caption="true"
+                                                    data-show-upload="false">
                                             </div>
                                             <span class="text-danger error-text favicon_error"></span>
                                         </div>
                                     </div>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
                 </div>
-                <!-- end: content body -->
+                </section>
             </div>
-        </form>
+            <!-- end: content body -->
+    </div>
+    </form>
     </div>
 @endsection
 
@@ -344,8 +365,8 @@
                 let field = $('#' + id);
                 field.removeClass('is-invalid-premium');
                 let photoWrapper = field.closest('.premium-photo-container');
-                if(photoWrapper) photoWrapper.removeClass('is-invalid-premium');
-                
+                if (photoWrapper) photoWrapper.removeClass('is-invalid-premium');
+
                 let errorSpan = field.closest('.premium-form-group').find('.error-text');
                 errorSpan.text('');
             });
@@ -396,9 +417,10 @@
                         let field = $('#' + key);
                         field.addClass('is-invalid-premium');
                         let photoWrapper = field.closest('.premium-photo-container');
-                        if(photoWrapper) photoWrapper.addClass('is-invalid-premium');
-                        
-                        let errorSpan = field.closest('.premium-form-group').find('.error-text');
+                        if (photoWrapper) photoWrapper.addClass('is-invalid-premium');
+
+                        let errorSpan = field.closest('.premium-form-group').find(
+                        '.error-text');
                         errorSpan.text(value[0]);
                     });
                 },
@@ -438,5 +460,3 @@
         }));
     </script>
 @endpush
-
-

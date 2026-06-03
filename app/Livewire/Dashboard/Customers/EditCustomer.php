@@ -19,12 +19,7 @@ class EditCustomer extends Component
     public $phone, $email, $id_number, $address, $nationality_id, $tenant_type, $notes, $company_id;
     public $company_name, $establishment_number, $cr_number, $license_number;
 
-    // Guarantors Repeater
-    public $customer_guarantors = [];
-
-    protected $listeners = ['guarantorAdded'];
-    public $validation_fail_nonce = 0;
-    const RELATIONSHIP_OTHER = 10;
+    public $selected_guarantors = [];
 
     public function updatedCompanyId()
     {
@@ -37,37 +32,7 @@ class EditCustomer extends Component
         $this->dispatch('reinitSelect2');
     }
 
-    public function addGuarantor()
-    {
-        $this->customer_guarantors[] = [
-            'guarantor_id' => '',
-            'company_id' => '',
-            'name_ar' => '',
-            'name_en' => '',
-            'id_number' => '',
-            'relationship' => '',
-            'relationship_details' => '',
-        ];
-        $this->dispatch('reinitSelect2');
-    }
 
-    public function updatedCustomerGuarantors($value, $key)
-    {
-        // Logic disabled: We now rely solely on the Modal for data entry.
-    }
-
-    public function removeGuarantor($index)
-    {
-        unset($this->customer_guarantors[$index]);
-        $this->customer_guarantors = array_values($this->customer_guarantors);
-    }
-
-    public function setPrimary($index)
-    {
-        foreach ($this->customer_guarantors as $key => $guarantor) {
-            $this->customer_guarantors[$key]['is_primary'] = $key === $index;
-        }
-    }
 
     public function mount($id, CustomerService $service)
     {
@@ -92,26 +57,7 @@ class EditCustomer extends Component
         $this->license_number = $customer->license_number;
 
         // Load Guarantors
-        $this->customer_guarantors = $customer->guarantors
-            ->map(function ($g) {
-                return [
-                    'guarantor_id' => $g->id,
-                    'company_id' => $g->company_id,
-                    'name_ar' => $g->getTranslation('name', 'ar'),
-                    'name_en' => $g->getTranslation('name', 'en'),
-                    'id_number' => $g->id_number,
-                    'phone' => $g->phone,
-                    'address' => $g->address,
-                    'relationship' => $g->pivot->relationship,
-                    'relationship_details' => $g->pivot->relationship_details,
-                    'notes' => $g->notes,
-                ];
-            })
-            ->toArray();
-
-        if (empty($this->customer_guarantors)) {
-            $this->customer_guarantors = [];
-        }
+        $this->selected_guarantors = $customer->guarantors->pluck('id')->toArray();
     }
 
     protected function rules()
@@ -130,12 +76,8 @@ class EditCustomer extends Component
             'notes' => 'nullable|string',
 
             // Guarantors Validation
-            'customer_guarantors' => 'required|array|min:1',
-            'customer_guarantors.*.name_ar' => 'required|string',
-            'customer_guarantors.*.name_en' => 'required|string',
-            'customer_guarantors.*.id_number' => 'required|string',
-            'customer_guarantors.*.relationship' => 'required|string',
-            'customer_guarantors.*.relationship_details' => 'required_if:customer_guarantors.*.relationship,' . self::RELATIONSHIP_OTHER . '|nullable|string|max:255',
+            'selected_guarantors' => 'nullable|array',
+            'selected_guarantors.*' => 'exists:guarantors,id',
         ];
 
         // Conditional Company Rules
@@ -160,16 +102,7 @@ class EditCustomer extends Component
 
     public function messages()
     {
-        return [
-            'customer_guarantors.*.guarantor_id.distinct' => __('customers.duplicate_guarantor_error'),
-            'customer_guarantors.min' => __('customers.at_least_one_guarantor'),
-            'customer_guarantors.required' => __('customers.at_least_one_guarantor'),
-            'customer_guarantors.*.relationship_details.required_if' => __('validation.required_if', [
-                'attribute' => __('guarantors.relationship_details'),
-                'other' => __('guarantors.relationship'),
-                'value' => __('guarantors.relationships.' . self::RELATIONSHIP_OTHER),
-            ]),
-        ];
+        return [];
     }
 
     public function validationAttributes()
@@ -189,14 +122,11 @@ class EditCustomer extends Component
         try {
             $this->validate();
         } catch (\Illuminate\Validation\ValidationException $e) {
-            $this->validation_fail_nonce++;
             $this->dispatch('reinitSelect2');
             $errors = $e->validator->errors()->all();
             $this->dispatch('notify', message: count($errors) === 1 ? $errors[0] : __('general.validation_error_message'), type: 'error');
             throw $e;
         }
-
-        $this->validation_fail_nonce++;
 
         $customer = Customer::findOrFail($this->customer_id);
         $data = [
@@ -225,76 +155,13 @@ class EditCustomer extends Component
 
         $customer->update($data);
 
-        $guarantorSyncData = [];
-        foreach ($this->customer_guarantors as $data) {
-            if (!empty($data['guarantor_id'])) {
-                $guarantor = Guarantor::find($data['guarantor_id']);
-                if ($guarantor) {
-                    $guarantorSyncData[$guarantor->id] = [
-                        'relationship' => $data['relationship'] ?? null,
-                        'relationship_details' => $data['relationship_details'] ?? null
-                    ];
-                }
-            } else {
-                $guarantor = Guarantor::create([
-                    'company_id' => $data['company_id'],
-                    'name' => ['ar' => $data['name_ar'], 'en' => $data['name_en']],
-                    'phone' => $data['phone'] ?? null,
-                    'id_number' => $data['id_number'],
-                    'address' => $data['address'] ?? null,
-                    'notes' => $data['notes'] ?? null,
-                    'status' => 1,
-                    'created_by' => auth()->id(),
-                ]);
-                $guarantorSyncData[$guarantor->id] = [
-                    'relationship' => $data['relationship'] ?? null,
-                    'relationship_details' => $data['relationship_details'] ?? null
-                ];
-            }
-        }
-        $customer->guarantors()->sync($guarantorSyncData);
+        $customer->guarantors()->sync($this->selected_guarantors ?? []);
 
         flash()->success(__('general.update_success_message'));
         return redirect()->route('dashboard.customers.index');
     }
 
-    public function guarantorAdded($data)
-    {
-        // Check if guarantor already exists in the list by ID Number
-        $existingIds = array_column($this->customer_guarantors, 'id_number');
-        if (in_array($data['id_number'], $existingIds)) {
-            $this->dispatch('notify', message: __('guarantors.guarantor_already_exists'), type: 'warning');
-            return;
-        }
 
-        // Inject the correct company_id
-        if (user()->company_id == 1) {
-            $data['company_id'] = $this->customer_id ? Customer::find($this->customer_id)->company_id : $this->company_id;
-        } else {
-            $data['company_id'] = user()->company_id;
-        }
-
-        // Add to the beginning of the array so it appears at the top
-        array_unshift($this->customer_guarantors, $data);
-
-        $this->dispatch('notify', message: __('customers.guarantor_added_to_list'), type: 'success');
-
-        $this->dispatch('reinitSelect2');
-    }
-
-    public function openGuarantorModal()
-    {
-        // If Super Admin, check if company is selected (either from existing customer or header select)
-        $companyId = $this->customer_id ? Customer::find($this->customer_id)->company_id : $this->company_id;
-        if (user()->company_id == 1 && empty($companyId)) {
-            $this->validation_fail_nonce++;
-            $this->addError('company_id', __('guarantors.please_select_company_first'));
-            $this->dispatch('notify', message: __('guarantors.please_select_company_first'), type: 'warning');
-            return;
-        }
-
-        $this->dispatch('open-modal', 'quick-guarantor-modal');
-    }
 
     public function render()
     {

@@ -15,7 +15,7 @@
                             <th class="border-top-0">{!! __('properties.property') !!}</th>
                             <th class="border-top-0 text-center">{!! __('properties.type') !!}</th>
                             <th class="border-top-0 text-center">{!! __('properties.file_number') !!}</th>
-                            <th class="border-top-0 text-center">{!! __('properties.price') !!}</th>
+
                             <th class="border-top-0 text-center">{!! __('properties.status') !!}</th>
                             <th class="border-top-0 text-center">{!! __('general.actions') !!}</th>
                         </tr>
@@ -42,9 +42,7 @@
                                     {!! $unit->file_number ?? '---' !!}
                                 </span>
                             </td>
-                            <td class="py-2 align-middle text-center font-weight-bold text-success">
-                                {!! number_format($unit->price, 2) !!}
-                            </td>
+
                             <td class="py-2 align-middle text-center">
                                 @if($unit->propertyStatus)
                                     <span class="badge badge-pill border-0 px-2" style="background-color: {!! $unit->propertyStatus->color !!}15; color: {!! $unit->propertyStatus->color !!};">
@@ -70,7 +68,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">
+                            <td colspan="6" class="text-center py-4 text-muted">
                                 {!! __('general.no_data_found') !!}
                             </td>
                         </tr>

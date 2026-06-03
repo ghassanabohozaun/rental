@@ -77,6 +77,19 @@ return [
     'insurance_cheque' => 'Deposit Cheque',
     'signature' => 'Signature ✍️',
     'cheque_number_label' => 'Cheque Number',
+    
+    // Excel Import
+    'import_from_excel' => 'Import from Excel',
+    'upload_excel_file' => 'Please upload the approved Excel file',
+    'upload' => 'Upload',
+    'excel_cheques_list' => 'Imported Cheques List',
+    'select_this_cheque' => 'Select this Cheque',
+    'no_cheques_in_excel' => 'No cheques found in this file',
+    'import_success' => 'Cheques imported successfully',
+    'upload_excel_file_hint' => 'Please upload the approved Excel file (xlsx, xls, or csv format)',
+    'choose_file' => 'Choose File',
+    'uploading_and_analyzing' => 'Uploading and analyzing...',
+    'upload_another_file' => 'Upload another file',
 
     // Smart assistant messages
     'smart_assistant' => [

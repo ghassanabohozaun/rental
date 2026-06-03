@@ -120,13 +120,26 @@
                     <div class="row">
                         <!-- Rent Amount -->
                         <div class="col-md-4 mb-3">
-                            <div class="data-grid-item border-left-success-3">
-                                <div class="data-grid-icon bg-light-success-opacity">
-                                    <i class="fas fa-money-bill-wave text-success"></i>
+                            <div class="data-grid-item border-left-primary-3">
+                                <div class="data-grid-icon bg-light-primary-opacity">
+                                    <i class="fas fa-money-bill-wave text-primary"></i>
                                 </div>
                                 <div class="data-grid-content">
                                     <label class="data-grid-label">{!! __('contracts.rent_amount') !!}</label>
-                                    <span class="data-grid-value text-success">{!! number_format($contract->rent_amount, 2) !!}</span>
+                                    <span class="data-grid-value text-primary">{!! number_format($contract->rent_amount, 2) !!}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Rent Amount -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item border-left-success-3">
+                                <div class="data-grid-icon bg-light-success-opacity">
+                                    <i class="fas fa-coins text-success"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('contracts.total_rent_amount') !!}</label>
+                                    <span class="data-grid-value text-success font-weight-bold">{!! number_format($contract->total_rent_amount, 2) !!}</span>
                                 </div>
                             </div>
                         </div>

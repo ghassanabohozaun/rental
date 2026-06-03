@@ -16,8 +16,7 @@ use App\Models\Property;
 class Contract extends Model implements MustBelongToCompany
 {
     use HasFactory, BelongsToCompany, Filterable, SoftDeletes, HasCreatedBy, CanBeDeleted, HasFinancials;
-    
-    protected $fillable = ['company_id', 'property_id', 'customer_id', 'conclusion_date', 'start_date', 'end_date', 'rent_amount', 'deposit_amount', 'deposit_type', 'deposit_status', 'payment_cycle', 'status', 'contract_text', 'notes', 'created_by'];
+    protected $fillable = ['company_id', 'property_id', 'customer_id', 'conclusion_date', 'start_date', 'end_date', 'contract_duration_months', 'rent_amount', 'total_rent_amount', 'deposit_amount', 'deposit_type', 'deposit_status', 'payment_cycle', 'status', 'contract_text', 'notes', 'created_by'];
 
     protected $casts = [
         'conclusion_date' => 'date',
@@ -42,17 +41,14 @@ class Contract extends Model implements MustBelongToCompany
             return '---';
         }
 
-        $diff = $this->start_date->diff($this->end_date);
+        $months = (int) round($this->start_date->floatDiffInMonths($this->end_date->copy()->addDay()));
 
-        $parts = [];
-        if ($diff->y > 0) {
-            $parts[] = $diff->y . ' ' . ($diff->y == 1 ? __('general.year') : __('general.years'));
-        }
-        if ($diff->m > 0) {
-            $parts[] = $diff->m . ' ' . ($diff->m == 1 ? __('general.month') : __('general.months'));
+        if ($months === 0) {
+            $days = $this->start_date->diffInDays($this->end_date->copy()->addDay());
+            return $days . ' ' . __('general.days');
         }
 
-        return count($parts) > 0 ? implode(' ' . __('general.and') . ' ', $parts) : $diff->d . ' ' . __('general.days');
+        return $months . ' ' . ($months == 1 ? __('general.month') : __('general.months'));
     }
 
     /**

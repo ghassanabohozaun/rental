@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 
     // Property Fields
     public $name = ['ar' => '', 'en' => ''];
-    public $zone_number, $street_number, $building_number, $property_type_id, $area, $price, $property_status_id, $description;
+    public $zone_number, $street_number, $building_number, $property_type_id, $area, $property_status_id, $description;
     public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
 
     // Attachments
@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Storage;
         $this->building_number = $property->building_number;
         $this->property_type_id = $property->property_type_id;
         $this->area = $property->area;
-        $this->price = $property->price;
+
         $this->property_status_id = $property->property_status_id;
         $this->description = $property->description;
         $this->property_number = $property->property_number;
@@ -187,7 +187,7 @@ use Illuminate\Support\Facades\Storage;
             'building_number' => 'nullable|string|max:255',
             'property_type_id' => 'required|exists:property_types,id',
             'area' => 'nullable|string|max:255',
-            'price' => 'nullable|numeric|min:0|max:999999999999',
+
             'property_status_id' => 'required|exists:property_statuses,id',
             'description' => 'nullable|string',
             'property_number' => 'nullable|string|max:255',
@@ -259,7 +259,7 @@ use Illuminate\Support\Facades\Storage;
             'building_number' => $this->building_number,
             'property_type_id' => $this->property_type_id,
             'area' => $this->area,
-            'price' => $this->price,
+
             'property_status_id' => $this->property_status_id,
             'description' => $this->description,
             'property_number' => $this->property_number,

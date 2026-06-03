@@ -115,7 +115,7 @@
 
                             <!-- Fully Paid Message -->
                             @if($contract_id && $financials['remaining'] <= 0 && !$isEdit)
-                                <div class="premium-fade-in mb-2" wire:key="fully-paid-msg">
+                                <div class="mb-2" wire:key="fully-paid-msg">
                                     <div class="fully-paid-card">
                                         <div class="fully-paid-icon-wrapper">
                                             <i class="fas fa-check"></i>
@@ -128,7 +128,7 @@
 
                             <!-- Step 2: Payment Details Card -->
                             @if(!($contract_id && $financials['remaining'] <= 0 && !$isEdit))
-                                <div class="premium-fade-in {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}" wire:key="payment-inputs-wrapper-{{ $validation_fail_nonce }}">
+                                <div class=" {{ !$contract_id ? 'opacity-50 pointer-events-none' : '' }}" wire:key="payment-inputs-wrapper-{{ $validation_fail_nonce }}">
                                     <div class="card premium-card mb-2">
                                         <div class="premium-mandatory-header py-2">
                                             <div class="title-wrapper">
@@ -138,7 +138,7 @@
                                         </div>
                                         <div class="card-body">
                                             @if($amountExceedsRemaining && $method !== 'cheque')
-                                                <div class="alert alert-premium-danger premium-fade-in d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fce4e4;">
+                                                <div class="alert alert-premium-danger d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fce4e4;">
                                                     <i class="fas fa-times-circle font-large-1 mr-2 text-danger"></i>
                                                     <div>
                                                         <strong class="text-danger">{!! __('payments.amount_exceeds_remaining') !!}</strong>
@@ -146,7 +146,7 @@
                                                     </div>
                                                 </div>
                                             @elseif($hasOverCoverage && $method !== 'cheque')
-                                                <div class="alert alert-premium-warning premium-fade-in d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fff3cd;">
+                                                <div class="alert alert-premium-warning d-flex align-items-center mb-3 border-0 shadow-sm" style="border-radius: 12px; background-color: #fff3cd;">
                                                     <i class="fas fa-exclamation-triangle font-large-1 mr-2 text-warning"></i>
                                                     <div>
                                                         <strong class="text-warning">{!! __('payments.over_coverage_warning_title') !!}</strong>
@@ -196,7 +196,7 @@
                                                 </div>
 
                                                 @if($method === 'cheque')
-                                                    <div class="col-md-12 mb-2 premium-fade-in" wire:key="cheque-selection-container-{{ $validation_fail_nonce }}">
+                                                    <div class="col-md-12 mb-2" wire:key="cheque-selection-container-{{ $validation_fail_nonce }}">
                                                         <div class="premium-form-group @error('cheque_id') is-invalid-premium @enderror">
                                                             <label class="premium-label font-weight-bold">{!! __('payments.cheque') !!} <span class="text-danger">*</span></label>
                                                             <div wire:ignore>
@@ -213,7 +213,7 @@
                                                         </div>
 
                                                         @if($selectedChequeDetails)
-                                                            <div class="mt-2 premium-fade-in">
+                                                            <div class="mt-2">
                                                                 <div class="cheque-details-pill-premium">
                                                                     <div class="pill-info-section">
                                                                         <div class="pill-stat">
@@ -344,7 +344,7 @@
 
                                                 <!-- Smart Assistant Box -->
                                                 @if($smart_assistant_message)
-                                                    <div class="smart-assistant-box premium-fade-in mt-3 {{ str_contains($smart_assistant_message, '❌') || str_contains($smart_assistant_message, 'تنبيه') || str_contains($smart_assistant_message, 'Warning') || str_contains($smart_assistant_message, 'Error') ? 'alert-state' : '' }}">
+                                                    <div class="smart-assistant-box mt-3 {{ str_contains($smart_assistant_message, '❌') || str_contains($smart_assistant_message, 'تنبيه') || str_contains($smart_assistant_message, 'Warning') || str_contains($smart_assistant_message, 'Error') ? 'alert-state' : '' }}">
                                                         <div class="assistant-icon">
                                                             @if(str_contains($smart_assistant_message, '❌') || str_contains($smart_assistant_message, 'تنبيه') || str_contains($smart_assistant_message, 'Warning') || str_contains($smart_assistant_message, 'Error'))
                                                                 <i class="fas fa-exclamation-triangle text-danger"></i>

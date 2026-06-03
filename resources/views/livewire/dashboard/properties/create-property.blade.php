@@ -165,7 +165,7 @@
                                     </div>
                                 </div>
 
-                                   <div class="col-xl-3 col-lg-6 mb-2">
+                                <div class="col-xl-3 col-lg-6 mb-2">
                                     <div class="premium-form-group @error('floor') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('properties.floor') !!}</label>
                                         <input type="text" wire:model.defer="floor"
@@ -176,7 +176,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-xl-3 col-lg-6 mb-2">
                                     <div class="premium-form-group @error('description') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('properties.description') !!}</label>
@@ -189,19 +189,6 @@
                                     </div>
                                 </div>
 
-                             
-
-                                <div class="col-xl-3 col-lg-6 mb-2">
-                                    <div class="premium-form-group @error('price') is-invalid-premium @enderror">
-                                        <label class="premium-label">{!! __('properties.price') !!}</label>
-                                        <input type="number" step="0.01" wire:model.defer="price"
-                                            class="form-control premium-input shadow-none" autocomplete="off"
-                                            placeholder="{!! __('properties.enter_price') !!}">
-                                        @error('price')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
 
                                 <div class="col-xl-3 col-lg-6 mb-2">
                                     <div class="premium-form-group @error('area') is-invalid-premium @enderror">
@@ -215,8 +202,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-2 col-lg-4 mb-2">
-                                    <div class="premium-form-group @error('zone_number') is-invalid-premium @enderror">
+                                <div class="col-xl-3 col-lg-4 mb-2">
+                                    <div
+                                        class="premium-form-group @error('zone_number') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('properties.zone_number') !!}</label>
                                         <input type="text" wire:model.defer="zone_number"
                                             class="form-control premium-input shadow-none" autocomplete="off"
@@ -226,8 +214,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-2 col-lg-4 mb-2">
-                                    <div class="premium-form-group @error('street_number') is-invalid-premium @enderror">
+                                <div class="col-xl-3 col-lg-4 mb-2">
+                                    <div
+                                        class="premium-form-group @error('street_number') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('properties.street_number') !!}</label>
                                         <input type="text" wire:model.defer="street_number"
                                             class="form-control premium-input shadow-none" autocomplete="off"
@@ -237,8 +226,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-2 col-lg-4 mb-2">
-                                    <div class="premium-form-group @error('building_number') is-invalid-premium @enderror">
+                                <div class="col-xl-3 col-lg-4 mb-2">
+                                    <div
+                                        class="premium-form-group @error('building_number') is-invalid-premium @enderror">
                                         <label class="premium-label">{!! __('properties.building_number') !!}</label>
                                         <input type="text" wire:model.defer="building_number"
                                             class="form-control premium-input shadow-none" autocomplete="off"
@@ -376,8 +366,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($property_owners as $index => $owner)
-                                            <tr class="owner-row"
-                                                wire:key="owner-row-{{ $index }}">
+                                            <tr class="owner-row" wire:key="owner-row-{{ $index }}">
                                                 <td class="align-middle">
                                                     <div class="user-info-cell">
                                                         <span

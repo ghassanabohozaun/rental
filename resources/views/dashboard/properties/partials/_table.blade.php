@@ -12,7 +12,7 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.type') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.parent_property') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.file_number') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('properties.price') !!}</th>
+
                 <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
             </tr>
@@ -105,14 +105,7 @@
                         </span>
                     </td>
 
-                    <!-- Price -->
-                    <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="flex-column-center">
-                            <span class="font-weight-bold text-dark font-14">
-                                {!! $property->price ? number_format($property->price, 0) : '---' !!}
-                            </span>
-                        </div>
-                    </td>
+
 
                     <!-- Status -->
                     <td class="text-center align-middle">
@@ -135,7 +128,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center p-4">
+                    <td colspan="7" class="text-center p-4">
                         <div class="flex-column-center">
                             <i class="fas fa-info-circle text-muted font-40 mb-2"></i>
                             <h5 class="text-muted">{!! __('properties.no_properties_found') !!}</h5>

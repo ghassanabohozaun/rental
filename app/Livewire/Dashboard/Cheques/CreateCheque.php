@@ -8,9 +8,13 @@ use App\Models\Contract;
 use App\Services\Dashboard\ChequeService;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CreateCheque extends Component
 {
+    use WithFileUploads;
+
     public $contract_id, $customer_id, $company_id;
     public $cheque_number, $amount, $issue_date, $due_date, $notes;
     public $status = '', $is_deposit = 0;
@@ -23,6 +27,9 @@ class CreateCheque extends Component
     public $isContractFulfilled = false, $amountExceedsRemaining = false;
     public $paid_pct = 0, $pending_pct = 0, $paid_pct_previous = 0, $current_pct_dynamic = 0;
     public $smart_assistant_message = '', $dateWarning = '';
+
+    public $excelFile;
+    public $importedCheques = [];
 
     protected $listeners = ['refresh' => '$refresh'];
 
@@ -107,9 +114,9 @@ class CreateCheque extends Component
         if ($dateToCheck) {
             $dateObj = \Carbon\Carbon::parse($dateToCheck);
             if ($dateObj->copy()->addMonths(6)->isPast()) {
-                $this->dateWarning = __('cheques.date_too_old_warning') ?? 'تنبيه: تاريخ الشيك قديم (أكثر من 6 أشهر)';
+                $this->dateWarning = __('cheques.stale_cheque_warning');
             } elseif ($dateObj->copy()->subYear()->isFuture()) {
-                $this->dateWarning = __('cheques.date_too_far_future_warning') ?? 'تنبيه: تاريخ الشيك بعيد جداً في المستقبل (أكثر من سنة)';
+                $this->dateWarning = __('cheques.far_future_cheque_warning');
             }
         }
     }
@@ -408,5 +415,96 @@ class CreateCheque extends Component
             'companies' => $companies,
             'contracts' => $contracts,
         ]);
+    }
+
+    public function importFromExcel()
+    {
+        $this->validate([
+            'excelFile' => 'required|file|mimes:xlsx,xls,csv|max:10240', // max 10MB
+        ]);
+
+        try {
+            $data = Excel::toArray(new \stdClass(), $this->excelFile->getRealPath());
+            
+            if (!empty($data) && count($data[0]) > 0) {
+                // Assuming data[0] is the first sheet
+                $sheet = $data[0];
+                
+                $parsedCheques = [];
+                // Start from row 1 to skip header (index 1 if row 0 is header)
+                for ($i = 1; $i < count($sheet); $i++) {
+                    $row = $sheet[$i];
+                    
+                    // According to user's mapping:
+                    // B (Index 1): Cheque Number
+                    // C (Index 2): Date
+                    // D (Index 3): Amount
+                    // E (Index 4): Bank Name
+                    
+                    if (!isset($row[1]) || empty($row[1])) {
+                        continue; // Skip rows without a cheque number
+                    }
+
+                    // Handle Excel Date format
+                    $issueDate = null;
+                    if (isset($row[2]) && !empty($row[2])) {
+                        if (is_numeric($row[2])) {
+                            $issueDate = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2])->format('Y-m-d');
+                        } else {
+                            try {
+                                $issueDate = \Carbon\Carbon::parse(str_replace('/', '-', $row[2]))->format('Y-m-d');
+                            } catch (\Exception $e) {
+                                $issueDate = null;
+                            }
+                        }
+                    }
+
+                    $parsedCheques[] = [
+                        'cheque_number' => $row[1] ?? '',
+                        'issue_date' => $issueDate,
+                        'amount' => isset($row[3]) ? floatval($row[3]) : 0,
+                        'bank_name' => $row[4] ?? '',
+                    ];
+                }
+                
+                $this->importedCheques = $parsedCheques;
+                $this->dispatch('notify', message: __('cheques.import_success'), type: 'success');
+            } else {
+                $this->dispatch('notify', message: __('cheques.no_cheques_in_excel'), type: 'warning');
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Excel Import Error: ' . $e->getMessage());
+            $this->dispatch('notify', message: 'Error reading file: ' . $e->getMessage(), type: 'error');
+        }
+    }
+
+    public function selectExcelCheque($index)
+    {
+        if (isset($this->importedCheques[$index])) {
+            $cheque = $this->importedCheques[$index];
+            
+            $this->cheque_number = strval($cheque['cheque_number']);
+            $this->amount = $cheque['amount'];
+            
+            // By default assign the same bank name for ar and en
+            $this->bank_name = [
+                'ar' => $cheque['bank_name'],
+                'en' => $cheque['bank_name']
+            ];
+            
+            if ($cheque['issue_date']) {
+                $this->issue_date = $cheque['issue_date'];
+                // For simplicity, we can also set due_date to the same, or leave it blank
+                $this->due_date = $cheque['issue_date'];
+            }
+
+            $this->status = 'pending';
+
+            $this->calculateFinancials();
+            $this->checkDates();
+            
+            // Dispatch event to close modal or update UI if needed
+            $this->dispatch('excel-cheque-selected');
+        }
     }
 }

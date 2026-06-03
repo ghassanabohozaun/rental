@@ -87,6 +87,19 @@ return [
     'signature' => 'التوقيع ✍️',
     'cheque_number_label' => 'رقم الشيك',
 
+    // Excel Import
+    'import_from_excel' => 'استيراد من إكسل',
+    'upload_excel_file' => 'الرجاء رفع ملف الإكسل المعتمد',
+    'upload' => 'رفع',
+    'excel_cheques_list' => 'قائمة الشيكات المستوردة',
+    'select_this_cheque' => 'اختيار هذا الشيك',
+    'no_cheques_in_excel' => 'لا يوجد شيكات في هذا الملف',
+    'import_success' => 'تم استيراد الشيكات بنجاح',
+    'upload_excel_file_hint' => 'يرجى رفع ملف الإكسل المعتمد (بصيغة xlsx أو xls أو csv)',
+    'choose_file' => 'اختر الملف',
+    'uploading_and_analyzing' => 'جاري الرفع والتحليل...',
+    'upload_another_file' => 'رفع ملف آخر',
+
     // Smart assistant messages
     'smart_assistant' => [
         'select_contract' => 'يرجى اختيار العقد للبدء بتحليل قوة الضمان المالي.',

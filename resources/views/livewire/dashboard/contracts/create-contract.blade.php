@@ -152,7 +152,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('conclusion_date') is-invalid-premium @enderror">
                                                         <label for="conclusion_date" class="premium-label">{!! __('contracts.conclusion_date') !!} <span class="text-danger">*</span></label>
                                                         <input type="text" id="conclusion_date" wire:model="conclusion_date"
@@ -161,37 +161,51 @@
                                                         @error('conclusion_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('start_date') is-invalid-premium @enderror">
                                                         <label for="start_date" class="premium-label">{!! __('contracts.start_date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="start_date" wire:model="start_date"
+                                                        <input type="text" id="start_date" wire:model.live.debounce.500ms="start_date"
                                                             class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
                                                             placeholder="YYYY-MM-DD" data-livewire-model="start_date">
                                                         @error('start_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('end_date') is-invalid-premium @enderror">
                                                         <label for="end_date" class="premium-label">{!! __('contracts.end_date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="end_date" wire:model="end_date"
+                                                        <input type="text" id="end_date" wire:model.live.debounce.500ms="end_date"
                                                             class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
                                                             placeholder="YYYY-MM-DD" data-livewire-model="end_date">
                                                         @error('end_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <div class="premium-form-group">
+                                                        <label class="premium-label text-primary">{!! __('contracts.contract_duration_months') !!}</label>
+                                                        <input type="text" wire:model="contract_duration_months"
+                                                            class="form-control premium-input shadow-none font-weight-bold text-primary" style="background-color: #f8f9fa;" readonly>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('rent_amount') is-invalid-premium @enderror">
                                                         <label for="rent_amount" class="premium-label">{!! __('contracts.rent_amount') !!} <span class="text-danger">*</span></label>
-                                                        <input type="number" step="0.01" id="rent_amount" wire:model="rent_amount"
+                                                        <input type="number" step="0.01" id="rent_amount" wire:model.live.debounce.300ms="rent_amount"
                                                             class="form-control premium-input shadow-none"
-                                                            autocomplete="off" placeholder="0.00" readonly>
+                                                            autocomplete="off" placeholder="0.00">
                                                         @error('rent_amount') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
+                                                    <div class="premium-form-group">
+                                                        <label class="premium-label text-success">{!! __('contracts.total_rent_amount') !!}</label>
+                                                        <input type="text" wire:model="total_rent_amount"
+                                                            class="form-control premium-input shadow-none font-weight-bold text-success" style="background-color: #f8f9fa;" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('payment_cycle') is-invalid-premium @enderror">
                                                         <label for="payment_cycle" class="premium-label">{!! __('contracts.payment_cycle') !!} <span class="text-danger">*</span></label>
                                                         <div wire:ignore>
@@ -206,7 +220,7 @@
                                                         @error('payment_cycle') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('status') is-invalid-premium @enderror">
                                                         <label for="status" class="premium-label">{!! __('contracts.status') !!} <span class="text-danger">*</span></label>
                                                         <div wire:ignore>

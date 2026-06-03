@@ -155,35 +155,7 @@
                 </div>
             </div>
 
-            <!-- 6. Price Filter -->
-            <div class="filter-item">
-                <div class="filter-chip js-filter-chip" data-filter-target="price_search_popover">
-                    <i class="fas fa-money-bill-wave text-primary"></i>
-                    <span class="chip-text">{!! __('properties.price') !!}</span>
-                </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="price_search_popover" style="min-width: 280px;">
-                    <div class="mb-3">
-                        <label class="premium-label mb-1 small text-muted">{!! __('general.min') !!}</label>
-                        <div class="premium-input-wrapper">
-                            <input type="number" class="form-control premium-input shadow-none" name="price_min"
-                                placeholder="0" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <label class="premium-label mb-1 small text-muted">{!! __('general.max') !!}</label>
-                        <div class="premium-input-wrapper">
-                            <input type="number" class="form-control premium-input shadow-none" name="price_max"
-                                placeholder="..." autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="popover-actions mt-4 text-right">
-                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
-                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             <!-- 7. Area Filter -->
             <div class="filter-item">

@@ -133,8 +133,8 @@
                                 ['label' => __('contracts.tag_property_type'), 'tag' => '${property_type}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_property_floor'), 'tag' => '${property_floor}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_property_description'), 'tag' => '${property_description}', 'color' => 'danger'],
-                                ['label' => 'إيجار الوحدة (للجدول)', 'tag' => '${unit_rent_amount}', 'color' => 'danger'],
-                                ['label' => 'تأمين الوحدة (للجدول)', 'tag' => '${unit_deposit_amount}', 'color' => 'danger'],
+                                ['label' => __('contracts.tag_unit_rent_amount'), 'tag' => '${unit_rent_amount}', 'color' => 'danger'],
+                                ['label' => __('contracts.tag_unit_deposit_amount'), 'tag' => '${unit_deposit_amount}', 'color' => 'danger'],
                             ];
                         @endphp
                         @foreach($propertyTags as $item)
@@ -188,27 +188,17 @@ function fallbackCopy(element, text) {
 }
 
 function triggerFeedback(element) {
-    if (typeof toastr !== 'undefined') {
+    if (window.PremiumToast) {
+        window.PremiumToast.success('{!! __('contracts.smart_tags_copied') !!}');
+    } else if (typeof toastr !== 'undefined') {
         toastr.success('{!! __('contracts.smart_tags_copied') !!}');
     }
     
     if (element) {
-        element.classList.add('copied-success');
-        
-        var codeElement = element.querySelector('.tag-code');
-        if (codeElement) {
-            var originalBg = codeElement.style.backgroundColor;
-            var originalColor = codeElement.style.color;
-            codeElement.style.transition = 'all 0.2s ease';
-            codeElement.style.backgroundColor = '#28c76f';
-            codeElement.style.color = '#fff';
-            
-            setTimeout(function() {
-                element.classList.remove('copied-success');
-                codeElement.style.backgroundColor = originalBg;
-                codeElement.style.color = originalColor;
-            }, 800);
-        }
+        element.classList.add('smart-tag-copied-effect');
+        setTimeout(function() {
+            element.classList.remove('smart-tag-copied-effect');
+        }, 500);
     }
 }
 </script>

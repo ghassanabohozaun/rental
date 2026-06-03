@@ -297,15 +297,14 @@
 
                     <!-- Duration & Dates -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="d-flex align-items-center text-dark font-weight-bold mb-1 font-13">
-                                <i class="fas fa-history text-primary mr-50 font-16"></i> {!! $contract->duration_label !!}
+                        <div class="contract-duration-wrapper">
+                            <div class="duration-label-badge">
+                                <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
                             </div>
-                            <div
-                                class="date-range-badge d-flex align-items-center rounded-pill px-2 py-25 date-range-pill">
-                                <span class="small font-weight-bold text-muted">{!! $contract->start_date ? $contract->start_date->format('Y-m-d') : '---' !!}</span>
-                                <i class="fas fa-long-arrow-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} mx-1 text-primary"></i>
-                                <span class="small font-weight-bold text-muted">{!! $contract->end_date ? $contract->end_date->format('Y-m-d') : '---' !!}</span>
+                            <div class="date-range-badge">
+                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('Y-m-d') : '---' !!}</span>
+                                <i class="fas fa-long-arrow-alt-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} text-primary date-arrow"></i>
+                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('Y-m-d') : '---' !!}</span>
                             </div>
                         </div>
                     </td>

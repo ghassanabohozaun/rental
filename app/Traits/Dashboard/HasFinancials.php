@@ -19,7 +19,7 @@ trait HasFinancials
      */
     public function getTotalAmountAttribute()
     {
-        return round((float) $this->rent_amount, 2);
+        return round((float) $this->total_rent_amount, 2);
     }
 
     /**

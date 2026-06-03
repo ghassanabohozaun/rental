@@ -30,7 +30,7 @@ class PropertyRequest extends FormRequest
             'location' => 'nullable|string|max:255',
             'property_type_id' => 'required|exists:property_types,id',
             'area' => 'nullable|string|max:255',
-            'price' => 'nullable|numeric|min:0|max:999999999999',
+
             'property_status_id' => 'required|exists:property_statuses,id',
             'description' => 'nullable|string',
             'property_number' => 'required|string|max:255',

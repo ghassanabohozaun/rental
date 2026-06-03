@@ -15,7 +15,9 @@
                             <th class="border-top-0">{!! __('customers.customer') !!}</th>
                             <th class="border-top-0">{!! __('contracts.start_date') !!}</th>
                             <th class="border-top-0">{!! __('contracts.end_date') !!}</th>
+                            <th class="border-top-0">{!! __('contracts.contract_duration_months') !!}</th>
                             <th class="border-top-0">{!! __('contracts.rent_amount') !!}</th>
+                            <th class="border-top-0">{!! __('contracts.total_rent_amount') !!}</th>
                             <th class="border-top-0 text-center">{!! __('general.status') !!}</th>
                             <th class="border-top-0 text-center">{!! __('general.actions') !!}</th>
                         </tr>
@@ -30,6 +32,8 @@
                             </td>
                             <td class="py-2">{!! $contract->start_date->format('Y-m-d') !!}</td>
                             <td class="py-2">{!! $contract->end_date->format('Y-m-d') !!}</td>
+                            <td class="py-2">{!! $contract->contract_duration_months ?? '---' !!}</td>
+                            <td class="py-2 font-weight-bold text-primary">{!! number_format($contract->rent_amount, 2) !!}</td>
                             <td class="py-2 font-weight-bold text-success">{!! number_format($contract->total_amount, 2) !!}</td>
                             <td class="py-2 text-center">
                                 @php
@@ -57,7 +61,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">
+                            <td colspan="9" class="text-center py-4 text-muted">
                                 {!! __('general.no_data_found') !!}
                             </td>
                         </tr>

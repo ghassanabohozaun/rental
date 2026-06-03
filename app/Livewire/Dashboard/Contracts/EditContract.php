@@ -22,6 +22,7 @@ class EditContract extends Component
     // Basic Fields
     public $company_id, $property_id, $customer_id;
     public $conclusion_date, $start_date, $end_date;
+    public $contract_duration_months = 0, $total_rent_amount = 0;
     public $rent_amount, $deposit_amount = 0;
     public $deposit_type = 'cash', $deposit_status = 'held';
     public $payment_cycle = 'monthly', $status = 'active';
@@ -68,6 +69,8 @@ class EditContract extends Component
         $this->status = $contract->status;
         $this->contract_text = $contract->contract_text;
         $this->notes = $contract->notes;
+
+        $this->calculateDurationAndTotalRent();
 
         // Cheque details
         if ($contract->deposit_type === 'cheque' && $contract->insuranceCheque) {
@@ -168,14 +171,14 @@ class EditContract extends Component
                 $this->property_data['floor'] = $property->floor ?? '';
                 $this->property_data['description'] = $property->description ?? '';
 
-                $this->rent_amount = $property->price ?? 0;
+
 
                 $this->utilities_data = [
                     [
                         'name' => $property->getTranslation('name', app()->getLocale()) ?? $property->name,
                         'electricity_account_number' => $property->electricity_account_number ?? '',
                         'water_account_number' => $property->water_account_number ?? '',
-                        'unit_rent_amount' => $property->price ?? 0,
+                        'unit_rent_amount' => $this->rent_amount ?? 0,
                         'unit_deposit_amount' => $this->deposit_amount > 0 ? $this->deposit_amount : 0,
                     ]
                 ];
@@ -223,11 +226,46 @@ class EditContract extends Component
         }
     }
 
+    public function updatedStartDate()
+    {
+        $this->calculateDurationAndTotalRent();
+    }
+
+    public function updatedEndDate()
+    {
+        $this->calculateDurationAndTotalRent();
+    }
+
     public function updatedRentAmount()
     {
         if (count($this->utilities_data) > 0) {
             $this->utilities_data[0]['unit_rent_amount'] = $this->rent_amount;
         }
+        $this->calculateDurationAndTotalRent();
+    }
+
+    private function calculateDurationAndTotalRent()
+    {
+        if ($this->start_date && $this->end_date) {
+            try {
+                $start = \Carbon\Carbon::parse($this->start_date);
+                $end = \Carbon\Carbon::parse($this->end_date);
+                
+                if ($start->lessThanOrEqualTo($end)) {
+                    $months = (int) round($start->floatDiffInMonths($end->copy()->addDay()));
+                    $this->contract_duration_months = $months;
+                } else {
+                    $this->contract_duration_months = 0;
+                }
+            } catch (\Exception $e) {
+                // If date is invalid or incomplete (during manual typing), don't break
+                $this->contract_duration_months = 0;
+            }
+        } else {
+            $this->contract_duration_months = 0;
+        }
+
+        $this->total_rent_amount = $this->contract_duration_months * (float) ($this->rent_amount ?: 0);
     }
 
     // --- Clause Management ---
@@ -348,7 +386,9 @@ class EditContract extends Component
             'conclusion_date' => $this->conclusion_date,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
+            'contract_duration_months' => $this->contract_duration_months,
             'rent_amount' => $this->rent_amount,
+            'total_rent_amount' => $this->total_rent_amount,
             'deposit_amount' => $this->deposit_amount,
             'deposit_type' => $this->deposit_type,
             'deposit_status' => $this->deposit_status,
