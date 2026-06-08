@@ -23,7 +23,7 @@
                     <div class="col-12 text-center">
                         <span
                             class="sidebar-meta-label text-muted d-block font-medium-1 mb-1">{!! __('contracts.total_revenue') !!}</span>
-                        <span class="font-weight-bold font-large-2 text-success">{!! number_format($property->contracts->sum('total_amount'), 0) !!}</span>
+                        <span class="font-weight-bold font-large-2 text-success">{!! number_format($property->contracts->sum('total_amount'), 0) !!} {!! currency() !!}</span>
                     </div>
                 </div>
             </div>

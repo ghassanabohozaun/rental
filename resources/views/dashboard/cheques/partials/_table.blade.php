@@ -11,13 +11,17 @@
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('customers.customer') !!}</th>
                 <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
                     {!! __('properties.property') !!}</th>
+                <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
+                    {!! __('cheques.company_bank_account') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell" style="min-width: 150px;">
                     {!! __('cheques.amount') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('cheques.due_date') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.is_deposit') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.status') !!}</th>
+                @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-150">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -74,7 +78,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('cheques.amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-primary">{!! number_format($cheque->amount, 2) !!}</span>
+                                                class="detail-info-value font-weight-bold text-primary">{!! number_format($cheque->amount, 2) !!}
+                                                {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -145,23 +150,40 @@
                             <span class="text-muted">---</span>
                         @endif
                     </td>
+                    <td class="align-middle d-none d-md-table-cell property-info-td">
+                        @if ($cheque->companyBankAccount)
+                            <div class="user-info-cell">
+                                <span class="user-name-text font-weight-bold text-dark">{!! $cheque->companyBankAccount->bank_name !!}</span>
+                                <span class="user-email-text text-muted small">{!! $cheque->companyBankAccount->account_name !!}</span>
+                            </div>
+                        @else
+                            <span class="text-muted">---</span>
+                        @endif
+                    </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <span class="font-weight-bolder text-primary" style="font-size: 1.05rem; line-height: 1;">
-                                {!! number_format($cheque->amount, 2) !!}
+                                {!! number_format($cheque->amount, 2) !!} {!! currency() !!}
                             </span>
                             @if (!$cheque->is_deposit)
                                 @php
                                     $percent = $cheque->amount > 0 ? ($cheque->used_amount / $cheque->amount) * 100 : 0;
-                                    $barColor = $percent >= 100 ? 'bg-danger' : ($percent > 0 ? 'bg-warning' : 'bg-success');
+                                    $barColor =
+                                        $percent >= 100 ? 'bg-danger' : ($percent > 0 ? 'bg-warning' : 'bg-success');
                                 @endphp
                                 <div class="w-100 mt-1" style="max-width: 100px;">
-                                    <div class="progress mb-1" style="height: 4px; border-radius: 2px; background-color: #f1f1f1; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);">
-                                        <div class="progress-bar {!! $barColor !!}" role="progressbar" style="width: {!! $percent !!}%"></div>
+                                    <div class="progress mb-1"
+                                        style="height: 4px; border-radius: 2px; background-color: #f1f1f1; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);">
+                                        <div class="progress-bar {!! $barColor !!}" role="progressbar"
+                                            style="width: {!! $percent !!}%"></div>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center" style="font-size: 0.75rem; line-height: 1;">
-                                        <span class="text-muted"><i class="fas fa-coins text-warning" style="font-size: 10px;"></i></span>
-                                        <span class="font-weight-bold text-dark">{!! number_format($cheque->remaining_amount, 2) !!} <small class="text-muted">{!! __('general.available') !!}</small></span>
+                                    <div class="d-flex justify-content-between align-items-center"
+                                        style="font-size: 0.75rem; line-height: 1;">
+                                        <span class="text-muted"><i class="fas fa-coins text-warning"
+                                                style="font-size: 10px;"></i></span>
+                                        <span class="font-weight-bold text-dark">{!! number_format($cheque->remaining_amount, 2) !!}
+                                            {!! currency() !!} <small
+                                                class="text-muted">{!! __('general.available') !!}</small></span>
                                     </div>
                                 </div>
                             @endif
@@ -201,13 +223,15 @@
                             <i class="{!! $statusInfo['icon'] !!}"></i> {!! __('cheques.statuses.' . $cheque->status) !!}
                         </div>
                     </td>
+                    @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.cheques.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="10" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="fas fa-info-circle me-25"></i> {!! __('cheques.no_cheques_found') !!}
                     </td>
                 </tr>

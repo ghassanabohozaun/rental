@@ -12,8 +12,10 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('maintenances.cost') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('maintenances.status') !!}</th>
+                @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}
                 </th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -74,7 +76,7 @@
                                         <div class="icon-circle"><i class="fas fa-money-bill-wave"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('maintenances.cost') !!}</span>
-                                            <span class="detail-info-value">{!! $maintenance->cost ?? '0.00' !!}</span>
+                                            <span class="detail-info-value">{!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -150,7 +152,7 @@
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-dark font-weight-bold">
-                            <i class="fas fa-money-bill-wave text-muted mr-1"></i> {!! $maintenance->cost ?? '0.00' !!}
+                            <i class="fas fa-money-bill-wave text-muted mr-1"></i> {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}
                         </span>
                     </td>
                     <td class="text-center align-middle">
@@ -171,13 +173,15 @@
                         </div>
                     </td>
 
+                    @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.maintenances.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('maintenances.no_maintenances_found') !!}
                     </td>
                 </tr>

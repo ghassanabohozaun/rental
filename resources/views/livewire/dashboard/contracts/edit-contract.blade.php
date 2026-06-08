@@ -1,10 +1,10 @@
 <div class="content-wrapper">
     <!-- begin: content header -->
-    <div class="content-header row">
+    <div class="content-header row align-items-center mb-2">
         <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
-                    <ol class="breadcrumb premium-breadcrumb">
+                    <ol class="breadcrumb premium-breadcrumb shadow-sm">
                         <li class="breadcrumb-item">
                             <a href="{!! route('dashboard.index') !!}">
                                 <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -29,7 +29,7 @@
                 </a>
                 <button wire:click="update" class="btn btn-premium-save" type="button" wire:loading.attr="disabled">
                     <i wire:loading.remove wire:target="update" class="fas fa-save mr-2 save-icon"></i>
-                    <i wire:loading wire:target="update" class="fas fa-sync fa-spin mr-2"></i>
+                    <i wire:loading wire:target="update" class="fas fa-spinner fa-spin mr-2"></i>
                     {!! __('general.save') !!}
                 </button>
             </div>
@@ -196,17 +196,27 @@
                                                 <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('rent_amount') is-invalid-premium @enderror">
                                                         <label for="rent_amount" class="premium-label">{!! __('contracts.rent_amount') !!} <span class="text-danger">*</span></label>
-                                                        <input type="number" step="0.01" id="rent_amount" wire:model.live.debounce.300ms="rent_amount"
-                                                            class="form-control premium-input shadow-none"
-                                                            autocomplete="off" placeholder="0.00">
+                                                        <div class="input-group premium-input-group">
+                                                            <input type="number" step="0.01" id="rent_amount" wire:model.live.debounce.300ms="rent_amount"
+                                                                class="form-control premium-input shadow-none border-right-0"
+                                                                autocomplete="off" placeholder="0.00">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text bg-white border-left-0 text-muted">{{ currency() }}</span>
+                                                            </div>
+                                                        </div>
                                                         @error('rent_amount') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group">
                                                         <label class="premium-label text-success">{!! __('contracts.total_rent_amount') !!}</label>
-                                                        <input type="text" wire:model="total_rent_amount"
-                                                            class="form-control premium-input shadow-none font-weight-bold text-success" style="background-color: #f8f9fa;" readonly>
+                                                        <div class="input-group premium-input-group">
+                                                            <input type="text" wire:model="total_rent_amount"
+                                                                class="form-control premium-input shadow-none font-weight-bold text-success border-right-0" style="background-color: #f8f9fa;" readonly>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text bg-white border-left-0 text-success font-weight-bold">{{ currency() }}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
@@ -259,8 +269,13 @@
                                                         <div class="col-md-4 mb-2">
                                                             <div class="premium-form-group @error('deposit_amount') is-invalid-premium @enderror">
                                                                 <label for="deposit_amount" class="premium-label">{!! __('contracts.deposit_amount') !!}</label>
-                                                                <input type="number" step="0.01" id="deposit_amount" wire:model.live.debounce.300ms="deposit_amount"
-                                                                    class="form-control premium-input shadow-none" autocomplete="off" placeholder="0.00" {{ $this->isDepositLocked ? 'disabled' : '' }}>
+                                                                <div class="input-group premium-input-group">
+                                                                    <input type="number" step="0.01" id="deposit_amount" wire:model.live.debounce.300ms="deposit_amount"
+                                                                        class="form-control premium-input shadow-none border-right-0" autocomplete="off" placeholder="0.00" {{ $this->isDepositLocked ? 'disabled' : '' }}>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text bg-white border-left-0 text-muted">{{ currency() }}</span>
+                                                                    </div>
+                                                                </div>
                                                                 @error('deposit_amount') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>

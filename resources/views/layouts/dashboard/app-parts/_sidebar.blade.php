@@ -20,6 +20,7 @@
                 <!-- end: Dashboard -->
 
                 {{-- Group 1: System Management --}}
+                @if(auth()->user()->can('companies_read') || auth()->user()->can('bank_accounts_read') || auth()->user()->can('departments_read') || auth()->user()->can('settings_read'))
                 @php
                     $isSystemActive =
                         Request::routeIs('dashboard.companies.*') ||
@@ -63,8 +64,10 @@
                         @endcan
                     </ul>
                 </li>
+                @endif
 
                 {{-- Group 2: Support & Access (Users, Roles) --}}
+                @if(auth()->user()->can('users_read') || auth()->user()->can('roles_read'))
                 @php
                     $isSupportActive =
                         Request::routeIs('dashboard.users.*') ||
@@ -92,9 +95,10 @@
                         @endcan
                     </ul>
                 </li>
-
+                @endif
 
                 {{-- Group 3: Asset Management --}}
+                @if(auth()->user()->can('owners_read') || auth()->user()->can('properties_read') || auth()->user()->can('property_types_read') || auth()->user()->can('property_statuses_read') || auth()->user()->can('maintenances_read'))
                 @php
                     $isAssetActive =
                         Request::routeIs('dashboard.owners.*') ||
@@ -146,9 +150,10 @@
                         @endcan
                     </ul>
                 </li>
-
+                @endif
 
                 {{-- Group 4: Customer Relations --}}
+                @if(auth()->user()->can('customers_read') || auth()->user()->can('guarantors_read'))
                 @php
                     $isCustomerActive =
                         Request::routeIs('dashboard.customers.*') || Request::routeIs('dashboard.guarantors.*');
@@ -175,8 +180,10 @@
                         @endcan
                     </ul>
                 </li>
+                @endif
 
                 <!-- begin: Contracts -->
+                @if(auth()->user()->can('contracts_read') || auth()->user()->can('contract_clauses_read'))
                 @php
                     $isContractsActive =
                         Request::routeIs('dashboard.contracts.*') ||
@@ -195,7 +202,7 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('contracts_read')
+                        @can('contract_clauses_read')
                             <li class="@if (Request::routeIs('dashboard.contract_clause_templates.*')) active @endif">
                                 <a class="menu-item" href="{!! route('dashboard.contract_clause_templates.index') !!}">
                                     {!! __('contracts.contract_clauses_library') !!}
@@ -204,17 +211,37 @@
                         @endcan
                     </ul>
                 </li>
+                @endif
                 <!-- end: Contracts -->
 
                 <!-- begin: Cheques -->
-                @can('cheques_read')
-                    <li class="nav-item @if (Request::routeIs('dashboard.cheques.*')) active @endif">
-                        <a href="{!! route('dashboard.cheques.index') !!}">
-                            <i class="fas fa-money-check-alt"></i>
-                            <span class="menu-title">{!! __('cheques.cheques') !!}</span>
-                        </a>
-                    </li>
-                @endcan
+                @if(auth()->user()->can('cheques_read') || auth()->user()->can('cheques_import'))
+                @php
+                    $isChequesActive = Request::routeIs('dashboard.cheques.*');
+                @endphp
+                <li class="nav-item has-sub @if ($isChequesActive) open @endif">
+                    <a href="javascript:void(0)">
+                        <i class="fas fa-money-check-alt"></i>
+                        <span class="menu-title">{!! __('cheques.cheques') !!}</span>
+                    </a>
+                    <ul class="menu-content">
+                        @can('cheques_read')
+                            <li class="@if (Request::routeIs('dashboard.cheques.index') || Request::routeIs('dashboard.cheques.create') || Request::routeIs('dashboard.cheques.edit') || Request::routeIs('dashboard.cheques.show')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.cheques.index') !!}">
+                                    {!! __('cheques.all_cheques') !!}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('cheques_import')
+                            <li class="@if (Request::routeIs('dashboard.cheques.import')) active @endif">
+                                <a class="menu-item" href="{!! route('dashboard.cheques.import') !!}">
+                                    {!! __('cheques.import_cheques') !!}
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endif
                 <!-- end: Cheques -->
 
                 <!-- begin: Payments -->

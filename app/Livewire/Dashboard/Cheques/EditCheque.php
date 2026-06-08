@@ -9,7 +9,7 @@ use App\Services\Dashboard\ChequeService;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Maatwebsite\Excel\Facades\Excel;
+use  App\Models\CompanyBankAccount;
 
 class EditCheque extends Component
 {
@@ -17,7 +17,7 @@ class EditCheque extends Component
 
     public Cheque $cheque;
 
-    public $contract_id, $customer_id, $company_id;
+    public $contract_id, $customer_id, $company_id, $company_bank_account_id;
     public $cheque_number, $amount, $issue_date, $due_date, $notes;
     public $status, $is_deposit;
     public $bank_name = ['ar' => '', 'en' => ''], $cheque_owner_name = ['ar' => '', 'en' => ''];
@@ -30,9 +30,6 @@ class EditCheque extends Component
     public $paid_pct = 0, $pending_pct = 0, $paid_pct_previous = 0, $current_pct_dynamic = 0;
     public $smart_assistant_message = '', $dateWarning = '';
 
-    public $excelFile;
-    public $importedCheques = [];
-
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount(Cheque $cheque)
@@ -42,6 +39,7 @@ class EditCheque extends Component
         $this->contract_id = $cheque->contract_id;
         $this->customer_id = $cheque->customer_id;
         $this->company_id = $cheque->company_id;
+        $this->company_bank_account_id = $cheque->company_bank_account_id;
         $this->cheque_number = $cheque->cheque_number;
         $this->amount = $cheque->amount;
         $this->status = $cheque->status;
@@ -71,6 +69,7 @@ class EditCheque extends Component
     public function updatedCompanyId()
     {
         $this->contract_id = null;
+        $this->company_bank_account_id = null;
         $this->resetFinancials();
         $this->dispatch('reinit-plugins');
     }
@@ -319,6 +318,7 @@ class EditCheque extends Component
         $rules = [
             'contract_id' => 'required|exists:contracts,id',
             'customer_id' => 'required|exists:customers,id',
+            'company_bank_account_id' => 'nullable|exists:company_bank_accounts,id',
             'amount' => 'required|numeric|gt:0',
             'cheque_number' => 'required|string|max:255',
             'bank_name.ar' => 'required|string|max:255',
@@ -422,102 +422,16 @@ class EditCheque extends Component
             ->orderBy('id', 'desc')
             ->get();
         $contracts = collect();
+        $companyBankAccounts = collect();
         if ($this->company_id) {
             $contracts = Contract::where('company_id', $this->company_id)->with('customer', 'property')->orderBy('id', 'desc')->get();
+            $companyBankAccounts = CompanyBankAccount::where('company_id', $this->company_id)->orderBy('id', 'desc')->get();
         }
 
         return view('livewire.dashboard.cheques.edit-cheque', [
             'companies' => $companies,
             'contracts' => $contracts,
+            'companyBankAccounts' => $companyBankAccounts,
         ]);
-    }
-
-    public function importFromExcel()
-    {
-        $this->validate([
-            'excelFile' => 'required|file|mimes:xlsx,xls,csv|max:10240', // max 10MB
-        ]);
-
-        try {
-            $data = Excel::toArray(new \stdClass(), $this->excelFile->getRealPath());
-            
-            if (!empty($data) && count($data[0]) > 0) {
-                // Assuming data[0] is the first sheet
-                $sheet = $data[0];
-                
-                $parsedCheques = [];
-                // Start from row 1 to skip header (index 1 if row 0 is header)
-                for ($i = 1; $i < count($sheet); $i++) {
-                    $row = $sheet[$i];
-                    
-                    // According to user's mapping:
-                    // B (Index 1): Cheque Number
-                    // C (Index 2): Date
-                    // D (Index 3): Amount
-                    // E (Index 4): Bank Name
-                    
-                    if (!isset($row[1]) || empty($row[1])) {
-                        continue; // Skip rows without a cheque number
-                    }
-
-                    // Handle Excel Date format
-                    $issueDate = null;
-                    if (isset($row[2]) && !empty($row[2])) {
-                        if (is_numeric($row[2])) {
-                            $issueDate = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2])->format('Y-m-d');
-                        } else {
-                            try {
-                                $issueDate = \Carbon\Carbon::parse(str_replace('/', '-', $row[2]))->format('Y-m-d');
-                            } catch (\Exception $e) {
-                                $issueDate = null;
-                            }
-                        }
-                    }
-
-                    $parsedCheques[] = [
-                        'cheque_number' => $row[1] ?? '',
-                        'issue_date' => $issueDate,
-                        'amount' => isset($row[3]) ? floatval($row[3]) : 0,
-                        'bank_name' => $row[4] ?? '',
-                    ];
-                }
-                
-                $this->importedCheques = $parsedCheques;
-                $this->dispatch('notify', message: __('cheques.import_success'), type: 'success');
-            } else {
-                $this->dispatch('notify', message: __('cheques.no_cheques_in_excel'), type: 'warning');
-            }
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Excel Import Error: ' . $e->getMessage());
-            $this->dispatch('notify', message: 'Error reading file: ' . $e->getMessage(), type: 'error');
-        }
-    }
-
-    public function selectExcelCheque($index)
-    {
-        if (isset($this->importedCheques[$index])) {
-            $cheque = $this->importedCheques[$index];
-            
-            $this->cheque_number = strval($cheque['cheque_number']);
-            $this->amount = $cheque['amount'];
-            
-            // By default assign the same bank name for ar and en
-            $this->bank_name = [
-                'ar' => $cheque['bank_name'],
-                'en' => $cheque['bank_name']
-            ];
-            
-            if ($cheque['issue_date']) {
-                $this->issue_date = $cheque['issue_date'];
-                $this->due_date = $cheque['issue_date'];
-            }
-
-            $this->status = 'pending';
-
-            $this->calculateFinancials();
-            $this->checkDates();
-            
-            $this->dispatch('excel-cheque-selected');
-        }
     }
 }

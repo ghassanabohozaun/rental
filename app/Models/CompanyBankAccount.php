@@ -11,11 +11,17 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Dashboard\HasCreatedBy;
 
+use App\Traits\Dashboard\CanBeDeleted;
+
 class CompanyBankAccount extends Model implements MustBelongToCompany
 {
-    use HasFactory, BelongsToCompany, Filterable, HasTranslations, SoftDeletes, HasCreatedBy;
+    use HasFactory, BelongsToCompany, Filterable, HasTranslations, SoftDeletes, HasCreatedBy, CanBeDeleted;
 
     public $translatable = ['bank_name', 'account_holder_name'];
+
+    protected $restrictiveRelations = [
+        'cheques' => 'companies.cannot_delete_bank_account_linked_to_cheques'
+    ];
 
     protected $fillable = [
         'company_id',
@@ -53,5 +59,13 @@ class CompanyBankAccount extends Model implements MustBelongToCompany
     {
         if (!$this->iban) return null;
         return trim(chunk_split(str_replace(' ', '', $this->iban), 4, ' '));
+    }
+
+    /**
+     * Get the cheques associated with the bank account.
+     */
+    public function cheques()
+    {
+        return $this->hasMany(Cheque::class, 'company_bank_account_id');
     }
 }

@@ -244,10 +244,17 @@ $(document).ready(function () {
                         }
                     });
 
+                    // Get the first validation error message to show in toaster
+                    let firstErrorMsg = validationMsg;
+                    if (errors && Object.keys(errors).length > 0) {
+                        let firstKey = Object.keys(errors)[0];
+                        firstErrorMsg = errors[firstKey][0];
+                    }
+
                     if (typeof flasher !== "undefined") {
-                        flasher.error(validationMsg);
+                        flasher.error(firstErrorMsg);
                     } else if (typeof Swal !== "undefined") {
-                        Swal.fire({ icon: "error", title: validationMsg });
+                        Swal.fire({ icon: "error", title: validationMsg, text: firstErrorMsg });
                     }
                 } else if (xhr.status === 403) {
                     if (typeof flasher !== "undefined") {

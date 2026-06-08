@@ -23,8 +23,8 @@ class CreateProperty extends Component
     public $zone_number, $street_number, $building_number, $property_type_id, $area, $property_status_id, $description;
     public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
 
-    // Attachments
-    public $rental_contract_original, $building_completion_certificate, $other_documents;
+    // Property Attachments Repeater
+    public $property_attachments = [];
 
     // Owners Repeater
     public $property_owners = [];
@@ -118,6 +118,17 @@ class CreateProperty extends Component
         }
     }
 
+    public function addAttachment()
+    {
+        $this->property_attachments[] = ['name' => '', 'file' => null];
+    }
+
+    public function removeAttachment($index)
+    {
+        unset($this->property_attachments[$index]);
+        $this->property_attachments = array_values($this->property_attachments);
+    }
+
     protected function rules()
     {
         $current_company_id = user()->company_id == 1 ? $this->company_id : user()->company_id;
@@ -158,10 +169,10 @@ class CreateProperty extends Component
             ],
             'property_owners.*.percentage' => 'required|numeric|min:0|max:100',
 
-            // Files
-            'rental_contract_original' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'building_completion_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'other_documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+            // Attachments Repeater
+            'property_attachments' => 'nullable|array',
+            'property_attachments.*.name' => 'required|string|max:255',
+            'property_attachments.*.file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
         ];
     }
 
@@ -199,9 +210,6 @@ class CreateProperty extends Component
             $this->addError('property_owners_primary', __('properties.must_select_primary_owner'));
             return;
         }
-
-        // Logic to save property...
-        // (Similar to PropertyController@store but for Livewire)
 
         $data = [
             'name' => $this->name,
@@ -253,14 +261,16 @@ class CreateProperty extends Component
         $property->owners()->sync($syncData);
 
         // Handle Files
-        if ($this->rental_contract_original) {
-            $property->update(['rental_contract_original' => $this->rental_contract_original->store('contracts', 'properties')]);
-        }
-        if ($this->building_completion_certificate) {
-            $property->update(['building_completion_certificate' => $this->building_completion_certificate->store('certificates', 'properties')]);
-        }
-        if ($this->other_documents) {
-            $property->update(['other_documents' => $this->other_documents->store('docs', 'properties')]);
+
+        // Handle Repeater Attachments
+        foreach ($this->property_attachments as $attachment) {
+            if (!empty($attachment['file']) && !empty($attachment['name'])) {
+                $path = $attachment['file']->store('/', 'properties');
+                $property->attachments()->create([
+                    'name' => $attachment['name'],
+                    'file' => $path,
+                ]);
+            }
         }
 
         flash()->success(__('general.add_success_message'));
@@ -274,9 +284,23 @@ class CreateProperty extends Component
 
     public function render()
     {
-
-        $property_types = PropertyType::orderByDesc('id')->get();
-        $property_statuses = PropertyStatus::orderByDesc('id')->get();
+        $company_id = user()->company_id == 1 ? $this->company_id : user()->company_id;
+        
+        $property_types = PropertyType::whereNull('company_id')
+            ->when($company_id, function ($query) use ($company_id) {
+                $query->orWhere('company_id', $company_id);
+            })
+            ->orderByDesc('id')
+            ->get()
+            ->unique('name');
+            
+        $property_statuses = PropertyStatus::whereNull('company_id')
+            ->when($company_id, function ($query) use ($company_id) {
+                $query->orWhere('company_id', $company_id);
+            })
+            ->orderByDesc('id')
+            ->get()
+            ->unique('name');
         $companies = Company::active()->orderByDesc('id')->get();
         $parent_properties = Property::whereNull('parent_id')->orderByDesc('id')->get();
 

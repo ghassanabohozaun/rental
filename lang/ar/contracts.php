@@ -226,4 +226,6 @@ return [
     'tag_property_type' => 'نوع العقار',
     'tag_property_floor' => 'طابق العقار',
     'tag_property_description' => 'وصف العقار',
+    'tag_electricity_account_number' => 'رقم حساب الكهرباء',
+    'tag_water_account_number' => 'رقم حساب المياه',
 ];

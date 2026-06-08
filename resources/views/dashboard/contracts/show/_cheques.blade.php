@@ -11,8 +11,8 @@
             @if (!request()->ajax())
                 @can('cheques_create')
                     <a href="{!! route('dashboard.cheques.create') !!}?contract_id={!! $contract->id !!}&company_id={!! $contract->company_id !!}&is_deposit=0"
-                        class="btn btn-sm btn-light-warning font-weight-bolder hover-scale shadow-none">
-                        <i class="fas fa-plus-circle mr-50"></i>
+                        class="btn btn-sm btn-light-primary radius-10">
+                        <i class="fas fa-plus-circle mr-1"></i>
                         <span>{!! __('cheques.add_cheque') !!}</span>
                     </a>
                 @endcan

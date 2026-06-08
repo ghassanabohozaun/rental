@@ -200,47 +200,7 @@
             </div>
         </div>
 
-        <!-- 3. Attachments Section -->
-        <div class="col-12 mt-1">
-            <div class="card border-0 shadow-sm mb-2 radius-15">
-                <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
-                    <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
-                        <i class="fas fa-paperclip text-warning mr-1" style="font-size: 1.2rem !important;"></i> {!! __('properties.attachments') !!}
-                    </h5>
-                </div>
-                <div class="card-body pt-3 pb-3">
-                    <div class="row">
-                        @php
-                            $attachments = [
-                                'rental_contract_original' => ['icon' => 'fa-file-contract', 'color' => 'primary'],
-                                'building_completion_certificate' => ['icon' => 'fa-file-pdf', 'color' => 'danger'],
-                                'other_documents' => ['icon' => 'fa-file-alt', 'color' => 'info'],
-                            ];
-                        @endphp
 
-                        @foreach($attachments as $field => $info)
-                            <div class="col-md-4 mb-3">
-                                <div class="premium-attachment-box d-flex align-items-center p-2 rounded border-light bg-white shadow-xs">
-                                    <div class="icon-wrapper mr-2 bg-light-{!! $info['color'] !!}-opacity p-1 radius-10">
-                                        <i class="fas {!! $info['icon'] !!} text-{!! $info['color'] !!} font-20"></i>
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <h6 class="mb-0 font-weight-bold text-truncate attachment-title-mini">{!! __('properties.'.$field) !!}</h6>
-                                        @if($property->$field)
-                                            <a href="{!! asset('uploads/properties/' . $property->$field) !!}" target="_blank" class="text-primary attachment-link-mini font-weight-bold">
-                                                <i class="fas fa-download mr-1"></i> {!! __('general.download') !!}
-                                            </a>
-                                        @else
-                                            <span class="text-muted italic attachment-link-mini">{!! __('general.no_file_found') !!}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

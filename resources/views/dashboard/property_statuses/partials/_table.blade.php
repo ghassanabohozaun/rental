@@ -7,10 +7,15 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('property_statuses.name') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('property_statuses.created_by') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('property_statuses.created_by') !!}
+                </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.status') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.manage_status') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @can('property_statuses_update')
+                    <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.manage_status') !!}</th>
+                @endcan
+                @if (auth()->user()->can('property_statuses_update') || auth()->user()->can('property_statuses_delete'))
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -30,12 +35,14 @@
 
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
-                                        <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
+                                        <div
+                                            class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
                                             <i class="fas fa-briefcase font-40"></i>
                                         </div>
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">
-                                        <span class="d-inline-block rounded-circle mr-1" style="width: 12px; height: 12px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
+                                        <span class="d-inline-block rounded-circle mr-1"
+                                            style="width: 12px; height: 12px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
                                         {!! $property_status->name !!}
                                     </h4>
                                     <span class="modal-role-badge">{!! __('property_statuses.property_status') !!}</span>
@@ -56,10 +63,12 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value text-muted small">
-                                                @if($property_status->company_id)
-                                                    <span class="badge badge-light-primary border-0">{!! optional($property_status->company)->name !!}</span>
+                                                @if ($property_status->company_id)
+                                                    <span
+                                                        class="badge badge-light-primary border-0">{!! optional($property_status->company)->name !!}</span>
                                                 @else
-                                                    <span class="badge badge-light-warning border-0">{!! __('roles.global_role') !!}</span>
+                                                    <span
+                                                        class="badge badge-light-warning border-0">{!! __('roles.global_role') !!}</span>
                                                 @endif
                                             </span>
                                         </div>
@@ -71,9 +80,11 @@
                                             <span class="detail-info-label">{!! __('property_statuses.status') !!}</span>
                                             <div class="detail-info-value mt-1">
                                                 @if ($property_status->status == 1)
-                                                    <span class="badge badge-success badge-glow badge-pill px-2">{!! __('general.enable') !!}</span>
+                                                    <span
+                                                        class="badge badge-success badge-glow badge-pill px-2">{!! __('general.enable') !!}</span>
                                                 @else
-                                                    <span class="badge badge-danger badge-glow badge-pill px-2">{!! __('general.disabled') !!}</span>
+                                                    <span
+                                                        class="badge badge-danger badge-glow badge-pill px-2">{!! __('general.disabled') !!}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -100,7 +111,7 @@
 
                     <!-- Company -->
                     <td class="text-center align-middle">
-                        @if($property_status->company_id)
+                        @if ($property_status->company_id)
                             <a href="javascript:void(0)" class="company-chip">
                                 <i class="fas fa-briefcase mr-1"></i> {!! optional($property_status->company)->name !!}
                             </a>
@@ -114,7 +125,8 @@
                     <!-- Name -->
                     <td class="align-middle font-weight-bold text-primary property-info-td">
                         <div class="d-flex align-items-center justify-content-start">
-                            <span class="d-inline-block rounded-circle mr-1" style="min-width: 10px; height: 10px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
+                            <span class="d-inline-block rounded-circle mr-1"
+                                style="min-width: 10px; height: 10px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
                             <span class="ml-1">{!! $property_status->name !!}</span>
                         </div>
                     </td>
@@ -129,18 +141,22 @@
                     </td>
 
                     <!-- Manage Status -->
-                    <td class="text-center align-middle">
-                        @include('dashboard.property_statuses.parts.manage_status')
-                    </td>
+                    @can('property_statuses_update')
+                        <td class="text-center align-middle">
+                            @include('dashboard.property_statuses.parts.manage_status')
+                        </td>
+                    @endcan
 
                     <!-- Actions -->
-                    <td class="text-center align-middle">
-                        @include('dashboard.property_statuses.parts.actions')
-                    </td>
+                    @if (auth()->user()->can('property_statuses_update') || auth()->user()->can('property_statuses_delete'))
+                        <td class="text-center align-middle">
+                            @include('dashboard.property_statuses.parts.actions')
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('property_statuses.no_property_statuses_found') !!}
                     </td>
                 </tr>
@@ -152,5 +168,3 @@
         {!! $property_statuses->links() !!}
     </div>
 </div>
-
-

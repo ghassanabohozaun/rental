@@ -14,7 +14,9 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.file_number') !!}</th>
 
                 <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
+                @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -120,15 +122,17 @@
                     </td>
 
                     <!-- Actions -->
+                    @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
                     <td class="text-center align-middle">
                         <div class="d-flex justify-content-center gap-2">
                             @include('dashboard.properties.parts.actions')
                         </div>
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center p-4">
+                    <td colspan="100%" class="text-center p-4">
                         <div class="flex-column-center">
                             <i class="fas fa-info-circle text-muted font-40 mb-2"></i>
                             <h5 class="text-muted">{!! __('properties.no_properties_found') !!}</h5>

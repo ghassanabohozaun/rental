@@ -44,7 +44,7 @@
                             </a>
                             <button class="btn btn-premium-save" type="submit" id="saveBtn">
                                 <i class="fas fa-save mr-2 save-icon"></i>
-                                <i class="fas fa-sync fa-spin d-none spinner_loading mr-2"></i>
+                                <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
                                 {!! __('general.save') !!}
                             </button>
                         </div>
@@ -159,14 +159,14 @@
                                                             @foreach (config('global.modules') as $moduleKey => $moduleLangKey)
                                                                 {{-- Check if user has ANY permission in this module or is Super Admin --}}
                                                                 @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || Gate::allows($moduleKey))
-                                                                    <div class="permission-card">
+                                                                    <div class="permission-card {{ $moduleKey === 'companies' ? 'disabled-card' : '' }}">
                                                                         <div class="permission-card-header">
                                                                             <div class="permission-card-title">
                                                                                 <i class="{{ config('global.module_icons.' . $moduleKey, 'la la-dot-circle') }}"></i>
                                                                                 {!! __($moduleLangKey) !!}
                                                                             </div>
                                                                             <label class="modern-switch">
-                                                                                <input type="checkbox" class="select-all-module" data-module="module-{{ $moduleKey }}">
+                                                                                <input type="checkbox" class="select-all-module" data-module="module-{{ $moduleKey }}" @disabled($moduleKey === 'companies')>
                                                                                 <span class="modern-slider"></span>
                                                                             </label>
                                                                         </div>
@@ -184,7 +184,7 @@
                                                                                             <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
                                                                                         </div>
                                                                                         <label class="modern-switch">
-                                                                                            <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}">
+                                                                                            <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}" @disabled($moduleKey === 'companies')>
                                                                                             <span class="modern-slider"></span>
                                                                                         </label>
                                                                                     </div>

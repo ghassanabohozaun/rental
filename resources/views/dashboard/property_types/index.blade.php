@@ -29,11 +29,13 @@
 
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
+                        @can('property_types_create')
                         <button type="button" class="btn btn-premium-add shadow-pulse h-42 radius-10" data-toggle="modal"
                             data-target="#createproperty_typeModal">
                             <i class="fas fa-plus-circle mr-1"></i>
                             {!! __('property_types.create_new_property_type') !!}
                         </button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -85,9 +87,13 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
+    @can('property_types_create')
     @include('dashboard.property_types.modals.create')
+    @endcan
 
+    @can('property_types_update')
     @include('dashboard.property_types.modals.edit')
+    @endcan
 
     @include('dashboard.property_types.modals.details')
 @endsection

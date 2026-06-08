@@ -11,8 +11,8 @@
             @if (!request()->ajax())
                 @can('payments_create')
                     <a href="{!! route('dashboard.payments.create') !!}?contract_id={!! $contract->id !!}"
-                        class="text-success font-weight-bolder hover-scale" style="text-decoration: none;">
-                        <i class="fas fa-plus-circle font-medium-3 ml-1"></i>
+                        class="btn btn-sm btn-light-primary radius-10">
+                        <i class="fas fa-plus-circle mr-1"></i>
                         <span>{!! __('payments.add_payment') !!}</span>
                     </a>
                 @endcan

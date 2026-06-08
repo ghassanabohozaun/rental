@@ -15,6 +15,7 @@ return [
     'customers' => 'Customers Management',
     'maintenances' => 'Maintenance Management',
     'contracts' => 'Contracts Management',
+    'contract_clauses' => 'Contract Clauses Management',
     'cheques' => 'Cheques',
     'payments' => 'Receipt Vouchers',
     'reports' => 'Reports',

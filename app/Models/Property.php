@@ -85,4 +85,12 @@ class Property extends Model implements MustBelongToCompany
     {
         return $this->hasMany(Contract::class, 'property_id');
     }
+
+    /**
+     * Get the attachments for the property.
+     */
+    public function attachments()
+    {
+        return $this->hasMany(PropertyAttachment::class, 'property_id');
+    }
 }

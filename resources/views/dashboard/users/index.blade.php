@@ -33,11 +33,13 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
+                        @can('users_create')
                         <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                             data-target="#createUserModal">
                             <i class="fas fa-plus-circle"></i>
                             {!! __('users.create_new_user') !!}
                         </button>
+                        @endcan
                     </div>
                 </div>
                 <!-- end: content header right-->
@@ -138,8 +140,12 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
+    @can('users_create')
     @include('dashboard.users.modals.create')
+    @endcan
+    @can('users_update')
     @include('dashboard.users.modals.edit')
+    @endcan
 
     @include('dashboard.users.modals.details')
 @endsection

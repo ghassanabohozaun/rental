@@ -1,34 +1,44 @@
 <div class="tab-pane fade" id="terms" role="tabpanel">
     <div class="row">
-        <!-- Left Column: Contract Text -->
-        <div class="col-lg-8">
+        <!-- Contract Clauses -->
+        <div class="col-12">
             <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0"><i class="fas fa-file-alt text-primary mr-1"></i> {!! __('contracts.contract_text') !!}</h6>
+                <div
+                    class="card-header bg-white border-bottom py-2 px-3 d-flex justify-content-between align-items-center">
+                    <h6 class="card-title font-weight-bolder text-dark mb-0">
+                        <i class="fas fa-file-contract text-primary mr-1"></i> {!! __('contracts.contract_terms') !!}
+                    </h6>
                 </div>
                 <div class="card-body p-3">
-                    <div class="contract-text-viewer font-small-3 text-muted line-height-1-6" style="max-height: 400px; overflow-y: auto; padding: 10px; background: #fdfdfd; border-radius: 8px; border: 1px solid #f1f1f1;">
-                        {!! $contract->contract_text ?? '<div class="text-center py-4"><i class="fas fa-file-invoice font-large-1 mb-2 d-block opacity-25"></i>'.__('contracts.no_contract_text').'</div>' !!}
-                    </div>
-                </div>
-            </div>
-        </div>
+                    @php
+                        $clauses = optional($contract->contractDetail)->contract_clauses;
+                    @endphp
 
-        <!-- Right Column: Notes -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm mb-3" style="border-radius: 12px;">
-                <div class="card-header bg-white border-bottom py-2 px-3">
-                    <h6 class="card-title font-weight-bolder text-dark mb-0"><i class="fas fa-sticky-note text-warning mr-1"></i> {!! __('general.notes') !!}</h6>
-                </div>
-                <div class="card-body p-3">
-                    @if ($contract->notes)
-                        <div class="p-2 border rounded bg-light-warning font-small-3" style="border-radius: 8px;">
-                            {!! $contract->notes !!}
+                    @if (is_array($clauses) && count($clauses) > 0)
+                        <div class="contract-clauses-wrapper">
+                            @foreach ($clauses as $index => $clause)
+                                <div class="clause-item mb-3 p-3">
+                                    <h6 class="font-weight-bold text-dark mb-2">
+                                        <span class="badge badge-light-primary mr-1">{{ $index + 1 }}</span>
+                                        {{ $clause['title'] ?? '' }}
+                                    </h6>
+                                    <div class="clause-content text-muted font-small-3 line-height-1-6">
+                                        {{ trim($clause['content'] ?? '') }}</div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @elseif(is_string($clauses) && !empty($clauses))
+                        <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
+                            {!! trim($clauses) !!}
+                        </div>
+                    @elseif(!empty($contract->contract_text))
+                        <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
+                            {!! trim($contract->contract_text) !!}
                         </div>
                     @else
-                        <div class="text-center py-3 text-muted font-small-3">
-                            <i class="fas fa-info-circle mb-1 d-block"></i>
-                            {!! __('general.no_notes') !!}
+                        <div class="text-center py-4">
+                            <i class="fas fa-file-invoice font-large-1 mb-2 d-block opacity-25"></i>
+                            {!! __('contracts.no_contract_text') !!}
                         </div>
                     @endif
                 </div>
@@ -36,5 +46,3 @@
         </div>
     </div>
 </div>
-
-

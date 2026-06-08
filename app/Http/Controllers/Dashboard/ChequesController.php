@@ -52,6 +52,13 @@ class ChequesController extends Controller
         return view('dashboard.cheques.index', compact('title', 'cheques', 'companies', 'customers', 'properties', 'stats'));
     }
 
+    public function import(Request $request)
+    {
+        Gate::authorize('cheques_import');
+        $title = __('cheques.import_cheques');
+        return view('dashboard.cheques.import', compact('title'));
+    }
+
     public function create(Request $request)
     {
         Gate::authorize('cheques_create');

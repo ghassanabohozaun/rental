@@ -2,11 +2,11 @@
     <form wire:submit.prevent="save" autocomplete="off">
         <div class="content-wrapper">
             <!-- begin: content header -->
-            <div class="content-header row">
+            <div class="content-header row align-items-center mb-2">
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb premium-breadcrumb">
+                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}">
                                         <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -32,7 +32,7 @@
                             <button class="btn btn-premium-save" type="submit" wire:loading.attr="disabled"
                                 wire:target="save">
                                 <i wire:loading.remove wire:target="save" class="fas fa-save mr-2"></i>
-                                <i wire:loading wire:target="save" class="fas fa-sync fa-spin mr-2"></i>
+                                <i wire:loading wire:target="save" class="fas fa-spinner fa-spin mr-2"></i>
                                 {!! __('general.save') !!}
                             </button>
                         </div>
@@ -142,7 +142,7 @@
                                                     <i class="fas fa-times-circle font-large-1 mr-2 text-danger"></i>
                                                     <div>
                                                         <strong class="text-danger">{!! __('payments.amount_exceeds_remaining') !!}</strong>
-                                                        <p class="mb-0 small text-danger">الحد الأقصى المسموح به هو: {{ number_format($financials['remaining'], 2) }}</p>
+                                                        <p class="mb-0 small text-danger">الحد الأقصى المسموح به هو: {{ number_format($financials['remaining'], 2) }} {{ currency() }}</p>
                                                     </div>
                                                 </div>
                                             @elseif($hasOverCoverage && $method !== 'cheque')
@@ -204,7 +204,7 @@
                                                                     <option value="">{!! __('cheques.select_cheque') !!}</option>
                                                                     @foreach($availableCheques as $chq)
                                                                         <option value="{{ $chq['id'] }}">
-                                                                            {{ $chq['cheque_number'] }} - {{ is_array($chq['bank_name']) ? ($chq['bank_name'][app()->getLocale()] ?? current($chq['bank_name'])) : $chq['bank_name'] }} ({{ number_format($chq['remaining_amount'], 2) }})
+                                                                            {{ $chq['cheque_number'] }} - {{ is_array($chq['bank_name']) ? ($chq['bank_name'][app()->getLocale()] ?? current($chq['bank_name'])) : $chq['bank_name'] }} ({{ number_format($chq['remaining_amount'], 2) }} {{ currency() }})
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
@@ -218,15 +218,15 @@
                                                                     <div class="pill-info-section">
                                                                         <div class="pill-stat">
                                                                             <span class="pill-label">{!! __('payments.cheque_original_amount') !!}</span>
-                                                                            <span class="pill-value text-info">{{ number_format($selectedChequeDetails['amount'], 2) }}</span>
+                                                                            <span class="pill-value text-info">{{ number_format($selectedChequeDetails['amount'], 2) }} {{ currency() }}</span>
                                                                         </div>
                                                                         <div class="pill-stat">
                                                                             <span class="pill-label">{!! __('payments.cheque_used_amount') !!}</span>
-                                                                            <span class="pill-value text-danger">{{ number_format($selectedChequeDetails['used_amount'], 2) }}</span>
+                                                                            <span class="pill-value text-danger">{{ number_format($selectedChequeDetails['used_amount'], 2) }} {{ currency() }}</span>
                                                                         </div>
                                                                         <div class="pill-stat border-0">
                                                                             <span class="pill-label">{!! __('payments.cheque_available_total') !!}</span>
-                                                                            <span class="pill-value text-success">{{ number_format($selectedChequeDetails['remaining_amount'], 2) }}</span>
+                                                                            <span class="pill-value text-success">{{ number_format($selectedChequeDetails['remaining_amount'], 2) }} {{ currency() }}</span>
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-info btn-sm pill-action-btn" wire:click="$set('amount', {{ $selectedChequeDetails['remaining_amount'] }})">
@@ -241,7 +241,12 @@
                                                 <div class="col-md-6 mb-2">
                                                     <div class="premium-form-group @error('amount') is-invalid-premium @enderror">
                                                         <label for="amount" class="font-weight-bold">{!! __('payments.amount') !!} <span class="text-danger">*</span></label>
-                                                        <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount" wire:model.live.debounce.250ms="amount" placeholder="0.00" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
+                                                        <div class="input-group premium-input-group">
+                                                            <input type="number" step="0.01" class="form-control premium-input shadow-none border-right-0" id="amount" wire:model.live.debounce.250ms="amount" placeholder="0.00" {{ !$contract_id ? 'disabled' : '' }} autocomplete="off">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text bg-white border-left-0 text-muted">{{ currency() }}</span>
+                                                            </div>
+                                                        </div>
                                                         @error('amount') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
@@ -286,21 +291,21 @@
                                                 <div class="smart-balance-card mb-3">
                                                     <div class="smart-balance-header d-flex justify-content-between align-items-center mb-2">
                                                         <span class="font-weight-bold text-dark">{!! __('contracts.total_amount') !!}</span>
-                                                        <span class="font-weight-bold text-dark" style="font-size: 1.1rem;">{{ number_format($financials['total_amount'], 2) }}</span>
+                                                        <span class="font-weight-bold text-dark" style="font-size: 1.1rem;">{{ number_format($financials['total_amount'], 2) }} {{ currency() }}</span>
                                                     </div>
                                                     
                                                     <div class="smart-balance-breakdown">
                                                         <div class="breakdown-item paid-item">
                                                             <div class="breakdown-label"><i class="fas fa-check-circle mr-1"></i> {!! __('payments.paid_amount') !!}</div>
-                                                            <div class="breakdown-value">{{ number_format($financials['paid_amount'], 2) }}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['paid_amount'], 2) }} {{ currency() }}</div>
                                                         </div>
                                                         <div class="breakdown-item covered-item">
                                                             <div class="breakdown-label"><i class="fas fa-shield-alt mr-1"></i> {!! __('payments.covered_by_cheques') !!}</div>
-                                                            <div class="breakdown-value">{{ number_format($financials['covered_by_cheques'], 2) }}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['covered_by_cheques'], 2) }} {{ currency() }}</div>
                                                         </div>
                                                         <div class="breakdown-item uncovered-item {{ $financials['uncovered_debt'] > 0 ? 'has-debt' : '' }}">
                                                             <div class="breakdown-label"><i class="fas fa-exclamation-circle mr-1"></i> {!! __('cheques.uncovered_debt') !!}</div>
-                                                            <div class="breakdown-value">{{ number_format($financials['uncovered_debt'], 2) }}</div>
+                                                            <div class="breakdown-value">{{ number_format($financials['uncovered_debt'], 2) }} {{ currency() }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,12 +389,12 @@
                                                                     <div class="cheque-card-body">
                                                                         <div class="cheque-amount-display">
                                                                             <span class="amount-label">{!! __('payments.total_amount') !!}:</span>
-                                                                            <span class="amount-value">{{ number_format($chq->amount, 2) }}</span>
+                                                                            <span class="amount-value">{{ number_format($chq->amount, 2) }} {{ currency() }}</span>
                                                                         </div>
                                                                         @if($chq->remaining_amount > 0)
                                                                             <div class="cheque-amount-display available">
                                                                                 <span class="amount-label text-success">{!! __('payments.available_for_cashing') !!}:</span>
-                                                                                <span class="amount-value text-success font-weight-bold">{{ number_format($chq->remaining_amount, 2) }}</span>
+                                                                                <span class="amount-value text-success font-weight-bold">{{ number_format($chq->remaining_amount, 2) }} {{ currency() }}</span>
                                                                             </div>
                                                                             <!-- Mini Progress for Cheque -->
                                                                             <div class="cheque-mini-progress mt-1">

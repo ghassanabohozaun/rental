@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-center align-items-center mb-0">
     <div class="btn-group" role="group">
+        @can('bank_accounts_update')
         <!-- Edit -->
         <a href="javascript:void(0)" 
             data-id="{!! $account->id !!}" 
@@ -16,6 +17,7 @@
             title="{!! __('general.edit') !!}">
             <i class="fas fa-edit"></i>
         </a>
+        @endcan
 
         <!-- Delete -->
         @can('bank_accounts_delete')

@@ -194,4 +194,34 @@ class PropertyController extends Controller
         );
         return response()->json($data);
     }
+
+    public function getFiltersByCompany(Request $request)
+    {
+        $companyId = $request->get('company_id');
+
+        $typesQuery = PropertyType::active();
+        $statusesQuery = PropertyStatus::active();
+
+        if ($companyId) {
+            $typesQuery->where(function($q) use ($companyId) {
+                $q->where('company_id', $companyId)->orWhereNull('company_id');
+            });
+            $statusesQuery->where(function($q) use ($companyId) {
+                $q->where('company_id', $companyId)->orWhereNull('company_id');
+            });
+        }
+
+        $types = $typesQuery->get()->unique('name')->values()->map(function($t) {
+            return ['id' => $t->id, 'name' => $t->name];
+        });
+
+        $statuses = $statusesQuery->get()->unique('name')->values()->map(function($s) {
+            return ['id' => $s->id, 'name' => $s->name];
+        });
+
+        return response()->json([
+            'types' => $types,
+            'statuses' => $statuses
+        ]);
+    }
 }

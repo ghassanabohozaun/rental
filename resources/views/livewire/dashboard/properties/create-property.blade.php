@@ -1,10 +1,10 @@
 <div class="content-wrapper">
     <!-- begin: content header -->
-    <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12 mb-2">
+    <div class="content-header row align-items-center mb-2">
+        <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
-                    <ol class="breadcrumb premium-breadcrumb">
+                    <ol class="breadcrumb premium-breadcrumb shadow-sm">
                         <li class="breadcrumb-item"><a href="{!! route('dashboard.index') !!}"><i class="fas fa-home"></i>
                                 {!! __('dashboard.home') !!}</a></li>
                         <li class="breadcrumb-item"><a href="{!! route('dashboard.properties.index') !!}">{!! __('properties.properties') !!}</a></li>
@@ -20,7 +20,7 @@
                 </a>
                 <button type="button" wire:click="store" class="btn btn-premium-save">
                     <i wire:loading.remove wire:target="store" class="fas fa-save mr-2"></i>
-                    <i wire:loading wire:target="store" class="fas fa-sync fa-spin mr-2"></i>
+                    <i wire:loading wire:target="store" class="fas fa-spinner fa-spin mr-2"></i>
                     {!! __('general.save') !!}
                 </button>
             </div>
@@ -449,143 +449,88 @@
                         </div>
                     </div>
 
-                    <!-- Row for Attachments -->
+
+
+                    <!-- Row for Property Attachments Repeater -->
                     <div class="card premium-card mb-2 premium-card-anim">
-                        <div class="premium-mandatory-header py-2 border-bottom-0">
+                        <div class="premium-mandatory-header py-2 border-bottom-0 d-flex justify-content-between align-items-center">
                             <div class="title-wrapper">
                                 <i class="fas fa-paperclip"></i>
-                                <span class="font-weight-bold">{!! __('properties.attachments') !!}</span>
+                                <span class="font-weight-bold">{!! __('properties.property_attachments') !!}</span>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" wire:click.prevent="addAttachment" class="btn-premium-add-guarantor" title="{{ __('properties.add_attachment') }}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4 mb-2">
-                                    <div class="premium-form-group">
-                                        <div class="premium-label d-flex align-items-center">
-                                            <span class="mr-1">{!! __('properties.rental_contract_original') !!}</span>
-                                            <div class="file-action-buttons">
-                                                @if ($rental_contract_original)
-                                                    <button type="button"
-                                                        wire:click="resetFile('rental_contract_original')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}"><i
-                                                            class="fas fa-times"></i></button>
-                                                @endif
+                            <div id="attachments-container">
+                                @forelse ($property_attachments as $index => $attachment)
+                                    <div class="maintenance-item-row align-all-items-row row align-items-start mb-2 pb-2 border-bottom" wire:key="attachment-{{ $index }}">
+                                        <div class="col-md-5">
+                                            <div class="premium-form-group mb-0 @error('property_attachments.'.$index.'.name') is-invalid-premium @enderror">
+                                                <label class="premium-label">{!! __('properties.attachment_name') !!} <span class="text-danger">*</span></label>
+                                                <input type="text" wire:model.defer="property_attachments.{{ $index }}.name" class="form-control premium-input shadow-none" placeholder="{!! __('properties.enter_attachment_name') !!}">
+                                                @error('property_attachments.'.$index.'.name')
+                                                    <span class="text-danger error-text">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('rental_contract_original')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="rental_contract_original"
-                                                class="d-none" id="rental_contract_original">
-                                            <label for="rental_contract_original"
-                                                class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-contract text-primary"></i></div>
-                                                        <span class="file-name text-muted">
-                                                            @if ($rental_contract_original)
-                                                                {{ $rental_contract_original->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
-                                                        </span>
+                                        <div class="col-md-6">
+                                            <div class="premium-form-group mb-0 @error('property_attachments.'.$index.'.file') is-invalid-premium @enderror">
+                                                <label class="premium-label">{!! __('properties.attachment') !!} <span class="text-danger">*</span></label>
+                                                <div class="d-flex align-items-center w-100">
+                                                    <div class="premium-file-upload-wrapper mt-0">
+                                                        <input type="file" wire:model="property_attachments.{{ $index }}.file" class="d-none" id="attachment_{{ $index }}" accept=".jpg,.jpeg,.png,.pdf">
+                                                        <label for="attachment_{{ $index }}" class="premium-file-label w-100 mb-0">
+                                                            <div class="premium-file-box premium-file-box-match w-100 d-flex align-items-center justify-content-between">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="file-icon-box"><i class="fas fa-paperclip text-primary"></i></div>
+                                                                    <span class="file-name text-muted text-truncate d-inline-block">
+                                                                        @if (!empty($attachment['file']))
+                                                                            {{ $attachment['file']->getClientOriginalName() }}
+                                                                        @else
+                                                                            {!! __('general.choose_file') !!}
+                                                                        @endif
+                                                                    </span>
+                                                                </div>
+                                                                <span class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
+                                                            </div>
+                                                        </label>
                                                     </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
+                                                    @if (!empty($attachment['file']) && in_array(strtolower($attachment['file']->extension()), ['png', 'jpg', 'jpeg']))
+                                                        <div class="file-preview-container mx-1 d-flex align-items-center">
+                                                            <img src="{{ $attachment['file']->temporaryUrl() }}" class="img-thumbnail shadow-sm" style="height: 30px; max-height: 30px; object-fit: cover; border-radius: 4px; margin-top: 0; padding: 1px;">
+                                                        </div>
+                                                    @elseif(!empty($attachment['file']) && strtolower($attachment['file']->extension()) == 'pdf')
+                                                        <div class="file-preview-container mx-1 d-flex align-items-center">
+                                                            <span class="browse-badge browse-badge-info" style="height: 24px; line-height: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.7rem; text-transform: none; letter-spacing: 0; margin-top: 0; padding: 0 8px; border-radius: 4px; font-weight: 600;"><i class="fas fa-file-pdf"></i> PDF</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                            </label>
-                                        </div>
-                                        @error('rental_contract_original')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <div class="premium-form-group">
-                                        <div class="premium-label d-flex align-items-center">
-                                            <span class="mr-1">{!! __('properties.building_completion_certificate') !!}</span>
-                                            <div class="file-action-buttons">
-                                                @if ($building_completion_certificate)
-                                                    <button type="button"
-                                                        wire:click="resetFile('building_completion_certificate')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}"><i
-                                                            class="fas fa-times"></i></button>
-                                                @endif
+                                                @error('property_attachments.'.$index.'.file')
+                                                    <span class="text-danger error-text">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('building_completion_certificate')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="building_completion_certificate"
-                                                class="d-none" id="building_completion_certificate">
-                                            <label for="building_completion_certificate"
-                                                class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-pdf text-danger"></i></div>
-                                                        <span class="file-name text-muted">
-                                                            @if ($building_completion_certificate)
-                                                                {{ $building_completion_certificate->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-danger">{!! __('general.browse') !!}</span>
+                                        <div class="col-md-1 text-center">
+                                            <div class="premium-form-group mb-0">
+                                                <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">Delete</label>
+                                                <div class="d-flex align-items-center justify-content-center action-btn-wrapper">
+                                                    <button type="button" wire:click.prevent="removeAttachment({{ $index }})" class="btn-premium-action btn-premium-action-danger remove-item-btn shadow-none" title="{!! __('general.delete') !!}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
                                                 </div>
-                                            </label>
-                                        </div>
-                                        @error('building_completion_certificate')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <div class="premium-form-group">
-                                        <div class="premium-label d-flex align-items-center">
-                                            <span class="mr-1">{!! __('properties.other_documents') !!}</span>
-                                            <div class="file-action-buttons">
-                                                @if ($other_documents)
-                                                    <button type="button" wire:click="resetFile('other_documents')"
-                                                        class="btn-file-action btn-delete-file"
-                                                        title="{!! __('general.remove') !!}"><i
-                                                            class="fas fa-times"></i></button>
-                                                @endif
                                             </div>
                                         </div>
-                                        <div
-                                            class="premium-file-upload-wrapper @if ($errors->has('other_documents')) is-invalid-premium @endif">
-                                            <input type="file" wire:model="other_documents" class="d-none"
-                                                id="other_documents">
-                                            <label for="other_documents" class="premium-file-label w-100 mb-0">
-                                                <div
-                                                    class="premium-file-box d-flex align-items-center justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="file-icon-box"><i
-                                                                class="fas fa-file-alt text-info"></i></div>
-                                                        <span class="file-name text-muted">
-                                                            @if ($other_documents)
-                                                                {{ $other_documents->getClientOriginalName() }}
-                                                            @else
-                                                                {!! __('general.choose_file') !!}
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                    <span
-                                                        class="browse-badge browse-badge-info">{!! __('general.browse') !!}</span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        @error('other_documents')
-                                            <span class="text-danger error-text">{{ $message }}</span>
-                                        @enderror
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="text-center p-3 text-dark font-weight-bold">
+                                        <i class="fas fa-info-circle mr-1 text-primary"></i>
+                                        {!! __('properties.no_attachments_added') !!}
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -662,6 +607,26 @@
         });
         $(function() {
             initSelect2();
+            
+            // File Preview Logic
+            $(document).on('change', '.file-upload-input', function (e) {
+                var file = this.files[0];
+                var $previewContainer = $(this).closest('.premium-form-group').find('.file-preview-container');
+                $previewContainer.empty();
+                
+                if (file) {
+                    var fileType = file.type;
+                    if (fileType.match('image.*')) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            $previewContainer.html('<img src="' + e.target.result + '" class="img-thumbnail shadow-sm" style="height: 30px; max-height: 30px; object-fit: cover; border-radius: 4px; margin-top: 0; padding: 1px;">');
+                        }
+                        reader.readAsDataURL(file);
+                    } else if (fileType === 'application/pdf') {
+                        $previewContainer.html('<span class="browse-badge browse-badge-info" style="height: 24px; line-height: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.7rem; text-transform: none; letter-spacing: 0; margin-top: 0; padding: 0 8px; border-radius: 4px; font-weight: 600;"><i class="fas fa-file-pdf"></i> PDF</span>');
+                    }
+                }
+            });
         });
     </script>
 @endpush

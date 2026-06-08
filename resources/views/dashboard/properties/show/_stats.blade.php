@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <h4 class="font-weight-bolder mb-0 text-warning">
-                        {!! number_format($property->contracts->sum('total_amount'), 2) !!}
+                        {!! number_format($property->contracts->sum('total_amount'), 2) !!} {!! currency() !!}
                     </h4>
                     <p class="card-text text-muted font-small-3 mb-0">{!! __('contracts.total_revenue') ?? 'Total Revenue' !!}</p>
                 </div>

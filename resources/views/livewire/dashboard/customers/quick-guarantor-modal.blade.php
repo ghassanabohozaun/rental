@@ -208,7 +208,7 @@
                         <button type="submit"
                             class="btn btn-premium-save px-4 font-weight-bold">
                             <i wire:loading.remove wire:target="saveQuickGuarantor" class="fas fa-check-circle mr-2"></i>
-                            <i wire:loading wire:target="saveQuickGuarantor" class="fas fa-sync fa-spin mr-2"></i>
+                            <i wire:loading wire:target="saveQuickGuarantor" class="fas fa-spinner fa-spin mr-2"></i>
                             {{ __('guarantors.add_guarantor') }}
                         </button>
                         <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold"

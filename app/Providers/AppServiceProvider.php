@@ -47,37 +47,31 @@ class AppServiceProvider extends ServiceProvider
             'flasher.plugins.toastr.positionClass' => 'toast-' . $position,
         ]);
 
-        // super user
         Gate::before(function ($user, $ability) {
+            // 1. Super Admin bypass
             if ($user->id === 1 || $user->role_id === 1) {
                 return true;
             }
-        });
 
-        $modules = config('global.modules');
-        $operations = config('global.crud_operations');
+            // 2. Exact ability match (e.g. 'reports_properties', 'companies_read')
+            if ($user->hasAbility($ability)) {
+                return true;
+            }
 
-        if ($modules && $operations) {
-            foreach ($modules as $moduleKey => $moduleLangKey) {
-                // Register a base gate for the module (e.g., 'roles') to check if user has ANY permission in it
-                Gate::define($moduleKey, function ($auth) use ($moduleKey, $operations) {
-                    foreach (array_keys($operations) as $opKey) {
-                        if ($auth->hasAbility($moduleKey . '_' . $opKey)) {
-                            return true;
-                        }
-                    }
-                    return false;
+            // 3. Dynamic check for module base gates (e.g. 'reports', 'companies')
+            $role = $user->role;
+            if ($role && $role->permissions) {
+                $hasAnyModulePermission = $role->permissions->contains(function ($perm) use ($ability) {
+                    return str_starts_with($perm->name, $ability . '_');
                 });
 
-                // Register detailed CRUD gates (e.g., 'roles_read', 'roles_create')
-                foreach (array_keys($operations) as $opKey) {
-                    $ability = $moduleKey . '_' . $opKey;
-                    Gate::define($ability, function ($auth) use ($ability) {
-                        return $auth->hasAbility($ability);
-                    });
+                if ($hasAnyModulePermission) {
+                    return true;
                 }
             }
-        }
+
+            return null; // Fallback to other gates/policies if needed
+        });
 
         \Illuminate\Http\Request::macro('hasValidSignature', function ($absolute = true) {
             if ('livewire/upload-file' || 'livewire/preview-file' == request()->path()) {

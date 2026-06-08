@@ -3,11 +3,11 @@
 @section('content')
 <div class="app-content content">
     <div class="content-wrapper">
-        <div class="content-header row">
+        <div class="content-header row align-items-center mb-2">
             <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
-                        <ol class="breadcrumb premium-breadcrumb">
+                        <ol class="breadcrumb premium-breadcrumb shadow-sm">
                             <li class="breadcrumb-item">
                                 <a href="{!! route('dashboard.index') !!}">
                                     <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -22,10 +22,12 @@
             </div>
             <div class="content-header-right col-md-6 col-12 text-md-right">
                 <div class="mb-1">
+                    @can('contract_clauses_create')
                     <a href="{{ route('dashboard.contract_clause_templates.create') }}" class="btn btn-premium-add shadow-pulse">
                         <i class="fas fa-plus-circle"></i> 
                         {!! __('contracts.add_new_clause') !!}
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

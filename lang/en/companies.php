@@ -29,6 +29,7 @@ return [
     'created_by' => 'Created By',
     'cannot_delete_has_users' => 'Cannot delete this company because it has active users linked to it.',
     'cannot_delete_has_bank_accounts' => 'Cannot delete this company because it has bank accounts linked to it.',
+    'cannot_delete_bank_account_linked_to_cheques' => 'Cannot delete this bank account because it is linked to cheques.',
     'cannot_delete_has_properties' => 'Cannot delete this company because it has properties linked to it.',
     'cannot_delete_has_departments' => 'Cannot delete this company because it has departments linked to it.',
     'cannot_delete_has_property_types' => 'Cannot delete this company because it has property types linked to it.',

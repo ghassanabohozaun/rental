@@ -8,10 +8,14 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.bank_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.account_number') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('bank_accounts.account_holder_name') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('bank_accounts.account_holder_name') !!}
+                </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.is_default') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}
+                </th>
+                @if (auth()->user()->can('bank_accounts_update') || auth()->user()->can('bank_accounts_delete'))
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -31,7 +35,8 @@
 
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
-                                        <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
+                                        <div
+                                            class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
                                             <i class="fas fa-university font-40"></i>
                                         </div>
                                     </div>
@@ -48,7 +53,7 @@
                                             <span class="detail-info-value text-muted"># {!! $account->id !!}</span>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-user"></i></div>
                                         <div class="detail-info-box text-left">
@@ -57,14 +62,15 @@
                                         </div>
                                     </div>
 
-                                    @if($account->iban)
-                                    <div class="detail-item-modern">
-                                        <div class="icon-circle"><i class="fas fa-barcode"></i></div>
-                                        <div class="detail-info-box text-left">
-                                            <span class="detail-info-label">{!! __('bank_accounts.iban') !!}</span>
-                                            <span class="detail-info-value text-muted" dir="ltr">{!! $account->formatted_iban !!}</span>
+                                    @if ($account->iban)
+                                        <div class="detail-item-modern">
+                                            <div class="icon-circle"><i class="fas fa-barcode"></i></div>
+                                            <div class="detail-info-box text-left">
+                                                <span class="detail-info-label">{!! __('bank_accounts.iban') !!}</span>
+                                                <span class="detail-info-value text-muted"
+                                                    dir="ltr">{!! $account->formatted_iban !!}</span>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                     <div class="detail-item-modern">
@@ -72,7 +78,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value text-muted small">
-                                                <span class="badge badge-light-primary border-0">{!! $account->company->name ?? '---' !!}</span>
+                                                <span
+                                                    class="badge badge-light-primary border-0">{!! $account->company->name ?? '---' !!}</span>
                                             </span>
                                         </div>
                                     </div>
@@ -83,7 +90,8 @@
                                             <span class="detail-info-label">{!! __('bank_accounts.is_default') !!}</span>
                                             <div class="detail-info-value mt-1">
                                                 @if ($account->is_default)
-                                                    <span class="badge badge-success badge-glow badge-pill px-2">{!! __('bank_accounts.is_default') !!}</span>
+                                                    <span
+                                                        class="badge badge-success badge-glow badge-pill px-2">{!! __('bank_accounts.is_default') !!}</span>
                                                 @else
                                                     <span class="text-muted">---</span>
                                                 @endif
@@ -120,13 +128,13 @@
 
                     <!-- Bank Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">{!! $account->bank_name !!}</td>
-                    
+
                     <!-- Account Number -->
                     <td class="text-center align-middle font-weight-bold" dir="ltr">{!! $account->account_number !!}</td>
-                    
+
                     <!-- Account Holder -->
                     <td class="text-center align-middle d-none d-xl-table-cell">{!! $account->account_holder_name !!}</td>
-                    
+
                     <!-- Is Default -->
                     <td class="text-center align-middle">
                         @if ($account->is_default)
@@ -141,13 +149,15 @@
                     </td>
 
                     <!-- Actions -->
-                    <td class="text-center align-middle">
-                        @include('dashboard.bank_accounts.parts.actions')
-                    </td>
+                    @if (auth()->user()->can('bank_accounts_update') || auth()->user()->can('bank_accounts_delete'))
+                        <td class="text-center align-middle">
+                            @include('dashboard.bank_accounts.parts.actions')
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('bank_accounts.no_bank_accounts_found') !!}
                     </td>
                 </tr>
@@ -159,5 +169,3 @@
         {!! $bankAccounts->links() !!}
     </div>
 </div>
-
-

@@ -25,7 +25,9 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
+                @if(auth()->user()->can('contracts_read') || auth()->user()->can('contracts_update') || auth()->user()->can('contracts_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -100,7 +102,7 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.rent_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-success">{!! number_format($contract->rent_amount, 2) !!}</span>
+                                                class="detail-info-value font-weight-bold text-success">{!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -109,7 +111,7 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.paid_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-info">{!! number_format($contract->paid_amount, 2) !!}</span>
+                                                class="detail-info-value font-weight-bold text-info">{!! number_format($contract->paid_amount, 2) !!} {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -118,7 +120,7 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.remaining_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-danger">{!! number_format($contract->remaining_amount, 2) !!}</span>
+                                                class="detail-info-value font-weight-bold text-danger">{!! number_format($contract->remaining_amount, 2) !!} {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -127,7 +129,7 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.deposit_amount') !!}</span>
                                             <div class="detail-info-value d-flex flex-column">
-                                                <span class="font-weight-bold text-dark">{!! number_format($contract->deposit_amount, 2) !!}</span>
+                                                <span class="font-weight-bold text-dark">{!! number_format($contract->deposit_amount, 2) !!} {!! currency() !!}</span>
                                                 <div class="d-flex align-items-center gap-1 mt-25">
                                                     <span
                                                         class="badge badge-light-{!! $contract->deposit_type == 'cheque' ? 'primary' : 'success' !!} border-0 font-10 px-1 py-0">
@@ -199,7 +201,7 @@
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
                         <div class="premium-financial-box box-primary-light shadow-none">
                             <span class="font-weight-bolder font-16 text-dark-premium d-block">
-                                {!! number_format($contract->rent_amount, 2) !!}
+                                {!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}
                             </span>
                         </div>
                     </td>
@@ -208,7 +210,7 @@
                     <td class="text-center align-middle d-none d-xl-table-cell py-3">
                         <div class="premium-financial-box box-success shadow-none">
                             <span class="font-weight-bold font-15 d-block text-success-premium">
-                                {!! number_format($contract->paid_amount, 2) !!}
+                                {!! number_format($contract->paid_amount, 2) !!} {!! currency() !!}
                             </span>
                         </div>
                     </td>
@@ -219,7 +221,7 @@
                         <div class="premium-financial-box {{ $hasDebt ? 'box-danger' : 'box-success' }} shadow-none">
                             <span
                                 class="font-weight-bold font-15 d-block {{ $hasDebt ? 'text-danger-premium' : 'text-success-premium' }}">
-                                {!! number_format($contract->remaining_amount, 2) !!}
+                                {!! number_format($contract->remaining_amount, 2) !!} {!! currency() !!}
                             </span>
                         </div>
                     </td>
@@ -255,7 +257,7 @@
 
                                 {{-- Amount --}}
                                 <span class="font-weight-bold font-15 mb-25 text-dark-premium">
-                                    {!! number_format($contract->deposit_amount, 2) !!}
+                                    {!! number_format($contract->deposit_amount, 2) !!} {!! currency() !!}
                                 </span>
 
                                 {{-- Cheque Number & Status --}}
@@ -327,13 +329,15 @@
                     </td>
 
                     <!-- Actions -->
+                    @if(auth()->user()->can('contracts_read') || auth()->user()->can('contracts_update') || auth()->user()->can('contracts_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.contracts.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="11" class="text-center p-4 text-muted">
+                    <td colspan="100%" class="text-center p-4 text-muted">
                         <div class="d-flex flex-column align-items-center">
                             <i class="fas fa-info-circle mb-1 font-40 opacity-5"></i>
                             <span>{!! __('contracts.no_contracts_found') !!}</span>

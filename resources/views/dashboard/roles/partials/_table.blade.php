@@ -7,9 +7,13 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('roles.role_name') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.created_by') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.description') !!}</th>
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.created_by') !!}
+                </th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.description') !!}
+                </th>
+                @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -29,7 +33,8 @@
 
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
-                                        <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-premium-gradient">
+                                        <div
+                                            class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-premium-gradient">
                                             <i class="fas fa-shield-alt font-40"></i>
                                         </div>
                                     </div>
@@ -52,10 +57,12 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                             <span class="detail-info-value">
-                                                @if($role->company_id)
-                                                    <span class="badge badge-light-primary border-0">{!! optional($role->company)->name !!}</span>
+                                                @if ($role->company_id)
+                                                    <span
+                                                        class="badge badge-light-primary border-0">{!! optional($role->company)->name !!}</span>
                                                 @else
-                                                    <span class="badge badge-light-warning border-0">{!! __('roles.global_role') !!}</span>
+                                                    <span
+                                                        class="badge badge-light-warning border-0">{!! __('roles.global_role') !!}</span>
                                                 @endif
                                             </span>
                                         </div>
@@ -65,7 +72,8 @@
                                         <div class="icon-circle"><i class="fas fa-info-circle"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('roles.description') !!}</span>
-                                            <span class="detail-info-value text-muted small">{!! $role->description ?? '---' !!}</span>
+                                            <span
+                                                class="detail-info-value text-muted small">{!! $role->description ?? '---' !!}</span>
                                         </div>
                                     </div>
 
@@ -98,7 +106,7 @@
 
                     <!-- Company -->
                     <td class="text-center align-middle">
-                        @if($role->company_id)
+                        @if ($role->company_id)
                             <a href="javascript:void(0)" class="company-chip">
                                 <i class="fas fa-briefcase mr-1"></i>
                                 {!! optional($role->company)->name !!}
@@ -124,7 +132,7 @@
 
                     <!-- Description (Desktop Only) -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        @if($role->description)
+                        @if ($role->description)
                             <span class="text-muted">{!! Str::limit($role->description, 30) !!}</span>
                         @else
                             <span class="text-muted">---</span>
@@ -132,13 +140,15 @@
                     </td>
 
                     <!-- Actions -->
-                    <td class="text-center align-middle">
-                        @include('dashboard.roles.parts.actions')
-                    </td>
+                    @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
+                        <td class="text-center align-middle">
+                            @include('dashboard.roles.parts.actions')
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('roles.no_roles_found') !!}
                     </td>
                 </tr>
@@ -150,5 +160,3 @@
         {!! $roles->links() !!}
     </div>
 </div>
-
-

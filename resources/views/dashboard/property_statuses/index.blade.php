@@ -29,11 +29,13 @@
 
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-premium-add shadow-pulse h-42 radius-10" data-toggle="modal"
-                            data-target="#createproperty_statusModal">
-                            <i class="fas fa-plus-circle mr-1"></i>
-                            {!! __('property_statuses.create_new_property_status') !!}
-                        </button>
+                        @can('property_statuses_create')
+                            <button type="button" class="btn btn-premium-add shadow-pulse h-42 radius-10" data-toggle="modal"
+                                data-target="#createproperty_statusModal">
+                                <i class="fas fa-plus-circle mr-1"></i>
+                                {!! __('property_statuses.create_new_property_status') !!}
+                            </button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -85,9 +87,13 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
-    @include('dashboard.property_statuses.modals.create')
+    @can('property_statuses_create')
+        @include('dashboard.property_statuses.modals.create')
+    @endcan
 
-    @include('dashboard.property_statuses.modals.edit')
+    @can('property_statuses_update')
+        @include('dashboard.property_statuses.modals.edit')
+    @endcan
 
     @include('dashboard.property_statuses.modals.details')
 @endsection
@@ -158,5 +164,3 @@
         });
     </script>
 @endpush
-
-

@@ -10,7 +10,9 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('owners.identification_number') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('owners.name') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('owners.phone') !!}</th>
+                @if(auth()->user()->can('owners_update') || auth()->user()->can('owners_delete'))
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -147,13 +149,15 @@
                         </span>
                     </td>
 
+                    @if(auth()->user()->can('owners_update') || auth()->user()->can('owners_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.owners.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="fas fa-info-circle mr-1"></i> {!! __('owners.no_owners_found') !!}
                     </td>
                 </tr>

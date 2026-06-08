@@ -28,6 +28,11 @@
                 <i class="fas fa-tools"></i> {!! __('maintenances.maintenances') !!}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="attachments-tab" data-toggle="tab" href="#attachments" role="tab">
+                <i class="fas fa-paperclip"></i> {!! __('properties.property_attachments') !!}
+            </a>
+        </li>
     </ul>
 </div>
 

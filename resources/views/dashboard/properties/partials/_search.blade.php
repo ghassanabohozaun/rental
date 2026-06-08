@@ -4,8 +4,9 @@
             <i class="fas fa-filter"></i> {!! __('general.filters') !!}:
         </span>
 
-        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data" data-loader=".table-loader-overlay">
-            
+        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data"
+            data-loader=".table-loader-overlay">
+
             <!-- 1. Property Search (Keyword) -->
             <div class="filter-item">
                 <div class="filter-chip js-filter-chip" data-filter-target="property_search_popover">
@@ -31,27 +32,52 @@
             </div>
 
             <!-- 2. Company Filter (If exists) -->
-            @if(isset($companies) && $companies->count() > 0)
+            @if (isset($companies) && $companies->count() > 0)
+                <div class="filter-item">
+                    <div class="filter-chip js-filter-chip" data-filter-target="company_search_popover">
+                        <i class="fas fa-briefcase text-primary"></i>
+                        <span class="chip-text">{!! __('companies.company') !!}</span>
+                    </div>
+
+                    <div class="ptc-query-panel shadow-lg border-0" id="company_search_popover"
+                        style="min-width: 280px;">
+                        <div class="mb-3">
+                            <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
+                            <div class="premium-input-wrapper">
+                                <select name="company_id" id="filter_company_id"
+                                    class="form-control premium-input shadow-none js-select2"
+                                    data-placeholder="{!! __('general.all_companies') !!}" data-parent="#company_search_popover">
+                                    <option value="">{!! __('general.all_companies') !!}</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                                <i class="fas fa-briefcase text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="popover-actions mt-4 text-right">
+                            <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                                <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <!-- 2.1 Electricity Account Filter -->
             <div class="filter-item">
-                <div class="filter-chip js-filter-chip" data-filter-target="company_search_popover">
-                    <i class="fas fa-briefcase text-primary"></i>
-                    <span class="chip-text">{!! __('companies.company') !!}</span>
+                <div class="filter-chip js-filter-chip" data-filter-target="electricity_search_popover">
+                    <i class="fas fa-bolt text-primary"></i>
+                    <span class="chip-text">{!! __('properties.electricity_account_number') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="company_search_popover" style="min-width: 280px;">
+                <div class="ptc-query-panel shadow-lg border-0" id="electricity_search_popover">
                     <div class="mb-3">
-                        <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
+                        <label class="premium-label mb-2">{!! __('properties.electricity_account_number') !!}</label>
                         <div class="premium-input-wrapper">
-                            <select name="company_id" id="filter_company_id" 
-                                class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all_companies') !!}"
-                                data-parent="#company_search_popover">
-                                <option value="">{!! __('general.all_companies') !!}</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
-                            <i class="fas fa-briefcase text-primary"></i>
+                            <input type="text" class="form-control premium-input shadow-none" name="electricity_account_number"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off">
+                            <i class="fas fa-bolt text-primary"></i>
                         </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
@@ -61,7 +87,30 @@
                     </div>
                 </div>
             </div>
-            @endif
+
+            <!-- 2.2 Water Account Filter -->
+            <div class="filter-item">
+                <div class="filter-chip js-filter-chip" data-filter-target="water_search_popover">
+                    <i class="fas fa-tint text-primary"></i>
+                    <span class="chip-text">{!! __('properties.water_account_number') !!}</span>
+                </div>
+
+                <div class="ptc-query-panel shadow-lg border-0" id="water_search_popover">
+                    <div class="mb-3">
+                        <label class="premium-label mb-2">{!! __('properties.water_account_number') !!}</label>
+                        <div class="premium-input-wrapper">
+                            <input type="text" class="form-control premium-input shadow-none" name="water_account_number"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off">
+                            <i class="fas fa-tint text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="popover-actions mt-4 text-right">
+                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <!-- 3. Dependency Filter (Main/Sub) -->
             <div class="filter-item">
@@ -70,14 +119,14 @@
                     <span class="chip-text">{!! __('properties.parent_property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="dependency_search_popover" style="min-width: 280px;">
+                <div class="ptc-query-panel shadow-lg border-0" id="dependency_search_popover"
+                    style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.parent_property') !!}</label>
                         <div class="premium-input-wrapper">
-                            <select name="dependency_status" id="filter_dependency" 
+                            <select name="dependency_status" id="filter_dependency"
                                 class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all') !!}"
-                                data-parent="#dependency_search_popover">
+                                data-placeholder="{!! __('general.all') !!}" data-parent="#dependency_search_popover">
                                 <option value="">{!! __('general.all') !!}</option>
                                 <option value="main">{!! __('properties.standalone_property') !!}</option>
                                 <option value="sub">{!! __('properties.sub_property') !!}</option>
@@ -104,10 +153,9 @@
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.status') !!}</label>
                         <div class="premium-input-wrapper">
-                            <select name="property_status_id" id="filter_status" 
+                            <select name="property_status_id" id="filter_status"
                                 class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all') !!}"
-                                data-parent="#status_search_popover">
+                                data-placeholder="{!! __('general.all') !!}" data-parent="#status_search_popover">
                                 <option value="">{!! __('general.all') !!}</option>
                                 @foreach ($property_statuses as $status)
                                     <option value="{{ $status->id }}">{{ $status->name }}</option>
@@ -135,10 +183,9 @@
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property_type') !!}</label>
                         <div class="premium-input-wrapper">
-                            <select name="property_type_id" id="filter_type" 
+                            <select name="property_type_id" id="filter_type"
                                 class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all') !!}"
-                                data-parent="#type_search_popover">
+                                data-placeholder="{!! __('general.all') !!}" data-parent="#type_search_popover">
                                 <option value="">{!! __('general.all') !!}</option>
                                 @foreach ($property_types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -199,5 +246,3 @@
 @push('scripts')
     <script src="{!! asset('assets/dashbaord/js/filter-system.js') !!}"></script>
 @endpush
-
-

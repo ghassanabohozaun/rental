@@ -22,12 +22,31 @@ class PropertyTypeRequest extends FormRequest
      */
     public function rules(): array
     {
+        $companyId = user()->company_id == 1 ? $this->input('company_id') : user()->company_id;
+
         $rules = [
-            'name.*' => ['required', 'string', 'max:100', UniqueTranslationRule::for('property_types')->ignore($this->id)],
+            'name.*' => [
+                'required', 'string', 'max:100',
+                function ($attribute, $value, $fail) use ($companyId) {
+                    $locale = explode('.', $attribute)[1];
+                    $exists = \App\Models\PropertyType::where("name->{$locale}", $value)
+                        ->where(function($q) use ($companyId) {
+                            $q->whereNull('company_id')->orWhere('company_id', $companyId);
+                        })
+                        ->when($this->id, function($q) {
+                            $q->where('id', '!=', $this->id);
+                        })
+                        ->exists();
+
+                    if ($exists) {
+                        $fail(__('validation.unique', ['attribute' => __('property_types.name')]));
+                    }
+                }
+            ],
         ];
 
         if (user()->company_id == 1) {
-            $rules['company_id'] = ['required', 'exists:companies,id'];
+            $rules['company_id'] = ['nullable', 'exists:companies,id'];
         }
 
         return $rules;

@@ -9,6 +9,8 @@ return [
     'auth_welcome_section' => 'Auth Welcome Screen Content',
 
     // Fields
+    'currency' => 'Default Currency',
+    'select_currency' => 'Select Default Currency',
     'site_name_ar' => 'Website Name (Arabic)',
     'site_name_en' => 'Website Name (English)',
     'address_ar' => 'Website Address (Arabic)',

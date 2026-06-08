@@ -226,7 +226,7 @@
                         <button type="submit"
                             class="btn btn-premium-save px-4 font-weight-bold">
                             <i wire:loading.remove wire:target="saveQuickOwner" class="fas fa-check-circle mr-2"></i>
-                            <i wire:loading wire:target="saveQuickOwner" class="fas fa-sync fa-spin mr-2"></i>
+                            <i wire:loading wire:target="saveQuickOwner" class="fas fa-spinner fa-spin mr-2"></i>
                             {!! __('properties.add_owner') !!}
                         </button>
                         <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold"

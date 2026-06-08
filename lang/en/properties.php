@@ -116,4 +116,12 @@ return [
     'owner_name_ar' => 'Owner Name (Arabic)',
     'owner_name_en' => 'Owner Name (English)',
     'phone' => 'Phone Number',
+    
+    // Property Attachments Repeater
+    'property_attachments' => 'Property Attachments',
+    'add_attachment' => 'Add Attachment',
+    'attachment_name' => 'Attachment Name',
+    'attachment' => 'Attachment (File)',
+    'enter_attachment_name' => 'Enter attachment name...',
+    'no_attachments_added' => 'No attachments added yet.',
 ];

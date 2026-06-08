@@ -29,7 +29,7 @@
                     </div>
                     <div>
                         <span class="detail-label d-block text-muted small">{!! __('cheques.amount') !!}</span>
-                        <span class="detail-value font-weight-bold text-primary h5 mb-0">{!! number_format($cheque->amount, 2) !!}</span>
+                        <span class="detail-value font-weight-bold text-primary h5 mb-0">{!! number_format($cheque->amount, 2) !!} {!! currency() !!}</span>
                     </div>
                 </div>
             </div>

@@ -94,8 +94,12 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
+    @can('owners_create')
     @include('dashboard.owners.modals.create')
+    @endcan
+    @can('owners_update')
     @include('dashboard.owners.modals.edit')
+    @endcan
     @include('dashboard.owners.modals.details')
 @endsection
 @push('scripts')

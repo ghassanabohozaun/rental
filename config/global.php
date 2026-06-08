@@ -16,6 +16,7 @@ return [
         'customers' => 'global.customers',
         'maintenances' => 'global.maintenances',
         'contracts' => 'global.contracts',
+        'contract_clauses' => 'global.contract_clauses',
         'cheques' => 'global.cheques',
         'payments' => 'global.payments',
         'reports' => 'global.reports',
@@ -25,6 +26,13 @@ return [
     'custom_operations' => [
         'reports' => [
             'properties' => 'reports.properties_reports',
+        ],
+        'cheques' => [
+            'read'   => 'general.show',
+            'create' => 'general.add',
+            'update' => 'general.update',
+            'delete' => 'general.delete',
+            'import' => 'cheques.import_cheques',
         ],
     ],
 
@@ -45,6 +53,7 @@ return [
         'customers' => 'fas fa-user-tie fa-fw',
         'maintenances' => 'fas fa-tools fa-fw',
         'contracts' => 'fas fa-file-contract fa-fw',
+        'contract_clauses' => 'fas fa-file-invoice fa-fw',
         'cheques' => 'fas fa-money-check-alt fa-fw',
         'payments' => 'fas fa-file-invoice-dollar fa-fw',
         'reports' => 'fas fa-chart-line fa-fw',

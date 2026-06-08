@@ -32,4 +32,5 @@ return [
     'attachment' => 'المرفق',
     'view_current_attachment' => 'عرض المرفق الحالي',
     'total_cost' => 'التكلفة الإجمالية',
+    'no_maintenance_items_added' => 'لم يتم إضافة أي بند صيانة بعد.',
 ];

@@ -2,6 +2,7 @@
 return [
     'reports' => 'Reports',
     'properties_reports' => 'Properties Reports',
+    'properties_reports_desc' => 'View and analyze detailed reports of all properties, their statuses, and associated revenues.',
     'export_excel' => 'Export as Excel',
     'select_columns' => 'Select columns to export',
     'search_filters' => 'Advanced Search Filters',

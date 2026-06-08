@@ -14,7 +14,9 @@
                 @can('customers_update')
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{{ __('general.manage_status') }}</th>
                 @endcan
+                @if(auth()->user()->can('customers_read') || auth()->user()->can('customers_update') || auth()->user()->can('customers_delete'))
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{{ __('general.actions') }}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -144,13 +146,15 @@
                         </td>
                     @endcan
 
+                    @if(auth()->user()->can('customers_read') || auth()->user()->can('customers_update') || auth()->user()->can('customers_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.customers.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="11" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="fas fa-info-circle mr-1"></i> {{ __('customers.no_customers_found') }}
                     </td>
                 </tr>

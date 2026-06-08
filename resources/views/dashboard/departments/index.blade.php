@@ -29,11 +29,13 @@
 
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
+                        @can('departments_create')
                         <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                             data-target="#createDepartmentModal">
                             <i class="fas fa-plus-circle"></i>
                             {!! __('departments.create_new_department') !!}
                         </button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -85,9 +87,13 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
+    @can('departments_create')
     @include('dashboard.departments.modals.create')
+    @endcan
 
+    @can('departments_update')
     @include('dashboard.departments.modals.edit')
+    @endcan
 
     @include('dashboard.departments.modals.details')
 @endsection

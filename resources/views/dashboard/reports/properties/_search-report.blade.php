@@ -15,6 +15,23 @@
     <div class="card-content collapse show">
         <div class="card-body">
             <div class="row">
+                
+                <!-- Company Filter -->
+                @if (isset($companies) && $companies->count() > 0)
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="company_id" class="premium-label mb-0">
+                                <i class="fas fa-briefcase text-muted"></i> {!! __('companies.company') !!}
+                            </label>
+                            <select class="form-control js-select2" id="filter_company_id" name="company_id">
+                                <option value="">{!! __('general.all_companies') !!}</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Select Owners (Single/Multi) -->
                 <div class="col-md-12">

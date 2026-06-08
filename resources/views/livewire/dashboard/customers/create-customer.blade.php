@@ -1,10 +1,10 @@
 <div class="content-wrapper">
     <!-- begin: content header -->
-    <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12 mb-2">
+    <div class="content-header row align-items-center mb-2">
+        <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
-                    <ol class="breadcrumb premium-breadcrumb">
+                    <ol class="breadcrumb premium-breadcrumb shadow-sm">
                         <li class="breadcrumb-item"><a href="{!! route('dashboard.index') !!}"><i class="fas fa-home"></i>
                                 {!! __('dashboard.home') !!}</a></li>
                         <li class="breadcrumb-item"><a href="{!! route('dashboard.customers.index') !!}">{!! __('customers.customers') !!}</a></li>
@@ -20,7 +20,7 @@
                 </a>
                 <button type="button" wire:click="store" class="btn btn-premium-save">
                     <i wire:loading.remove wire:target="store" class="fas fa-save mr-2"></i>
-                    <i wire:loading wire:target="store" class="fas fa-sync fa-spin mr-2"></i>
+                    <i wire:loading wire:target="store" class="fas fa-spinner fa-spin mr-2"></i>
                     {!! __('general.save') !!}
                 </button>
             </div>

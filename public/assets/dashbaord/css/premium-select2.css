@@ -234,7 +234,8 @@ div.is-invalid-premium .select2-container--default.select2-container--focus .sel
 /* Definitive Error Glow Fix for all Premium Inputs */
 .premium-form-group.is-invalid-premium .select2-container--default .select2-selection--single,
 .is-invalid-premium .premium-input,
-.premium-input.is-invalid-premium {
+.premium-input.is-invalid-premium,
+.premium-form-group.is-invalid-premium .premium-file-box {
     border: 1.5px solid #ef4444 !important;
     background-color: #fff5f5 !important;
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;

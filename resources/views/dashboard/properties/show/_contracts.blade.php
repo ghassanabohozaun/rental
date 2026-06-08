@@ -33,8 +33,8 @@
                             <td class="py-2">{!! $contract->start_date->format('Y-m-d') !!}</td>
                             <td class="py-2">{!! $contract->end_date->format('Y-m-d') !!}</td>
                             <td class="py-2">{!! $contract->contract_duration_months ?? '---' !!}</td>
-                            <td class="py-2 font-weight-bold text-primary">{!! number_format($contract->rent_amount, 2) !!}</td>
-                            <td class="py-2 font-weight-bold text-success">{!! number_format($contract->total_amount, 2) !!}</td>
+                            <td class="py-2 font-weight-bold text-primary">{!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}</td>
+                            <td class="py-2 font-weight-bold text-success">{!! number_format($contract->total_amount, 2) !!} {!! currency() !!}</td>
                             <td class="py-2 text-center">
                                 @php
                                     $cStatusColor = 'success';

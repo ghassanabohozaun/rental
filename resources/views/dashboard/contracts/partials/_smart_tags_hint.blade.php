@@ -133,6 +133,8 @@
                                 ['label' => __('contracts.tag_property_type'), 'tag' => '${property_type}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_property_floor'), 'tag' => '${property_floor}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_property_description'), 'tag' => '${property_description}', 'color' => 'danger'],
+                                ['label' => __('contracts.tag_electricity_account_number'), 'tag' => '${electricity_account_number}', 'color' => 'danger'],
+                                ['label' => __('contracts.tag_water_account_number'), 'tag' => '${water_account_number}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_unit_rent_amount'), 'tag' => '${unit_rent_amount}', 'color' => 'danger'],
                                 ['label' => __('contracts.tag_unit_deposit_amount'), 'tag' => '${unit_deposit_amount}', 'color' => 'danger'],
                             ];

@@ -6,9 +6,8 @@
                 <i class="fas fa-tools text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('maintenances.maintenances') !!}
             </h5>
             @can('maintenances_create')
-            <a href="{!! route('dashboard.maintenances.index') !!}?property_id={!! $property->id !!}" class="text-primary font-weight-bold hover-scale d-flex align-items-center" style="text-decoration: none;">
-                <i class="fas fa-plus-circle font-medium-3 ml-1"></i>
-                <span class="font-small-3">{!! __('maintenances.add_maintenance') !!}</span>
+            <a href="{!! route('dashboard.maintenances.index') !!}?property_id={!! $property->id !!}" class="btn btn-sm btn-light-primary radius-10">
+                <i class="fas fa-plus-circle mr-1"></i> {!! __('maintenances.add_maintenance') !!}
             </a>
             @endcan
         </div>
@@ -33,7 +32,7 @@
                                 <div class="font-weight-bold">{!! Str::limit($maintenance->description, 50) !!}</div>
                             </td>
                             <td class="py-2">{!! $maintenance->date !!}</td>
-                            <td class="py-2 font-weight-bold text-danger">{!! number_format($maintenance->cost, 2) !!}</td>
+                            <td class="py-2 font-weight-bold text-danger">{!! number_format($maintenance->cost, 2) !!} {!! currency() !!}</td>
                             <td class="py-2 text-center">
                                 @php
                                     $mStatusColor = 'info';

@@ -16,12 +16,12 @@
             @csrf
             <div class="content-wrapper">
                 <!-- begin: content header -->
-                <div class="content-header row">
+                <div class="content-header row align-items-center mb-2">
                     <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb premium-breadcrumb">
+                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}">
                                         <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -80,6 +80,7 @@
 
 @push('scripts')
     <script src="{{ asset('assets/dashbaord/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script src="{!! asset('assets/dashbaord/js/filter-system.js') !!}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             // Initialize Select2 for normal selects

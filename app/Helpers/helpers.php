@@ -12,6 +12,41 @@ if (!function_exists('setting')) {
     }
 }
 
+// currency Helper Function
+if (!function_exists('currency')) {
+    function currency()
+    {
+        $setting = setting();
+        $locale = app()->getLocale();
+        if ($setting && $setting->currency) {
+            return $locale === 'ar' ? $setting->currency->symbol_ar : $setting->currency->symbol_en;
+        }
+        return $locale === 'ar' ? 'ر.ق' : 'QAR';
+    }
+}
+
+// currency Name Helper Function (Arabic for Tafqeet)
+if (!function_exists('currency_name_ar')) {
+    function currency_name_ar()
+    {
+        $setting = setting();
+        if ($setting && $setting->currency) {
+            return $setting->currency->name_ar;
+        }
+        return 'ريال قطري';
+    }
+}
+
+if (!function_exists('currency_name_en')) {
+    function currency_name_en()
+    {
+        $setting = setting();
+        if ($setting && $setting->currency) {
+            return $setting->currency->name_en;
+        }
+        return 'Qatari Riyal';
+    }
+}
 // test
 //  get language Helper Function
 if (!function_exists('Lang')) {
@@ -90,8 +125,9 @@ if (!function_exists('monthNameArabic')) {
 
 // tafqeet function (Convert numbers to Arabic words)
 if (!function_exists('tafqeet')) {
-    function tafqeet($number, $currency = 'دولار', $subCurrency = 'سنت')
+    function tafqeet($number, $currency = null, $subCurrency = 'سنت')
     {
+        $currency = $currency ?? currency_name_ar();
         $before_comma = trim($number);
         if (strpos($before_comma, '.') !== false) {
             $after_comma = explode('.', $before_comma);

@@ -22,6 +22,7 @@ class Cheque extends Model implements MustBelongToCompany
         'company_id',
         'contract_id',
         'customer_id',
+        'company_bank_account_id',
         'amount',
         'cheque_number',
         'bank_name',
@@ -66,6 +67,14 @@ class Cheque extends Model implements MustBelongToCompany
     public function contract()
     {
         return $this->belongsTo(Contract::class)->withTrashed();
+    }
+
+    /**
+     * Get the company bank account associated with the cheque.
+     */
+    public function companyBankAccount()
+    {
+        return $this->belongsTo(CompanyBankAccount::class);
     }
 
     /**

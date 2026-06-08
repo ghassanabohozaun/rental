@@ -29,11 +29,13 @@
 
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
+                        @can('bank_accounts_create')
                         <button type="button" class="btn btn-premium-add shadow-pulse" data-toggle="modal"
                             data-target="#createBankAccountModal">
                             <i class="fas fa-plus-circle"></i>
                             {!! __('bank_accounts.create_new_bank_account') !!}
                         </button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -84,9 +86,13 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
 
+    @can('bank_accounts_create')
     @include('dashboard.bank_accounts.modals.create')
+    @endcan
 
+    @can('bank_accounts_update')
     @include('dashboard.bank_accounts.modals.edit')
+    @endcan
 
     @include('dashboard.bank_accounts.modals.details')
 @endsection

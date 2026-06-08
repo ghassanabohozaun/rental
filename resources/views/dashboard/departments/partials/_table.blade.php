@@ -9,8 +9,12 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.status') !!}</th>
+                @can('departments_update')
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.manage_status') !!}</th>
+                @endcan
+                @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -122,18 +126,22 @@
                     </td>
 
                     <!-- Manage Status -->
+                    @can('departments_update')
                     <td class="text-center align-middle">
                         @include('dashboard.departments.parts.manage_status')
                     </td>
+                    @endcan
 
                     <!-- Actions -->
+                    @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.departments.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('departments.no_departments_found') !!}
                     </td>
                 </tr>

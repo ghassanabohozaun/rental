@@ -234,10 +234,10 @@ class ContractsController extends Controller
     // Helper to set financial data (rent and deposit with Tafqeet wording)
     private function setFinancialData($template, $contract)
     {
-        $template->setValue('rent_amount', intval($contract->rent_amount) . ' ' . __('general.qatari_riyal'));
-        $template->setValue('rent_amount_ar', tafqeet(intval($contract->rent_amount), __('general.qatari_riyal'), __('general.dirham')));
-        $template->setValue('deposit_amount', intval($contract->deposit_amount) . ' ' . __('general.qatari_riyal'));
-        $template->setValue('deposit_amount_ar', tafqeet(intval($contract->deposit_amount), __('general.qatari_riyal'), __('general.dirham')));
+        $template->setValue('rent_amount', intval($contract->rent_amount) . ' ' . currency_name_ar());
+        $template->setValue('rent_amount_ar', tafqeet(intval($contract->rent_amount), currency_name_ar(), __('general.dirham')));
+        $template->setValue('deposit_amount', intval($contract->deposit_amount) . ' ' . currency_name_ar());
+        $template->setValue('deposit_amount_ar', tafqeet(intval($contract->deposit_amount), currency_name_ar(), __('general.dirham')));
     }
 
     // Helper to set First Party (Landlord/Company) data
@@ -345,10 +345,10 @@ class ContractsController extends Controller
             '${end_date}' => $contract->end_date ? $contract->end_date->format('d/m/Y') : '',
             '${contract_duration}' => $contract->duration_label,
             '${grace_period}' => $detail->grace_period ?? 'لا يوجد',
-            '${deposit_amount}' => intval($contract->deposit_amount) . ' ' . __('general.qatari_riyal'),
-            '${deposit_amount_ar}' => tafqeet(intval($contract->deposit_amount), __('general.qatari_riyal'), __('general.dirham')),
-            '${rent_amount}' => intval($contract->rent_amount) . ' ' . __('general.qatari_riyal'),
-            '${rent_amount_ar}' => tafqeet(intval($contract->rent_amount), __('general.qatari_riyal'), __('general.dirham')),
+            '${deposit_amount}' => intval($contract->deposit_amount) . ' ' . currency_name_ar(),
+            '${deposit_amount_ar}' => tafqeet(intval($contract->deposit_amount), currency_name_ar(), __('general.dirham')),
+            '${rent_amount}' => intval($contract->rent_amount) . ' ' . currency_name_ar(),
+            '${rent_amount_ar}' => tafqeet(intval($contract->rent_amount), currency_name_ar(), __('general.dirham')),
             '${first_party_name}' => $companyName,
             '${first_party_owner_name}' => $ownerName,
             '${first_party_owner_qid}' => $ownerQid,
@@ -370,6 +370,8 @@ class ContractsController extends Controller
             '${property_type}' => $property['type'] ?? optional($liveProperty->propertyType)->name ?? '',
             '${property_floor}' => $property['floor'] ?? $liveProperty->floor ?? '',
             '${property_description}' => $property['description'] ?? $liveProperty->description ?? '',
+            '${electricity_account_number}' => $property['electricity_account_number'] ?? $liveProperty->electricity_account_number ?? '',
+            '${water_account_number}' => $property['water_account_number'] ?? $liveProperty->water_account_number ?? '',
             '${unit_rent_amount}' => (is_array($detail->utilities_data) && count($detail->utilities_data) > 0) ? ($detail->utilities_data[0]['unit_rent_amount'] ?? $contract->rent_amount) : $contract->rent_amount,
             '${unit_deposit_amount}' => (is_array($detail->utilities_data) && count($detail->utilities_data) > 0) ? ($detail->utilities_data[0]['unit_deposit_amount'] ?? $contract->deposit_amount) : $contract->deposit_amount,
         ];

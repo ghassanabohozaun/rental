@@ -63,11 +63,92 @@ $(document).ready(function() {
         });
     }
 
+    function initPropertyFiltersCascade() {
+        $('body').on('change', 'select[name="company_id"]', function() {
+            const companyId = $(this).val();
+            const $form = $(this).closest('form, .card-body');
+            const $typeSelect = $form.find('select[name="property_type_id"]');
+            const $statusSelect = $form.find('select[name="property_status_id"]');
+            const $ownerSelect = $form.find('select[name="owner_id[]"], select[name="owner_id"]');
+
+            if (!$typeSelect.length && !$statusSelect.length && !$ownerSelect.length) return;
+
+            // Show loading state
+            if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
+            if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
+            if ($ownerSelect.length) $ownerSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
+
+            $.ajax({
+                url: '/dashboard/properties/filters-by-company',
+                type: 'GET',
+                data: { company_id: companyId },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.types && $typeSelect.length) {
+                        let typeOptions = '<option value="">' + ($typeSelect.find('option:first').text() || 'All') + '</option>';
+                        response.types.forEach(function(type) {
+                            typeOptions += `<option value="${type.id}">${type.name}</option>`;
+                        });
+                        $typeSelect.html(typeOptions);
+                        if ($typeSelect.hasClass('select2-hidden-accessible') || $typeSelect.hasClass('js-select2') || $typeSelect.hasClass('select2')) {
+                            $typeSelect.trigger('change.select2');
+                        }
+                    }
+
+                    if (response.statuses && $statusSelect.length) {
+                        let statusOptions = '<option value="">' + ($statusSelect.find('option:first').text() || 'All') + '</option>';
+                        response.statuses.forEach(function(status) {
+                            statusOptions += `<option value="${status.id}">${status.name}</option>`;
+                        });
+                        $statusSelect.html(statusOptions);
+                        if ($statusSelect.hasClass('select2-hidden-accessible') || $statusSelect.hasClass('js-select2') || $statusSelect.hasClass('select2')) {
+                            $statusSelect.trigger('change.select2');
+                        }
+                    }
+                },
+                complete: function() {
+                    if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
+                    if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
+                }
+            });
+
+            if ($ownerSelect.length) {
+                $.ajax({
+                    url: '/dashboard/owners-by-company',
+                    type: 'GET',
+                    data: { company_id: companyId },
+                    dataType: 'json',
+                    success: function(response) {
+                        let ownerOptions = '';
+                        // Usually owner filter has no 'All' option, it's just multiple select
+                        if (Array.isArray(response)) {
+                            response.forEach(function(owner) {
+                                ownerOptions += `<option value="${owner.id}">${owner.name}</option>`;
+                            });
+                        } else if (response.data) {
+                             response.data.forEach(function(owner) {
+                                ownerOptions += `<option value="${owner.id}">${owner.name}</option>`;
+                            });
+                        }
+                        $ownerSelect.html(ownerOptions);
+                        if ($ownerSelect.hasClass('select2-hidden-accessible') || $ownerSelect.hasClass('js-select2') || $ownerSelect.hasClass('select2')) {
+                            $ownerSelect.trigger('change.select2');
+                        }
+                    },
+                    complete: function() {
+                        $ownerSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
+                    }
+                });
+            }
+        });
+    }
+
     function initFilterSystem() {
         const $chips = $('.js-filter-chip');
         const $panels = $('.ptc-query-panel');
 
         initGeographicCascade();
+        initPropertyFiltersCascade();
 
         const closeAll = () => {
             $panels.removeClass('ptc-show').attr('data-is-open', 'false');

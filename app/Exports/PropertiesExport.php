@@ -44,6 +44,9 @@ class PropertiesExport implements WithHeadings, FromCollection, WithMapping, Wit
     public function collection()
     {
         return Property::with(['propertyType', 'propertyStatus', 'owners', 'creator'])
+            ->when(!empty($this->filters['company_id']), function ($query) {
+                $query->where('company_id', $this->filters['company_id']);
+            })
             ->when(!empty($this->filters['property_type_id']), function ($query) {
                 $query->where('property_type_id', $this->filters['property_type_id']);
             })

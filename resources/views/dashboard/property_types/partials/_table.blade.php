@@ -9,8 +9,12 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_types.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('property_types.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_types.status') !!}</th>
+                @can('property_types_update')
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_types.manage_status') !!}</th>
+                @endcan
+                @if(auth()->user()->can('property_types_update') || auth()->user()->can('property_types_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -121,18 +125,22 @@
                     </td>
 
                     <!-- Manage Status -->
+                    @can('property_types_update')
                     <td class="text-center align-middle">
                         @include('dashboard.property_types.parts.manage_status')
                     </td>
+                    @endcan
 
                     <!-- Actions -->
+                    @if(auth()->user()->can('property_types_update') || auth()->user()->can('property_types_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.property_types.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('property_types.no_property_types_found') !!}
                     </td>
                 </tr>

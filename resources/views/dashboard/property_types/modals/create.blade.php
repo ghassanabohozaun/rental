@@ -26,8 +26,13 @@
                         @if (isset($companies))
                             <div class="col-md-12 mb-2">
                                 <div class="premium-form-group">
-                                    <label class="premium-label" for="company_id_dept_create">{!! __('companies.company') !!}<span
-                                            class="text-danger">*</span></label>
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="premium-label mb-0" for="company_id_dept_create">{!! __('companies.company') !!}</label>
+                                        <span class="badge badge-light-warning py-1 px-2"
+                                            style="font-size: 0.75rem; border: 1px dashed #ffc107; border-radius: 6px;">
+                                            <i class="fas fa-globe mr-1"></i> {!! __('general.leave_empty_for_general') !!}
+                                        </span>
+                                    </div>
                                     <select class="form-control premium-input select2 shadow-none"
                                         id='company_id_dept_create' name="company_id">
                                         <option value="" selected>{!! __('general.select_from_list') !!}</option>

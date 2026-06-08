@@ -12,13 +12,13 @@
     <div class="app-content content">
         <div class="content-wrapper">
             <!-- begin: content header -->
-            <div class="content-header row">
+            <div class="content-header row align-items-center mb-2">
 
                 <!-- begin: content header left-->
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb premium-breadcrumb">
+                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}">
                                         <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -36,10 +36,12 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12 text-md-right">
                     <div class="mb-1">
+                        @can('contracts_create')
                         <a href="{!! route('dashboard.contracts.create') !!}" class="btn btn-premium-add shadow-pulse">
                             <i class="fas fa-plus-circle"></i>
                             {!! __('contracts.create_new_contract') !!}
                         </a>
+                        @endcan
                     </div>
                 </div>
                 <!-- end: content header right-->
@@ -75,7 +77,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-revenue">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['total_rent_value'], 0) !!}</h3>
+                                <h3 class="stat-value">{!! number_format($stats['total_rent_value'], 0) !!} {!! currency() !!}</h3>
                                 <h6 class="stat-title">{!! __('contracts.total_rent_value') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">

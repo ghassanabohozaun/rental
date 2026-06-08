@@ -35,10 +35,12 @@
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12">
                     <div class="float-md-right mb-1">
+                        @can('roles_create')
                         <a href="{!! route('dashboard.roles.create') !!}" class="btn btn-premium-add shadow-pulse">
                             <i class="fas fa-plus-circle"></i>
                             {!! __('roles.create_new_role') !!}
                         </a>
+                        @endcan
                     </div>
                 </div>
                 <!-- end: content header right-->

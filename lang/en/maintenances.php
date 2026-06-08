@@ -32,4 +32,5 @@ return [
     'attachment' => 'Attachment',
     'view_current_attachment' => 'View current attachment',
     'total_cost' => 'Total Cost',
+    'no_maintenance_items_added' => 'No maintenance items added yet.',
 ];

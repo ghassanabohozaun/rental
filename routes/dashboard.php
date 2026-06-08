@@ -102,6 +102,7 @@ Route::group(
                 Route::resource('properties', PropertyController::class);
                 Route::post('/properties/destroy', [PropertyController::class, 'destroy'])->name('properties.destroy');
                 Route::get('/properties-autocomplete', [PropertyController::class, 'autocomplete'])->name('properties.autocomplete');
+                Route::get('/properties/filters-by-company', [PropertyController::class, 'getFiltersByCompany'])->name('properties.filters-by-company');
             });
             // ########################################## property types routes #############################################################
             Route::group(['middleware' => 'can:property_types_read'], function () {
@@ -160,6 +161,7 @@ Route::group(
             });
             // ########################################## cheques routes #############################################################
             Route::group(['middleware' => 'can:cheques_read'], function () {
+                Route::get('/cheques/import', [ChequesController::class, 'import'])->name('cheques.import')->middleware('can:cheques_import');
                 Route::resource('cheques', ChequesController::class);
                 Route::post('/cheques/destroy', [ChequesController::class, 'destroy'])->name('cheques.destroy');
                 Route::get('/cheques-autocomplete', [ChequesController::class, 'autocomplete'])->name('cheques.autocomplete');

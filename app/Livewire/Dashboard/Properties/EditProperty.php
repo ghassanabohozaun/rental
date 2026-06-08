@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Storage;
     public $zone_number, $street_number, $building_number, $property_type_id, $area, $property_status_id, $description;
     public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
 
-    // Attachments
-    public $rental_contract_original, $building_completion_certificate, $other_documents;
-
     // Existing files paths for preview/info
-    public $existing_rental_contract_original, $existing_building_completion_certificate, $existing_other_documents;
+
+    // Property Attachments Repeater
+    public $property_attachments = [];
+    public $deleted_attachments = [];
 
     // Owners Repeater
     public $property_owners = [];
@@ -55,10 +55,6 @@ use Illuminate\Support\Facades\Storage;
         $this->floor = $property->floor;
         $this->company_id = $property->company_id;
 
-        $this->existing_rental_contract_original = $property->rental_contract_original;
-        $this->existing_building_completion_certificate = $property->building_completion_certificate;
-        $this->existing_other_documents = $property->other_documents;
-
         // Load existing owners
         foreach ($property->owners as $owner) {
             $this->property_owners[] = [
@@ -69,6 +65,16 @@ use Illuminate\Support\Facades\Storage;
                 'phone' => $owner->phone,
                 'percentage' => $owner->pivot->ownership_percentage,
                 'is_primary' => (bool)$owner->pivot->is_primary
+            ];
+        }
+
+        // Load existing attachments
+        foreach ($property->attachments as $attachment) {
+            $this->property_attachments[] = [
+                'id' => $attachment->id,
+                'name' => $attachment->name,
+                'existing_file' => $attachment->file,
+                'file' => null,
             ];
         }
 
@@ -156,24 +162,20 @@ use Illuminate\Support\Facades\Storage;
         }
     }
 
-    public function resetFile($field)
+    public function addAttachment()
     {
-        if (strpos($field, 'existing_') !== false) {
-            // Resetting existing file
-            $dbField = str_replace('existing_', '', $field);
-            $filePath = $this->property->$dbField;
-
-            if ($filePath && Storage::disk('properties')->exists($filePath)) {
-                Storage::disk('properties')->delete($filePath);
-            }
-
-            $this->property->update([$dbField => null]);
-            $this->$field = null;
-        } else {
-            // Resetting a newly selected (temporary) file
-            $this->$field = null;
-        }
+        $this->property_attachments[] = ['name' => '', 'file' => null];
     }
+
+    public function removeAttachment($index)
+    {
+        if (isset($this->property_attachments[$index]['id'])) {
+            $this->deleted_attachments[] = $this->property_attachments[$index]['id'];
+        }
+        unset($this->property_attachments[$index]);
+        $this->property_attachments = array_values($this->property_attachments);
+    }
+
 
     protected function rules()
     {
@@ -214,9 +216,10 @@ use Illuminate\Support\Facades\Storage;
             ],
             'property_owners.*.percentage' => 'required|numeric|min:0|max:100',
 
-            'rental_contract_original' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'building_completion_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'other_documents' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+            // Attachments Repeater
+            'property_attachments' => 'nullable|array',
+            'property_attachments.*.name' => 'required|string|max:255',
+            'property_attachments.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
         ];
     }
 
@@ -301,15 +304,43 @@ use Illuminate\Support\Facades\Storage;
         }
         $this->property->owners()->sync($syncData);
 
-        // Handle Files
-        if ($this->rental_contract_original) {
-            $this->property->update(['rental_contract_original' => $this->rental_contract_original->store('contracts', 'properties')]);
+        // Handle Deleted Attachments
+        if (!empty($this->deleted_attachments)) {
+            $attachmentsToDelete = \App\Models\PropertyAttachment::whereIn('id', $this->deleted_attachments)->get();
+            foreach ($attachmentsToDelete as $att) {
+                if ($att->file && Storage::disk('properties')->exists($att->file)) {
+                    Storage::disk('properties')->delete($att->file);
+                }
+                $att->delete();
+            }
         }
-        if ($this->building_completion_certificate) {
-            $this->property->update(['building_completion_certificate' => $this->building_completion_certificate->store('certificates', 'properties')]);
-        }
-        if ($this->other_documents) {
-            $this->property->update(['other_documents' => $this->other_documents->store('docs', 'properties')]);
+
+        // Handle Repeater Attachments
+        foreach ($this->property_attachments as $attachment) {
+            if (isset($attachment['id'])) {
+                // Update existing
+                $existingAtt = \App\Models\PropertyAttachment::find($attachment['id']);
+                if ($existingAtt) {
+                    $existingAtt->name = $attachment['name'];
+                    if (!empty($attachment['file'])) {
+                        // Delete old file
+                        if ($existingAtt->file && Storage::disk('properties')->exists($existingAtt->file)) {
+                            Storage::disk('properties')->delete($existingAtt->file);
+                        }
+                        $existingAtt->file = $attachment['file']->store('/', 'properties');
+                    }
+                    $existingAtt->save();
+                }
+            } else {
+                // Create new
+                if (!empty($attachment['file']) && !empty($attachment['name'])) {
+                    $path = $attachment['file']->store('/', 'properties');
+                    $this->property->attachments()->create([
+                        'name' => $attachment['name'],
+                        'file' => $path,
+                    ]);
+                }
+            }
         }
 
         flash()->success(__('general.update_success_message'));
@@ -318,9 +349,22 @@ use Illuminate\Support\Facades\Storage;
 
     public function render()
     {
+        $company_id = user()->company_id == 1 ? $this->company_id : user()->company_id;
 
-        $property_types = PropertyType::orderByDesc('id')->get();
-        $property_statuses = PropertyStatus::orderByDesc('id')->get();
+        $property_types = PropertyType::whereNull('company_id')
+            ->when($company_id, function ($query) use ($company_id) {
+                $query->orWhere('company_id', $company_id);
+            })
+            ->orderByDesc('id')
+            ->get()
+            ->unique('name');
+        $property_statuses = PropertyStatus::whereNull('company_id')
+            ->when($company_id, function ($query) use ($company_id) {
+                $query->orWhere('company_id', $company_id);
+            })
+            ->orderByDesc('id')
+            ->get()
+            ->unique('name');
         $companies = Company::active()
             ->orWhere('id', $this->company_id)
             ->orderByDesc('id')

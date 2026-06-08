@@ -15,8 +15,12 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('companies.phone') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.status') !!}</th>
+                @can('companies_update')
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.manage_status') !!}</th>
+                @endcan
+                @if(auth()->user()->can('companies_update') || auth()->user()->can('companies_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -109,18 +113,22 @@
                     </td>
 
                     <!-- Manage Status -->
+                    @can('companies_update')
                     <td class="text-center align-middle">
                         @include('dashboard.companies.parts.manage_status')
                     </td>
+                    @endcan
 
                     <!-- Actions -->
+                    @if(auth()->user()->can('companies_update') || auth()->user()->can('companies_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.companies.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('companies.no_companies_found') !!}
                     </td>
                 </tr>

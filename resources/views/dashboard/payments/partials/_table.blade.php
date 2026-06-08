@@ -13,7 +13,9 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.payment_date') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.method') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('payments.status') !!}</th>
+                @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-150">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -44,7 +46,7 @@
                                         <div class="icon-circle"><i class="fas fa-money-bill-wave"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('payments.amount') !!}</span>
-                                            <span class="detail-info-value font-weight-bold text-success">{!! number_format($payment->amount, 2) !!}</span>
+                                            <span class="detail-info-value font-weight-bold text-success">{!! number_format($payment->amount, 2) !!} {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -115,7 +117,7 @@
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
-                            {!! number_format($payment->amount, 2) !!}
+                            {!! number_format($payment->amount, 2) !!} {!! currency() !!}
                         </span>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
@@ -158,13 +160,15 @@
                             {!! __('payments.statuses.' . $payment->status) !!}
                         </div>
                     </td>
+                    @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.payments.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="fas fa-info-circle mr-1"></i> {!! __('payments.no_payments_found') !!}
                     </td>
                 </tr>

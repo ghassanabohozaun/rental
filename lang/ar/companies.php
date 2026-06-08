@@ -29,6 +29,7 @@ return [
     'created_by' => 'بواسطة',
     'cannot_delete_has_users' => 'لا يمكن حذف هذه الشركة لوجود مستخدمين مرتبطين بها حالياً.',
     'cannot_delete_has_bank_accounts' => 'لا يمكن حذف هذه الشركة لوجود حسابات بنكية مرتبطة بها حالياً.',
+    'cannot_delete_bank_account_linked_to_cheques' => 'لا يمكن حذف الحساب البنكي لوجود شيكات مرتبطة به حالياً.',
     'cannot_delete_has_properties' => 'لا يمكن حذف هذه الشركة لوجود عقارات مرتبطة بها حالياً.',
     'cannot_delete_has_departments' => 'لا يمكن حذف هذه الشركة لوجود أقسام مرتبطة بها حالياً.',
     'cannot_delete_has_property_types' => 'لا يمكن حذف هذه الشركة لوجود أنواع عقارات مرتبطة بها حالياً.',

@@ -16,7 +16,7 @@
                 <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb premium-breadcrumb">
+                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                 <li class="breadcrumb-item">
                                     <a href="{!! route('dashboard.index') !!}" class="text-muted">
                                         <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -52,7 +52,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['total_amount'], 0) !!}</h3>
+                                <h3 class="stat-value">{!! number_format($stats['total_amount'], 0) !!} {!! currency() !!}</h3>
                                 <h6 class="stat-title">{!! __('payments.total_collected') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -63,7 +63,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-active">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['this_month'], 0) !!}</h3>
+                                <h3 class="stat-value">{!! number_format($stats['this_month'], 0) !!} {!! currency() !!}</h3>
                                 <h6 class="stat-title">{!! __('payments.collected_this_month') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -74,7 +74,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-revenue">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['cheque_total'], 0) !!}</h3>
+                                <h3 class="stat-value">{!! number_format($stats['cheque_total'], 0) !!} {!! currency() !!}</h3>
                                 <h6 class="stat-title">{!! __('payments.cheque_payments') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -85,7 +85,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-expiring">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['cash_online_total'], 0) !!}</h3>
+                                <h3 class="stat-value">{!! number_format($stats['cash_online_total'], 0) !!} {!! currency() !!}</h3>
                                 <h6 class="stat-title">{!! __('payments.cash_online_payments') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">

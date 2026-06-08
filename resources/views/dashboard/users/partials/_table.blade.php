@@ -11,10 +11,14 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.role_id') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('users.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('users.status') !!}</th>
+                @can('users_update')
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{!! __('users.manage_status') !!}
                 </th>
+                @endcan
+                @if(auth()->user()->can('users_update') || auth()->user()->can('users_delete'))
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}
                 </th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -141,16 +145,20 @@
                     <td class="text-center align-middle">
                         @include('dashboard.users.parts.status')
                     </td>
+                    @can('users_update')
                     <td class="text-center align-middle">
                         @include('dashboard.users.parts.manage_status')
                     </td>
+                    @endcan
+                    @if(auth()->user()->can('users_update') || auth()->user()->can('users_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.users.parts.actions')
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center p-3 text-muted">
+                    <td colspan="100%" class="text-center p-3 text-muted">
                         <i class="ft-info mr-1"></i> {!! __('users.no_users_found') !!}
                     </td>
                 </tr>

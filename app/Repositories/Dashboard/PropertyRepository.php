@@ -22,7 +22,7 @@ class PropertyRepository
             ->with(['company', 'creator', 'owners', 'propertyType', 'propertyStatus'])
             ->filter(
                 $request->all(),
-                ['name', 'location', 'property_number', 'title_deed_number'], // Search columns
+                ['name', 'location', 'property_number', 'title_deed_number', 'electricity_account_number', 'water_account_number'], // Search columns
                 ['property_status_id', 'company_id', 'property_type_id'], // Exact matches
                 [
                     'price' => ['min' => 'price_min', 'max' => 'price_max'],

@@ -45,7 +45,7 @@
                             </a>
                             <button class="btn btn-premium-save" type="submit" id="saveBtn">
                                 <i class="fas fa-save mr-2 save-icon"></i>
-                                <i class="fas fa-sync fa-spin spinner_loading d-none mr-2"></i>
+                                <i class="fas fa-spinner fa-spin spinner_loading d-none mr-2"></i>
                                 {!! __('general.save') !!}
                             </button>
                         </div>
@@ -117,7 +117,12 @@
                                                 <div class="col-md-3">
                                                     <div class="premium-form-group">
                                                         <label for="main_cost" class="premium-label">{!! __('maintenances.cost') !!}</label>
-                                                        <input type="number" step="0.01" id="main_cost" name="cost" class="form-control premium-input shadow-none bg-light" value="0.00" readonly>
+                                                        <div class="input-group premium-input-group">
+                                                            <input type="number" step="0.01" id="main_cost" name="cost" class="form-control premium-input shadow-none border-right-0" value="0.00">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text bg-white border-left-0 text-muted">{{ currency() }}</span>
+                                                            </div>
+                                                        </div>
                                                         <span class="text-danger error-text cost_error"></span>
                                                     </div>
                                                 </div>
@@ -139,67 +144,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- End Primary Card -->
 
-                                            <!-- Maintenance Items -->
-                                            <h4 class="section-title mt-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="fas fa-list-ul mr-1"></i> {!! __('maintenances.maintenance_items') !!}</span>
-                                                <button type="button" id="add-item-btn" class="btn btn-sm btn-premium-add shadow-sm">
-                                                    <i class="fas fa-plus"></i> {!! __('maintenances.add_item') !!}
-                                                </button>
-                                            </h4>
+                                <!-- Maintenance Items Card -->
+                                <div class="card premium-card shadow-lg border-0 premium-card-anim">
+                                    <div class="property-mandatory-header maintenance-items-header">
+                                        <div class="title-wrapper maintenance-items-header-title">
+                                            <i class="fas fa-list-ul"></i>
+                                            <span>{!! __('maintenances.maintenance_items') !!}</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" id="add-item-btn" class="btn-premium-add-guarantor" title="{!! __('maintenances.add_item') !!}">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-content collapse show">
+                                        <div class="card-body pt-3">
                                             
                                             <div id="items-container">
-                                                <!-- Default Row -->
-                                                <div class="maintenance-item-row row align-items-start mb-2 pb-2 border-bottom">
-                                                    <div class="col-md-4">
-                                                        <div class="premium-form-group mb-0">
-                                                            <label class="premium-label">{!! __('maintenances.maintenance_type') !!} <span class="text-danger">*</span></label>
-                                                            <input type="text" name="items[0][type]" class="form-control premium-input shadow-none" placeholder="{!! __('maintenances.enter_type') !!}">
-                                                            <span class="text-danger error-text items_0_type_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="premium-form-group mb-0">
-                                                            <label class="premium-label">{!! __('maintenances.cost') !!}</label>
-                                                            <input type="number" step="0.01" name="items[0][cost]" class="form-control premium-input shadow-none item-cost" value="0.00">
-                                                            <span class="text-danger error-text items_0_cost_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="premium-form-group mb-0">
-                                                            <label class="premium-label">{!! __('maintenances.attachment') !!}</label>
-                                                            <div class="d-flex align-items-center" style="height: 38px; margin-top: 5px;">
-                                                                <div class="premium-file-upload-wrapper flex-grow-1" style="margin-top: 0;">
-                                                                    <input type="file" name="items[0][attachment]" class="d-none file-upload-input" id="attachment_0" accept=".jpg,.jpeg,.png,.pdf">
-                                                                    <label for="attachment_0" class="premium-file-label w-100 mb-0">
-                                                                        <div class="premium-file-box w-100 d-flex align-items-center justify-content-between" style="min-height: 38px !important; height: 38px !important; padding: 5px 10px !important; border-radius: 2px !important;">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <div class="file-icon-box mr-2" style="width: 24px; height: 24px; font-size: 0.9rem;"><i class="fas fa-paperclip text-primary"></i></div>
-                                                                                <span class="file-name text-muted">{!! __('general.choose_file') !!}</span>
-                                                                            </div>
-                                                                            <span class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
-                                                                        </div>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="file-preview-container mx-1 d-flex align-items-center"></div>
-                                                            </div>
-                                                            <span class="text-danger error-text items_0_attachment_error"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-1 text-center">
-                                                        <div class="premium-form-group mb-0">
-                                                            <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">نوع الصيانة</label>
-                                                            <div class="d-flex align-items-center justify-content-center" style="height: 38px; margin-top: 5px;">
-                                                                <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger remove-item-btn" title="{!! __('general.delete') !!}">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div id="empty-items-message" class="text-center p-3 text-dark font-weight-bold">
+                                                    <i class="fas fa-info-circle mr-1 text-primary"></i>
+                                                    {!! __('maintenances.no_maintenance_items_added') !!}
                                                 </div>
                                             </div>
                                             <div class="text-right mt-2">
-                                                <h5 class="font-weight-bold text-dark">{!! __('maintenances.total_cost') !!}: <span id="total_items_cost">0.00</span></h5>
+                                                <h5 class="font-weight-bold text-dark">{!! __('maintenances.total_cost') !!}: <span id="total_items_cost">0.00</span> {{ currency() }}</h5>
                                             </div>
 
                                         </div>
@@ -231,9 +203,10 @@
 
             let itemIndex = 1;
             $('#add-item-btn').click(function() {
+                $('#empty-items-message').hide();
                 let html = `
-                <div class="maintenance-item-row row align-items-start mb-2 pb-2 border-bottom">
-                    <div class="col-md-4">
+                <div class="maintenance-item-row align-all-items-row row align-items-start mb-2 pb-2 border-bottom">
+                    <div class="col-md-3">
                         <div class="premium-form-group mb-0">
                             <label class="premium-label">{!! __('maintenances.maintenance_type') !!} <span class="text-danger">*</span></label>
                             <input type="text" name="items[${itemIndex}][type]" class="form-control premium-input shadow-none" placeholder="{!! __('maintenances.enter_type') !!}">
@@ -243,21 +216,26 @@
                     <div class="col-md-3">
                         <div class="premium-form-group mb-0">
                             <label class="premium-label">{!! __('maintenances.cost') !!}</label>
-                            <input type="number" step="0.01" name="items[${itemIndex}][cost]" class="form-control premium-input shadow-none item-cost" value="0.00">
+                            <div class="input-group premium-input-group">
+                                <input type="number" step="0.01" name="items[${itemIndex}][cost]" class="form-control premium-input shadow-none border-right-0 item-cost" value="0.00">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-white border-left-0 text-muted">{{ currency() }}</span>
+                                </div>
+                            </div>
                             <span class="text-danger error-text items_${itemIndex}_cost_error"></span>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="premium-form-group mb-0">
                             <label class="premium-label">{!! __('maintenances.attachment') !!}</label>
-                            <div class="d-flex align-items-center" style="height: 38px; margin-top: 5px;">
-                                <div class="premium-file-upload-wrapper flex-grow-1" style="margin-top: 0;">
+                            <div class="d-flex align-items-center w-100">
+                                <div class="premium-file-upload-wrapper mt-0">
                                     <input type="file" name="items[${itemIndex}][attachment]" class="d-none file-upload-input" id="attachment_${itemIndex}" accept=".jpg,.jpeg,.png,.pdf">
                                     <label for="attachment_${itemIndex}" class="premium-file-label w-100 mb-0">
-                                        <div class="premium-file-box w-100 d-flex align-items-center justify-content-between" style="min-height: 38px !important; height: 38px !important; padding: 5px 10px !important; border-radius: 2px !important;">
+                                        <div class="premium-file-box premium-file-box-match w-100 d-flex align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
-                                                <div class="file-icon-box mr-2" style="width: 24px; height: 24px; font-size: 0.9rem;"><i class="fas fa-paperclip text-primary"></i></div>
-                                                <span class="file-name text-muted">{!! __('general.choose_file') !!}</span>
+                                                <div class="file-icon-box"><i class="fas fa-paperclip text-primary"></i></div>
+                                                <span class="file-name text-muted text-truncate d-inline-block">{!! __('general.choose_file') !!}</span>
                                             </div>
                                             <span class="browse-badge browse-badge-primary">{!! __('general.browse') !!}</span>
                                         </div>
@@ -271,7 +249,7 @@
                     <div class="col-md-1 text-center">
                         <div class="premium-form-group mb-0">
                             <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">نوع الصيانة</label>
-                            <div class="d-flex align-items-center justify-content-center" style="height: 38px; margin-top: 5px;">
+                            <div class="d-flex align-items-center justify-content-center action-btn-wrapper">
                                 <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger remove-item-btn" title="{!! __('general.delete') !!}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
@@ -285,8 +263,10 @@
             });
 
             $(document).on('click', '.remove-item-btn', function() {
-                // Don't remove if it's the only one left, or do we allow 0 items? Let's allow it but warn, or just remove.
                 $(this).closest('.maintenance-item-row').remove();
+                if ($('.maintenance-item-row').length === 0) {
+                    $('#empty-items-message').show();
+                }
                 calculateTotal();
             });
 

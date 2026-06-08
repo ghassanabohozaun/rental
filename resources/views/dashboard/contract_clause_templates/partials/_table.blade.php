@@ -12,7 +12,9 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.is_default_clause') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.order_num') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
+                @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
                 <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -143,13 +145,15 @@
                             <span class="badge badge-pill badge-glow premium-status-badge badge-danger border-0 px-2 py-1 font-weight-bold">{!! __('general.inactive') !!}</span>
                         @endif
                     </td>
+                    @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
                     <td class="text-center align-middle">
                         @include('dashboard.contract_clause_templates.parts.actions', ['template' => $template])
                     </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center p-5 text-muted">
+                    <td colspan="100%" class="text-center p-5 text-muted">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <i class="fas fa-info-circle mb-2" style="font-size: 50px; opacity: 0.2;"></i>
                             <span class="font-weight-bold font-15">{!! __('contracts.empty_library_message') !!}</span>

@@ -163,7 +163,7 @@
                 <div class="modal-footer border-0 pt-0">
                     <button type="submit" id="updateBtn" class="btn btn-premium-add px-4 font-weight-bold h-42 radius-10">
                         <i class="fas fa-save mr-1"></i> {{ __('general.save') }}
-                        <i class="fas fa-sync fa-spin spinner_loading d-none ml-1"></i>
+                        <i class="fas fa-spinner fa-spin spinner_loading d-none ml-1"></i>
                     </button>
 
                     <button type="button" class="btn btn-premium-secondary px-4 font-weight-bold h-42 radius-10"

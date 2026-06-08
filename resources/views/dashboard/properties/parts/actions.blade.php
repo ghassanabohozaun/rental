@@ -1,19 +1,24 @@
 <div class="d-flex align-items-center justify-content-center">
     {{-- Show --}}
+    @can('properties_read')
     <a href="{!! route('dashboard.properties.show', $property->id) !!}" 
        class="btn-premium-action btn-premium-action-info mr-1" 
        title="{!! __('general.show') !!}">
         <i class="fas fa-eye"></i>
     </a>
+    @endcan
 
     {{-- Edit --}}
+    @can('properties_update')
     <a href="{!! route('dashboard.properties.edit', $property->id) !!}" 
        class="btn-premium-action btn-premium-action-edit mr-1" 
        title="{!! __('general.edit') !!}">
         <i class="fas fa-edit"></i>
     </a>
+    @endcan
 
     {{-- Delete --}}
+    @can('properties_delete')
     <a href="javascript:void(0)" 
        class="btn-premium-action btn-premium-action-danger delete-confirm" 
        data-id="{!! $property->id !!}" 
@@ -27,6 +32,7 @@
        title="{!! __('general.delete') !!}">
         <i class="fas fa-trash-alt"></i>
     </a>
+    @endcan
 </div>
 
 

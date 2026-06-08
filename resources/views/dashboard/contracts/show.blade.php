@@ -5,17 +5,17 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contract-show.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/contract-show.css') }}?v={{ time() }}">
 @endpush
 
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <!-- Content Header -->
-            <div class="content-header row mb-2">
-                <div class="col-md-6 col-12">
+            <div class="content-header row align-items-center mb-2">
+                <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="breadcrumb-wrapper">
-                        <ol class="breadcrumb premium-breadcrumb">
+                        <ol class="breadcrumb premium-breadcrumb shadow-sm">
                             <li class="breadcrumb-item">
                                 <a href="{!! route('dashboard.index') !!}">
                                     <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -102,7 +102,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms" role="tab">
-                                        <i class="fas fa-file-alt"></i> {!! __('contracts.contract_text') !!}
+                                        <i class="fas fa-file-alt"></i> {!! __('contracts.contract_terms') !!}
                                     </a>
                                 </li>
                                 <li class="nav-item">

@@ -15,12 +15,12 @@
             <input type="hidden" id='id' name="id" value="{!! setting()->id !!}">
 
             <div class="content-wrapper">
-                <div class="content-header row">
+                <div class="content-header row align-items-center mb-2">
                     <!-- begin: content header left-->
                     <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                         <div class="row breadcrumbs-top">
                             <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb premium-breadcrumb">
+                                <ol class="breadcrumb premium-breadcrumb shadow-sm">
                                     <li class="breadcrumb-item">
                                         <a href="{!! route('dashboard.index') !!}">
                                             <i class="fas fa-home"></i> {!! __('dashboard.home') !!}
@@ -38,11 +38,13 @@
                     <!-- begin: content header right-->
                     <div class="content-header-right col-md-6 col-12 text-md-right mb-2">
                         <div class="d-flex justify-content-md-end justify-content-center gap-2">
+                            @can('settings_update')
                             <button class="btn btn-premium-save" type="submit" id="saveBtn">
                                 <i class="fas fa-save mr-2 save-icon"></i>
-                                <i class="fas fa-sync fa-spin spinner_loading d-none mr-2"></i>
+                                <i class="fas fa-spinner fa-spin spinner_loading d-none mr-2"></i>
                                 {!! __('general.save') !!}
                             </button>
+                            @endcan
                         </div>
                     </div>
                     <!-- end: content header right-->
@@ -86,6 +88,23 @@
                                                         class="form-control premium-input shadow-none"
                                                         placeholder="{!! __('settings.enter_site_name_en') !!}">
                                                     <span class="text-danger error-text site_name_en_error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mt-1">
+                                                <div class="premium-form-group mb-2">
+                                                    <label class="premium-label">{!! __('settings.currency') !!}</label>
+                                                    <select name="currency_id" id="currency_id"
+                                                        class="form-control premium-input shadow-none">
+                                                        <option value="">{!! __('settings.select_currency') !!}</option>
+                                                        @foreach ($currencies as $currency)
+                                                            <option value="{{ $currency->id }}"
+                                                                {{ setting()->currency_id == $currency->id ? 'selected' : '' }}>
+                                                                {{ app()->getLocale() == 'ar' ? $currency->name_ar : $currency->name_en }}
+                                                                ({{ app()->getLocale() == 'ar' ? $currency->symbol_ar : $currency->symbol_en }})
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <span class="text-danger error-text currency_id_error"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,7 +375,8 @@
 @push('scripts')
     <script type="text/javascript">
         function resetUpdateSettings() {
-            let errors = ['site_name_ar', 'site_name_en', 'facebook', 'twitter', 'instegram', 'youtube', 'phone', 'mobile',
+            let errors = ['site_name_ar', 'site_name_en', 'currency_id', 'facebook', 'twitter', 'instegram', 'youtube',
+                'phone', 'mobile',
                 'whatsapp', 'email', 'email_support', 'logo', 'favicon',
                 'auth_welcome_title_ar', 'auth_welcome_title_en', 'auth_welcome_desc_ar', 'auth_welcome_desc_en',
                 'auth_welcome_badge_ar', 'auth_welcome_badge_en', 'auth_welcome_footer_ar', 'auth_welcome_footer_en'
@@ -420,7 +440,7 @@
                         if (photoWrapper) photoWrapper.addClass('is-invalid-premium');
 
                         let errorSpan = field.closest('.premium-form-group').find(
-                        '.error-text');
+                            '.error-text');
                         errorSpan.text(value[0]);
                     });
                 },

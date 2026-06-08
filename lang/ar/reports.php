@@ -2,6 +2,7 @@
 return [
     'reports' => 'التقارير',
     'properties_reports' => 'تقارير العقارات',
+    'properties_reports_desc' => 'عرض وتحليل تفصيلي لجميع العقارات وحالاتها والإيرادات المرتبطة بها.',
     'export_excel' => 'تصدير كملف Excel',
     'select_columns' => 'حدد الأعمدة المراد تصديرها',
     'search_filters' => 'فلاتر البحث المتقدم',

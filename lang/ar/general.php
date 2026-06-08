@@ -233,6 +233,7 @@ return [
     'clear' => 'تفريغ',
     'all_companies' => 'كل الشركات',
     'select_company' => 'اختر الشركة',
+    'leave_empty_for_general' => 'اتركه فارغاً لجعله عاماً لكل الشركات',
     'additional_details' => 'تفاصيل إضافية',
     'min' => 'الحد الأدنى',
     'max' => 'الحد الأقصى',

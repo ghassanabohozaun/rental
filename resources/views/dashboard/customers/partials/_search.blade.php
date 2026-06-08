@@ -32,29 +32,55 @@
                 </div>
             </div>
 
-            @if(isset($companies) && $companies->count() > 0)
-            <!-- Company Filter -->
+            @if (isset($companies) && $companies->count() > 0)
+                <!-- Company Filter -->
+                <div class="filter-item">
+                    <div class="filter-chip js-filter-chip" data-filter-target="company_search_popover">
+                        <i class="fas fa-briefcase text-primary"></i>
+                        <span class="chip-text">{!! __('companies.company') !!}</span>
+                    </div>
+
+                    <!-- Company Filter Popover -->
+                    <div class="ptc-query-panel shadow-lg border-0 radius-16" id="company_search_popover"
+                        style="min-width: 280px;">
+                        <div class="mb-3">
+                            <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
+                            <div class="premium-input-wrapper">
+                                <select name="company_id" id="filter_company_id"
+                                    class="form-control premium-input shadow-none js-select2"
+                                    data-placeholder="{!! __('general.all_companies') !!}" data-parent="#company_search_popover">
+                                    <option value="">{!! __('general.all_companies') !!}</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                                <i class="fas fa-briefcase text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="popover-actions mt-4 text-right">
+                            <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                                <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <!-- ID Number Filter -->
             <div class="filter-item">
-                <div class="filter-chip js-filter-chip" data-filter-target="company_search_popover">
-                    <i class="fas fa-briefcase text-primary"></i>
-                    <span class="chip-text">{!! __('companies.company') !!}</span>
+                <div class="filter-chip js-filter-chip" data-filter-target="id_number_search_popover">
+                    <i class="fas fa-id-card text-primary"></i>
+                    <span class="chip-text">{!! __('customers.id_number') !!}</span>
                 </div>
 
-                <!-- Company Filter Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="company_search_popover" style="min-width: 280px;">
+                <!-- ID Number Filter Popover -->
+                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="id_number_search_popover">
                     <div class="mb-3">
-                        <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
+                        <label class="premium-label mb-2">{!! __('customers.id_number') !!}</label>
                         <div class="premium-input-wrapper">
-                            <select name="company_id" id="filter_company_id"
-                                class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.all_companies') !!}"
-                                data-parent="#company_search_popover">
-                                <option value="">{!! __('general.all_companies') !!}</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
-                            <i class="fas fa-briefcase text-primary"></i>
+                            <input type="text" class="form-control premium-input shadow-none" name="id_number"
+                                placeholder="{!! __('customers.id_number') !!}..." autocomplete="off">
+                            <i class="fas fa-id-card text-primary"></i>
                         </div>
                     </div>
                     <div class="popover-actions mt-4 text-right">
@@ -64,8 +90,6 @@
                     </div>
                 </div>
             </div>
-            @endif
-
             <!-- Nationality Filter -->
             <div class="filter-item">
                 <div class="filter-chip js-filter-chip" data-filter-target="nationality_search_popover">
@@ -74,14 +98,14 @@
                 </div>
 
                 <!-- Nationality Filter Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="nationality_search_popover" style="min-width: 280px;">
+                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="nationality_search_popover"
+                    style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('customers.nationality') !!}</label>
                         <div class="premium-input-wrapper">
                             <select name="nationality_id" id="filter_nationality_id"
                                 class="form-control premium-input shadow-none js-select2"
-                                data-placeholder="{!! __('general.select_from_list') !!}"
-                                data-parent="#nationality_search_popover">
+                                data-placeholder="{!! __('general.select_from_list') !!}" data-parent="#nationality_search_popover">
                                 <option value="">{!! __('general.select_from_list') !!}</option>
                                 @foreach ($nationalities as $nationality)
                                     <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
@@ -110,5 +134,3 @@
 @push('scripts')
     <script src="{!! asset('assets/dashbaord/js/filter-system.js') !!}"></script>
 @endpush
-
-

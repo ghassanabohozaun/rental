@@ -26,8 +26,9 @@ class SettingsController extends Controller
         
         $title = __('settings.settings');
         $settings = $this->settingService->getSetting();
+        $currencies = \App\Models\Currency::where('is_active', true)->get();
 
-        return view('dashboard.settings.index', compact('title', 'settings'));
+        return view('dashboard.settings.index', compact('title', 'settings', 'currencies'));
     }
 
     /**

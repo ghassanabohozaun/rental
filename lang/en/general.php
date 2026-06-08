@@ -223,6 +223,7 @@ return [
     'clear' => 'Clear',
     'all_companies' => 'All Companies',
     'select_company' => 'Select Company',
+    'leave_empty_for_general' => 'Leave empty to make it general for all companies',
     'additional_details' => 'Additional Details',
     'min' => 'Min',
     'max' => 'Max',

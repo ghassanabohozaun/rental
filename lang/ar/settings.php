@@ -9,6 +9,8 @@ return [
     'auth_welcome_section' => 'محتوى شاشة الترحيب (Auth)',
 
     // Fields
+    'currency' => 'العملة الافتراضية',
+    'select_currency' => 'اختر العملة الافتراضية',
     'site_name_ar' => 'اسم الموقع (عربي)',
     'site_name_en' => 'اسم الموقع (إنجليزي)',
     'address_ar' => 'العنوان (عربي)',

@@ -12,10 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->string('floor')->nullable()->after('property_type_id');
-            $table->string('zone_number')->nullable()->after('floor');
-            $table->string('street_number')->nullable()->after('zone_number');
-            $table->string('building_number')->nullable()->after('street_number');
+            if (!Schema::hasColumn('properties', 'floor')) {
+                $table->string('floor')->nullable()->after('property_type_id');
+            }
+            if (!Schema::hasColumn('properties', 'zone_number')) {
+                $table->string('zone_number')->nullable()->after('floor');
+            }
+            if (!Schema::hasColumn('properties', 'street_number')) {
+                $table->string('street_number')->nullable()->after('zone_number');
+            }
+            if (!Schema::hasColumn('properties', 'building_number')) {
+                $table->string('building_number')->nullable()->after('street_number');
+            }
         });
     }
 

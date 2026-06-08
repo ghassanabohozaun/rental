@@ -86,8 +86,14 @@
         </div>
     </div>
 
+    @can('companies_create')
     @include('dashboard.companies.modals.create')
+    @endcan
+    
+    @can('companies_update')
     @include('dashboard.companies.modals.edit')
+    @endcan
+    
     @include('dashboard.companies.modals.details')
 @endsection
 

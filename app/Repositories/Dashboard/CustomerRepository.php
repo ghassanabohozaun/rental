@@ -20,7 +20,7 @@ class CustomerRepository
     {
         $query = $this->model
             ->with(['company', 'creator', 'guarantors', 'nationality'])
-            ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type'])
+            ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type', 'id_number']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type', 'id_number'])
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query);

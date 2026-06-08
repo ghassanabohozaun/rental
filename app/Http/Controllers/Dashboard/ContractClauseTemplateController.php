@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\ContractClauseTemplate;
 use App\Services\Dashboard\ContractClauseTemplateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ContractClauseTemplateController extends Controller
 {
@@ -25,6 +26,8 @@ class ContractClauseTemplateController extends Controller
 
     public function index(Request $request)
     {
+        Gate::authorize('contract_clauses_read');
+
         $title = __('contracts.contract_clauses_library');
         $companies = auth()->user()->role_id == 1 ? Company::active()->orderBy('id', 'desc')->get() : [];
 
@@ -40,6 +43,8 @@ class ContractClauseTemplateController extends Controller
 
     public function create()
     {
+        Gate::authorize('contract_clauses_create');
+
         $title = __('contracts.add_new_clause');
         $companies = auth()->user()->role_id == 1 ? Company::active()->orderBy('id', 'desc')->get() : [];
 
@@ -48,6 +53,8 @@ class ContractClauseTemplateController extends Controller
 
     public function store(ContractClauseTemplateRequest $request)
     {
+        Gate::authorize('contract_clauses_create');
+
         try {
             $this->contractClauseTemplateService->store($request->validated());
 
@@ -65,6 +72,8 @@ class ContractClauseTemplateController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('contract_clauses_update');
+
         $template = ContractClauseTemplate::findOrFail($id);
 
         // Ensure user can only edit their company's templates
@@ -80,6 +89,8 @@ class ContractClauseTemplateController extends Controller
 
     public function update(ContractClauseTemplateRequest $request, $id)
     {
+        Gate::authorize('contract_clauses_update');
+
         try {
             $template = ContractClauseTemplate::findOrFail($id);
 
@@ -103,6 +114,8 @@ class ContractClauseTemplateController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('contract_clauses_delete');
+
         try {
             $template = ContractClauseTemplate::findOrFail($id);
 

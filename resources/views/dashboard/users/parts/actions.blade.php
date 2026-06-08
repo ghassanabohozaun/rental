@@ -1,6 +1,7 @@
 <div class="d-flex justify-content-center align-items-center mb-0">
     <div class="btn-group" role="group">
 
+        @can('users_update')
         {{-- edit --}}
         <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-edit edit_user_button"
             title="{!! __('general.edit') !!}" user-id="{!! $user->id !!}" user-name-ar="{!! $user->getTranslation('name', 'ar') !!}"
@@ -12,7 +13,9 @@
             data-toggle="modal" data-target="#updateUserModal">
             <i class="fas fa-edit"></i>
         </a>
+        @endcan
 
+        @can('users_delete')
         {{-- delete --}}
         @if (auth()->id() != $user->id)
             <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger delete-confirm"
@@ -29,6 +32,7 @@
                 <i class="fas fa-trash-alt"></i>
             </button>
         @endif
+        @endcan
 
     </div>
 </div>

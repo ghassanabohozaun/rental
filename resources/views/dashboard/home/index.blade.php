@@ -129,7 +129,7 @@
                         <div class="col-xl-3 col-lg-6 col-12 mb-2">
                             <div class="premium-stat-card h-100 card-expiring">
                                 <div class="stat-content">
-                                    <h3 class="stat-value">{!! number_format($stats['total_payments'], 0) !!}</h3>
+                                    <h3 class="stat-value">{!! number_format($stats['total_payments'], 0) !!} {!! currency() !!}</h3>
                                     <h6 class="stat-title">{!! __('contracts.paid_amount') !!}</h6>
                                 </div>
                                 <div class="stat-icon-wrapper">
@@ -142,7 +142,7 @@
                             <div class="col-xl-3 col-lg-6 col-12 mb-2">
                                 <div class="premium-stat-card h-100 card-contracts">
                                     <div class="stat-content">
-                                        <h3 class="stat-value">{!! number_format($stats['pending_cheques_value'], 0) !!}</h3>
+                                        <h3 class="stat-value">{!! number_format($stats['pending_cheques_value'], 0) !!} {!! currency() !!}</h3>
                                         <h6 class="stat-title">{!! __('cheques.pending_cheques') !!}</h6>
                                     </div>
                                     <div class="stat-icon-wrapper">
@@ -271,7 +271,7 @@
                                                             <small class="text-muted">{!! $cheque->bank_name !!}</small>
                                                         </td>
                                                         <td><span
-                                                                class="text-success font-weight-bold">{!! number_format($cheque->amount, 2) !!}</span>
+                                                                class="text-success font-weight-bold">{!! number_format($cheque->amount, 2) !!} {!! currency() !!}</span>
                                                         </td>
                                                         <td class="text-center">
                                                             <span class="badge badge-light-primary"

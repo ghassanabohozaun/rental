@@ -44,7 +44,7 @@
                             @if ($role->id !== 1)
                                 <button class="btn btn-premium-save" type="submit" id="saveBtn">
                                     <i class="fas fa-save mr-2 save-icon"></i>
-                                    <i class="fas fa-sync fa-spin d-none spinner_loading mr-2"></i>
+                                    <i class="fas fa-spinner fa-spin d-none spinner_loading mr-2"></i>
                                     {!! __('general.save') !!}
                                 </button>
                             @endif
@@ -195,65 +195,68 @@
                                                                     ->toArray();
                                                             @endphp
                                                             @foreach (config('global.modules') as $moduleKey => $moduleLangKey)
-                                                                <div
-                                                                    class="permission-card {{ $role->id === 1 ? 'disabled-card' : '' }}">
-                                                                    <div class="permission-card-header">
-                                                                        <div class="permission-card-title">
-                                                                            <i
-                                                                                class="{{ config('global.module_icons.' . $moduleKey, 'la la-dot-circle') }}"></i>
-                                                                            {!! __($moduleLangKey) !!}
-                                                                        </div>
-                                                                        @php
-                                                                            $modulePermissions = collect(
-                                                                                config('global.crud_operations'),
-                                                                            )->map(function ($opLangKey, $opKey) use (
-                                                                                $moduleKey,
-                                                                            ) {
-                                                                                return $moduleKey . '_' . $opKey;
-                                                                            });
-                                                                            $allChecked =
-                                                                                $role->id === 1 ||
-                                                                                $modulePermissions->every(function (
-                                                                                    $perm,
-                                                                                ) use ($rolePermissions) {
-                                                                                    return in_array(
-                                                                                        $perm,
-                                                                                        $rolePermissions,
-                                                                                    );
+                                                                @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || Gate::allows($moduleKey))
+                                                                    <div
+                                                                        class="permission-card {{ ($role->id === 1 || $moduleKey === 'companies') ? 'disabled-card' : '' }}">
+                                                                        <div class="permission-card-header">
+                                                                            <div class="permission-card-title">
+                                                                                <i
+                                                                                    class="{{ config('global.module_icons.' . $moduleKey, 'la la-dot-circle') }}"></i>
+                                                                                {!! __($moduleLangKey) !!}
+                                                                            </div>
+                                                                            @php
+                                                                                $ops = config("global.custom_operations.{$moduleKey}") ?? config('global.crud_operations');
+                                                                                $modulePermissions = collect(
+                                                                                    $ops,
+                                                                                )->map(function ($opLangKey, $opKey) use (
+                                                                                    $moduleKey,
+                                                                                ) {
+                                                                                    return $moduleKey . '_' . $opKey;
                                                                                 });
-                                                                        @endphp
-                                                                        <label class="modern-switch">
-                                                                            <input type="checkbox"
-                                                                                class="select-all-module"
-                                                                                data-module="module-{{ $moduleKey }}"
-                                                                                @checked($allChecked)
-                                                                                @disabled($role->id === 1)>
-                                                                            <span class="modern-slider"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="permission-card-body">
-                                                                        @php 
-                                                                            $operations = config("global.custom_operations.{$moduleKey}") ?? config('global.crud_operations');
-                                                                        @endphp
-                                                                        @foreach ($operations as $opKey => $opLangKey)
-                                                                            @php $permName = $moduleKey . '_' . $opKey; @endphp
-                                                                            {{-- Only show permission if the current user HAS it --}}
-                                                                            @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility($permName))
-                                                                                <div class="permission-item">
-                                                                                    <div class="permission-info">
-                                                                                        <label class="permission-label">{!! __($opLangKey) !!}</label>
-                                                                                        <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
+                                                                                $allChecked =
+                                                                                    $role->id === 1 ||
+                                                                                    $modulePermissions->every(function (
+                                                                                        $perm,
+                                                                                    ) use ($rolePermissions) {
+                                                                                        return in_array(
+                                                                                            $perm,
+                                                                                            $rolePermissions,
+                                                                                        );
+                                                                                    });
+                                                                            @endphp
+                                                                            <label class="modern-switch">
+                                                                                <input type="checkbox"
+                                                                                    class="select-all-module"
+                                                                                    data-module="module-{{ $moduleKey }}"
+                                                                                    @checked($allChecked)
+                                                                                    @disabled($role->id === 1 || $moduleKey === 'companies')>
+                                                                                <span class="modern-slider"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="permission-card-body">
+                                                                            @php 
+                                                                                $operations = config("global.custom_operations.{$moduleKey}") ?? config('global.crud_operations');
+                                                                            @endphp
+                                                                            @foreach ($operations as $opKey => $opLangKey)
+                                                                                @php $permName = $moduleKey . '_' . $opKey; @endphp
+                                                                                {{-- Only show permission if the current user HAS it --}}
+                                                                                @if(auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility($permName))
+                                                                                    <div class="permission-item">
+                                                                                        <div class="permission-info">
+                                                                                            <label class="permission-label">{!! __($opLangKey) !!}</label>
+                                                                                            <p class="permission-desc">{!! __($opLangKey . '_desc') !!}</p>
+                                                                                        </div>
+                                                                                        <label class="modern-switch">
+                                                                                            <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}"
+                                                                                            {{ in_array($permName, $rolePermissions) ? 'checked' : '' }} @disabled($role->id === 1 || $moduleKey === 'companies')>
+                                                                                            <span class="modern-slider"></span>
+                                                                                        </label>
                                                                                     </div>
-                                                                                    <label class="modern-switch">
-                                                                                        <input type="checkbox" class="permission-checkbox module-{{ $moduleKey }}" name="permissions[]" value="{{ $permName }}"
-                                                                                        {{ in_array($permName, $rolePermissions) ? 'checked' : '' }} @disabled($role->id === 1)>
-                                                                                        <span class="modern-slider"></span>
-                                                                                    </label>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                         <div class="text-center mt-3">

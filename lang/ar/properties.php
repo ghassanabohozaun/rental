@@ -119,4 +119,12 @@ return [
     'owner_name_ar' => 'الاسم (العربية)',
     'owner_name_en' => 'الاسم (الإنجليزية)',
     'phone' => 'رقم الهاتف',
+    
+    // Property Attachments Repeater
+    'property_attachments' => 'مرفقات العقار',
+    'add_attachment' => 'إضافة مرفق',
+    'attachment_name' => 'اسم المرفق',
+    'attachment' => 'المرفق (ملف)',
+    'enter_attachment_name' => 'أدخل اسم المرفق...',
+    'no_attachments_added' => 'لم يتم إضافة أي مرفقات بعد.',
 ];

@@ -23,6 +23,7 @@ class SettingRequest extends FormRequest
     {
         return [
             'site_name.*' => ['required', 'string', 'max:255'],
+            'currency_id' => ['nullable', 'exists:currencies,id'],
             'address.*' => ['nullable', 'string'],
             'description.*' => ['nullable', 'string'],
             'keywords.*' => ['nullable', 'string'],

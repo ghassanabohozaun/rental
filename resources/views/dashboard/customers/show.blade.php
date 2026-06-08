@@ -13,10 +13,10 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
-            <div class="content-header row mb-2">
-                <div class="col-md-6 col-12">
+            <div class="content-header row align-items-center mb-2">
+                <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
                     <div class="breadcrumb-wrapper">
-                        <ol class="breadcrumb premium-breadcrumb">
+                        <ol class="breadcrumb premium-breadcrumb shadow-sm">
                             <li class="breadcrumb-item">
                                 <a href="{!! route('dashboard.index') !!}">
                                     <i class="fas fa-home"></i> {!! __('dashboard.home') !!}

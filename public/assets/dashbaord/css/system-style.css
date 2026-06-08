@@ -10608,6 +10608,8 @@ html[dir='rtl'] .btn-premium-back i.fa-arrow-left,
 .premium-file-upload-wrapper {
     position: relative;
     margin-top: 5px;
+    flex: 1;
+    width: 100%;
 }
 
 .premium-file-label {
@@ -10621,7 +10623,7 @@ html[dir='rtl'] .btn-premium-back i.fa-arrow-left,
     border-radius: 8px !important;
     padding: 8px 12px !important;
     transition: all 0.3s ease !important;
-    min-height: 48px !important;
+    min-height: 42px !important;
 }
 
 .premium-file-upload-wrapper:hover .premium-file-box {
@@ -10979,6 +10981,7 @@ html[dir="rtl"] .premium-label.d-flex {
     font-size: 1.1rem !important;
     padding: 0 !important;
     line-height: 1 !important;
+    color: #ffffff !important;
 }
 
 
@@ -11293,131 +11296,64 @@ html[dir='rtl'] .premium-card {
     transition: all 0.3s ease !important;
 }
 
-/* Premium Excel Import Modal Styles */
-.excel-import-modal .modal-content {
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
-    overflow: hidden;
-}
 
-.excel-import-modal .modal-header {
-    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    border-bottom: 1px solid #e2e8f0;
-    padding: 1.25rem 1.5rem;
+.premium-warning-badge {
+    font-size: 0.875rem !important;
+    border: 1px dashed #ffc107 !important;
+    border-radius: 6px !important;
 }
-
-.excel-dropzone {
-    border: 2px dashed #cbd5e1 !important;
-    background-color: #f8fafc;
-    border-radius: 12px;
-    padding: 3rem 2rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.excel-dropzone:hover {
-    border-color: #3b82f6 !important;
-    background-color: #eff6ff;
-    box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.15);
-    transform: translateY(-2px);
-}
-
-.excel-dropzone-icon {
-    font-size: 4.5rem;
-    color: #3b82f6;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.2));
-    transition: all 0.3s ease;
-}
-
-.excel-dropzone:hover .excel-dropzone-icon {
-    transform: scale(1.05) translateY(-5px);
-}
-
-.btn-excel-upload {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white !important;
-    border: none;
-    border-radius: 50rem;
-    padding: 0.75rem 2.5rem;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-    transition: all 0.3s ease;
-}
-
-.btn-excel-upload:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
-}
-
-.excel-table-wrapper {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-}
-
-.excel-table-wrapper table {
-    margin-bottom: 0;
-}
-
-.excel-table-wrapper thead th {
-    background: #f8fafc;
-    color: #475569;
-    font-weight: 600;
+/* Premium Currency Addon */
+.premium-input-group .input-group-text {
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef) !important;
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
     font-size: 0.95rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding: 1rem;
-    white-space: nowrap;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 1.25rem !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
 
-.excel-table-wrapper tbody td {
-    padding: 1rem;
-    vertical-align: middle;
-    border-bottom: 1px solid #f1f5f9;
-    color: #1e293b;
+html[data-textdirection='rtl'] .premium-input-group .input-group-text {
+    border-right: none !important;
+    border-top-left-radius: 0.4rem !important;
+    border-bottom-left-radius: 0.4rem !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
-.excel-table-wrapper tbody tr:hover {
-    background-color: #f8fafc;
+html[data-textdirection='ltr'] .premium-input-group .input-group-text {
+    border-left: none !important;
+    border-top-right-radius: 0.4rem !important;
+    border-bottom-right-radius: 0.4rem !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
-.excel-amount-badge {
-    background: #ecfdf5;
-    color: #059669;
-    padding: 0.35rem 0.75rem;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    display: inline-block;
+.premium-input-group:focus-within .input-group-text {
+    background: linear-gradient(145deg, #e9ecef, #dee2e6) !important;
+    color: #1a252f !important;
+    border-color: #b1bcc4;
 }
 
-.btn-excel-select {
-    background: #ecfdf5;
-    color: #059669;
-    border: 1px solid #a7f3d0;
-    border-radius: 50rem;
-    padding: 0.4rem 1.25rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-}
-
-.btn-excel-select:hover {
-    background: #10b981;
-    color: white;
-    border-color: #10b981;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-}
-
-.btn-excel-select:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+/* Disabled/Readonly State */
+.premium-input-group input:disabled ~ .input-group-append .input-group-text,
+.premium-input-group input[readonly] ~ .input-group-append .input-group-text {
+    background: #e9ecef !important;
+    color: #a0aec0 !important;
+    border-color: #e2e8f0;
     box-shadow: none;
+    opacity: 0.7;
 }
+
+/* Ultimate Override for Alignment */
+html body .app-content .maintenance-item-row .premium-file-upload-wrapper { margin-top: 2px !important; }
+html[dir="rtl"] body .app-content .maintenance-item-row .file-preview-container, html[dir="rtl"] body .app-content .maintenance-item-row > .col-md-5 > .premium-form-group > .d-flex > .btn-premium-action { margin-right: 5px !important; margin-top: 2px !important; }
+html[dir="ltr"] body .app-content .maintenance-item-row .file-preview-container, html[dir="ltr"] body .app-content .maintenance-item-row > .col-md-5 > .premium-form-group > .d-flex > .btn-premium-action { margin-left: 5px !important; margin-top: 2px !important; }
+html body .app-content .maintenance-item-row .premium-file-box { height: 42px !important; min-height: 42px !important; padding: 0 10px !important; }
+html body .app-content .maintenance-item-row .premium-file-box .file-icon-box { width: 24px !important; height: 24px !important; font-size: 0.9rem !important; }
+html body .app-content .maintenance-item-row .btn-premium-action { width: 42px !important; height: 42px !important; margin: 0 !important; transform: none !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; }
+html body .app-content .maintenance-item-row .action-btn-wrapper { min-height: 42px !important; height: 42px !important; margin-top: 0 !important; display: flex !important; align-items: center !important; }
+html body .app-content .maintenance-item-row .file-preview-container { height: 42px !important; display: flex !important; align-items: center !important; }
+html body .app-content .maintenance-item-row .d-flex.align-items-center.w-100 { height: 42px !important; }
+html body .app-content .maintenance-item-row .premium-form-group > label.premium-label { margin-bottom: 8px !important; height: 21px !important; display: block !important; }
