@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CompanyBankAccountRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class CompanyBankAccountRequest extends FormRequest
             'account_holder_name.ar' => 'required|string|max:255',
             'account_holder_name.en' => 'required|string|max:255',
             'account_number' => 'required|string|max:255',
-            'iban' => 'nullable|string|max:255',
+            'iban' => ['nullable', 'string', 'max:255', Rule::unique('company_bank_accounts', 'iban')->ignore($id)->whereNull('deleted_at')],
             'is_default' => 'nullable', // Checkbox sends 'on' or nothing
         ];
 

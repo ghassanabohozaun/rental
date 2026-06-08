@@ -38,4 +38,5 @@ return [
     'cannot_delete_has_guarantors' => 'لا يمكن حذف هذه الشركة لوجود كفلاء مرتبطين بها حالياً.',
     'cannot_delete_has_maintenances' => 'لا يمكن حذف هذه الشركة لوجود طلبات صيانة مرتبطة بها حالياً.',
     'choose_company' => 'اختر الشركة',
+    'iban_unique_error' => 'رقم الآيبان (IBAN) مسجل مسبقاً في النظام.',
 ];

@@ -140,6 +140,12 @@ return [
         'file' => 'يجب أن يكون حجم الملف :attribute :size كيلوبايت',
         'numeric' => 'يجب أن تكون قيمة حقل :attribute مساوية لـ :size',
         'string' => 'يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالظبط',
+        'iban' => [
+            'unique' => 'رقم الآيبان (IBAN) مسجل مسبقاً في النظام.',
+        ],
+        'owners.*' => [
+            'distinct' => 'لا يمكن تكرار نفس المالك في هذا العقار، يرجى اختيار ملاك مختلفين.',
+        ],
     ],
     'starts_with' => 'حقل :attribute يجب ان يبدأ بأحد القيم التالية: :values.',
     'string' => 'يجب أن يكون حقل :attribute نصآ.',
@@ -187,6 +193,9 @@ return [
         ],
         'deposit_cheque_owner_name.en' => [
             'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
+        ],
+        'iban' => [
+            'unique' => 'رقم الآيبان (IBAN) مسجل مسبقاً في النظام.',
         ],
     ],
 
@@ -444,5 +453,12 @@ return [
         'items.*.type' => 'نوع الصيانة',
         'items.*.cost' => 'تكلفة البند',
         'items.*.attachment' => 'مرفق البند',
+
+        // Properties
+        'owners.*' => 'المالك',
+        'percentages.*' => 'نسبة الملكية',
+        'owners' => 'الملاك',
+        'percentages' => 'نسب الملكية',
+        'is_primary' => 'أساسي',
     ],
 ];

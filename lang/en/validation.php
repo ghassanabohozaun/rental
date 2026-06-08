@@ -196,6 +196,12 @@ return [
         'deposit_cheque_owner_name.en' => [
             'required_if' => 'Field is required when insurance type is "Cheque".',
         ],
+        'iban' => [
+            'unique' => 'The IBAN is already registered in the system.',
+        ],
+        'owners.*' => [
+            'distinct' => 'The same owner cannot be repeated for this property. Please select different owners.',
+        ],
     ],
 
     /*
@@ -383,5 +389,12 @@ return [
         'items.*.type' => 'Maintenance Type',
         'items.*.cost' => 'Item Cost',
         'items.*.attachment' => 'Item Attachment',
+
+        // Properties
+        'owners.*' => 'Owner',
+        'percentages.*' => 'Ownership Percentage',
+        'owners' => 'Owners',
+        'percentages' => 'Ownership Percentages',
+        'is_primary' => 'Is Primary?',
     ],
 ];

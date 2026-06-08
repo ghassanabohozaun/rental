@@ -59,31 +59,6 @@ class PropertyRequest extends FormRequest
         return $rules;
     }
 
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'owners.*.distinct' => __('properties.duplicate_owner_error'),
-        ];
-    }
 
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, string>
-     */
-    public function attributes(): array
-    {
-        return [
-            'owners.*' => __('properties.owner'),
-            'percentages.*' => __('properties.percentage'),
-            'owners' => __('properties.owners'),
-            'percentages' => __('properties.percentages'),
-            'is_primary' => __('properties.is_primary'),
-        ];
-    }
+
 }

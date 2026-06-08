@@ -37,6 +37,10 @@ class ChequeService
             $data['company_id'] = user()->company_id;
         }
 
+        if (isset($data['company_bank_account_id']) && $data['company_bank_account_id'] === '') {
+            $data['company_bank_account_id'] = null;
+        }
+
         return $this->repository->create($data);
     }
 
@@ -44,6 +48,10 @@ class ChequeService
     {
         if (isset($data['company_id']) && $data['company_id'] === '') {
             $data['company_id'] = null;
+        }
+
+        if (isset($data['company_bank_account_id']) && $data['company_bank_account_id'] === '') {
+            $data['company_bank_account_id'] = null;
         }
 
         return $this->repository->update($id, $data);

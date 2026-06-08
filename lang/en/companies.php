@@ -38,4 +38,5 @@ return [
     'cannot_delete_has_guarantors' => 'Cannot delete this company because it has guarantors linked to it.',
     'cannot_delete_has_maintenances' => 'Cannot delete this company because it has maintenance requests linked to it.',
     'choose_company' => 'Choose Company',
+    'iban_unique_error' => 'The IBAN is already registered in the system.',
 ];
