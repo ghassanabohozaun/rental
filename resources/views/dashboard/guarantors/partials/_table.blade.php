@@ -1,4 +1,4 @@
-<input type="hidden" id="guarantors-total-count" value="{!! $guarantors->total() !!}">
+﻿<input type="hidden" id="guarantors-total-count" value="{!! $guarantors->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -14,7 +14,7 @@
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{!! __('general.status') !!}</th>
                 @endcan
                 @if(auth()->user()->can('guarantors_update') || auth()->user()->can('guarantors_delete'))
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -165,7 +165,7 @@
                     @endcan
 
                     @if(auth()->user()->can('guarantors_update') || auth()->user()->can('guarantors_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.guarantors.parts.actions')
                     </td>
                     @endif
@@ -183,5 +183,6 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $guarantors->links() !!}
 </div>
+
 
 

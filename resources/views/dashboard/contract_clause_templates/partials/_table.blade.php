@@ -13,7 +13,7 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.order_num') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
                 @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -146,7 +146,7 @@
                         @endif
                     </td>
                     @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.contract_clause_templates.parts.actions', ['template' => $template])
                     </td>
                     @endif
@@ -167,3 +167,4 @@
         {!! $templates->links() !!}
     </div>
 </div>
+

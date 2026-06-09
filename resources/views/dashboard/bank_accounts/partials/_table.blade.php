@@ -1,4 +1,4 @@
-<input type="hidden" id="bank_accounts-total-count" value="{!! $bankAccounts->total() !!}">
+﻿<input type="hidden" id="bank_accounts-total-count" value="{!! $bankAccounts->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -14,7 +14,7 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}
                 </th>
                 @if (auth()->user()->can('bank_accounts_update') || auth()->user()->can('bank_accounts_delete'))
-                    <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -150,7 +150,7 @@
 
                     <!-- Actions -->
                     @if (auth()->user()->can('bank_accounts_update') || auth()->user()->can('bank_accounts_delete'))
-                        <td class="text-center align-middle">
+                        <td class="text-center align-middle sticky-actions">
                             @include('dashboard.bank_accounts.parts.actions')
                         </td>
                     @endif
@@ -169,3 +169,4 @@
         {!! $bankAccounts->links() !!}
     </div>
 </div>
+

@@ -1,4 +1,4 @@
-<input type="hidden" id="roles-total-count" value="{!! $roles->total() !!}">
+﻿<input type="hidden" id="roles-total-count" value="{!! $roles->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -12,7 +12,7 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.description') !!}
                 </th>
                 @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
-                    <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -141,7 +141,7 @@
 
                     <!-- Actions -->
                     @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
-                        <td class="text-center align-middle">
+                        <td class="text-center align-middle sticky-actions">
                             @include('dashboard.roles.parts.actions')
                         </td>
                     @endif
@@ -160,3 +160,4 @@
         {!! $roles->links() !!}
     </div>
 </div>
+

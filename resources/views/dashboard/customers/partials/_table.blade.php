@@ -5,17 +5,25 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('companies.company') }}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
+                    {{ __('companies.company') }}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{{ __('customers.name_ar') }}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.phone') }}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.id_number') }}</th>
-                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{{ __('customers.nationality') }}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
+                    {{ __('customers.phone') }}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
+                    {{ __('customers.id_number') }}</th>
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
+                    {{ __('customers.nationality') }}</th>
                 <th class="text-center align-middle py-3 border-top-0">{{ __('customers.status') }}</th>
                 @can('customers_update')
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{{ __('general.manage_status') }}</th>
+                    <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">
+                        {{ __('general.manage_status') }}</th>
                 @endcan
-                @if(auth()->user()->can('customers_read') || auth()->user()->can('customers_update') || auth()->user()->can('customers_delete'))
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{{ __('general.actions') }}</th>
+                @if (auth()->user()->can('customers_read') ||
+                        auth()->user()->can('customers_update') ||
+                        auth()->user()->can('customers_delete'))
+                    <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">
+                        {{ __('general.actions') }}</th>
                 @endif
             </tr>
         </thead>
@@ -32,14 +40,16 @@
                                 <div class="premium-modal-header"></div>
                                 <div class="text-center">
                                     <div class="modal-profile-wrapper">
-                                        <div class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
+                                        <div
+                                            class="avatar-circle avatar-size-100 d-inline-flex align-items-center justify-content-center text-white text-uppercase shadow-sm bg-indigo-alt">
                                             <i class="fas fa-user font-40"></i>
                                         </div>
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{{ $customer->name }}</h4>
                                     <div class="modal-member-since-box">
                                         <i class="fas fa-calendar-alt small mr-1"></i>
-                                        {{ __('general.created_at') }}: {{ is_string($customer->created_at) ? $customer->created_at : optional($customer->created_at)->format('Y-m-d') }}
+                                        {{ __('general.created_at') }}:
+                                        {{ is_string($customer->created_at) ? $customer->created_at : optional($customer->created_at)->format('Y-m-d') }}
                                     </div>
                                 </div>
                                 <div class="modal-info-list mt-2">
@@ -68,7 +78,8 @@
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{{ __('companies.company') }}</span>
-                                            <span class="detail-info-value">{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
+                                            <span
+                                                class="detail-info-value">{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
                                         </div>
                                     </div>
                                     <div class="detail-item-modern">
@@ -77,9 +88,11 @@
                                             <span class="detail-info-label">{{ __('customers.status') }}</span>
                                             <div class="detail-info-value mt-1">
                                                 @if ($customer->status == 1)
-                                                    <span class="badge badge-success badge-glow badge-pill px-2">{{ __('general.enable') }}</span>
+                                                    <span
+                                                        class="badge badge-success badge-glow badge-pill px-2">{{ __('general.enable') }}</span>
                                                 @else
-                                                    <span class="badge badge-danger badge-glow badge-pill px-2">{{ __('general.disabled') }}</span>
+                                                    <span
+                                                        class="badge badge-danger badge-glow badge-pill px-2">{{ __('general.disabled') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -113,7 +126,8 @@
                         </div>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
+                        <span
+                            class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
                             <i class="fas fa-phone"></i> {{ $customer->phone ?? '---' }}
                         </span>
                     </td>
@@ -139,17 +153,20 @@
                         <td class="text-center align-middle">
                             <div class="premium-switch-centered-wrapper">
                                 <label class="modern-switch">
-                                    <input type="checkbox" class="change_status" id="customSwitch_{{ $customer->id }}" {{ $customer->status == 1 ? 'checked' : '' }} data-id="{{ $customer->id }}" />
+                                    <input type="checkbox" class="change_status" id="customSwitch_{{ $customer->id }}"
+                                        {{ $customer->status == 1 ? 'checked' : '' }} data-id="{{ $customer->id }}" />
                                     <span class="modern-slider"></span>
                                 </label>
                             </div>
                         </td>
                     @endcan
 
-                    @if(auth()->user()->can('customers_read') || auth()->user()->can('customers_update') || auth()->user()->can('customers_delete'))
-                    <td class="text-center align-middle">
-                        @include('dashboard.customers.parts.actions')
-                    </td>
+                    @if (auth()->user()->can('customers_read') ||
+                            auth()->user()->can('customers_update') ||
+                            auth()->user()->can('customers_delete'))
+                        <td class="text-center align-middle sticky-actions">
+                            @include('dashboard.customers.parts.actions')
+                        </td>
                     @endif
                 </tr>
             @empty
@@ -165,5 +182,3 @@
 <div class="float-right mt-2 custom-pagination">
     {{ $customers->links() }}
 </div>
-
-

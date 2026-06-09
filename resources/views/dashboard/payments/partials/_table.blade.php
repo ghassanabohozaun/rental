@@ -1,4 +1,4 @@
-<input type="hidden" id="payments-total-count" value="{!! $payments->total() !!}">
+﻿<input type="hidden" id="payments-total-count" value="{!! $payments->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -14,7 +14,7 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.method') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('payments.status') !!}</th>
                 @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-150">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-150 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -161,7 +161,7 @@
                         </div>
                     </td>
                     @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.payments.parts.actions')
                     </td>
                     @endif
@@ -180,5 +180,6 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $payments->links() !!}
 </div>
+
 
 

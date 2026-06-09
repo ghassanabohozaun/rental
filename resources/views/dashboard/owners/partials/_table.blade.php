@@ -1,4 +1,4 @@
-<input type="hidden" id="owners-total-count" value="{!! $owners->total() !!}">
+﻿<input type="hidden" id="owners-total-count" value="{!! $owners->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -11,7 +11,7 @@
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('owners.name') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('owners.phone') !!}</th>
                 @if(auth()->user()->can('owners_update') || auth()->user()->can('owners_delete'))
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -150,7 +150,7 @@
                     </td>
 
                     @if(auth()->user()->can('owners_update') || auth()->user()->can('owners_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.owners.parts.actions')
                     </td>
                     @endif
@@ -168,5 +168,6 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $owners->links() !!}
 </div>
+
 
 

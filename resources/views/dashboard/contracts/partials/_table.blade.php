@@ -25,8 +25,11 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
-                @if(auth()->user()->can('contracts_read') || auth()->user()->can('contracts_update') || auth()->user()->can('contracts_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                @if (auth()->user()->can('contracts_read') ||
+                        auth()->user()->can('contracts_update') ||
+                        auth()->user()->can('contracts_delete'))
+                    <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">
+                        {!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -102,7 +105,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.rent_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-success">{!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}</span>
+                                                class="detail-info-value font-weight-bold text-success">{!! number_format($contract->rent_amount, 2) !!}
+                                                {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -111,7 +115,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.paid_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-info">{!! number_format($contract->paid_amount, 2) !!} {!! currency() !!}</span>
+                                                class="detail-info-value font-weight-bold text-info">{!! number_format($contract->paid_amount, 2) !!}
+                                                {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -120,7 +125,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.remaining_amount') !!}</span>
                                             <span
-                                                class="detail-info-value font-weight-bold text-danger">{!! number_format($contract->remaining_amount, 2) !!} {!! currency() !!}</span>
+                                                class="detail-info-value font-weight-bold text-danger">{!! number_format($contract->remaining_amount, 2) !!}
+                                                {!! currency() !!}</span>
                                         </div>
                                     </div>
 
@@ -129,7 +135,8 @@
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('contracts.deposit_amount') !!}</span>
                                             <div class="detail-info-value d-flex flex-column">
-                                                <span class="font-weight-bold text-dark">{!! number_format($contract->deposit_amount, 2) !!} {!! currency() !!}</span>
+                                                <span class="font-weight-bold text-dark">{!! number_format($contract->deposit_amount, 2) !!}
+                                                    {!! currency() !!}</span>
                                                 <div class="d-flex align-items-center gap-1 mt-25">
                                                     <span
                                                         class="badge badge-light-{!! $contract->deposit_type == 'cheque' ? 'primary' : 'success' !!} border-0 font-10 px-1 py-0">
@@ -267,28 +274,56 @@
                                             title="{!! __('cheques.cheque_number') !!}">
                                             <i class="fas fa-barcode"></i> {!! $contract->insuranceCheque->cheque_number !!}
                                         </span>
-                                @php
-                                    $dStatusInfo = [
-                                        'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
-                                        'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
-                                        'used' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
-                                    ][$contract->deposit_status] ?? ['class' => 'badge-secondary', 'icon' => 'fas fa-info-circle'];
-                                @endphp
-                                <div class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
-                                    <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                </div>
-@else
-                                @php
-                                    $dStatusInfo = [
-                                        'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
-                                        'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
-                                        'used' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
-                                    ][$contract->deposit_status] ?? ['class' => 'badge-secondary', 'icon' => 'fas fa-info-circle'];
-                                @endphp
-                                <div class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
-                                    <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i> {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                </div>
-@endif
+                                        @php
+                                            $dStatusInfo = [
+                                                'held' => [
+                                                    'class' => 'badge-info-premium',
+                                                    'icon' => 'fas fa-pause-circle',
+                                                ],
+                                                'returned' => [
+                                                    'class' => 'badge-danger-premium',
+                                                    'icon' => 'fas fa-undo',
+                                                ],
+                                                'used' => [
+                                                    'class' => 'badge-success-premium',
+                                                    'icon' => 'fas fa-check-circle',
+                                                ],
+                                            ][$contract->deposit_status] ?? [
+                                                'class' => 'badge-secondary',
+                                                'icon' => 'fas fa-info-circle',
+                                            ];
+                                        @endphp
+                                        <div
+                                            class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
+                                            <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i>
+                                            {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
+                                        </div>
+                                    @else
+                                        @php
+                                            $dStatusInfo = [
+                                                'held' => [
+                                                    'class' => 'badge-info-premium',
+                                                    'icon' => 'fas fa-pause-circle',
+                                                ],
+                                                'returned' => [
+                                                    'class' => 'badge-danger-premium',
+                                                    'icon' => 'fas fa-undo',
+                                                ],
+                                                'used' => [
+                                                    'class' => 'badge-success-premium',
+                                                    'icon' => 'fas fa-check-circle',
+                                                ],
+                                            ][$contract->deposit_status] ?? [
+                                                'class' => 'badge-secondary',
+                                                'icon' => 'fas fa-info-circle',
+                                            ];
+                                        @endphp
+                                        <div
+                                            class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
+                                            <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i>
+                                            {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
+                                        </div>
+                                @endif
                             </div>
                         @else
                             <span class="badge badge-secondary border-0 px-2 py-25 no-deposit-badge">
@@ -329,10 +364,12 @@
                     </td>
 
                     <!-- Actions -->
-                    @if(auth()->user()->can('contracts_read') || auth()->user()->can('contracts_update') || auth()->user()->can('contracts_delete'))
-                    <td class="text-center align-middle">
-                        @include('dashboard.contracts.parts.actions')
-                    </td>
+                    @if (auth()->user()->can('contracts_read') ||
+                            auth()->user()->can('contracts_update') ||
+                            auth()->user()->can('contracts_delete'))
+                        <td class="text-center align-middle sticky-actions">
+                            @include('dashboard.contracts.parts.actions')
+                        </td>
                     @endif
                 </tr>
             @empty

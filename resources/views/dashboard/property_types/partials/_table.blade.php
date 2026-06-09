@@ -1,4 +1,4 @@
-<input type="hidden" id="property_types-total-count" value="{!! $property_types->total() !!}">
+﻿<input type="hidden" id="property_types-total-count" value="{!! $property_types->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -13,7 +13,7 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('property_types.manage_status') !!}</th>
                 @endcan
                 @if(auth()->user()->can('property_types_update') || auth()->user()->can('property_types_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -133,7 +133,7 @@
 
                     <!-- Actions -->
                     @if(auth()->user()->can('property_types_update') || auth()->user()->can('property_types_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.property_types.parts.actions')
                     </td>
                     @endif
@@ -152,5 +152,6 @@
         {!! $property_types->links() !!}
     </div>
 </div>
+
 
 

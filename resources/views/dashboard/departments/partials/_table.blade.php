@@ -1,4 +1,4 @@
-<input type="hidden" id="departments-total-count" value="{!! $departments->total() !!}">
+﻿<input type="hidden" id="departments-total-count" value="{!! $departments->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -13,7 +13,7 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.manage_status') !!}</th>
                 @endcan
                 @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -134,7 +134,7 @@
 
                     <!-- Actions -->
                     @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.departments.parts.actions')
                     </td>
                     @endif
@@ -153,5 +153,6 @@
         {!! $departments->links() !!}
     </div>
 </div>
+
 
 

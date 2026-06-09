@@ -1,4 +1,4 @@
-<input type="hidden" id="users-total-count" value="{!! $users->total() !!}">
+﻿<input type="hidden" id="users-total-count" value="{!! $users->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -16,7 +16,7 @@
                 </th>
                 @endcan
                 @if(auth()->user()->can('users_update') || auth()->user()->can('users_delete'))
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}
+                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}
                 </th>
                 @endif
             </tr>
@@ -151,7 +151,7 @@
                     </td>
                     @endcan
                     @if(auth()->user()->can('users_update') || auth()->user()->can('users_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.users.parts.actions')
                     </td>
                     @endif
@@ -170,5 +170,6 @@
     {!! $users->links() !!}
 </div>
 </div>
+
 
 

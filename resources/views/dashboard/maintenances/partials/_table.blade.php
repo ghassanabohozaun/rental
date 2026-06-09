@@ -1,4 +1,4 @@
-<input type="hidden" id="maintenances-total-count" value="{!! $maintenances->total() !!}">
+﻿<input type="hidden" id="maintenances-total-count" value="{!! $maintenances->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -13,7 +13,7 @@
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('maintenances.status') !!}</th>
                 @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
-                <th class="text-center align-middle py-3 border-top-0" style="min-width: 150px;">{!! __('general.actions') !!}
+                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}
                 </th>
                 @endif
             </tr>
@@ -174,7 +174,7 @@
                     </td>
 
                     @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.maintenances.parts.actions')
                     </td>
                     @endif
@@ -192,5 +192,6 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $maintenances->links() !!}
 </div>
+
 
 

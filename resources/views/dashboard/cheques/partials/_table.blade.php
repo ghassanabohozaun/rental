@@ -1,4 +1,4 @@
-<input type="hidden" id="cheques-total-count" value="{!! $cheques->total() !!}">
+﻿<input type="hidden" id="cheques-total-count" value="{!! $cheques->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -20,7 +20,7 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.is_deposit') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.status') !!}</th>
                 @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-150">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-150 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -224,7 +224,7 @@
                         </div>
                     </td>
                     @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         @include('dashboard.cheques.parts.actions')
                     </td>
                     @endif
@@ -243,3 +243,4 @@
 <div class="float-right mt-2 custom-pagination">
     {!! $cheques->links() !!}
 </div>
+

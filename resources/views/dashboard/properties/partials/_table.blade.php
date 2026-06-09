@@ -15,7 +15,7 @@
 
                 <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
                 @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140">{!! __('general.actions') !!}</th>
+                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
                 @endif
             </tr>
         </thead>
@@ -123,7 +123,7 @@
 
                     <!-- Actions -->
                     @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
-                    <td class="text-center align-middle">
+                    <td class="text-center align-middle sticky-actions">
                         <div class="d-flex justify-content-center gap-2">
                             @include('dashboard.properties.parts.actions')
                         </div>
@@ -153,5 +153,6 @@
         </div>
     </div>
 </div>
+
 
 

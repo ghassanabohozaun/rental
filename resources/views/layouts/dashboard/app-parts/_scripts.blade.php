@@ -1,4 +1,4 @@
-    <!-- 1. EXTERNAL LIBRARIES  -->
+﻿    <!-- 1. EXTERNAL LIBRARIES  -->
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/vendors.min.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/js/core/app-menu.js" type="text/javascript"></script>
@@ -15,7 +15,7 @@
             src="{{ asset('assets/dashbaord/vendors/js/pickers/bootstrap-datepicker/locales/bootstrap-datepicker.ar.min.js') }}">
         </script>
     @endif
-    <script src="{{ asset('assets/dashbaord/js/datepicker-initializer.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('assets/dashbaord/js/datepicker-initializer.js') }}?v=1.1"></script>
 
     <script src="{{ asset('assets/dashbaord/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <script src="{!! asset('vendor/fileInput/js/fileinput.min.js') !!}" type="text/javascript"></script>
@@ -25,9 +25,9 @@
     @endif
 
     <script src="{!! asset('assets/dashbaord/js/ajax-table.js') !!}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/js/premium-ajax-form.js') !!}?v={{ time() }}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/js/generic-select2.js') !!}?v={{ time() }}" type="text/javascript"></script>
-    <script src="{!! asset('assets/dashbaord/js/premium-fileinput-initializer.js') !!}?v={{ time() }}" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord/js/premium-ajax-form.js') !!}?v=1.1" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord/js/generic-select2.js') !!}?v=1.1" type="text/javascript"></script>
+    <script src="{!! asset('assets/dashbaord/js/premium-fileinput-initializer.js') !!}?v=1.1" type="text/javascript"></script>
 
     <!-- 2. INLINE SCRIPTS & CONFIGURATIONS -->
     <script type="text/javascript">
@@ -149,3 +149,4 @@
         });
     </script>
     <script src="{{ asset('assets/dashbaord/js/lock-screen-modern.js') }}"></script>
+

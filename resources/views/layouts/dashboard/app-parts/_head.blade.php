@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+﻿<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta name="description" content="">
@@ -42,56 +42,59 @@
 <link rel="stylesheet"
     href="{{ asset('assets/dashbaord/vendors/css/pickers/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/filter.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}?v={{ time() }}">
-<link rel="stylesheet" href="{!! asset('vendor/fileInput/css/fileinput.min.css') !!}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/ajax-table.css') }}?v=1.1">
+<link rel="stylesheet" href="{!! asset('vendor/fileInput/css/fileinput.min.css') !!}?v=1.1">
 
 <!-- Select2 Vendor CSS -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/vendors/css/forms/selects/select2.min.css') }}">
 
 <!-- Custom CSS File -->
 @if (Lang() == 'ar')
-    <link rel="stylesheet" href="{!! asset('vendor/fileInput/css/fileinput-rtl.min.css') !!}?v={{ time() }}">
+    <link rel="stylesheet" href="{!! asset('vendor/fileInput/css/fileinput-rtl.min.css') !!}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/vendors.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/vendors.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/app.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/app.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/custom-rtl.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/custom-rtl.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/core/menu/menu-types/vertical-menu-modern.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/core/menu/menu-types/vertical-menu-modern.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/core/colors/palette-gradient.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/core/colors/palette-gradient.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/sidebar-navy-rtl.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css-rtl/sidebar-navy-rtl.css') }}?v=1.1">
 @else
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/app.css') }}">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/vendors.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css/vendors.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/app.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css/app.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/core/menu/menu-types/vertical-menu-modern.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css/core/menu/menu-types/vertical-menu-modern.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/core/colors/palette-gradient.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css/core/colors/palette-gradient.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/sidebar-navy.css') }}?v={{ time() }}">
+        href="{{ asset('assets/dashbaord/css/sidebar-navy.css') }}?v=1.1">
 @endif
 
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/pages.css') }}?v={{ time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/pages.css') }}?v=1.1">
 <link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/system-style.css') }}?v={{ time() }}">
+    href="{{ asset('assets/dashbaord/css/system-style.css') }}?v=1.1">
 <link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/premium-navbar.css') }}?v={{ time() }}">
+    href="{{ asset('assets/dashbaord/css/premium-navbar.css') }}?v=1.1">
 
 <!-- Ultra Premium Styles -->
 <link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v={{ time() }}">
+    href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v=1.1">
 
 <link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/premium-fileinput.css') }}?v={{ time() }}">
+    href="{{ asset('assets/dashbaord/css/premium-fileinput.css') }}?v=1.1">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/premium-select2.css') }}">
 <!-- END: Core CSS -->
 
 <!-- Base Typography (Loaded LAST to guarantee it overrides RTL Bootstrap and custom files) -->
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/typography-base.css') !!}">
+<link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/custom-sticky.css') !!}?v=1.1">
+
+
