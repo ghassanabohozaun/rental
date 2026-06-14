@@ -580,16 +580,6 @@
                                             @endif
                                         </div>
 
-                                        @if ($contract_id)
-                                            <div class="summary-footer-premium"
-                                                wire:loading.class.delay.500ms="opacity-50">
-                                                <div class="footer-balance-row justify-content-center">
-                                                    <span class="footer-balance-label text-muted"
-                                                        style="font-size: 0.8rem;"><i class="fas fa-lock mr-1"></i>
-                                                        {!! __('cheques.all_amounts_are_without_currency') !!}</span>
-                                                </div>
-                                            </div>
-                                        @endif
                                     </div>
                                 </div>
 
