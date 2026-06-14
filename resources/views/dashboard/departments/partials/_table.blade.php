@@ -5,7 +5,9 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                @if(isset($companies))
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                @endif
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('departments.created_by') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.status') !!}</th>
@@ -52,6 +54,7 @@
                                         </div>
                                     </div>
 
+                                    @if(isset($companies))
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
@@ -65,6 +68,7 @@
                                             </span>
                                         </div>
                                     </div>
+                                    @endif
 
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-check-circle"></i></div>
@@ -100,6 +104,7 @@
                     </td>
 
                     <!-- Company -->
+                    @if(isset($companies))
                     <td class="text-center align-middle">
                         @if($department->company_id)
                             <a href="javascript:void(0)" class="company-chip">
@@ -112,6 +117,7 @@
                             </span>
                         @endif
                     </td>
+                    @endif
 
                     <!-- Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">{!! $department->name !!}</td>

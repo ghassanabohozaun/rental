@@ -5,7 +5,9 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">#</th>
+                @if(isset($companies))
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                @endif
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.bank_name') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('bank_accounts.account_number') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('bank_accounts.account_holder_name') !!}
@@ -73,6 +75,7 @@
                                         </div>
                                     @endif
 
+                                    @if(isset($companies))
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
@@ -83,6 +86,7 @@
                                             </span>
                                         </div>
                                     </div>
+                                    @endif
 
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-star"></i></div>
@@ -119,12 +123,14 @@
                     </td>
 
                     <!-- Company -->
+                    @if(isset($companies))
                     <td class="text-center align-middle">
                         <a href="javascript:void(0)" class="company-chip">
                             <i class="fas fa-briefcase mr-1"></i>
                             {!! $account->company->name ?? '---' !!}
                         </a>
                     </td>
+                    @endif
 
                     <!-- Bank Name -->
                     <td class="text-center align-middle font-weight-bold text-primary">{!! $account->bank_name !!}</td>
