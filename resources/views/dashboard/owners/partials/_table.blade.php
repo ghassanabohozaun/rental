@@ -5,7 +5,9 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
+                @if(isset($companies))
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.company') !!}</th>
+                @endif
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('owners.type') !!}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('owners.identification_number') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('owners.name') !!}</th>
@@ -76,6 +78,7 @@
                                         </div>
                                     </div>
 
+                                    @if(isset($companies))
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
@@ -83,6 +86,7 @@
                                             <span class="detail-info-value">{!! optional($owner->company)->name ?? __('general.all_companies') !!}</span>
                                         </div>
                                     </div>
+                                    @endif
 
                                     
                                     <div class="detail-item-modern">
@@ -113,12 +117,14 @@
                     </td>
 
                     <!-- Company -->
+                    @if(isset($companies))
                     <td class="text-center align-middle">
                         <a href="javascript:void(0)" class="company-chip">
                             <i class="fas fa-briefcase mr-1"></i>
                             {!! optional($owner->company)->name ?? __('general.all_companies') !!}
                         </a>
                     </td>
+                    @endif
 
                     <!-- Type -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
