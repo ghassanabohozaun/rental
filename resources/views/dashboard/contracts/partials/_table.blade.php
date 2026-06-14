@@ -12,7 +12,11 @@
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('contracts.property') !!} &
                     {!! __('contracts.customer') !!}
                 </th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
+                </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.rent_amount') !!}
+                </th>
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.total_rent_value') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-xl-table-cell">{!! __('contracts.paid_amount') !!}
                 </th>
@@ -21,8 +25,6 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.payment_cycle') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.deposit_amount') !!}
-                </th>
-                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
                 @if (auth()->user()->can('contracts_read') ||
@@ -87,16 +89,8 @@
                                     <div class="detail-item-modern mt-1">
                                         <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="detail-info-box text-left">
-                                            <span class="detail-info-label">{!! __('contracts.start_date') !!}</span>
-                                            <span class="detail-info-value text-muted">{!! optional($contract->start_date)->format('Y-m-d') !!}</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="detail-item-modern mt-1">
-                                        <div class="icon-circle"><i class="fas fa-calendar-times"></i></div>
-                                        <div class="detail-info-box text-left">
-                                            <span class="detail-info-label">{!! __('contracts.end_date') !!}</span>
-                                            <span class="detail-info-value text-muted">{!! optional($contract->end_date)->format('Y-m-d') !!}</span>
+                                            <span class="detail-info-label">{!! __('general.duration') !!}</span>
+                                            <span class="detail-info-value text-muted">{!! $contract->duration_label !!} ({!! optional($contract->start_date)->format('Y-m-d') !!} - {!! optional($contract->end_date)->format('Y-m-d') !!})</span>
                                         </div>
                                     </div>
 
@@ -106,6 +100,16 @@
                                             <span class="detail-info-label">{!! __('contracts.rent_amount') !!}</span>
                                             <span
                                                 class="detail-info-value font-weight-bold text-success">{!! number_format($contract->rent_amount, 2) !!}
+                                                {!! currency() !!}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="detail-item-modern mt-1">
+                                        <div class="icon-circle"><i class="fas fa-money-check-alt"></i></div>
+                                        <div class="detail-info-box text-left">
+                                            <span class="detail-info-label">{!! __('contracts.total_rent_value') !!}</span>
+                                            <span
+                                                class="detail-info-value font-weight-bold text-info">{!! number_format($contract->total_amount, 2) !!}
                                                 {!! currency() !!}</span>
                                         </div>
                                     </div>
@@ -206,11 +210,34 @@
                         </div>
                     </td>
 
+                    <!-- Duration & Dates -->
+                    <td class="text-center align-middle d-none d-lg-table-cell py-3">
+                        <div class="contract-duration-wrapper">
+                            <div class="duration-label-badge">
+                                <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
+                            </div>
+                            <div class="date-range-badge">
+                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('Y-m-d') : '---' !!}</span>
+                                <i class="fas fa-long-arrow-alt-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} text-primary date-arrow"></i>
+                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('Y-m-d') : '---' !!}</span>
+                            </div>
+                        </div>
+                    </td>
+
                     <!-- Rent Amount -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
                         <div class="premium-financial-box box-primary-light shadow-none">
                             <span class="font-weight-bolder font-16 text-dark-premium d-block">
                                 {!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}
+                            </span>
+                        </div>
+                    </td>
+
+                    <!-- Total Rent Amount -->
+                    <td class="text-center align-middle d-none d-lg-table-cell py-3">
+                        <div class="premium-financial-box box-info-light shadow-none">
+                            <span class="font-weight-bolder font-16 text-info-premium d-block">
+                                {!! number_format($contract->total_amount, 2) !!} {!! currency() !!}
                             </span>
                         </div>
                     </td>
@@ -332,20 +359,6 @@
                                 <i class="fas fa-minus-circle"></i> {!! __('contracts.no_deposit') !!}
                             </span>
                         @endif
-                    </td>
-
-                    <!-- Duration & Dates -->
-                    <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        <div class="contract-duration-wrapper">
-                            <div class="duration-label-badge">
-                                <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
-                            </div>
-                            <div class="date-range-badge">
-                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('Y-m-d') : '---' !!}</span>
-                                <i class="fas fa-long-arrow-alt-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} text-primary date-arrow"></i>
-                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('Y-m-d') : '---' !!}</span>
-                            </div>
-                        </div>
                     </td>
 
                     <!-- Status -->
