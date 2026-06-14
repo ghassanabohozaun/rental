@@ -161,7 +161,7 @@
             <!-- 3. Smart Alerts Section (The Core of the Revolution) -->
             <div class="row animate-up">
                 <!-- Actionable Cheques -->
-                <div class="col-xl-6 col-12 mb-2">
+                <div class="col-lg-6 col-12 mb-2">
                     <div class="premium-glass-card h-100">
                         <div class="alert-header-gradient d-flex justify-content-between align-items-center">
                             <h5 class="mb-0 font-weight-bold text-dark">
@@ -207,14 +207,14 @@
                                                             title="{!! __('general.edit') !!}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-
+ 
                                                         {{-- Return Cheque --}}
                                                         <a href="javascript:void(0)"
                                                             class="btn-mini-action btn-mini-warning btn-return-cheque ml-1"
                                                             data-id="{!! $cheque->id !!}" title="{!! __('cheques.return_cheque') !!}">
                                                             <i class="fas fa-undo"></i>
                                                         </a>
-
+ 
                                                         @if ($cheque->is_deposit)
                                                             {{-- Cash Insurance Cheque --}}
                                                             <a href="javascript:void(0)"
@@ -239,13 +239,12 @@
                                     </tbody>
                                 </table>
                             </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-
+ 
                 <!-- Expiring Contracts -->
-                <div class="col-xl-6 col-12 mb-2">
+                <div class="col-lg-6 col-12 mb-2">
                     <div class="premium-glass-card h-100">
                         <div class="alert-header-gradient d-flex justify-content-between align-items-center">
                             <h5 class="mb-0 font-weight-bold text-dark">
@@ -304,7 +303,6 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                            </div>
                             </div>
                         </div>
                     </div>
