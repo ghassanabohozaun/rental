@@ -161,7 +161,7 @@
             <!-- 3. Smart Alerts Section (The Core of the Revolution) -->
             <div class="row animate-up">
                 <!-- Actionable Cheques -->
-                <div class="col-xl-6 col-12 mb-3">
+                <div class="col-xl-6 col-12 mb-2">
                     <div class="premium-glass-card h-100">
                         <div class="alert-header-gradient d-flex justify-content-between align-items-center">
                             <h5 class="mb-0 font-weight-bold text-dark">
@@ -246,7 +246,7 @@
                 </div>
 
                 <!-- Expiring Contracts -->
-                <div class="col-xl-6 col-12 mb-3">
+                <div class="col-xl-6 col-12 mb-2">
                     <div class="premium-glass-card h-100">
                         <div class="alert-header-gradient d-flex justify-content-between align-items-center">
                             <h5 class="mb-0 font-weight-bold text-dark">
@@ -314,7 +314,7 @@
             </div>
 
             <!-- 5. Premium Chart Row -->
-            <div class="row mt-1 animate-up mb-5">
+            <div class="row mt-0 animate-up mb-5">
                 <div class="col-lg-8">
                     <div class="card premium-chart-card h-100">
                         <div class="card-header border-0 pb-0 pt-3 px-3">

@@ -24326,7 +24326,7 @@ html[dir='ltr'] .premium-error-bubble::after {
 
 /* Enhanced stats layout for new structure */
 .revolutionary-stats-container {
-    margin-bottom: 25px;
+    margin-bottom: 8px !important;
 }
 
 /* Scrollable table container for alerts */
