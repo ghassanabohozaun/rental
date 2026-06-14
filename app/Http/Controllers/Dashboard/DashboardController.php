@@ -84,7 +84,7 @@ class DashboardController extends Controller
             ->where('status', 'active')
             ->where('end_date', '<=', Carbon::now()->addDays(60))
             ->orderBy('end_date', 'asc')
-            ->limit(8)
+            ->limit(50)
             ->get();
 
         // B. Actionable Cheques (Overdue or Due within 7 Days)
@@ -93,7 +93,7 @@ class DashboardController extends Controller
             ->whereIn('status', ['pending', 'held'])
             ->where('due_date', '<=', Carbon::now()->addDays(7))
             ->orderBy('due_date', 'asc')
-            ->limit(8)
+            ->limit(50)
             ->get();
 
         return view('dashboard.home.index', compact(
