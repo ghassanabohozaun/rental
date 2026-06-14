@@ -5,8 +5,10 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                @if(isset($companies))
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">
                     {!! __('companies.company') !!}</th>
+                @endif
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('cheques.cheque_number') !!}</th>
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('customers.customer') !!}</th>
                 <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
@@ -57,6 +59,7 @@
                                         </div>
                                     </div>
 
+                                    @if(isset($companies))
                                     <div class="detail-item-modern mt-1">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
@@ -64,6 +67,7 @@
                                             <span class="detail-info-value">{!! optional($cheque->company)->name !!}</span>
                                         </div>
                                     </div>
+                                    @endif
 
                                     <div class="detail-item-modern mt-1">
                                         <div class="icon-circle"><i class="fas fa-user-tie"></i></div>
@@ -119,12 +123,14 @@
                             {!! $loop->iteration + ($cheques->currentPage() - 1) * $cheques->perPage() !!}
                         </span>
                     </td>
+                    @if(isset($companies))
                     <td class="text-center align-middle d-none d-md-table-cell">
                         <div class="company-chip">
                             <i class="fas fa-briefcase"></i>
                             <span>{!! optional($cheque->company)->name ?? __('general.all_companies') !!}</span>
                         </div>
                     </td>
+                    @endif
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! $cheque->cheque_number !!}</span>

@@ -5,8 +5,10 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
+                @if(isset($companies))
                 <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">
                     {!! __('companies.company') !!}</th>
+                @endif
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('customers.customer') !!}</th>
                 <th class="align-middle py-3 border-top-0 d-none d-md-table-cell property-info-td">{!! __('properties.property') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.amount') !!}</th>
@@ -93,12 +95,14 @@
                             {!! $loop->iteration + ($payments->currentPage() - 1) * $payments->perPage() !!}
                         </span>
                     </td>
+                    @if(isset($companies))
                     <td class="text-center align-middle d-none d-md-table-cell">
                         <div class="company-chip">
                             <i class="fas fa-briefcase"></i>
                             <span>{!! optional($payment->company)->name ?? __('general.all_companies') !!}</span>
                         </div>
                     </td>
+                    @endif
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional(optional($payment->contract)->customer)->name ?? '---' !!}</span>
