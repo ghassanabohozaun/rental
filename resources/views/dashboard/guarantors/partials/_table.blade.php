@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="guarantors-total-count" value="{!! $guarantors->total() !!}">
+<input type="hidden" id="guarantors-total-count" value="{!! $guarantors->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">

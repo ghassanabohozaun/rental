@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 return [
     'please_wait' => 'الرجاء الانتظار ...',

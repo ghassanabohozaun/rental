@@ -1,4 +1,4 @@
-﻿<!-- Premium Toast Notification Assets -->
+<!-- Premium Toast Notification Assets -->
 <link rel="stylesheet" href="{{ asset('assets/dashbaord/css/premium-toast.css') }}?v=1.1">
 <script src="{{ asset('assets/dashbaord/js/premium-toast.js') }}?v=1.1"></script>
 

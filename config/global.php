@@ -26,6 +26,7 @@ return [
     'custom_operations' => [
         'reports' => [
             'properties' => 'reports.properties_reports',
+            'cheques' => 'reports.cheques_reports',
         ],
         'cheques' => [
             'read'   => 'general.show',

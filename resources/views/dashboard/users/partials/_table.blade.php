@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="users-total-count" value="{!! $users->total() !!}">
+<input type="hidden" id="users-total-count" value="{!! $users->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">

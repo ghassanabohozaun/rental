@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="bank_accounts-total-count" value="{!! $bankAccounts->total() !!}">
+<input type="hidden" id="bank_accounts-total-count" value="{!! $bankAccounts->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">

@@ -27,7 +27,7 @@ class PropertiesReportsController extends Controller
 
         $companies = null;
         if (user()->company_id == 1) {
-            $companies = \App\Models\Company::where('status', 'active')->get();
+            $companies = \App\Models\Company::active()->latest()->get();
         }
 
         return view('dashboard.reports.properties.index', compact('title', 'propertyColumnNames', 'propertyTypes', 'propertyStatuses', 'owners', 'companies'));

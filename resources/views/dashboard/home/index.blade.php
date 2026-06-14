@@ -171,7 +171,6 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="scrollable-table-container">
-                                <div class="table-responsive">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>
@@ -256,7 +255,6 @@
                         </div>
                         <div class="card-body p-0">
                             <div class="scrollable-table-container">
-                                <div class="table-responsive">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>

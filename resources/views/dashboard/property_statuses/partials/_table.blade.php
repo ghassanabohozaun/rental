@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="property_statuses-total-count" value="{!! $property_statuses->total() !!}">
+<input type="hidden" id="property_statuses-total-count" value="{!! $property_statuses->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">

@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="roles-total-count" value="{!! $roles->total() !!}">
+<input type="hidden" id="roles-total-count" value="{!! $roles->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">

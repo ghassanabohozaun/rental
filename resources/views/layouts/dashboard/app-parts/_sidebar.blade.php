@@ -256,7 +256,7 @@
                 <!-- end: Payments -->
 
                 {{-- Group 5: Reports --}}
-                @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties'))
+                @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties') || auth()->user()->hasAbility('reports_cheques'))
                 <li class="nav-item {{ Route::is('dashboard.reports.*') ? 'open' : '' }}">
                     <a href="#">
                         <i class="la la-bar-chart"></i>
@@ -268,6 +268,14 @@
                                 <a class="menu-item" href="{!! route('dashboard.reports.properties.index') !!}">
                                     <i class="la la-building"></i>
                                     <span data-i18n="nav.reports.properties">{!! __('reports.properties_reports') !!}</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_cheques'))
+                            <li class="{{ Route::is('dashboard.reports.cheques.*') ? 'active' : '' }}">
+                                <a class="menu-item" href="{!! route('dashboard.reports.cheques.index') !!}">
+                                    <i class="fas fa-money-check-alt"></i>
+                                    <span data-i18n="nav.reports.cheques">{!! __('reports.cheques_reports') !!}</span>
                                 </a>
                             </li>
                         @endif

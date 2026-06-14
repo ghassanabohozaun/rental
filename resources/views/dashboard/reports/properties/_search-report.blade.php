@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="company_id" class="premium-label mb-0">
-                                <i class="fas fa-briefcase text-muted"></i> {!! __('companies.company') !!}
+                                {!! __('companies.company') !!}
                             </label>
                             <select class="form-control js-select2" id="filter_company_id" name="company_id">
                                 <option value="">{!! __('general.all_companies') !!}</option>
@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-end mb-1">
                             <label for="owner_id" class="premium-label mb-0">
-                                <i class="fas fa-users text-muted"></i> {!! __('reports.select_owner') !!} 
+                                {!! __('reports.select_owner') !!} 
                                 <span class="badge badge-light-primary badge-pill ml-1 font-10 font-weight-500">{!! __('general.optional') !!}</span>
                             </label>
                             <div class="d-flex align-items-center gap-3">

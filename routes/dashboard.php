@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\MaintenancesController;
 use App\Http\Controllers\Dashboard\OwnersController;
 use App\Http\Controllers\Dashboard\PaymentsController;
 use App\Http\Controllers\Dashboard\PropertiesReportsController;
+use App\Http\Controllers\Dashboard\ChequesReportsController;
 use App\Http\Controllers\Dashboard\PropertyController;
 use App\Http\Controllers\Dashboard\PropertyStatusesController;
 use App\Http\Controllers\Dashboard\PropertyTypesController;
@@ -179,6 +180,10 @@ Route::group(
             Route::group(['middleware' => 'can:reports_properties', 'prefix' => 'reports/properties', 'as' => 'reports.properties.'], function () {
                 Route::get('/', [PropertiesReportsController::class, 'index'])->name('index');
                 Route::post('/export', [PropertiesReportsController::class, 'exportExcel'])->name('export.excel');
+            });
+            Route::group(['middleware' => 'can:reports_cheques', 'prefix' => 'reports/cheques', 'as' => 'reports.cheques.'], function () {
+                Route::get('/', [ChequesReportsController::class, 'index'])->name('index');
+                Route::post('/export', [ChequesReportsController::class, 'exportExcel'])->name('export.excel');
             });
         });
     },

@@ -16,6 +16,7 @@ return [
     'type' => 'نوع العقار',
     'property_type' => 'نوع العقار',
     'area' => 'المساحة',
+    'price' => 'سعر الإيجار',
 
     'zone_number' => 'منطقة',
     'street_number' => 'شارع رقم',

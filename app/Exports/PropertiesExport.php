@@ -65,57 +65,60 @@ class PropertiesExport implements WithHeadings, FromCollection, WithMapping, Wit
     public function map($row): array
     {
         $items = [];
+        $optionalLabel = __('general.optional');
 
         foreach ($this->columns as $column) {
+            $val = null;
             if ($column == 'id') {
-                $items[] = ++$this->index;
+                $val = ++$this->index;
             } elseif ($column == 'name') {
-                $items[] = $row->name;
+                $val = $row->name;
             } elseif ($column == 'property_number') {
-                $items[] = $row->property_number;
+                $val = $row->property_number;
             } elseif ($column == 'property_type_id') {
-                $items[] = $row->propertyType ? $row->propertyType->name : '';
+                $val = $row->propertyType ? $row->propertyType->name : null;
             } elseif ($column == 'property_status_id') {
-                $items[] = $row->propertyStatus ? $row->propertyStatus->name : '';
+                $val = $row->propertyStatus ? $row->propertyStatus->name : null;
             } elseif ($column == 'area') {
-                $items[] = $row->area;
+                $val = $row->area;
             } elseif ($column == 'price') {
-                $items[] = number_format($row->price, 2);
+                $val = number_format($row->price, 2);
             } elseif ($column == 'location') {
-                $items[] = $row->location;
+                $val = $row->location;
             } elseif ($column == 'floor') {
-                $items[] = $row->floor;
+                $val = $row->floor;
             } elseif ($column == 'title_deed_number') {
-                $items[] = $row->title_deed_number;
+                $val = $row->title_deed_number;
             } elseif ($column == 'electricity_account_number') {
-                $items[] = $row->electricity_account_number;
+                $val = $row->electricity_account_number;
             } elseif ($column == 'water_account_number') {
-                $items[] = $row->water_account_number;
+                $val = $row->water_account_number;
             } elseif ($column == 'file_number') {
-                $items[] = $row->file_number;
+                $val = $row->file_number;
             } elseif ($column == 'description') {
-                $items[] = $row->description;
+                $val = $row->description;
             } elseif ($column == 'owner') {
                 if ($row->owners->isNotEmpty()) {
                     // Extract names of all owners, or primary owner
-                    $ownerNames = $row->owners->pluck('name')->implode(' - ');
-                    $items[] = $ownerNames;
-                } else {
-                    $items[] = '';
+                    $val = $row->owners->pluck('name')->implode(' - ');
                 }
             } elseif ($column == 'created_at') {
-                $items[] = $row->created_at ? $row->created_at->format('Y-m-d H:i') : '';
+                $val = $row->created_at ? $row->created_at->format('Y-m-d H:i') : null;
             } elseif ($column == 'created_by') {
-                $items[] = $row->creator ? $row->creator->name : $row->created_by;
+                $val = $row->creator ? $row->creator->name : $row->created_by;
             } elseif ($column == 'rental_contract_original') {
-                $items[] = $row->rental_contract_original ? __('general.yes') : __('general.no');
+                $val = $row->rental_contract_original ? __('general.yes') : __('general.no');
             } elseif ($column == 'building_completion_certificate') {
-                $items[] = $row->building_completion_certificate ? __('general.yes') : __('general.no');
+                $val = $row->building_completion_certificate ? __('general.yes') : __('general.no');
             } elseif ($column == 'other_documents') {
-                $items[] = $row->other_documents ? __('general.yes') : __('general.no');
-            } else {
-                $items[] = '';
+                $val = $row->other_documents ? __('general.yes') : __('general.no');
             }
+
+            if ($val === null || $val === '') {
+                $val = $optionalLabel;
+            }
+
+            $items[] = $val;
         }
 
         return $items;

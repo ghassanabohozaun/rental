@@ -1,4 +1,4 @@
-﻿    <!-- 1. EXTERNAL LIBRARIES  -->
+    <!-- 1. EXTERNAL LIBRARIES  -->
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/vendors.min.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/js/core/app-menu.js" type="text/javascript"></script>
