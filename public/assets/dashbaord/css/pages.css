@@ -24143,8 +24143,6 @@ html[dir='ltr'] .premium-error-bubble::after {
 }
 
 .premium-glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(31, 38, 135, 0.12);
     border-color: rgba(255, 255, 255, 0.8);
 }
 
