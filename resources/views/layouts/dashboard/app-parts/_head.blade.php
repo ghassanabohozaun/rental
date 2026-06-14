@@ -62,7 +62,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css-rtl/core/colors/palette-gradient.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css-rtl/sidebar-navy-rtl.css') }}?v=1.1">
+        href="{{ asset('assets/dashbaord/css-rtl/sidebar-navy-rtl.css') }}?v=1.2">
 @else
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/app.css') }}">
@@ -75,7 +75,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/dashbaord/css/core/colors/palette-gradient.css') }}?v=1.1">
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('assets/dashbaord/css/sidebar-navy.css') }}?v=1.1">
+        href="{{ asset('assets/dashbaord/css/sidebar-navy.css') }}?v=1.2">
 @endif
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashbaord/css/pages.css') }}?v=1.1">
@@ -86,7 +86,7 @@
 
 <!-- Ultra Premium Styles -->
 <link rel="stylesheet" type="text/css"
-    href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v=1.1">
+    href="{{ asset('assets/dashbaord/css/premium-sidebar.css') }}?v=1.2">
 
 <link rel="stylesheet" type="text/css"
     href="{{ asset('assets/dashbaord/css/premium-fileinput.css') }}?v=1.1">

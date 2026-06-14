@@ -55,4 +55,15 @@ return [
     'deposited_bank_name' => 'Deposited Bank',
     'account_number' => 'Deposited Account Number',
     'iban' => 'Deposited IBAN',
+
+    // Payments Report
+    'payments_reports' => 'Payments Reports',
+    'payments_reports_desc' => 'View and analyze detailed reports of all payments and methods.',
+    'payment_method' => 'Payment Method',
+    'payment_status' => 'Payment Status',
+    'payment_date_from' => 'Payment Date From',
+    'payment_date_to' => 'Payment Date To',
+    'payment_date' => 'Payment Date',
+    'method' => 'Payment Method',
+    'reference_number' => 'Reference Number',
 ];

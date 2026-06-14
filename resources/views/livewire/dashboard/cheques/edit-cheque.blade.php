@@ -272,10 +272,15 @@
                                                     class="premium-form-group @error('issue_date') is-invalid-premium @enderror">
                                                     <label for="issue_date">{!! __('cheques.issue_date') !!}</label>
                                                     <div wire:ignore wire:key="issue-date-wrapper-enabled">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none ptc-datepicker"
-                                                            id="issue_date" wire:model="issue_date"
-                                                            autocomplete="off" placeholder="YYYY-MM-DD">
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text"
+                                                                class="form-control premium-input shadow-none ptc-datepicker"
+                                                                id="issue_date" wire:model="issue_date"
+                                                                autocomplete="off" placeholder="YYYY-MM-DD">
+                                                            <div class="premium-icon-centered">
+                                                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     @error('issue_date')
                                                         <span class="text-danger error-text">{{ $message }}</span>
@@ -287,10 +292,15 @@
                                                     class="premium-form-group @error('due_date') is-invalid-premium @enderror">
                                                     <label for="due_date">{!! __('cheques.due_date') !!}</label>
                                                     <div wire:ignore wire:key="due-date-wrapper-enabled">
-                                                        <input type="text"
-                                                            class="form-control premium-input shadow-none ptc-datepicker"
-                                                            id="due_date" wire:model="due_date" autocomplete="off"
-                                                            placeholder="YYYY-MM-DD">
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text"
+                                                                class="form-control premium-input shadow-none ptc-datepicker"
+                                                                id="due_date" wire:model="due_date" autocomplete="off"
+                                                                placeholder="YYYY-MM-DD">
+                                                            <div class="premium-icon-centered">
+                                                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     @error('due_date')
                                                         <span class="text-danger error-text">{{ $message }}</span>

@@ -304,11 +304,16 @@
                                                         <label for="issue_date">{!! __('cheques.issue_date') !!}</label>
                                                         <div wire:ignore
                                                             wire:key="issue-date-wrapper-{{ $contract_id ? 'enabled' : 'disabled' }}">
-                                                            <input type="text"
-                                                                class="form-control premium-input shadow-none ptc-datepicker"
-                                                                id="issue_date" wire:model="issue_date"
-                                                                autocomplete="off" placeholder="YYYY-MM-DD"
-                                                                {{ !$contract_id ? 'disabled' : '' }}>
+                                                            <div class="position-relative has-icon-left">
+                                                                <input type="text"
+                                                                    class="form-control premium-input shadow-none ptc-datepicker"
+                                                                    id="issue_date" wire:model="issue_date"
+                                                                    autocomplete="off" placeholder="YYYY-MM-DD"
+                                                                    {{ !$contract_id ? 'disabled' : '' }}>
+                                                                <div class="premium-icon-centered">
+                                                                    <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         @error('issue_date')
                                                             <span
@@ -322,11 +327,16 @@
                                                         <label for="due_date">{!! __('cheques.due_date') !!}</label>
                                                         <div wire:ignore
                                                             wire:key="due-date-wrapper-{{ $contract_id ? 'enabled' : 'disabled' }}">
-                                                            <input type="text"
-                                                                class="form-control premium-input shadow-none ptc-datepicker"
-                                                                id="due_date" wire:model="due_date"
-                                                                autocomplete="off" placeholder="YYYY-MM-DD"
-                                                                {{ !$contract_id ? 'disabled' : '' }}>
+                                                            <div class="position-relative has-icon-left">
+                                                                <input type="text"
+                                                                    class="form-control premium-input shadow-none ptc-datepicker"
+                                                                    id="due_date" wire:model="due_date"
+                                                                    autocomplete="off" placeholder="YYYY-MM-DD"
+                                                                    {{ !$contract_id ? 'disabled' : '' }}>
+                                                                <div class="premium-icon-centered">
+                                                                    <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         @error('due_date')
                                                             <span

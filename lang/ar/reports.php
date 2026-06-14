@@ -55,4 +55,15 @@ return [
     'deposited_bank_name' => 'البنك المودع فيه',
     'account_number' => 'رقم الحساب المودع فيه',
     'iban' => 'الآيبان المودع فيه',
+
+    // Payments Report
+    'payments_reports' => 'تقارير الدفعات',
+    'payments_reports_desc' => 'عرض وتحليل تفصيلي لجميع الدفعات وطرق السداد.',
+    'payment_method' => 'طريقة الدفع',
+    'payment_status' => 'حالة الدفعة',
+    'payment_date_from' => 'تاريخ الدفع من',
+    'payment_date_to' => 'تاريخ الدفع إلى',
+    'payment_date' => 'تاريخ الدفع',
+    'method' => 'طريقة الدفع',
+    'reference_number' => 'الرقم المرجعي',
 ];

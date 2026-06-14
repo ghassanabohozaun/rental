@@ -256,7 +256,7 @@
                 <!-- end: Payments -->
 
                 {{-- Group 5: Reports --}}
-                @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties') || auth()->user()->hasAbility('reports_cheques'))
+                @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_properties') || auth()->user()->hasAbility('reports_cheques') || auth()->user()->hasAbility('reports_payments'))
                 <li class="nav-item {{ Route::is('dashboard.reports.*') ? 'open' : '' }}">
                     <a href="#">
                         <i class="la la-bar-chart"></i>
@@ -276,6 +276,14 @@
                                 <a class="menu-item" href="{!! route('dashboard.reports.cheques.index') !!}">
                                     <i class="fas fa-money-check-alt"></i>
                                     <span data-i18n="nav.reports.cheques">{!! __('reports.cheques_reports') !!}</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (auth()->user()->id === 1 || auth()->user()->role_id === 1 || auth()->user()->hasAbility('reports_payments'))
+                            <li class="{{ Route::is('dashboard.reports.payments.*') ? 'active' : '' }}">
+                                <a class="menu-item" href="{!! route('dashboard.reports.payments.index') !!}">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span data-i18n="nav.reports.payments">{!! __('reports.payments_reports') !!}</span>
                                 </a>
                             </li>
                         @endif

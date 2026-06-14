@@ -45,6 +45,12 @@ class PropertiesReportsController extends Controller
         }
 
         $fileName = 'properties_report_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
+        
+        // Clear any previous output buffers to avoid corrupted Excel files
+        if (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+        
         return Excel::download(new PropertiesExport($selectedColumns, $filters), $fileName);
     }
 

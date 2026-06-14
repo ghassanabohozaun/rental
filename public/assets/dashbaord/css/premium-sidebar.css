@@ -28,7 +28,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     padding: 2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .sidebar-search-container:hover,
@@ -112,7 +112,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation-header {
     border-radius: 2px !important;
     color: #94a3b8 !important;
     border-left: 4px solid transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a {
@@ -126,6 +126,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a {
     margin-right: 14px !important;
     color: #64748b !important;
     vertical-align: middle !important;
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
@@ -139,6 +140,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
     display: inline-block !important;
     padding-top: 2px !important;
     font-size: 0.95rem !important; /* Restored original */
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 /* Hover State */
@@ -148,12 +150,21 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > a > i {
     box-shadow: none !important; /* Truly Flat */
 }
 
-html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li:hover > a {
-    transform: none !important; /* Explicitly disable movement */
-}
-
 .main-menu.menu-dark .navigation > li:hover > a > i {
     color: #38bdf8 !important; /* Neon Blue */
+    transform: translateX(4px) !important;
+}
+
+.main-menu.menu-dark .navigation > li:hover > a > span.menu-title {
+    transform: translateX(4px) !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li:hover > a > i {
+    transform: translateX(-4px) !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li:hover > a > span.menu-title {
+    transform: translateX(-4px) !important;
 }
 
 /* Active State */
@@ -187,7 +198,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li.active > a 
 
 /* --- CHEVRON / ARROWS --- */
 .main-menu.menu-dark .navigation > li.has-sub > a::after {
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1) !important;
     opacity: 0.6;
     right: 14px;
 }
@@ -228,7 +239,7 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul {
     color: #64748b !important;
     position: relative;
     font-size: 0.9rem; /* Restored original */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li > a {
@@ -245,9 +256,12 @@ html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li >
     margin-right: 10px !important;
 }
 
-html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a,
-html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li.active > a {
-    transform: none !important; /* Explicitly disable movement */
+.main-menu.menu-dark .navigation > li > ul > li:hover > a {
+    transform: translateX(4px) !important;
+}
+
+html[data-textdirection="rtl"] .main-menu.menu-dark .navigation > li > ul > li:hover > a {
+    transform: translateX(-4px) !important;
 }
 
 .main-menu.menu-dark .navigation > li > ul > li.active > a {

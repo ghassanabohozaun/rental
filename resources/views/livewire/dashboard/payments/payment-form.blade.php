@@ -174,7 +174,12 @@
                                                     <div class="premium-form-group @error('payment_date') is-invalid-premium @enderror">
                                                         <label for="payment_date" class="font-weight-bold">{!! __('payments.payment_date') !!} <span class="text-danger">*</span></label>
                                                         <div wire:ignore wire:key="date-wrapper-{{ $contract_id }}">
-                                                            <input type="text" class="form-control premium-input shadow-none ptc-datepicker" id="payment_date" wire:model.live="payment_date" autocomplete="off" placeholder="YYYY-MM-DD" {{ !$contract_id ? 'disabled' : '' }}>
+                                                            <div class="position-relative has-icon-left">
+                                                                <input type="text" class="form-control premium-input shadow-none ptc-datepicker" id="payment_date" wire:model.live="payment_date" autocomplete="off" placeholder="YYYY-MM-DD" {{ !$contract_id ? 'disabled' : '' }}>
+                                                                <div class="premium-icon-centered">
+                                                                    <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         @error('payment_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>

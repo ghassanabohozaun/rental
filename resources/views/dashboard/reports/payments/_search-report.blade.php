@@ -34,7 +34,7 @@
                 @endif
 
                 <!-- Select Customers / Tenants (Multi Select) -->
-                <div class="col-md-6 mb-2">
+                <div class="col-md-4 mb-2">
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-end mb-1">
                             <label for="customer_id" class="premium-label mb-0">
@@ -63,12 +63,40 @@
                     </div>
                 </div>
 
-                <!-- Cheque Status (Multi Select) -->
-                <div class="col-md-6 mb-2">
+                <!-- Payment Method (Multi Select) -->
+                <div class="col-md-4 mb-2">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between align-items-end mb-1">
+                            <label for="method" class="premium-label mb-0">
+                                {!! __('reports.payment_method') !!}
+                            </label>
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="javascript:void(0);"
+                                    class="text-primary font-small-3 font-weight-bold text-nowrap"
+                                    id="select_all_methods" style="white-space: nowrap;">
+                                    <i class="fas fa-check-double"></i> {!! __('reports.select_all') !!}
+                                </a>
+                                <a href="javascript:void(0);"
+                                    class="text-danger font-small-3 font-weight-bold text-nowrap"
+                                    id="deselect_all_methods" style="white-space: nowrap;">
+                                    <i class="fas fa-times"></i> {!! __('reports.deselect_all') !!}
+                                </a>
+                            </div>
+                        </div>
+                        <select class="form-control select2" id="method" name="method[]" multiple="multiple">
+                            @foreach (__('payments.methods') as $key => $label)
+                                <option value="{{ $key }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Payment Status (Multi Select) -->
+                <div class="col-md-4 mb-2">
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-end mb-1">
                             <label for="status" class="premium-label mb-0">
-                                {!! __('reports.cheque_status') !!}
+                                {!! __('reports.payment_status') !!}
                             </label>
                             <div class="d-flex align-items-center gap-2">
                                 <a href="javascript:void(0);"
@@ -84,55 +112,22 @@
                             </div>
                         </div>
                         <select class="form-control select2" id="status" name="status[]" multiple="multiple">
-                            @foreach (__('cheques.statuses') as $key => $label)
+                            @foreach (__('payments.statuses') as $key => $label)
                                 <option value="{{ $key }}">{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                <!-- Cheque Type -->
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <div class="d-flex justify-content-between align-items-end mb-1">
-                            <label for="cheque_type" class="premium-label mb-0">
-                                {!! __('reports.cheque_type') !!}
-                            </label>
-                        </div>
-                        <select class="form-control" id="cheque_type" name="cheque_type">
-                            <option value="">{!! __('cheques.all_cheques') !!}</option>
-                            <option value="rent">{!! __('reports.rent_cheque') !!}</option>
-                            <option value="insurance">{!! __('reports.insurance_cheque') !!}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Drawer Bank Name -->
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <div class="d-flex justify-content-between align-items-end mb-1">
-                            <label for="bank_name" class="premium-label mb-0">
-                                {!! __('reports.select_bank') !!}
-                            </label>
-                        </div>
-                        <select class="form-control select2" id="bank_name" name="bank_name">
-                            <option value="">{!! __('reports.all_banks') !!}</option>
-                            @foreach ($banks as $bank)
-                                <option value="{{ $bank }}">{{ $bank }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Due Date Range -->
+                <!-- Payment Date Range -->
                 <div class="col-md-3 mb-2">
                     <div class="form-group">
-                        <label for="due_date_from" class="premium-label mb-0">
-                            {!! __('reports.due_date_from') !!}
+                        <label for="payment_date_from" class="premium-label mb-0">
+                            {!! __('reports.payment_date_from') !!}
                         </label>
                         <div class="position-relative has-icon-left">
-                            <input type="text" class="form-control custom-datepicker" id="due_date_from"
-                                name="due_date_from" placeholder="YYYY-MM-DD" autocomplete="off">
+                            <input type="text" class="form-control custom-datepicker" id="payment_date_from"
+                                name="payment_date_from" placeholder="YYYY-MM-DD" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                             </div>
@@ -141,12 +136,12 @@
                 </div>
                 <div class="col-md-3 mb-2">
                     <div class="form-group">
-                        <label for="due_date_to" class="premium-label mb-0">
-                            {!! __('reports.due_date_to') !!}
+                        <label for="payment_date_to" class="premium-label mb-0">
+                            {!! __('reports.payment_date_to') !!}
                         </label>
                         <div class="position-relative has-icon-left">
-                            <input type="text" class="form-control custom-datepicker" id="due_date_to"
-                                name="due_date_to" placeholder="YYYY-MM-DD" autocomplete="off">
+                            <input type="text" class="form-control custom-datepicker" id="payment_date_to"
+                                name="payment_date_to" placeholder="YYYY-MM-DD" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                             </div>

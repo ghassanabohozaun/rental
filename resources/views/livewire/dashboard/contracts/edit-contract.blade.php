@@ -159,27 +159,42 @@
                                                 <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('conclusion_date') is-invalid-premium @enderror">
                                                         <label for="conclusion_date" class="premium-label">{!! __('contracts.conclusion_date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="conclusion_date" wire:model="conclusion_date"
-                                                            class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                            placeholder="YYYY-MM-DD" data-livewire-model="conclusion_date">
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text" id="conclusion_date" wire:model="conclusion_date"
+                                                                class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                                                                placeholder="YYYY-MM-DD" data-livewire-model="conclusion_date">
+                                                            <div class="form-control-position premium-icon-centered">
+                                                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                            </div>
+                                                        </div>
                                                         @error('conclusion_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('start_date') is-invalid-premium @enderror">
                                                         <label for="start_date" class="premium-label">{!! __('contracts.start_date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="start_date" wire:model.live.debounce.500ms="start_date"
-                                                            class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                            placeholder="YYYY-MM-DD" data-livewire-model="start_date">
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text" id="start_date" wire:model.live.debounce.500ms="start_date"
+                                                                class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                                                                placeholder="YYYY-MM-DD" data-livewire-model="start_date">
+                                                            <div class="form-control-position premium-icon-centered">
+                                                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                            </div>
+                                                        </div>
                                                         @error('start_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
                                                     <div class="premium-form-group @error('end_date') is-invalid-premium @enderror">
                                                         <label for="end_date" class="premium-label">{!! __('contracts.end_date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="end_date" wire:model.live.debounce.500ms="end_date"
-                                                            class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                            placeholder="YYYY-MM-DD" data-livewire-model="end_date">
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text" id="end_date" wire:model.live.debounce.500ms="end_date"
+                                                                class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                                                                placeholder="YYYY-MM-DD" data-livewire-model="end_date">
+                                                            <div class="form-control-position premium-icon-centered">
+                                                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                            </div>
+                                                        </div>
                                                         @error('end_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
@@ -326,9 +341,14 @@
                                                         <div class="col-md-6 mb-2">
                                                             <div class="premium-form-group @error('deposit_issue_date') is-invalid-premium @enderror">
                                                                 <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!}</label>
-                                                                <input type="text" id="deposit_issue_date" wire:model="deposit_issue_date"
-                                                                    class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD" autocomplete="off" data-livewire-model="deposit_issue_date"
-                                                                    x-init="$( $el ).datepicker({ format: 'yyyy-mm-dd', autoclose: true, todayHighlight: true, language: '{{ app()->getLocale() }}', rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }} }).on('changeDate', function(e){ $wire.set('deposit_issue_date', $(e.target).val()); })" {{ $this->isDepositLocked ? 'disabled' : '' }}>
+                                                                <div class="position-relative has-icon-left">
+                                                                    <input type="text" id="deposit_issue_date" wire:model="deposit_issue_date"
+                                                                        class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD" autocomplete="off" data-livewire-model="deposit_issue_date"
+                                                                        x-init="$( $el ).datepicker({ format: 'yyyy-mm-dd', autoclose: true, todayHighlight: true, language: '{{ app()->getLocale() }}', rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }} }).on('changeDate', function(e){ $wire.set('deposit_issue_date', $(e.target).val()); })" {{ $this->isDepositLocked ? 'disabled' : '' }}>
+                                                                    <div class="form-control-position premium-icon-centered">
+                                                                        <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                                                                    </div>
+                                                                </div>
                                                                 @error('deposit_issue_date') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>

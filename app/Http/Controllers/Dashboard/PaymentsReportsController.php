@@ -5,35 +5,30 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
-use App\Models\Cheque;
+use App\Models\Payment;
 use App\Models\Company;
-use App\Exports\ChequesExport;
+use App\Exports\PaymentsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Gate;
 
-class ChequesReportsController extends Controller
+class PaymentsReportsController extends Controller
 {
     /**
      * Show report dashboard index.
      */
     public function index()
     {
-        Gate::authorize('reports_cheques');
+        Gate::authorize('reports_payments');
 
-        $title = __('reports.cheques_reports');
+        $title = __('reports.payments_reports');
 
         // Column groupings
-        $chequeColumns = [
-            'cheque_number',
+        $paymentColumns = [
+            'payment_date',
             'amount',
-            'used_amount',
-            'remaining_amount',
-            'bank_name',
-            'cheque_owner_name',
-            'issue_date',
-            'due_date',
+            'method',
+            'reference_number',
             'status',
-            'is_deposit',
             'notes',
             'created_at',
         ];
@@ -42,14 +37,11 @@ class ChequesReportsController extends Controller
             'contract_number',
             'customer_name',
             'property_name',
-            'contract_start_date',
-            'contract_end_date',
         ];
 
-        $bankAccountColumns = [
-            'deposited_bank_name',
-            'account_number',
-            'iban',
+        $chequeColumns = [
+            'cheque_number',
+            'bank_name',
         ];
 
         // Active customers/tenants with company isolation
@@ -59,32 +51,18 @@ class ChequesReportsController extends Controller
         }
         $customers = $customersQuery->select('id', 'name')->get();
 
-        // Unique bank names with company isolation
-        $banksQuery = Cheque::select('bank_name')->whereNotNull('bank_name');
-        if (user()->company_id != 1) {
-            $banksQuery->where('company_id', user()->company_id);
-        }
-        $banks = $banksQuery->get()
-            ->map(function ($cheque) {
-                return $cheque->getTranslation('bank_name', app()->getLocale());
-            })
-            ->filter()
-            ->unique()
-            ->values();
-
         // Super Admin company list
         $companies = null;
         if (user()->company_id == 1) {
             $companies = Company::active()->latest()->get();
         }
 
-        return view('dashboard.reports.cheques.index', compact(
+        return view('dashboard.reports.payments.index', compact(
             'title', 
-            'chequeColumns', 
+            'paymentColumns', 
             'contractColumns', 
-            'bankAccountColumns', 
+            'chequeColumns', 
             'customers', 
-            'banks', 
             'companies'
         ));
     }
@@ -94,25 +72,22 @@ class ChequesReportsController extends Controller
      */
     public function exportExcel(Request $request)
     {
-        Gate::authorize('reports_cheques');
+        Gate::authorize('reports_payments');
 
         $request->validate([
-            'due_date_from' => 'nullable|date',
-            'due_date_to'   => 'nullable|date',
-            'amount_from'   => 'nullable|numeric',
-            'amount_to'     => 'nullable|numeric',
+            'payment_date_from' => 'nullable|date',
+            'payment_date_to'   => 'nullable|date',
+            'amount_from'       => 'nullable|numeric',
+            'amount_to'         => 'nullable|numeric',
         ]);
 
         $filters = $request->except(['_token', 'columns']);
 
         if (empty($request->input('columns'))) {
             $selectedColumns = [
-                'cheque_number',
+                'payment_date',
                 'amount',
-                'used_amount',
-                'remaining_amount',
-                'bank_name',
-                'due_date',
+                'method',
                 'status',
                 'customer_name',
                 'property_name',
@@ -121,13 +96,13 @@ class ChequesReportsController extends Controller
             $selectedColumns = $request->input('columns');
         }
 
-        $fileName = 'cheques_report_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
+        $fileName = 'payments_report_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
         
         // Clear any previous output buffers to avoid corrupted Excel files
         if (ob_get_level() > 0) {
             ob_end_clean();
         }
         
-        return Excel::download(new ChequesExport($selectedColumns, $filters), $fileName);
+        return Excel::download(new PaymentsExport($selectedColumns, $filters), $fileName);
     }
 }

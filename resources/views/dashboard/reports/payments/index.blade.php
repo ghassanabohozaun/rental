@@ -11,8 +11,8 @@
 @section('content')
     <div class="app-content content">
 
-        <form class="form" action="{!! route('dashboard.reports.cheques.export.excel') !!}" method="post" enctype="multipart/form-data"
-            id="exportChequesForm">
+        <form class="form" action="{!! route('dashboard.reports.payments.export.excel') !!}" method="post" enctype="multipart/form-data"
+            id="exportPaymentsForm">
             @csrf
             <div class="content-wrapper">
                 <!-- begin: content header -->
@@ -28,12 +28,12 @@
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{!! route('dashboard.cheques.index') !!}">
-                                            {!! __('cheques.cheques') !!}
+                                        <a href="{!! route('dashboard.payments.index') !!}">
+                                            {!! __('payments.payments') !!}
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item active font-weight-bold">
-                                        {!! __('reports.cheques_reports') !!}
+                                        {!! __('reports.payments_reports') !!}
                                     </li>
                                 </ol>
                             </div>
@@ -44,7 +44,7 @@
                     <!-- begin: content header right-->
                     <div class="content-header-right col-md-6 col-12">
                         <div class="float-md-right mb-1 d-flex gap-2">
-                            <a href="" class="btn btn-outline-danger shadow-sm font-weight-bold" id="cheques_reset_btn" style="border-radius: 6px; padding: 8px 16px;">
+                            <a href="" class="btn btn-outline-danger shadow-sm font-weight-bold" id="payments_reset_btn" style="border-radius: 6px; padding: 8px 16px;">
                                 <i class="fas fa-sync-alt"></i> {!! __('reports.reset') !!}
                             </a>
 
@@ -61,8 +61,8 @@
                     <section id="basic-form-layouts">
                         <div class="row match-height">
                             <div class="col-md-12">
-                                @include('dashboard.reports.cheques._search-report')
-                                @include('dashboard.reports.cheques._columns')
+                                @include('dashboard.reports.payments._search-report')
+                                @include('dashboard.reports.payments._columns')
                             </div> <!-- end: card  -->
                         </div><!-- end: row  -->
                     </section><!-- end: sections  -->
@@ -124,11 +124,11 @@
                 $('#customer_id').val(null).trigger('change');
             });
 
-            // Initialize Multi-select for Cheque Statuses
+            // Initialize Multi-select for Payment Statuses
             var $statusSelect = $('#status');
             $statusSelect.select2({
                 width: '100%',
-                placeholder: "{!! __('reports.cheque_status') !!}",
+                placeholder: "{!! __('reports.payment_status') !!}",
                 allowClear: true,
                 closeOnSelect: false,
                 scrollAfterSelect: false,
@@ -155,10 +155,41 @@
                 $('#status').val(null).trigger('change');
             });
 
+            // Initialize Multi-select for Payment Methods
+            var $methodSelect = $('#method');
+            $methodSelect.select2({
+                width: '100%',
+                placeholder: "{!! __('reports.payment_method') !!}",
+                allowClear: true,
+                closeOnSelect: false,
+                scrollAfterSelect: false,
+                dir: $('html').attr('data-textdirection') == 'rtl' ? 'rtl' : 'ltr',
+                language: {
+                    noResults: function() {
+                        return "{!! __('general.noResults2') !!}";
+                    }
+                }
+            });
+
+            $methodSelect.on('select2:select', function(e) {
+                if (e.params.originalEvent) {
+                    e.params.originalEvent.stopPropagation();
+                }
+            });
+
+            // Select All / Deselect All for Methods
+            $('#select_all_methods').on('click', function() {
+                $('#method option').prop('selected', true);
+                $('#method').trigger('change');
+            });
+            $('#deselect_all_methods').on('click', function() {
+                $('#method').val(null).trigger('change');
+            });
+
             // Reset button handler
-            $('#cheques_reset_btn').on('click', function(e) {
+            $('#payments_reset_btn').on('click', function(e) {
                 e.preventDefault();
-                var $form = $('#exportChequesForm');
+                var $form = $('#exportPaymentsForm');
                 $form[0].reset();
 
                 // Reset Select2 components

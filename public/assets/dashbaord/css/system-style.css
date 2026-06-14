@@ -11357,3 +11357,46 @@ html body .app-content .maintenance-item-row .action-btn-wrapper { min-height: 4
 html body .app-content .maintenance-item-row .file-preview-container { height: 42px !important; display: flex !important; align-items: center !important; }
 html body .app-content .maintenance-item-row .d-flex.align-items-center.w-100 { height: 42px !important; }
 html body .app-content .maintenance-item-row .premium-form-group > label.premium-label { margin-bottom: 8px !important; height: 21px !important; display: block !important; }
+
+/* Global fix for has-icon-left with premium-input */
+html[dir='rtl'] .has-icon-left .form-control.premium-input,
+html[data-textdirection='rtl'] .has-icon-left .form-control.premium-input {
+    padding-right: 1.25rem !important;
+    padding-left: 2.75rem !important;
+}
+
+html[dir='ltr'] .has-icon-left .form-control.premium-input,
+html[data-textdirection='ltr'] .has-icon-left .form-control.premium-input {
+    padding-left: 2.75rem !important;
+    padding-right: 1.25rem !important;
+}
+
+/* Center icons vertically in form controls */
+.premium-icon-centered {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    left: 0 !important;
+    width: 2.75rem !important;
+    pointer-events: none !important;
+    z-index: 4 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+.premium-icon-centered i {
+    line-height: 1 !important;
+    margin: 0 !important;
+    display: inline-block !important;
+}
+
+html[dir='rtl'] .premium-icon-centered,
+html[data-textdirection='rtl'] .premium-icon-centered {
+    left: 0;
+    right: auto;
+}

@@ -27,6 +27,7 @@ return [
         'reports' => [
             'properties' => 'reports.properties_reports',
             'cheques' => 'reports.cheques_reports',
+            'payments' => 'reports.payments_reports',
         ],
         'cheques' => [
             'read'   => 'general.show',

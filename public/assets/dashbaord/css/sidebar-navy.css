@@ -62,7 +62,7 @@
         background: transparent !important;
         object-fit: contain;
         transform: scale(1); 
-        transition: all 0.3s ease;
+        transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     /* ---- COLLAPSED MENU FIXES ---- */
@@ -125,7 +125,7 @@ body .main-menu.expanded .navigation-main > li,
 body .main-menu.expanded .navigation-main > li > a,
 .main-menu.expanded .navigation-main > li > a {
     color: #cbd5e1 !important;
-    transition: all 0.3s ease;
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1);
     margin: 4px 15px !important; /* Pill layout gap */
     border-radius: 8px;
     padding: 12px 15px !important; 
@@ -186,7 +186,7 @@ body .main-menu.expanded .navigation-main .menu-title,
 .main-menu.menu-dark .navigation-main a i, 
 .main-menu.menu-dark .navigation-main a:after {
     color: #94a3b8 !important;
-    transition: all 0.3s ease;
+    transition: all 0.18s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Ensure sub-menu items also align correctly in expanded state */
