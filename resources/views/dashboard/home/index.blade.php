@@ -170,7 +170,8 @@
                             <span class="badge badge-danger badge-pill">{{ $actionableCheques->count() }}</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="table-responsive scrollable-table-container">
+                            <div class="scrollable-table-container">
+                                <div class="table-responsive">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>
@@ -239,6 +240,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,7 +255,8 @@
                             <span class="badge badge-warning badge-pill">{{ $expiringContracts->count() }}</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="table-responsive scrollable-table-container">
+                            <div class="scrollable-table-container">
+                                <div class="table-responsive">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>
@@ -303,6 +306,7 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
