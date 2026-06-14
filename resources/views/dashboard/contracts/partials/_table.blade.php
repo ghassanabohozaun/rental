@@ -184,12 +184,14 @@
                     </td>
 
                     <!-- Company (Super Admin Only) -->
+                    @if(isset($companies))
                     <td class="text-center align-middle d-none d-md-table-cell">
                         <div class="company-chip">
                             <i class="fas fa-briefcase"></i>
                             <span>{!! optional($contract->company)->name ?? __('general.all_companies') !!}</span>
                         </div>
                     </td>
+                    @endif
 
                     <!-- Property & Customer Merged -->
                     <td class="align-middle py-3 property-info-td">
