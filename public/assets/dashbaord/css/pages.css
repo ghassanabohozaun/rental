@@ -24278,3 +24278,24 @@ html[dir='ltr'] .premium-error-bubble::after {
 .revolutionary-stats-container {
     margin-bottom: 25px;
 }
+
+/* Scrollable table container for alerts */
+.scrollable-table-container {
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+/* Customize scrollbar to look premium and sleek */
+.scrollable-table-container::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollable-table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scrollable-table-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+}
+.scrollable-table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.15);
+}

@@ -165,7 +165,7 @@
                             <span class="badge badge-danger badge-pill">{{ $actionableCheques->count() }}</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="table-responsive">
+                            <div class="table-responsive scrollable-table-container">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>
@@ -194,9 +194,16 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
+                                                    <a href="{!! route('dashboard.cheques.show', $cheque->id) !!}" class="btn-mini-action bg-white border border-secondary" title="{!! __('general.show') !!}">
+                                                        <i class="fas fa-eye text-primary"></i>
+                                                    </a>
                                                     @can('cheques_update')
+                                                        <a href="{!! route('dashboard.cheques.edit', $cheque->id) !!}" class="btn-mini-action btn-mini-success ml-1" title="{!! __('general.edit') !!}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+
                                                         {{-- Return Cheque --}}
-                                                        <a href="javascript:void(0)" class="btn-mini-action btn-mini-warning btn-return-cheque"
+                                                        <a href="javascript:void(0)" class="btn-mini-action btn-mini-warning btn-return-cheque ml-1"
                                                             data-id="{!! $cheque->id !!}" title="{!! __('cheques.return_cheque') !!}">
                                                             <i class="fas fa-undo"></i>
                                                         </a>
@@ -236,7 +243,7 @@
                             <span class="badge badge-warning badge-pill">{{ $expiringContracts->count() }}</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="table-responsive">
+                            <div class="table-responsive scrollable-table-container">
                                 <table class="table actionable-table mb-0">
                                     <thead>
                                         <tr>
