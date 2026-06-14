@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 return [
     'please_wait' => 'Please Wait ...',
@@ -248,4 +248,9 @@ return [
     'qatari_riyal' => 'Qatari Riyal',
     'dirham' => 'Dirham',
     'usage_summary' => 'Usage Summary',
+
+    'increase_font' => 'Increase Font',
+    'default_font' => 'Default Font',
+    'decrease_font' => 'Decrease Font',
 ];
+

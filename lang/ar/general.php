@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 return [
     'please_wait' => 'الرجاء الانتظار ...',
@@ -257,4 +257,9 @@ return [
     'total_records' => 'إجمالي السجلات',
     'active_requests' => 'الطلبات النشطة',
     'sub_units_count' => 'إجمالي الوحدات التابعة',
+
+    'increase_font' => 'تكبير الخط',
+    'default_font' => 'الخط الافتراضي',
+    'decrease_font' => 'تصغير الخط',
 ];
+

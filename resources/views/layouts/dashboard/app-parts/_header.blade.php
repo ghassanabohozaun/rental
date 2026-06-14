@@ -145,6 +145,27 @@
                         </a>
                     </li>
 
+                    {{-- Font Size Switcher --}}
+                    <li class="dropdown dropdown-language nav-item">
+                        <a class="nav-link p-0 d-flex align-items-center h-100" id="dropdown-font-size" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="language-switcher-premium" style="padding: 0.5rem 0.8rem; background: rgba(0,0,0,0.03);">
+                                <i class="fas fa-font" style="font-size: 1.1rem; color: #5b626b;"></i>
+                                <i class="fas fa-chevron-down ml-1" style="font-size: 0.7rem; color: #5b626b;"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-font-size">
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="setSystemFontSize('15px')">
+                                <i class="fas fa-search-plus mr-1"></i> {!! __('general.increase_font') ?? 'تكبير الخط' !!}
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="setSystemFontSize('13px')">
+                                <i class="fas fa-equals mr-1"></i> {!! __('general.default_font') ?? 'الخط الافتراضي' !!}
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="setSystemFontSize('12px')">
+                                <i class="fas fa-search-minus mr-1"></i> {!! __('general.decrease_font') ?? 'تصغير الخط' !!}
+                            </a>
+                        </div>
+                    </li>
+
                     {{-- Enterprise Notifications --}}
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="javascript:void(0)" data-toggle="dropdown">

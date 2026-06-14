@@ -1,4 +1,4 @@
-﻿<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta name="description" content="">
@@ -97,4 +97,16 @@
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/typography-base.css') !!}">
 <link rel="stylesheet" type="text/css" href="{!! asset('assets/dashbaord/css/custom-sticky.css') !!}?v=1.1">
 
-
+<!-- Global Font Size Control Script (Runs before body to prevent FOUC) -->
+<script>
+    (function() {
+        var savedSize = localStorage.getItem('system-font-size');
+        if (savedSize) {
+            document.documentElement.style.setProperty('--global-base-font-size', savedSize);
+        }
+    })();
+    function setSystemFontSize(size) {
+        document.documentElement.style.setProperty('--global-base-font-size', size);
+        localStorage.setItem('system-font-size', size);
+    }
+</script>

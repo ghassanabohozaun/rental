@@ -1,9 +1,10 @@
-/*
+﻿/*
  * Typography Base
  * Loaded early to prevent FOUT (Flash of Unstyled Text) and text flicker
  */
 
 :root {
+    --global-base-font-size: 13px;
     --bs-font-sans-serif-ltr: "Poppins", sans-serif;
     --bs-font-sans-serif-rtl: "Tajawal", sans-serif;
 }
@@ -160,7 +161,7 @@ html[data-textdirection="rtl"] .user-info-text {
 /* LTR Specific Refinements - Clean and Elegant */
 html[data-textdirection="ltr"],
 html[data-textdirection="ltr"] body {
-    font-size: 13px; /* Refined 13px base for Poppins */
+    font-size: var(--global-base-font-size) !important;
 }
 
 html[data-textdirection="ltr"] .welcome-text-premium {
@@ -205,7 +206,7 @@ html[data-textdirection="ltr"] .premium-input {
 
 /* Explicit Forms & Labels Overrides */
 label {
-    font-size: 15px !important; /* 13px base + 2px */
+    font-size: 1.15rem !important;
     font-weight: 600;
 }
 
@@ -213,13 +214,13 @@ label {
 .premium-input,
 .select2-selection__rendered,
 .select2-results__option {
-    font-size: 15px !important; /* 13px base + 2px */
+    font-size: 1.15rem !important;
 }
 
 /* RTL Specific Refinements - Balanced and Compact */
 html[data-textdirection="rtl"],
 html[data-textdirection="rtl"] body {
-    font-size: 13px; /* Reduced from 14px for a cleaner look */
+    font-size: var(--global-base-font-size) !important;
 }
 
 html[data-textdirection="rtl"] th {
@@ -241,3 +242,4 @@ html[data-textdirection="rtl"] .form-control,
 html[data-textdirection="rtl"] .premium-input {
     font-size: 1.05rem !important; /* Increased by 2px from 0.9rem */
 }
+
