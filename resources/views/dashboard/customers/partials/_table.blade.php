@@ -5,8 +5,10 @@
             <tr>
                 <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0" style="width: 50px;">#</th>
+                @if(isset($companies))
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
                     {{ __('companies.company') }}</th>
+                @endif
                 <th class="align-middle py-3 border-top-0 property-info-td">{{ __('customers.name_ar') }}</th>
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">
                     {{ __('customers.phone') }}</th>
@@ -74,6 +76,7 @@
                                             <span class="detail-info-value">{{ $customer->id_number ?? '---' }}</span>
                                         </div>
                                     </div>
+                                    @if(isset($companies))
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
                                         <div class="detail-info-box text-left">
@@ -82,6 +85,7 @@
                                                 class="detail-info-value">{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="detail-item-modern">
                                         <div class="icon-circle"><i class="fas fa-check-circle"></i></div>
                                         <div class="detail-info-box text-left">
@@ -109,12 +113,14 @@
                     </td>
 
                     <!-- Company -->
+                    @if(isset($companies))
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <div class="company-chip">
                             <i class="fas fa-briefcase"></i>
                             <span>{{ optional($customer->company)->name ?? __('general.all_companies') }}</span>
                         </div>
                     </td>
+                    @endif
 
                     <!-- Name -->
                     <td class="align-middle property-info-td">
