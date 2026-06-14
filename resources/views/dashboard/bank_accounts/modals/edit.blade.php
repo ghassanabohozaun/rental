@@ -53,7 +53,7 @@
                                 <input type="text" id="bank_name_ar_edit" name="bank_name[ar]"
                                     class="form-control premium-input shadow-none" autocomplete="off"
                                     placeholder="{!! __('bank_accounts.enter_bank_name_ar') !!}">
-                                <span class="text-danger error-text bank_name_ar_edit_error"></span>
+                                <span class="text-danger error-text bank_name_ar_error"></span>
                             </div>
                         </div>
 
@@ -65,7 +65,7 @@
                                 <input type="text" id="bank_name_en_edit" name="bank_name[en]"
                                     class="form-control premium-input shadow-none" autocomplete="off"
                                     placeholder="{!! __('bank_accounts.enter_bank_name_en') !!}">
-                                <span class="text-danger error-text bank_name_en_edit_error"></span>
+                                <span class="text-danger error-text bank_name_en_error"></span>
                             </div>
                         </div>
 
@@ -77,7 +77,7 @@
                                 <input type="text" id="account_holder_name_ar_edit"
                                     name="account_holder_name[ar]" class="form-control premium-input shadow-none"
                                     autocomplete="off" placeholder="{!! __('bank_accounts.enter_account_holder_name_ar') !!}">
-                                <span class="text-danger error-text account_holder_name_ar_edit_error"></span>
+                                <span class="text-danger error-text account_holder_name_ar_error"></span>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@
                                 <input type="text" id="account_holder_name_en_edit"
                                     name="account_holder_name[en]" class="form-control premium-input shadow-none"
                                     autocomplete="off" placeholder="{!! __('bank_accounts.enter_account_holder_name_en') !!}">
-                                <span class="text-danger error-text account_holder_name_en_edit_error"></span>
+                                <span class="text-danger error-text account_holder_name_en_error"></span>
                             </div>
                         </div>
 
@@ -100,8 +100,9 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" id="account_number_edit" name="account_number"
                                     class="form-control premium-input shadow-none" autocomplete="off"
+                                    maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                     placeholder="{!! __('bank_accounts.enter_account_number') !!}">
-                                <span class="text-danger error-text account_number_edit_error"></span>
+                                <span class="text-danger error-text account_number_error"></span>
                             </div>
                         </div>
 
@@ -112,7 +113,7 @@
                                 <input type="text" id="iban_edit" name="iban"
                                     class="form-control premium-input shadow-none" autocomplete="off"
                                     placeholder="{!! __('bank_accounts.enter_iban') !!}">
-                                <span class="text-danger error-text iban_edit_error"></span>
+                                <span class="text-danger error-text iban_error"></span>
                             </div>
                         </div>
                     </div>

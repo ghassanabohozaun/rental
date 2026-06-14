@@ -9,18 +9,20 @@
             </a>
         @endif
 
-        @if ($cheque->is_deposit && $cheque->status === 'held')
-            {{-- Return Insurance Cheque --}}
+        @if (in_array($cheque->status, ['held', 'pending']))
+            {{-- Return Cheque --}}
             <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-warning mr-1 btn-return-cheque"
                 data-id="{!! $cheque->id !!}" title="{!! __('cheques.return_cheque') !!}">
                 <i class="fas fa-undo"></i>
             </a>
 
-            {{-- Cash Insurance Cheque --}}
-            <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-success mr-1 btn-cash-cheque"
-                data-id="{!! $cheque->id !!}" title="{!! __('cheques.cash_cheque') !!}">
-                <i class="fas fa-money-bill-wave"></i>
-            </a>
+            @if ($cheque->is_deposit)
+                {{-- Cash Insurance Cheque --}}
+                <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-success mr-1 btn-cash-cheque"
+                    data-id="{!! $cheque->id !!}" title="{!! __('cheques.cash_cheque') !!}">
+                    <i class="fas fa-money-bill-wave"></i>
+                </a>
+            @endif
         @endif
     @endcan
 

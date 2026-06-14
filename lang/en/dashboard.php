@@ -80,10 +80,12 @@ return [
     'financial_trend' => 'Financial Trend Analysis',
     'monthly_collections' => 'Monthly revenue collections overview',
     'occupancy_rate' => 'Unit Occupancy Rate',
-    'expiring_contracts' => 'Expiring Contracts (30 Days)',
+    'expiring_contracts' => 'Expiring Contracts (60 Days)',
     'no_expiring_contracts' => 'No contracts expiring soon.',
     'upcoming_cheques' => 'Upcoming Cheque Collections (7 Days)',
     'no_upcoming_cheques' => 'No cheques due soon.',
+    'actionable_cheques' => 'Actionable Cheques (Overdue & Upcoming)',
+    'no_actionable_cheques' => 'No overdue or upcoming cheques. Great job!',
     'reports_module_ready' => 'Reports module is being prepared with full financial audits.',
     'technical_support' => 'Support & Access',
 ];

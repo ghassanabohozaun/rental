@@ -93,17 +93,17 @@ class ChequeService
     public function returnCheque($id)
     {
         $cheque = $this->repository->find($id);
-        if ($cheque->is_deposit && $cheque->status === 'held') {
+        if (in_array($cheque->status, ['held', 'pending'])) {
             $updatedCheque = $this->repository->update($id, ['status' => 'returned']);
             
-            // Update contract deposit_status if exists
-            if ($cheque->contract_id) {
+            // Update contract deposit_status if exists and it is a deposit cheque
+            if ($cheque->is_deposit && $cheque->contract_id) {
                 Contract::where('id', $cheque->contract_id)->update(['deposit_status' => 'returned']);
             }
             
             return $updatedCheque;
         }
-        throw new \Exception('Invalid operation or cheque is not a held deposit.');
+        throw new \Exception('Invalid operation or cheque is not held.');
     }
 
     public function cashCheque($id)

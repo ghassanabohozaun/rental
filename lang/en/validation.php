@@ -156,6 +156,7 @@ return [
     'string' => '  :attribute field must be a string.',
     'timezone' => '  :attribute field must be a valid timezone.',
     'unique' => '  :attribute has already been taken.',
+    'unique_bank_account' => 'This bank account is already registered for this company with this bank and account number.',
     'uploaded' => '  :attribute failed to upload.',
     'uppercase' => '  :attribute field must be uppercase.',
     'url' => '  :attribute field must be a valid URL.',

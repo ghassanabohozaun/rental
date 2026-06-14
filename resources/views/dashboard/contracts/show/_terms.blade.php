@@ -20,20 +20,20 @@
                                 <div class="clause-item mb-3 p-3">
                                     <h6 class="font-weight-bold text-dark mb-2">
                                         <span class="badge badge-light-primary mr-1">{{ $index + 1 }}</span>
-                                        {{ $clause['title'] ?? '' }}
+                                        {{ $contract->replaceSmartTags($clause['title'] ?? '') }}
                                     </h6>
                                     <div class="clause-content text-muted font-small-3 line-height-1-6">
-                                        {{ trim($clause['content'] ?? '') }}</div>
+                                        {!! nl2br(e($contract->replaceSmartTags(trim($clause['content'] ?? '')))) !!}</div>
                                 </div>
                             @endforeach
                         </div>
                     @elseif(is_string($clauses) && !empty($clauses))
                         <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
-                            {!! trim($clauses) !!}
+                            {!! $contract->replaceSmartTags(trim($clauses)) !!}
                         </div>
                     @elseif(!empty($contract->contract_text))
                         <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
-                            {!! trim($contract->contract_text) !!}
+                            {!! $contract->replaceSmartTags(trim($contract->contract_text)) !!}
                         </div>
                     @else
                         <div class="text-center py-4">

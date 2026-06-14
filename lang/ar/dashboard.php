@@ -79,10 +79,12 @@ return [
     'financial_trend' => 'تحليل التدفق المالي',
     'monthly_collections' => 'نظرة عامة على التحصيلات الشهرية للشركة',
     'occupancy_rate' => 'نسبة إشغال الوحدات',
-    'expiring_contracts' => 'عقود تنتهي قريباً (30 يوم)',
+    'expiring_contracts' => 'عقود تنتهي قريباً (60 يوم)',
     'no_expiring_contracts' => 'لا يوجد عقود أوشكت على الانتهاء.',
     'upcoming_cheques' => 'شيكات تستحق التحصيل (7 أيام)',
     'no_upcoming_cheques' => 'لا يوجد شيكات مستحقة قريباً.',
+    'actionable_cheques' => 'شيكات تتطلب إجراء (متأخرة ومستحقة)',
+    'no_actionable_cheques' => 'لا يوجد شيكات متأخرة أو مستحقة قريباً. العمل ممتاز!',
     'reports_module_ready' => 'نظام التقارير قيد التجهيز مع كافة التدقيقات المالية.',
     'technical_support' => 'الدعم والوصول',
 ];

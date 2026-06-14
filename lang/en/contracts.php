@@ -2,6 +2,7 @@
 
 return [
     'contracts' => 'Contracts',
+    'add_contract' => 'Add New Contract',
     'contract' => 'Contract',
     'create_new_contract' => 'Create New Contract',
     'update_contract' => 'Update Contract',

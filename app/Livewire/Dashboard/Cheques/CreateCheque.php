@@ -325,7 +325,7 @@ class CreateCheque extends Component
             'customer_id' => 'required|exists:customers,id',
             'company_bank_account_id' => 'nullable|exists:company_bank_accounts,id',
             'amount' => 'required|numeric|gt:0',
-            'cheque_number' => 'required|string|max:255',
+            'cheque_number' => 'required|digits:8',
             'bank_name.ar' => 'required|string|max:255',
             'bank_name.en' => 'required|string|max:255',
             'cheque_owner_name.ar' => 'required|string|max:255',
@@ -376,18 +376,8 @@ class CreateCheque extends Component
 
     protected function validateDuplicate($validatedData)
     {
-        $companyId = $validatedData['company_id'] ?? $this->company_id;
-        $query = Cheque::where('company_id', $companyId)
-            ->where('cheque_number', $validatedData['cheque_number'])
-            ->where(function ($q) use ($validatedData) {
-                $q->where('bank_name->ar', $validatedData['bank_name']['ar'])->orWhere('bank_name->en', $validatedData['bank_name']['en']);
-            });
-
-        if ($query->exists()) {
-            throw \Illuminate\Validation\ValidationException::withMessages([
-                'cheque_number' => __('cheques.duplicate_cheque_number'),
-            ]);
-        }
+        // Allowed duplicate cheque numbers per client request
+        return;
     }
 
     protected function validateBalance($amount)

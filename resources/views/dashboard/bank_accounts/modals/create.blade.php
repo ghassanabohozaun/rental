@@ -96,6 +96,7 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" id="account_number_create" name="account_number"
                                     class="form-control premium-input shadow-none" autocomplete="off"
+                                    maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                     placeholder="{!! __('bank_accounts.enter_account_number') !!}">
                                 <span class="text-danger error-text account_number_error"></span>
                             </div>

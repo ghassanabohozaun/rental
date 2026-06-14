@@ -27,7 +27,7 @@ class CompanyBankAccountController extends Controller
         $companies = null;
 
         if (user()->company_id == 1) {
-            $companies = Company::where('status', 'active')->get();
+            $companies = Company::where('status', 'active')->orderByDesc('id')->get();
         }
 
         if ($request->ajax() || $request->has('_ajax')) {

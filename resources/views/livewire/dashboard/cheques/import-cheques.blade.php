@@ -1,4 +1,5 @@
 <div>
+
     <div class="card premium-card premium-card-anim">
         <!-- begin: card header -->
         <div class="premium-mandatory-header py-2">
@@ -25,8 +26,8 @@
                                 <label for="company_id">{!! __('companies.company') !!} <span
                                         class="text-danger">*</span></label>
                                 <div wire:ignore>
-                                    <select class="form-control premium-input shadow-none js-select2"
-                                        id='company_id' wire:model.live="company_id">
+                                    <select class="form-control premium-input shadow-none js-select2" id='company_id'
+                                        wire:model.live="company_id">
                                         <option value="">{!! __('general.select_from_list') !!}</option>
                                         @foreach ($companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
@@ -34,7 +35,10 @@
                                     </select>
                                 </div>
                                 @error('company_id')
-                                    <span class="text-danger error-text">{{ $message }}</span>
+                                    <span class="premium-field-error">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span>{{ $message }}</span>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -42,8 +46,7 @@
 
                     <div class="col-md-12 mb-1" wire:key="contract-select-container-{{ $company_id }}">
                         <div class="premium-form-group @error('contract_id') is-invalid-premium @enderror">
-                            <label for="contract_id">{!! __('contracts.contract') !!} <span
-                                    class="text-danger">*</span></label>
+                            <label for="contract_id">{!! __('contracts.contract') !!} <span class="text-danger">*</span></label>
                             <div wire:ignore
                                 wire:key="contract-id-wrapper-{{ $company_id ? $company_id : 'disabled' }}">
                                 <select class="form-control premium-input shadow-none js-select2" id='contract_id'
@@ -63,7 +66,10 @@
                                 </select>
                             </div>
                             @error('contract_id')
-                                <span class="text-danger error-text">{{ $message }}</span>
+                                <span class="premium-field-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>{{ $message }}</span>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -75,7 +81,8 @@
                                 <input type="file" wire:model.live="excelFile" class="d-none file-upload-input"
                                     id="excelFile" accept=".xlsx,.csv,.xls">
                                 <label for="excelFile" class="premium-file-label w-100 mb-0">
-                                    <div class="premium-file-box premium-file-box-match w-100 d-flex align-items-center justify-content-between">
+                                    <div
+                                        class="premium-file-box premium-file-box-match w-100 d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center"
                                             style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                             <div class="file-icon-box" style="margin-inline-end: 10px;"><i
@@ -91,7 +98,10 @@
                                 </label>
                             </div>
                             @error('excelFile')
-                                <span class="text-danger error-text mt-1 d-block">{{ $message }}</span>
+                                <span class="premium-field-error d-flex">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>{{ $message }}</span>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -134,23 +144,34 @@
 
                         @php
                             $selectedSum = 0;
-                            foreach($previewData as $row) {
-                                if (in_array((string)$row['index'], $selectedCheques) || in_array($row['index'], $selectedCheques)) {
-                                    $selectedSum += (float)$row['amount'];
+                            foreach ($previewData as $row) {
+                                if (
+                                    in_array((string) $row['index'], $selectedCheques) ||
+                                    in_array($row['index'], $selectedCheques)
+                                ) {
+                                    $selectedSum += (float) $row['amount'];
                                 }
                             }
                         @endphp
 
                         @error('selectedCheques')
-                            <div class="badge badge-light-warning py-2 px-3 d-flex align-items-center w-100 mb-3 text-wrap text-left" style="font-size: 0.95rem; border: 1px dashed #ffc107; border-radius: 8px; line-height: 1.5;">
-                                <i class="fas fa-exclamation-triangle mx-2" style="font-size: 1.1rem;"></i> 
-                                <span class="font-weight-bold" style="text-align: right; width: 100%;">{{ $message }}</span>
+                            <div class="premium-alert-banner">
+                                <div class="alert-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <span>{{ $message }}</span>
+                                </div>
                             </div>
                         @else
-                            @if($selectedSum > $availableToCover)
-                                <div class="badge badge-light-warning py-2 px-3 d-flex align-items-center w-100 mb-3 text-wrap text-left" style="font-size: 0.95rem; border: 1px dashed #ffc107; border-radius: 8px; line-height: 1.5;">
-                                    <i class="fas fa-exclamation-triangle mx-2" style="font-size: 1.1rem;"></i> 
-                                    <span class="font-weight-bold" style="text-align: right; width: 100%;">{{ __('cheques.import_exceeds_available_ui', ['selected' => number_format($selectedSum, 2), 'available' => number_format($availableToCover, 2)]) }}</span>
+                            @if ($selectedSum > $availableToCover)
+                                <div class="premium-alert-banner">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <span>{{ __('cheques.import_exceeds_available_ui', ['selected' => number_format($selectedSum, 2), 'available' => number_format($availableToCover, 2)]) }}</span>
+                                    </div>
                                 </div>
                             @endif
                         @enderror
@@ -160,64 +181,97 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 50px;">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="selectAll"
+                                            @php
+                                                $validRowsCount = collect($previewData)
+                                                    ->where('has_errors', false)
+                                                    ->count();
+                                            @endphp
+                                            <div class="premium-checkbox-custom">
+                                                <input type="checkbox" id="selectAll"
                                                     wire:click="toggleSelectAll($event.target.checked)"
-                                                    @if (count($selectedCheques) == count($previewData)) checked @endif>
-                                                <label class="custom-control-label" for="selectAll"></label>
+                                                    @if ($validRowsCount > 0 && count($selectedCheques) == $validRowsCount) checked @endif>
                                             </div>
                                         </th>
                                         <th>{!! __('cheques.row_number') !!}</th>
                                         <th>{!! __('cheques.cheque_number') !!}</th>
-                                        <th>{!! __('cheques.issue_date') !!}</th>
+                                        <th>{!! __('cheques.due_date_cheque') !!}</th>
                                         <th>{!! __('cheques.amount') !!}</th>
-                                        <th>{!! __('cheques.bank_name') !!}</th>
+                                        <th>{!! __('cheques.client_bank_name') !!}</th>
                                         <th>{!! __('cheques.deposit_account') !!}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($previewData as $row)
-                                        <tr class="{{ $row['is_duplicate'] ? 'bg-light-danger opacity-75' : '' }}">
+                                        <tr
+                                            class="{{ $row['has_errors'] ? 'import-row-error' : ($row['is_duplicate'] ? 'import-row-warning' : '') }}">
                                             <td>
-                                                @if($row['is_duplicate'])
+                                                @if ($row['has_errors'])
                                                     <div class="text-center">
-                                                        <i class="fas fa-ban text-danger" title="{{ __('cheques.already_exists') }}"></i>
+                                                        <span class="error-badge-pulse"
+                                                            title="{{ __('general.validation_error') ?? 'خطأ في التحقق' }}">
+                                                            <i class="fas fa-exclamation-triangle"></i>
+                                                        </span>
                                                     </div>
                                                 @else
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="chk_{{ $row['index'] }}" wire:model="selectedCheques"
-                                                            value="{{ $row['index'] }}">
-                                                        <label class="custom-control-label"
-                                                            for="chk_{{ $row['index'] }}"></label>
+                                                    <div class="premium-checkbox-custom">
+                                                        <input type="checkbox" id="chk_{{ $row['index'] }}"
+                                                            wire:model="selectedCheques" value="{{ $row['index'] }}">
                                                     </div>
                                                 @endif
                                             </td>
                                             <td>{{ $row['index'] }}</td>
                                             <td>
-                                                <span class="premium-badge bg-light-primary">{{ $row['cheque_number'] }}</span>
-                                                @if($row['is_duplicate'])
-                                                    <span class="badge badge-danger ml-1" style="font-size: 0.75rem;">{{ __('cheques.already_exists') }}</span>
+                                                <span
+                                                    class="premium-badge bg-light-primary">{{ $row['cheque_number'] }}</span>
+                                                @if ($row['is_duplicate'])
+                                                    <span class="premium-warning-badge">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        <span>{{ __('cheques.already_exists') }} (مكرر)</span>
+                                                    </span>
+                                                @endif
+                                                @if (!empty($row['errors']['cheque_number']))
+                                                    <div class="premium-error-bubble">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        <span>{{ $row['errors']['cheque_number'] }}</span>
+                                                    </div>
                                                 @endif
                                             </td>
-                                            <td>{{ $row['issue_date'] }}</td>
-                                            <td><span
-                                                    class="excel-amount-badge">{{ number_format((float) $row['amount'], 2) }}</span>
+                                            <td>{{ $row['due_date'] }}</td>
+                                            <td>
+                                                <span class="excel-amount-badge">
+                                                    {{ is_numeric($row['amount']) ? number_format((float) $row['amount'], 2) : ($row['amount'] ?: '0.00') }}
+                                                </span>
+                                                @if (!empty($row['errors']['amount']))
+                                                    <div class="premium-error-bubble">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        <span>{{ $row['errors']['amount'] }}</span>
+                                                    </div>
+                                                @endif
                                             </td>
                                             <td>{{ $row['bank_name'] }}</td>
                                             <td>
                                                 @if ($row['matched_account_id'])
-                                                    <span class="badge badge-success"><i class="fas fa-check"></i>
-                                                        {{ $row['matched_account_name'] }}</span>
+                                                    <span class="premium-success-chip">
+                                                        <i class="fas fa-check-circle"></i>
+                                                        {{ $row['matched_account_name'] }}
+                                                        ({{ $row['deposit_account'] }})
+                                                    </span>
                                                 @else
                                                     @if (!empty($row['deposit_account']))
-                                                        <span class="badge badge-warning text-dark"><i
-                                                                class="fas fa-exclamation-triangle"></i>
-                                                            {{ $row['deposit_account'] }} -
-                                                            {!! __('cheques.bank_account_not_found') !!}</span>
+                                                        <span class="premium-warning-chip">
+                                                            <i class="fas fa-exclamation-triangle"></i>
+                                                            {{ $row['deposit_account'] }} - {!! __('cheques.bank_account_not_found') !!}
+                                                        </span>
                                                     @else
                                                         <span class="text-muted">---</span>
                                                     @endif
+                                                @endif
+
+                                                @if (!empty($row['errors']['deposit_account']))
+                                                    <div class="premium-error-bubble">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        <span>{{ $row['errors']['deposit_account'] }}</span>
+                                                    </div>
                                                 @endif
                                             </td>
                                         </tr>

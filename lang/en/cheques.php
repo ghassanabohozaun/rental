@@ -9,6 +9,8 @@ return [
     'amount' => 'Amount',
     'issue_date' => 'Issue Date',
     'due_date' => 'Due Date',
+    'due_date_cheque' => 'Cheque Due Date',
+    'client_bank_name' => 'Client\'s Bank Name',
     'status' => 'Status',
     'is_deposit' => 'Is Deposit',
     'cheque_type' => 'Cheque Type',
@@ -80,6 +82,9 @@ return [
     'import_exceeds_available' => 'Total value of selected cheques exceeds the available balance in the contract. Maximum available (:available)',
     'import_exceeds_available_ui' => 'Total selected cheques (:selected) exceeds the available contract balance. Maximum available (:available). Import will not complete.',
     'not_specified' => 'Not Specified',
+    'invalid_amount' => 'The cheque amount must be greater than zero.',
+    'file_already_imported' => 'This file has already been imported, it cannot be imported again to prevent data duplication.',
+    'exact_duplicate_error' => 'This cheque (same number, bank, amount, and date) is already registered in the system for this company.',
     
     'company_bank_account' => 'Company Bank Account',
     'select_bank_account' => 'Select Bank Account',

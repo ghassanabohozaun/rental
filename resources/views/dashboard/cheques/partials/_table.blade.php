@@ -1,4 +1,4 @@
-﻿<input type="hidden" id="cheques-total-count" value="{!! $cheques->total() !!}">
+<input type="hidden" id="cheques-total-count" value="{!! $cheques->total() !!}">
 <div class="table-responsive">
     <table class="table table-hover mb-0" id='myTable'>
         <thead class="bg-white">
@@ -154,7 +154,7 @@
                         @if ($cheque->companyBankAccount)
                             <div class="user-info-cell">
                                 <span class="user-name-text font-weight-bold text-dark">{!! $cheque->companyBankAccount->bank_name !!}</span>
-                                <span class="user-email-text text-muted small">{!! $cheque->companyBankAccount->account_name !!}</span>
+                                <span class="user-email-text text-muted small">{!! $cheque->companyBankAccount->account_number !!}</span>
                             </div>
                         @else
                             <span class="text-muted">---</span>

@@ -160,7 +160,7 @@
                                                             @foreach ($companyBankAccounts as $account)
                                                                 <option value="{{ $account->id }}">
                                                                     {{ $account->bank_name }} -
-                                                                    {{ $account->account_name }}
+                                                                    {{ $account->account_holder_name }}
                                                                     ({{ $account->account_number }})
                                                                 </option>
                                                             @endforeach
@@ -224,6 +224,8 @@
                                                             class="form-control premium-input shadow-none"
                                                             id="cheque_number"
                                                             wire:model.live.debounce.150ms="cheque_number"
+                                                            maxlength="8"
+                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                                             placeholder="{!! __('cheques.cheque_number') !!}" autocomplete="off"
                                                             {{ !$contract_id ? 'disabled' : '' }}>
                                                         @error('cheque_number')

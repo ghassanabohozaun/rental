@@ -151,6 +151,7 @@ return [
     'string' => 'يجب أن يكون حقل :attribute نصآ.',
     'timezone' => 'يجب أن يكون حقل :attribute نطاقًا زمنيًا صحيحًا.',
     'unique' => 'قيمة حقل :attribute مُستخدمة من قبل',
+    'unique_bank_account' => 'هذا الحساب البنكي مسجل مسبقاً لهذه الشركة باسم هذا البنك ورقم الحساب.',
     'uploaded' => 'فشل في تحميل الـ :attribute.',
     'uppercase' => 'حقل :attribute يجب ان يكون باحرف كبيرة.',
     'url' => 'صيغة الرابط :attribute غير صحيحة',

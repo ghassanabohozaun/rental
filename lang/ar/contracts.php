@@ -2,6 +2,7 @@
 
 return [
     'contracts' => 'العقود',
+    'add_contract' => 'إضافة عقد جديد',
     'contract' => 'عقد',
     'create_new_contract' => 'إضافة عقد جديد',
     'update_contract' => 'تعديل بيانات العقد',

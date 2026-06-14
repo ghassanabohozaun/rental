@@ -78,22 +78,22 @@ class DashboardController extends Controller
         ];
 
         // --- 4. Alerts & Lists (Recent/Upcoming) ---
-        // A. Expiring Contracts (Next 30 Days)
+        // A. Expiring Contracts (Next 60 Days)
         $expiringContracts = (clone $contractsQuery)
             ->with(['customer', 'property'])
             ->where('status', 'active')
-            ->whereBetween('end_date', [Carbon::now(), Carbon::now()->addDays(30)])
+            ->where('end_date', '<=', Carbon::now()->addDays(60))
             ->orderBy('end_date', 'asc')
-            ->limit(5)
+            ->limit(8)
             ->get();
 
-        // B. Upcoming Cheques (Next 7 Days)
-        $upcomingCheques = (clone $chequesQuery)
+        // B. Actionable Cheques (Overdue or Due within 7 Days)
+        $actionableCheques = (clone $chequesQuery)
             ->with(['customer', 'contract.property'])
-            ->where('status', 'pending')
-            ->whereBetween('due_date', [Carbon::now(), Carbon::now()->addDays(7)])
+            ->whereIn('status', ['pending', 'held'])
+            ->where('due_date', '<=', Carbon::now()->addDays(7))
             ->orderBy('due_date', 'asc')
-            ->limit(5)
+            ->limit(8)
             ->get();
 
         return view('dashboard.home.index', compact(
@@ -103,7 +103,7 @@ class DashboardController extends Controller
             'occupancyChart', 
             'financialChart',
             'expiringContracts',
-            'upcomingCheques'
+            'actionableCheques'
         ));
     }
 }
