@@ -24333,6 +24333,7 @@ html[dir='ltr'] .premium-error-bubble::after {
 .scrollable-table-container {
     max-height: 380px !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     position: relative !important;
 }
 

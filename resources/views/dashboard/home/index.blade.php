@@ -184,7 +184,7 @@
                                         @forelse($actionableCheques as $cheque)
                                             <tr>
                                                 <td>
-                                                    <div class="font-weight-bold text-dark">#{!! $cheque->cheque_number !!}</div>
+                                                    <div class="font-weight-bold text-dark">{!! $cheque->cheque_number !!}</div>
                                                     <small class="text-muted">{!! optional($cheque->customer)->name !!}</small>
                                                 </td>
                                                 <td>
@@ -201,30 +201,39 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    @can('cheques_update')
-                                                        <a href="{!! route('dashboard.cheques.edit', $cheque->id) !!}"
-                                                            class="btn-mini-action btn-mini-success ml-1"
-                                                            title="{!! __('general.edit') !!}">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
- 
-                                                        {{-- Return Cheque --}}
-                                                        <a href="javascript:void(0)"
-                                                            class="btn-mini-action btn-mini-warning btn-return-cheque ml-1"
-                                                            data-id="{!! $cheque->id !!}" title="{!! __('cheques.return_cheque') !!}">
-                                                            <i class="fas fa-undo"></i>
-                                                        </a>
- 
-                                                        @if ($cheque->is_deposit)
-                                                            {{-- Cash Insurance Cheque --}}
-                                                            <a href="javascript:void(0)"
-                                                                class="btn-mini-action btn-mini-success btn-cash-cheque ml-1"
-                                                                data-id="{!! $cheque->id !!}"
-                                                                title="{!! __('cheques.cash_cheque') !!}">
-                                                                <i class="fas fa-money-bill-wave"></i>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        @can('cheques_update')
+                                                            <a href="{!! route('dashboard.cheques.edit', $cheque->id) !!}"
+                                                                class="btn-premium-action btn-premium-action-edit mr-1"
+                                                                title="{!! __('general.edit') !!}">
+                                                                <i class="fas fa-edit"></i>
                                                             </a>
-                                                        @endif
-                                                    @endcan
+     
+                                                            {{-- Return Cheque --}}
+                                                            <a href="javascript:void(0)"
+                                                                class="btn-premium-action btn-premium-action-warning mr-1 btn-return-cheque"
+                                                                data-id="{!! $cheque->id !!}" title="{!! __('cheques.return_cheque') !!}">
+                                                                <i class="fas fa-undo"></i>
+                                                            </a>
+     
+                                                            @if ($cheque->is_deposit)
+                                                                {{-- Cash Insurance Cheque --}}
+                                                                <a href="javascript:void(0)"
+                                                                    class="btn-premium-action btn-premium-action-success mr-1 btn-cash-cheque"
+                                                                    data-id="{!! $cheque->id !!}"
+                                                                    title="{!! __('cheques.cash_cheque') !!}">
+                                                                    <i class="fas fa-money-bill-wave"></i>
+                                                                </a>
+                                                            @else
+                                                                {{-- Cash Rent Cheque (Add Payment) --}}
+                                                                <a href="{!! route('dashboard.payments.create', ['contract_id' => $cheque->contract_id, 'cheque_id' => $cheque->id]) !!}"
+                                                                    class="btn-premium-action btn-premium-action-success mr-1"
+                                                                    title="{!! __('cheques.cash_cheque') !!}">
+                                                                    <i class="fas fa-money-bill-wave"></i>
+                                                                </a>
+                                                            @endif
+                                                        @endcan
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -278,18 +287,20 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{!! route('dashboard.contracts.show', $contract->id) !!}"
-                                                        class="btn-mini-action bg-white border border-secondary"
-                                                        title="{!! __('general.show') !!}">
-                                                        <i class="fas fa-eye text-primary"></i>
-                                                    </a>
-                                                    @can('contracts_update')
-                                                        <a href="{!! route('dashboard.contracts.edit', $contract->id) !!}"
-                                                            class="btn-mini-action btn-mini-success ml-1"
-                                                            title="{!! __('general.edit') !!}">
-                                                            <i class="fas fa-edit"></i>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a href="{!! route('dashboard.contracts.show', $contract->id) !!}"
+                                                            class="btn-premium-action btn-premium-action-info mr-1"
+                                                            title="{!! __('general.show') !!}">
+                                                            <i class="fas fa-eye"></i>
                                                         </a>
-                                                    @endcan
+                                                        @can('contracts_update')
+                                                            <a href="{!! route('dashboard.contracts.edit', $contract->id) !!}"
+                                                                class="btn-premium-action btn-premium-action-edit mr-1"
+                                                                title="{!! __('general.edit') !!}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        @endcan
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
