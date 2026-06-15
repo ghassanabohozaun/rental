@@ -329,16 +329,6 @@ class ImportCheques extends Component
                         $savedCount++;
                     }
                 }
-
-                // Calculate file hash and log the import batch
-                if ($this->excelFile && file_exists($this->excelFile->getRealPath())) {
-                    $fileHash = md5_file($this->excelFile->getRealPath());
-                    \App\Models\ImportedFile::create([
-                        'company_id' => user()->company_id ?? 1,
-                        'file_hash' => $fileHash,
-                        'file_name' => $this->excelFile->getClientOriginalName(),
-                    ]);
-                }
             });
 
             session()->flash('success', __('cheques.imported_successfully') . " ({$savedCount})");
