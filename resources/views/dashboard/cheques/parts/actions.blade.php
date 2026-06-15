@@ -22,6 +22,12 @@
                     data-id="{!! $cheque->id !!}" title="{!! __('cheques.cash_cheque') !!}">
                     <i class="fas fa-money-bill-wave"></i>
                 </a>
+            @else
+                {{-- Cash Rent Cheque (Add Payment) --}}
+                <a href="{!! route('dashboard.payments.create', ['contract_id' => $cheque->contract_id, 'cheque_id' => $cheque->id]) !!}" class="btn-premium-action btn-premium-action-success mr-1"
+                    title="{!! __('cheques.cash_cheque') !!}">
+                    <i class="fas fa-money-bill-wave"></i>
+                </a>
             @endif
         @endif
     @endcan

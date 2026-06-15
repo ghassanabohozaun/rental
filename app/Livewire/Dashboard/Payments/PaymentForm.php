@@ -76,6 +76,31 @@ class PaymentForm extends Component
             if (user()->company_id != 1) {
                 $this->company_id = user()->company_id;
             }
+
+            if (request()->has('contract_id')) {
+                $contract = Contract::find(request('contract_id'));
+                if ($contract) {
+                    $this->company_id = $contract->company_id;
+                    if (user()->company_id == 1) {
+                        $this->loadContractsByCompany();
+                    }
+                    $this->contract_id = $contract->id;
+                    $this->loadContractDetails();
+                }
+            }
+
+            if (request()->has('cheque_id')) {
+                $this->method = 'cheque';
+                $this->status = 'paid'; // Default to paid because the context is "Cashing" (تسييل)
+                $this->cheque_id = request('cheque_id');
+                $this->loadSelectedChequeDetails();
+                if ($this->selectedChequeDetails) {
+                    $this->amount = $this->selectedChequeDetails['remaining_amount'];
+                    if (!empty($this->selectedChequeDetails['due_date'])) {
+                        $this->payment_date = $this->selectedChequeDetails['due_date'];
+                    }
+                }
+            }
         }
         $this->calculateProjected();
         $this->calculateProgressBar();
@@ -302,6 +327,11 @@ class PaymentForm extends Component
     {
         if ($value) {
             $this->loadSelectedChequeDetails();
+            if ($this->selectedChequeDetails && !empty($this->selectedChequeDetails['due_date'])) {
+                $this->payment_date = $this->selectedChequeDetails['due_date'];
+                // optionally dispatch an event if date picker needs reinit
+                $this->dispatch('reinit-plugins');
+            }
         } else {
             $this->selectedChequeDetails = null;
         }
@@ -498,6 +528,7 @@ class PaymentForm extends Component
                 'amount' => $cheque->amount,
                 'used_amount' => $cheque->used_amount,
                 'remaining_amount' => $cheque->remaining_amount,
+                'due_date' => $cheque->due_date ? $cheque->due_date->format('Y-m-d') : null,
             ];
         }
     }

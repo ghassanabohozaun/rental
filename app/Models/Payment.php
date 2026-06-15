@@ -131,4 +131,31 @@ class Payment extends Model implements MustBelongToCompany
         }
         return 'primary';
     }
+
+    /**
+     * The "booted" method of the model.
+     * Automates Cheque Status updates based on Payment lifecycle.
+     */
+    protected static function booted()
+    {
+        $updateChequeStatus = function ($payment) {
+            if ($payment->cheque_id) {
+                // Fetch the cheque fresh so the computed attributes recalculate based on the new payment state
+                $cheque = Cheque::find($payment->cheque_id);
+                if ($cheque) {
+                    // If remaining amount is 0 or less, mark it as cleared (unless it's already marked as returned/bounced)
+                    if ($cheque->remaining_amount <= 0.001 && !in_array($cheque->status, ['returned', 'bounced'])) {
+                        $cheque->update(['status' => 'cleared']);
+                    } 
+                    // If remaining amount is greater than 0, and it was marked cleared, revert to pending
+                    elseif ($cheque->remaining_amount > 0.001 && $cheque->status === 'cleared') {
+                        $cheque->update(['status' => 'pending']);
+                    }
+                }
+            }
+        };
+
+        static::saved($updateChequeStatus);
+        static::deleted($updateChequeStatus);
+    }
 }
