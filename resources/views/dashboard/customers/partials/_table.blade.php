@@ -47,7 +47,12 @@
                                             <i class="fas fa-user font-40"></i>
                                         </div>
                                     </div>
-                                    <h4 class="modal-name-title font-weight-bold">{{ $customer->name }}</h4>
+                                    @if (!empty($customer->company_name))
+                                        <h4 class="modal-name-title font-weight-bold"><i class="fas fa-building text-primary mr-1"></i> {{ $customer->company_name }}</h4>
+                                        <div class="text-muted mb-2 font-12"><i class="fas fa-user-tie"></i> {{ $customer->name }}</div>
+                                    @else
+                                        <h4 class="modal-name-title font-weight-bold">{{ $customer->name }}</h4>
+                                    @endif
                                     <div class="modal-member-since-box">
                                         <i class="fas fa-calendar-alt small mr-1"></i>
                                         {{ __('general.created_at') }}:
@@ -125,9 +130,16 @@
                     <!-- Name -->
                     <td class="align-middle property-info-td">
                         <div class="user-info-cell">
-                            <span class="user-name-text font-weight-bold">{{ $customer->name }}</span>
-                            @if ($customer->email)
-                                <span class="user-email-text">{{ $customer->email }}</span>
+                            @if (!empty($customer->company_name))
+                                <span class="user-name-text font-weight-bold" title="اسم الشركة">
+                                    <i class="fas fa-building text-primary mr-1"></i> {{ $customer->company_name }}
+                                </span>
+                                <span class="user-email-text" title="الممثل / المفوض"><i class="fas fa-user-tie"></i> {{ $customer->name }}</span>
+                            @else
+                                <span class="user-name-text font-weight-bold">{{ $customer->name }}</span>
+                                @if ($customer->email)
+                                    <span class="user-email-text">{{ $customer->email }}</span>
+                                @endif
                             @endif
                         </div>
                     </td>

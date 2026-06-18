@@ -36,8 +36,9 @@
                             <tr>
                                 <td class="py-2 font-weight-bold">#{!! $cheque->cheque_number !!}</td>
                                 <td class="py-2">{!! $cheque->bank_name !!}</td>
-                                <td class="py-2 text-primary font-weight-bold">{!! number_format($cheque->amount, 2) !!}
-                                    <small>{!! __('general.sar') !!}</small>
+                                <td class="py-2">
+                                    <span class="font-weight-bold text-dark">{{ number_format($cheque->amount, 2) }}</span>
+                                    <small class="text-muted ml-1">{!! currency() !!}</small>
                                 </td>
                                 <td class="py-2">{!! $cheque->due_date ? $cheque->due_date->format('Y-m-d') : '---' !!}</td>
                                 <td class="py-2 text-center">

@@ -19,6 +19,17 @@
                 </li>
                 <!-- end: Dashboard -->
 
+                <!-- begin: Notifications -->
+                @can('notifications_read')
+                <li class=" nav-item @if (Request::routeIs('dashboard.notifications')) active @endif">
+                    <a href="{!! route('dashboard.notifications') !!}">
+                        <i class="la la-bell"></i>
+                        <span class="menu-title">{!! __('notifications.notifications') !!}</span>
+                    </a>
+                </li>
+                @endcan
+                <!-- end: Notifications -->
+
                 {{-- Group 1: System Management --}}
                 @if(auth()->user()->can('companies_read') || auth()->user()->can('bank_accounts_read') || auth()->user()->can('departments_read') || auth()->user()->can('settings_read'))
                 @php

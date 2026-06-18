@@ -20,6 +20,7 @@ return [
         'cheques' => 'global.cheques',
         'payments' => 'global.payments',
         'reports' => 'global.reports',
+        'notifications' => 'notifications.notifications',
     ],
 
     // Define custom operations for specific modules that don't follow standard CRUD
@@ -35,6 +36,9 @@ return [
             'update' => 'general.update',
             'delete' => 'general.delete',
             'import' => 'cheques.import_cheques',
+        ],
+        'notifications' => [
+            'read' => 'general.show', // Only read permission is needed for now
         ],
     ],
 
@@ -59,6 +63,7 @@ return [
         'cheques' => 'fas fa-money-check-alt fa-fw',
         'payments' => 'fas fa-file-invoice-dollar fa-fw',
         'reports' => 'fas fa-chart-line fa-fw',
+        'notifications' => 'fas fa-bell fa-fw',
     ],
 
     // Define the CRUD operations available for these modules

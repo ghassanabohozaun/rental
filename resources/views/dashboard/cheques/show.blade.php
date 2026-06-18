@@ -1,3 +1,42 @@
+@if(!request()->ajax())
+    @extends('layouts.dashboard.app')
+    
+    @section('title', __('cheques.cheques') . ' #' . $cheque->cheque_number)
+    
+    @section('content')
+        <div class="app-content content">
+            <div class="content-wrapper">
+                <div class="content-header row align-items-center mb-2">
+                    <div class="content-header-left col-md-6 col-12 mb-2 mb-md-0">
+                        <div class="breadcrumb-wrapper">
+                            <ol class="breadcrumb premium-breadcrumb shadow-sm">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard.index') }}">
+                                        <i class="fas fa-home"></i> {{ __('dashboard.home') }}
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard.cheques.index') }}">
+                                        {{ __('cheques.cheques') }}
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active font-weight-bold">
+                                    {{ __('general.details') }}
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 text-md-right">
+                        <a href="{{ route('dashboard.cheques.index') }}" class="btn-premium-back">
+                            <i class="fas fa-arrow-right"></i> {{ __('general.back') }}
+                        </a>
+                    </div>
+                </div>
+                <div class="content-body">
+                    <div class="card premium-card">
+                        <div class="card-body">
+@endif
+
 <div class="premium-details-container">
     {{-- Status Header --}}
     @php
@@ -146,5 +185,11 @@
     @endif
 </div>
 
-
-
+@if(!request()->ajax())
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+@endif

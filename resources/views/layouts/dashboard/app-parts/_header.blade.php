@@ -167,68 +167,7 @@
                     </li>
 
                     {{-- Enterprise Notifications --}}
-                    <li class="dropdown dropdown-notification nav-item">
-                        <a class="nav-link nav-link-label" href="javascript:void(0)" data-toggle="dropdown">
-                            <div class="enterprise-action-btn">
-                                <i class="ficon la la-bell"></i>
-                                <span class="enterprise-badge badge-danger">4</span>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list">
-                            <div class="dropdown-header-main">
-                                <h6 class="header-title">Notifications</h6>
-                                <span class="premium-badge-count">4 New</span>
-                            </div>
-                            <div class="scrollable-container media-list w-100 custom-scrollbar"
-                                style="max-height: 350px; overflow-y: auto;">
-                                <a class="preview-item-premium" href="javascript:void(0)">
-                                    <div class="preview-thumbnail-premium bg-success">
-                                        <i class="la la-home"></i>
-                                    </div>
-                                    <div class="preview-item-content-premium">
-                                        <span class="subject">New Property</span>
-                                        <span class="message-text">"Al-Yasmeen Villa" has been added
-                                            successfully.</span>
-                                        <span class="time">5 mins ago</span>
-                                    </div>
-                                </a>
-                                <a class="preview-item-premium" href="javascript:void(0)">
-                                    <div class="preview-thumbnail-premium bg-warning">
-                                        <i class="la la-file-text"></i>
-                                    </div>
-                                    <div class="preview-item-content-premium">
-                                        <span class="subject">Contract Expiring</span>
-                                        <span class="message-text">Contract for Property #105 is expiring soon.</span>
-                                        <span class="time">1 hour ago</span>
-                                    </div>
-                                </a>
-                                <a class="preview-item-premium" href="javascript:void(0)">
-                                    <div class="preview-thumbnail-premium bg-info">
-                                        <i class="la la-cog"></i>
-                                    </div>
-                                    <div class="preview-item-content-premium">
-                                        <span class="subject">Maintenance Request</span>
-                                        <span class="message-text">New maintenance request for Al-Baraka
-                                            Apartment.</span>
-                                        <span class="time">2 hours ago</span>
-                                    </div>
-                                </a>
-                                <a class="preview-item-premium" href="javascript:void(0)">
-                                    <div class="preview-thumbnail-premium bg-danger">
-                                        <i class="la la-credit-card"></i>
-                                    </div>
-                                    <div class="preview-item-content-premium">
-                                        <span class="subject">Due Cheque</span>
-                                        <span class="message-text">A cheque of 5,000 SAR is due tomorrow.</span>
-                                        <span class="time">5 hours ago</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-footer-premium">
-                                <a href="javascript:void(0)">View All</a>
-                            </div>
-                        </div>
-                    </li>
+                    @livewire('header-notifications')
 
                     {{-- Enterprise Messages --}}
                     <li class="dropdown dropdown-notification nav-item">

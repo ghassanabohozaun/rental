@@ -190,6 +190,12 @@ Route::group(
                 Route::get('/', [PaymentsReportsController::class, 'index'])->name('index');
                 Route::post('/export', [PaymentsReportsController::class, 'exportExcel'])->name('export.excel');
             });
+            
+            // ########################################## notifications #############################################################
+            Route::group(['middleware' => 'can:notifications_read'], function () {
+                Route::get('/notifications', \App\Livewire\NotificationCenter::class)->name('notifications');
+                Route::get('/notifications/{id}/redirect', [\App\Http\Controllers\Dashboard\NotificationController::class, 'redirect'])->name('notifications.redirect');
+            });
         });
     },
 );
