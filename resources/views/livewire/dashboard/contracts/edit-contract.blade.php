@@ -334,7 +334,8 @@
                                                             <div class="premium-form-group @error('deposit_cheque_number') is-invalid-premium @enderror">
                                                                 <label for="deposit_cheque_number" class="premium-label">{!! __('cheques.cheque_number') !!} <span class="text-danger">*</span></label>
                                                                 <input type="text" id="deposit_cheque_number" wire:model="deposit_cheque_number"
-                                                                    class="form-control premium-input shadow-none" autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}" {{ $this->isDepositLocked ? 'disabled' : '' }}>
+                                                                    class="form-control premium-input shadow-none" autocomplete="off" placeholder="{!! __('cheques.cheque_number') !!}"
+                                                                    minlength="8" maxlength="8" pattern="\d{8}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);" {{ $this->isDepositLocked ? 'disabled' : '' }}>
                                                                 @error('deposit_cheque_number') <span class="text-danger error-text">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>

@@ -202,6 +202,12 @@ class EditContract extends Component
                 $this->second_party_data['cr_number'] = $customer->cr_number ?? '';
                 $this->second_party_data['license_number'] = $customer->license_number ?? '';
                 $this->second_party_data['establishment_number'] = $customer->establishment_number ?? '';
+
+                // Auto-fill cheque owner name if empty
+                if (empty($this->deposit_cheque_owner_name['ar']) && empty($this->deposit_cheque_owner_name['en'])) {
+                    $this->deposit_cheque_owner_name['ar'] = $customer->getTranslation('name', 'ar') ?: '';
+                    $this->deposit_cheque_owner_name['en'] = $customer->getTranslation('name', 'en') ?: '';
+                }
             }
         }
     }
@@ -322,7 +328,7 @@ class EditContract extends Component
             'notes' => 'nullable|string',
             
             // Cheque rules
-            'deposit_cheque_number' => 'required_if:deposit_type,cheque|nullable|string|max:255',
+            'deposit_cheque_number' => 'required_if:deposit_type,cheque|nullable|digits:8',
             'deposit_bank_name.ar' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_bank_name.en' => 'required_if:deposit_type,cheque|nullable|string|max:255',
             'deposit_cheque_owner_name.ar' => 'required_if:deposit_type,cheque|nullable|string|max:255',

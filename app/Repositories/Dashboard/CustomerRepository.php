@@ -90,9 +90,10 @@ class CustomerRepository
             ->limit(10)
             ->get()
             ->map(function ($customer) {
+                $displayName = !empty($customer->company_name) ? $customer->company_name . ' (' . $customer->name . ')' : $customer->name;
                 return [
                     'id' => $customer->id,
-                    'text' => $customer->name . ' - ' . $customer->phone,
+                    'text' => $displayName . ' - ' . $customer->phone,
                 ];
             });
     }
