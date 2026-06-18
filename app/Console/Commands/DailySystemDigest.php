@@ -28,8 +28,8 @@ class DailySystemDigest extends Command
      */
     public function handle()
     {
-        // Calculate expiring contracts within 30 days
-        $expiringContractsCount = Contract::whereBetween('end_date', [Carbon::today(), Carbon::today()->addDays(30)])
+        // Calculate expiring contracts within 60 days
+        $expiringContractsCount = Contract::whereBetween('end_date', [Carbon::today(), Carbon::today()->addDays(60)])
                                           ->where('status', '!=', 'expired') // Assuming you have a status field
                                           ->count();
 

@@ -181,7 +181,7 @@
     <script type="text/javascript">
         window.LockScreenConfig = {
             lock_route: "{{ route('dashboard.lock.screen') }}",
-            idle_limit: 50 // 15 minutes
+            idle_limit: 900 // 15 minutes
         };
 
         // Premium Global Settings
