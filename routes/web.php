@@ -10,11 +10,7 @@ Route::group(
     ],
     function () {
         ###################################### welcome  ##################################################################
-        Route::get('/welcome', function () {
-            return view('welcome');
-        })
-            ->where(['any' => '.*'])
-            ->name('welcome');
+        Route::get('/', [\App\Http\Controllers\Website\HomeController::class, 'index'])->name('home');
 
         ###################################### routes  ##################################################################
     },

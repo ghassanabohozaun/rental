@@ -90,18 +90,25 @@
 
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
-                            <thead>
+                            <thead class="bg-light">
                                 <tr>
-                                    <th style="width: 50px;" class="border-top-0 border-bottom-0 pb-0 text-center">
+                                    <th style="width: 50px;" class="border-top-0 text-center align-middle py-3">
                                         @if ($notifications->count() > 0)
-                                            <div class="premium-checkbox-custom">
+                                            <div class="premium-checkbox-custom" style="margin-right: -10px;">
                                                 <input type="checkbox" id="selectAllNotifications"
                                                     wire:model.live="selectAll">
                                             </div>
                                         @endif
                                     </th>
-                                    <th colspan="3" class="border-top-0 border-bottom-0 pb-0"></th>
-                                    <th class="border-top-0 border-bottom-0 pb-0 sticky-actions" style="width: 150px;"></th>
+                                    <th colspan="2" class="border-top-0 align-middle text-muted font-weight-bold" style="font-size: 0.95rem;">
+                                        {{ __('notifications.notifications') ?? 'Notifications' }}
+                                    </th>
+                                    <th class="border-top-0 text-center align-middle text-muted font-weight-bold" style="width: 150px; font-size: 0.95rem;">
+                                        <i class="far fa-clock"></i> {{ __('general.date') ?? 'Date' }}
+                                    </th>
+                                    <th class="border-top-0 text-center align-middle sticky-actions text-muted font-weight-bold" style="width: 150px; font-size: 0.95rem;">
+                                        <i class="fas fa-cog"></i> {{ __('general.actions') ?? 'Actions' }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
