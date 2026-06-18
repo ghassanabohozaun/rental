@@ -15,8 +15,12 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-class ChequesExport implements WithHeadings, FromCollection, WithMapping, WithColumnWidths, ShouldAutoSize, WithStyles, WithEvents, WithColumnFormatting
+class ChequesExport extends DefaultValueBinder implements WithHeadings, FromCollection, WithMapping, WithColumnWidths, ShouldAutoSize, WithStyles, WithEvents, WithColumnFormatting, WithCustomValueBinder
 {
     use RegistersEventListeners;
 
@@ -234,5 +238,17 @@ class ChequesExport implements WithHeadings, FromCollection, WithMapping, WithCo
                 }
             },
         ];
+    }
+
+    public function bindValue(Cell $cell, $value)
+    {
+        // Force account_number, cheque_number, iban (large numeric/alphanumeric strings) to be treated explicitly as strings
+        // This prevents Excel from converting them to scientific notation (e.g. 4.80003E+12) or stripping leading zeros
+        if (is_numeric($value) && strlen((string)$value) > 8 && strpos((string)$value, '.') === false) {
+            $cell->setValueExplicit((string)$value, DataType::TYPE_STRING);
+            return true;
+        }
+
+        return parent::bindValue($cell, $value);
     }
 }
