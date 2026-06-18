@@ -204,33 +204,28 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if ($contract->deposit_type == 'cheque' && $contract->insuranceCheque)
+                        <!-- Insurance Cheque Info -->
+                        <div class="col-md-4 mb-3">
+                            <div class="data-grid-item border-left-primary-3">
+                                <div class="data-grid-icon bg-light-primary-opacity">
+                                    <i class="fas fa-money-check text-primary"></i>
+                                </div>
+                                <div class="data-grid-content">
+                                    <label class="data-grid-label">{!! __('cheques.insurance_cheques') !!}</label>
+                                    <span class="data-grid-value text-primary font-weight-bold">
+                                        #{!! $contract->insuranceCheque->cheque_number !!}
+                                        <span class="badge badge-light-primary ml-1 px-1 py-0">{!! __('cheques.statuses.' . $contract->insuranceCheque->status) !!}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-
-        @if ($contract->deposit_type == 'cheque' && $contract->insuranceCheque)
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="card detail-card-master border-0 shadow-sm bg-light-primary-opacity radius-15">
-                        <div class="card-body p-3 d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-white p-2 rounded shadow-sm mr-2" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-money-check text-primary font-medium-3"></i>
-                                </div>
-                                <div>
-                                    <h6 class="font-weight-bold text-primary mb-0">{!! __('cheques.insurance_cheques') !!}</h6>
-                                    <span class="text-muted font-small-3">{!! __('cheques.statuses.' . $contract->insuranceCheque->status) !!}</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="badge badge-primary px-3 py-1 radius-10">#{!! $contract->insuranceCheque->cheque_number !!}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
 </div>
 
