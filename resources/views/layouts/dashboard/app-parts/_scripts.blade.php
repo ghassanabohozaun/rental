@@ -116,7 +116,8 @@
             var $body = $('body');
 
             // 1. Handle Top Navbar Collapse
-            if (!$navbar.is(event.target) && $navbar.has(event.target).length === 0 && $mobileCollapse.hasClass('show')) {
+            if (!$navbar.is(event.target) && $navbar.has(event.target).length === 0 && $mobileCollapse.hasClass(
+                    'show')) {
                 $mobileCollapse.collapse('hide');
             }
 
@@ -126,7 +127,7 @@
                 // If click is not on the menu and not on the menu toggle button
                 if (!$mainMenu.is(event.target) && $mainMenu.has(event.target).length === 0 &&
                     !$('.menu-toggle').is(event.target) && $('.menu-toggle').has(event.target).length === 0) {
-                    
+
                     // Trigger the toggle to close it
                     if (typeof Unison !== 'undefined') {
                         // Using the theme's built-in toggle if available
@@ -141,9 +142,12 @@
 
         // BFCache Fix: Force reload on browser back button
         window.addEventListener("pageshow", function(event) {
-            var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window
-    <!-- 1. EXTERNAL LIBRARIES  -->
-    <script src="{!! asset('assets/dashbaord') !!}/vendors/js/vendors.min.js" type="text/javascript"></script>
+                    var historyTraversal = event.persisted || (typeof window.performance != "undefined" && window <
+                            !--1. EXTERNAL LIBRARIES-- >
+                            <
+                            script src = "{!! asset('assets/dashbaord') !!}/vendors/js/vendors.min.js"
+                            type = "text/javascript" >
+    </script>
     <script src="{!! asset('assets/dashbaord') !!}/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/js/core/app-menu.js" type="text/javascript"></script>
     <script src="{!! asset('assets/dashbaord') !!}/js/core/app.js" type="text/javascript"></script>
@@ -177,7 +181,7 @@
     <script type="text/javascript">
         window.LockScreenConfig = {
             lock_route: "{{ route('dashboard.lock.screen') }}",
-            idle_limit: 900 // 15 minutes
+            idle_limit: 50 // 15 minutes
         };
 
         // Premium Global Settings
@@ -260,7 +264,8 @@
             var $body = $('body');
 
             // 1. Handle Top Navbar Collapse
-            if (!$navbar.is(event.target) && $navbar.has(event.target).length === 0 && $mobileCollapse.hasClass('show')) {
+            if (!$navbar.is(event.target) && $navbar.has(event.target).length === 0 && $mobileCollapse.hasClass(
+                    'show')) {
                 $mobileCollapse.collapse('hide');
             }
 
@@ -270,7 +275,7 @@
                 // If click is not on the menu and not on the menu toggle button
                 if (!$mainMenu.is(event.target) && $mainMenu.has(event.target).length === 0 &&
                     !$('.menu-toggle').is(event.target) && $('.menu-toggle').has(event.target).length === 0) {
-                    
+
                     // Trigger the toggle to close it
                     if (typeof Unison !== 'undefined') {
                         // Using the theme's built-in toggle if available
@@ -293,65 +298,4 @@
         });
     </script>
     <script src="{{ asset('assets/dashbaord/js/lock-screen-modern.js') }}"></script>
-
-    <!-- Advanced Notifications System -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Request Desktop Notification Permission
-            if ("Notification" in window && Notification.permission !== "denied" && Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
-        });
-
-        document.addEventListener('new-notification-received', function(event) {
-            // Livewire v3 passes data in event.detail[0]
-            let data = event.detail[0] || event.detail;
-            
-            let title = data.title;
-            let message = data.message;
-            let level = data.level || 'info';
-
-            // 1. Play Sound (Simple Web Audio API Beep)
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // 800Hz
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Volume
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.15); // Duration
-            } catch (e) {}
-
-            // 2. Show Toast (Using SweetAlert as a Toast)
-            if (typeof swal !== 'undefined') {
-                swal({
-                    title: title,
-                    text: message,
-                    icon: level === 'danger' ? 'error' : level,
-                    timer: 4000,
-                    buttons: false,
-                    className: "premium-toast"
-                });
-            } else {
-                alert(title + "\n" + message);
-            }
-
-            // 3. HTML5 Desktop Notification
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(title, {
-                    body: message,
-                    icon: "{{ asset('favicon.ico') }}"
-                });
-            }
-
-            // 4. Tab Title Flashing
-            let originalTitle = document.title;
-            document.title = "(🔔) " + title + " - " + originalTitle;
-            setTimeout(() => {
-                document.title = originalTitle;
-            }, 6000);
-        });
-    </script>
+    <script src="{{ asset('assets/dashbaord/js/notifications.js') }}?v=1.0"></script>

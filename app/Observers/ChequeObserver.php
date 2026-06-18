@@ -52,10 +52,40 @@ class ChequeObserver
 
             if ($newStatus === 'cleared') {
                 $cheque->payments()->update(['status' => 'paid']);
+                
+                notifyAdmins(
+                    'notifications.cheque_cleared_title', 
+                    'notifications.cheque_cleared_msg', 
+                    ['cheque_no' => $cheque->cheque_number, 'amount' => $cheque->amount], 
+                    'financial', 
+                    route('dashboard.cheques.index'), 
+                    'success', 
+                    'fas fa-check-circle'
+                );
             } elseif ($newStatus === 'bounced' || $newStatus === 'returned') {
                 $cheque->payments()->update(['status' => 'bounced']);
+                
+                notifyAdmins(
+                    'notifications.cheque_bounced_title', 
+                    'notifications.cheque_bounced_msg', 
+                    ['cheque_no' => $cheque->cheque_number, 'amount' => $cheque->amount], 
+                    'financial', 
+                    route('dashboard.cheques.index'), 
+                    'danger', 
+                    'fas fa-times-circle'
+                );
             } else {
                 $cheque->payments()->update(['status' => 'pending']);
+                
+                notifyAdmins(
+                    'notifications.cheque_reset_title', 
+                    'notifications.cheque_reset_msg', 
+                    ['cheque_no' => $cheque->cheque_number, 'amount' => $cheque->amount], 
+                    'financial', 
+                    route('dashboard.cheques.index'), 
+                    'warning', 
+                    'fas fa-undo'
+                );
             }
         }
     }

@@ -59,6 +59,12 @@ Route::group(
             // ########################################## Auth Protected ####################################################################
             Route::get('lock-screen', [AuthController::class, 'lockScreen'])->name('lock.screen');
             Route::post('unlock-screen', [AuthController::class, 'unlock'])->name('unlock.screen');
+            Route::get('unlock-screen', function () {
+                return redirect()->route('dashboard.lock.screen');
+            });
+            Route::get('keep-alive', function () {
+                return response()->json(['status' => 'alive', 'time' => now()]);
+            })->name('keep.alive');
             // ########################################## welcome  ##########################################################################
             Route::get('/welcome', [DashboardController::class, 'index'])->name('index');
             // ########################################## roles routes ######################################################################

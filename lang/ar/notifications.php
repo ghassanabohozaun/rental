@@ -13,18 +13,34 @@ return [
     'contract_expiring_msg' => 'العقد رقم :contract_no للعقار ":property" سينتهي خلال :days أيام.',
     'contract_expired_title' => 'عقد منتهي',
     'contract_expired_msg' => 'العقد رقم :contract_no للعقار ":property" انتهت صلاحيته اليوم.',
-    'new_contract_title' => 'عقد جديد',
-    'new_contract_msg' => 'تم توقيع عقد جديد رقم :contract_no للعقار ":property".',
+    'new_contract_title' => 'عقد إيجار جديد',
+    'new_contract_msg' => 'تم إبرام عقد إيجار جديد رقم :contract.',
+    'contract_cancelled_title' => 'إلغاء عقد إيجار',
+    'contract_cancelled_msg' => 'تم تغيير حالة العقد رقم :contract إلى (ملغي)!',
+    'contract_reactivated_title' => 'تفعيل عقد إيجار',
+    'contract_reactivated_msg' => 'تمت إعادة تفعيل العقد رقم :contract ليكون سارياً.',
 
     // Financial / Cheques
     'cheque_due_title' => 'شيك يستحق قريباً',
     'cheque_due_msg' => 'الشيك رقم :cheque_no بقيمة :amount يستحق الصرف خلال :days أيام.',
     'cheque_overdue_title' => 'شيك متأخر',
     'cheque_overdue_msg' => 'الشيك رقم :cheque_no بقيمة :amount تأخر عن موعد استحقاقه!',
+    'cheque_cleared_title' => 'تحصيل شيك',
+    'cheque_cleared_msg' => 'تم تحصيل الشيك رقم :cheque_no بقيمة :amount بنجاح.',
+    'cheque_bounced_title' => 'ارتجاع شيك',
+    'cheque_bounced_msg' => 'تم ارتجاع الشيك رقم :cheque_no بقيمة :amount!',
+    'cheque_reset_title' => 'تراجع عن إجراء',
+    'cheque_reset_msg' => 'تم التراجع عن إجراء الشيك رقم :cheque_no بقيمة :amount وإعادته لقيد الانتظار.',
+    'payment_collected_title' => 'تحصيل دفعة نقدية',
+    'payment_collected_msg' => 'تم تحصيل دفعة بقيمة :amount للعقد :contract بنجاح.',
+    'payment_reset_title' => 'تراجع عن تحصيل دفعة',
+    'payment_reset_msg' => 'تم التراجع عن تحصيل دفعة بقيمة :amount للعقد :contract وإعادتها لقيد الانتظار.',
+    'payment_deleted_title' => 'حذف دفعة نقدية',
+    'payment_deleted_msg' => 'تم حذف دفعة بقيمة :amount خاصة بالعقد :contract.',
 
     // Properties
-    'property_vacant_title' => 'عقار شاغر',
-    'property_vacant_msg' => 'العقار ":property" أصبح شاغراً ومتاحاً للتأجير الآن.',
+    'property_vacant_title' => 'حالة العقار متاح',
+    'property_vacant_msg' => 'تم تغيير حالة العقار ":property" إلى متاح.',
 
     // UI Elements
     'notifications' => 'الإشعارات',

@@ -16,7 +16,7 @@ class CheckLockScreen
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->guard('web')->check() && session('is_locked') == true) {
-            if (!$request->is('*/lock-screen') && !$request->routeIs('dashboard.logout') && !$request->routeIs('dashboard.unlock.screen')) {
+            if (!$request->is('*/lock-screen') && !$request->routeIs('dashboard.logout') && !$request->routeIs('dashboard.unlock.screen') && !$request->routeIs('dashboard.keep.alive')) {
                 return redirect()->guest(route('dashboard.lock.screen'));
             }
         }

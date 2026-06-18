@@ -44,6 +44,18 @@
             const submitBtn = $("#unlock-btn");
             const data = window.LockScreenData || {};
 
+            // Keep-Alive Ping every 15 minutes (900000 ms) to prevent session expiry
+            if (data.routes && data.routes.keep_alive) {
+                setInterval(function() {
+                    fetch(data.routes.keep_alive, {
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest",
+                            "Accept": "application/json"
+                        }
+                    }).catch(err => console.log('Keep-alive ping failed', err));
+                }, 900000);
+            }
+
             lockForm.on("submit", function () {
                 // Show loading state on standard submit
                 submitBtn

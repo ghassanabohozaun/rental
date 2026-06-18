@@ -114,7 +114,8 @@
         window.LockScreenData = {
             routes: {
                 unlock: "{{ route('dashboard.unlock.screen') }}",
-                dashboard: "{{ route('dashboard.index') }}"
+                dashboard: "{{ route('dashboard.index') }}",
+                keep_alive: "{{ route('dashboard.keep.alive') }}"
             },
             labels: {
                 unlock: "{{ __('auth.unlock') }}",

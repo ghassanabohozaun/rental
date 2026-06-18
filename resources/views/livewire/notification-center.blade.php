@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="content-body">
+        <div class="content-body mt-3">
             <div class="card premium-card">
                 <div class="premium-mandatory-header py-2">
                     <div class="title-wrapper">

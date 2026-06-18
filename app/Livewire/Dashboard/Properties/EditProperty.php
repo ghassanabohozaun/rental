@@ -275,7 +275,25 @@ use Illuminate\Support\Facades\Storage;
             'company_id' => user()->company_id == 1 ? $this->company_id : user()->company_id,
         ];
 
+        $oldStatusId = $this->property->property_status_id;
+
         $this->property->update($data);
+
+        // Check for Property Vacant Notification
+        if ($oldStatusId != $this->property_status_id) {
+            $newStatus = \App\Models\PropertyStatus::find($this->property_status_id);
+            if ($newStatus && (str_contains($newStatus->name, 'متاح') || stripos($newStatus->name, 'available') !== false)) {
+                notifyAdmins(
+                    'notifications.property_vacant_title', 
+                    'notifications.property_vacant_msg', 
+                    ['property' => $this->name['ar'] ?? ''],
+                    'system',
+                    route('dashboard.properties.show', $this->property->id),
+                    'info',
+                    'fas fa-home'
+                );
+            }
+        }
 
         // Sync Owners
         $syncData = [];
