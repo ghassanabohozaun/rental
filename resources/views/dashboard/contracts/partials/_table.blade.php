@@ -400,7 +400,9 @@
         </tbody>
 
     </table>
-    <div class="float-right mt-2 custom-pagination">
-        {!! $contracts->links() !!}
+    <div class="mt-2 text-center">
+        <div class="d-inline-block">
+            {!! $contracts->appends(request()->except('_ajax'))->links() !!}
+        </div>
     </div>
 </div>

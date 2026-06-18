@@ -247,6 +247,6 @@
 </div>
 
 <div class="float-right mt-2 custom-pagination">
-    {!! $cheques->links() !!}
+    {!! $cheques->appends(request()->except('_ajax'))->links() !!}
 </div>
 
