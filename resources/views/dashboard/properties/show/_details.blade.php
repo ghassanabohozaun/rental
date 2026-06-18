@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="data-grid-content">
                                     <label class="data-grid-label">{!! __('properties.property_type') !!}</label>
-                                    <span class="data-grid-value">{!! $property->propertyType->name !!}</span>
+                                    <span class="data-grid-value">{!! optional($property->propertyType)->name ?? '---' !!}</span>
                                 </div>
                             </div>
                         </div>

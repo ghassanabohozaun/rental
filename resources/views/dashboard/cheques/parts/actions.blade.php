@@ -30,6 +30,22 @@
                 </a>
             @endif
         @endif
+
+        @if ($cheque->status === 'returned')
+            {{-- Undo Return --}}
+            <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-info mr-1 btn-undo-return-cheque"
+                data-id="{!! $cheque->id !!}" title="{!! __('cheques.undo_action') !!}">
+                <i class="fas fa-history"></i>
+            </a>
+        @endif
+
+        @if ($cheque->status === 'cleared')
+            {{-- Undo Cash --}}
+            <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger mr-1 btn-undo-cash-cheque"
+                data-id="{!! $cheque->id !!}" title="{!! __('cheques.undo_action') !!}">
+                <i class="fas fa-history"></i>
+            </a>
+        @endif
     @endcan
 
     @can('cheques_delete')

@@ -170,6 +170,8 @@ Route::group(
                 Route::get('/cheques/contract-details/{id}', [ChequesController::class, 'getContractDetails'])->name('cheques.contract-details');
                 Route::post('/cheques/{id}/return', [ChequesController::class, 'returnCheque'])->name('cheques.return');
                 Route::post('/cheques/{id}/cash', [ChequesController::class, 'cashCheque'])->name('cheques.cash');
+                Route::post('/cheques/{id}/undo-return', [ChequesController::class, 'undoReturn'])->name('cheques.undo_return');
+                Route::post('/cheques/{id}/undo-cash', [ChequesController::class, 'undoCash'])->name('cheques.undo_cash');
             });
             // ########################################## payments routes #############################################################
             Route::group(['middleware' => 'can:payments_read'], function () {

@@ -334,6 +334,79 @@
                     }
                 });
             });
+            // Undo Return Cheque Action
+            $(document).on('click', '.btn-undo-return-cheque', function() {
+                let btn = $(this);
+                let chequeId = btn.attr('data-id');
+                swal({
+                    title: '{!! __('cheques.confirm_undo_title', [], 'ar') ?? "تأكيد التراجع" !!}',
+                    text: '{!! __('cheques.confirm_undo_return_text', [], 'ar') ?? "هل أنت متأكد من التراجع عن حالة إرجاع الشيك وإعادته لمحفظة الشيكات؟" !!}',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: { text: '{!! __('general.no') !!}', value: null, visible: true, closeModal: true },
+                        confirm: { text: '{!! __('general.yes') !!}', value: true, visible: true, className: "btn-info", closeModal: false }
+                    }
+                }).then((isConfirm) => {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "{{ route('dashboard.cheques.undo_return', ':id') }}".replace(':id', chequeId),
+                            type: 'POST',
+                            data: { _token: '{{ csrf_token() }}' },
+                            success: function(response) {
+                                if (response.status || response.success) {
+                                    swal.stopLoading(); swal.close();
+                                    if (typeof flasher !== 'undefined') flasher.success(response.message);
+                                    $('.js-filter-form').submit();
+                                } else {
+                                    swal.stopLoading(); swal.close();
+                                    if (typeof flasher !== 'undefined') flasher.error(response.message);
+                                }
+                            },
+                            error: function(xhr) {
+                                swal.stopLoading(); swal.close();
+                                if (typeof flasher !== 'undefined') flasher.error(xhr.responseJSON ? xhr.responseJSON.message : 'Error processing request');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Undo Cash Cheque Action
+            $(document).on('click', '.btn-undo-cash-cheque', function() {
+                let btn = $(this);
+                let chequeId = btn.attr('data-id');
+                swal({
+                    title: '{!! __('cheques.confirm_undo_title', [], 'ar') ?? "تأكيد التراجع" !!}',
+                    text: '{!! __('cheques.confirm_undo_cash_text', [], 'ar') ?? "تحذير: التراجع عن تسييل الشيك سيقوم بحذف سند القبض المرتبط به وإعادة رصيد العقد. هل أنت متأكد؟" !!}',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: { text: '{!! __('general.no') !!}', value: null, visible: true, closeModal: true },
+                        confirm: { text: '{!! __('general.yes') !!}', value: true, visible: true, className: "btn-danger", closeModal: false }
+                    }
+                }).then((isConfirm) => {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "{{ route('dashboard.cheques.undo_cash', ':id') }}".replace(':id', chequeId),
+                            type: 'POST',
+                            data: { _token: '{{ csrf_token() }}' },
+                            success: function(response) {
+                                if (response.status || response.success) {
+                                    swal.stopLoading(); swal.close();
+                                    if (typeof flasher !== 'undefined') flasher.success(response.message);
+                                    $('.js-filter-form').submit();
+                                } else {
+                                    swal.stopLoading(); swal.close();
+                                    if (typeof flasher !== 'undefined') flasher.error(response.message);
+                                }
+                            },
+                            error: function(xhr) {
+                                swal.stopLoading(); swal.close();
+                                if (typeof flasher !== 'undefined') flasher.error(xhr.responseJSON ? xhr.responseJSON.message : 'Error processing request');
+                            }
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endpush

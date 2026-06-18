@@ -202,6 +202,28 @@ class ChequesController extends Controller
         ]);
     }
 
+    public function undoReturn(Request $request, $id)
+    {
+        Gate::authorize('cheques_update');
+        try {
+            $this->chequeService->undoReturnCheque($id);
+            return response()->json(['success' => true, 'message' => __('cheques.undo_success')]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+        }
+    }
+
+    public function undoCash(Request $request, $id)
+    {
+        Gate::authorize('cheques_update');
+        try {
+            $this->chequeService->undoCashCheque($id);
+            return response()->json(['success' => true, 'message' => __('cheques.undo_success')]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+        }
+    }
+
     public function returnCheque(Request $request, $id)
     {
         Gate::authorize('cheques_update');

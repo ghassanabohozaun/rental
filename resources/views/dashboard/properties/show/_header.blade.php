@@ -70,16 +70,14 @@
                 class="badge px-3 py-0 font-12 d-inline-flex align-items-center text-white border-0 mr-2 shadow-sm"
                 style="background-color: {!! $statusColor !!} !important; height: 30px; font-weight: 600; border-radius: 6px !important;">
                 <i class="fas fa-circle font-8 mr-1"></i>
-                {!! $property->propertyStatus->name !!}
+                {!! optional($property->propertyStatus)->name ?? '---' !!}
             </span>
 
             <span class="badge badge-light-primary-opacity text-primary font-12 px-3 py-0"
                 style="background: rgba(255, 255, 255, 0.15) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.25); height: 30px; display: flex; align-items: center; font-weight: 600; border-radius: 6px !important;">
                 <i class="fas fa-layer-group mr-1 font-12"></i>
-                {!! $property->propertyType->name !!}
+                {!! optional($property->propertyType)->name ?? '---' !!}
             </span>
         </div>
     </div>
 </div>
-
-

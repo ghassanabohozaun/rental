@@ -140,6 +140,46 @@ class ChequeService
         }
         throw new \Exception('Invalid operation or cheque is not a held deposit.');
     }
+    public function undoReturnCheque($id)
+    {
+        $cheque = $this->repository->find($id);
+        if ($cheque->status === 'returned') {
+            $updatedCheque = $this->repository->update($id, ['status' => 'held']);
+            
+            // Revert contract deposit_status if exists and it is a deposit cheque
+            if ($cheque->is_deposit && $cheque->contract_id) {
+                Contract::where('id', $cheque->contract_id)->update(['deposit_status' => 'held']);
+            }
+            
+            return $updatedCheque;
+        }
+        throw new \Exception('Invalid operation or cheque is not returned.');
+    }
+
+    public function undoCashCheque($id)
+    {
+        $cheque = $this->repository->find($id);
+        if ($cheque->status === 'cleared') {
+            // Revert cheque status to held
+            $cheque = $this->repository->update($id, ['status' => 'held']);
+            
+            // Revert contract deposit_status if exists and it is a deposit cheque
+            if ($cheque->is_deposit && $cheque->contract_id) {
+                Contract::where('id', $cheque->contract_id)->update(['deposit_status' => 'held']);
+            }
+            
+            // Find and delete the associated Payment record
+            $paymentService = app(PaymentService::class);
+            $payment = Payment::where('cheque_id', $cheque->id)->first();
+            if ($payment) {
+                $paymentService->delete($payment->id);
+            }
+
+            return $cheque;
+        }
+        throw new \Exception('Invalid operation or cheque is not cleared.');
+    }
+
     public function getStats()
     {
         return $this->repository->getStats();
