@@ -107,19 +107,21 @@
                     </div>
                 </div>
 
-                <!-- Drawer Bank Name -->
+                <!-- Company Bank Account -->
                 <div class="col-md-6 mb-2">
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-end mb-1">
-                            <label for="bank_name" class="premium-label mb-0">
-                                {!! __('reports.select_bank') !!}
+                            <label for="company_bank_account_id" class="premium-label mb-0">
+                                {!! __('bank_accounts.bank_accounts') !!}
                             </label>
                         </div>
-                        <select class="form-control select2" id="bank_name" name="bank_name">
-                            <option value="">{!! __('reports.all_banks') !!}</option>
-                            @foreach ($banks as $bank)
-                                <option value="{{ $bank }}">{{ $bank }}</option>
-                            @endforeach
+                        <select class="form-control select2" id="company_bank_account_id" name="company_bank_account_id">
+                            <option value="">{!! __('general.all') !!}</option>
+                            @if(isset($bankAccounts))
+                                @foreach ($bankAccounts as $account)
+                                    <option value="{{ $account->id }}">{{ $account->bank_name }} - {{ $account->account_number }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>

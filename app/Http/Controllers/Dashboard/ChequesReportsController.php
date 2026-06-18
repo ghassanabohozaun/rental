@@ -59,18 +59,12 @@ class ChequesReportsController extends Controller
         }
         $customers = $customersQuery->select('id', 'name')->get();
 
-        // Unique bank names with company isolation
-        $banksQuery = Cheque::select('bank_name')->whereNotNull('bank_name');
+        // Company Bank Accounts with company isolation
+        $bankAccountsQuery = \App\Models\CompanyBankAccount::query();
         if (user()->company_id != 1) {
-            $banksQuery->where('company_id', user()->company_id);
+            $bankAccountsQuery->where('company_id', user()->company_id);
         }
-        $banks = $banksQuery->get()
-            ->map(function ($cheque) {
-                return $cheque->getTranslation('bank_name', app()->getLocale());
-            })
-            ->filter()
-            ->unique()
-            ->values();
+        $bankAccounts = $bankAccountsQuery->get();
 
         // Super Admin company list
         $companies = null;
@@ -84,7 +78,7 @@ class ChequesReportsController extends Controller
             'contractColumns', 
             'bankAccountColumns', 
             'customers', 
-            'banks', 
+            'bankAccounts', 
             'companies'
         ));
     }

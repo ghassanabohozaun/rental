@@ -63,9 +63,9 @@ class ChequesExport implements WithHeadings, FromCollection, WithMapping, WithCo
             ->when(!empty($this->filters['status']), function ($query) {
                 $query->whereIn('status', $this->filters['status']);
             })
-            // Bank name filter
-            ->when(!empty($this->filters['bank_name']), function ($query) use ($locale) {
-                $query->where('bank_name->' . $locale, $this->filters['bank_name']);
+            // Company bank account filter
+            ->when(!empty($this->filters['company_bank_account_id']), function ($query) {
+                $query->where('company_bank_account_id', $this->filters['company_bank_account_id']);
             })
             // Due date range
             ->when(!empty($this->filters['due_date_from']), function ($query) {
