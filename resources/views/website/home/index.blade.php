@@ -23,28 +23,26 @@
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                     </span>
-                    الإصدار 2.0 متاح الآن
+                    {{ __('website.hero.version_badge') }}
                 </div>
 
                 <h1
                     class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 text-slate-900 dark:text-white leading-tight drop-shadow-sm">
-                    إدارة الأملاك والعقود<br>
+                    {{ __('website.hero.main_title_1') }}<br>
                     <span
-                        class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-500 dark:from-indigo-400 dark:to-violet-400">بذكاء
-                        لا محدود.</span>
+                        class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-500 dark:from-indigo-400 dark:to-violet-400">{{ __('website.hero.main_title_2') }}</span>
                 </h1>
 
                 <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed font-light">
-                    أتمتة كاملة لدورة حياة العقود، تتبع دقيق للشيكات، ونظام إشعارات استباقي يضمن لك عدم تفويت أي استحقاق
-                    مالي أبداً.
+                    {{ __('website.hero.main_subtitle') }}
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="{{ route('dashboard.index') }}" class="btn-magic text-lg px-8 py-4">
-                        ابدأ الآن مجاناً <i class="fas fa-arrow-left mr-2"></i>
+                        {{ __('website.hero.start_now') }} <i class="fas {{ app()->getLocale() == 'ar' ? 'fa-arrow-left mr-2' : 'fa-arrow-right ml-2' }}"></i>
                     </a>
                     <a href="#features" class="btn-magic text-lg px-8 py-4" style="--tw-bg-opacity: 0.1; background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: inherit;">
-                        تصفح المميزات
+                        {{ __('website.hero.browse') }} {{ __('website.navbar.features') }}
                     </a>
                 </div>
             </div>
@@ -121,8 +119,8 @@
                             <i class="fas fa-check"></i>
                         </div>
                         <div>
-                            <p class="text-sm font-bold text-slate-900 dark:text-white">تم تحصيل شيك بقيمة 15,000</p>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">عقد إيجار #1042 - منذ دقيقتين</p>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">{{ __('website.hero.mockup_check_title') }}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('website.hero.mockup_check_subtitle') }}</p>
                         </div>
                     </div>
                 </div>
@@ -136,8 +134,8 @@
                             <i class="fas fa-bell"></i>
                         </div>
                         <div>
-                            <p class="text-sm font-bold text-slate-900 dark:text-white">عقد شارف على الانتهاء</p>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">متبقي 60 يوم للتجديد</p>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">{{ __('website.hero.mockup_alert_title') }}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('website.hero.mockup_alert_subtitle') }}</p>
                         </div>
                     </div>
                 </div>
@@ -157,8 +155,8 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-4xl mx-auto mb-24">
-                <h2 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 tracking-tight drop-shadow-lg">سحر الإدارة الحقيقية</h2>
-                <p class="text-2xl text-slate-600 dark:text-slate-300 font-light">مرر للأسفل واكتشف كيف يتغير كل شيء.</p>
+                <h2 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 tracking-tight drop-shadow-lg">{{ __('website.features.heading') }}</h2>
+                <p class="text-2xl text-slate-600 dark:text-slate-300 font-light">{{ __('website.features.subheading') }}</p>
             </div>
 
             <!-- Sticky Card 1 -->
@@ -169,15 +167,15 @@
                         <div class="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-inner transform group-hover:rotate-6 transition-all duration-500">
                             <i class="fas fa-file-signature"></i>
                         </div>
-                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">عقود تدير نفسها</h3>
-                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">تنسى تواريخ الانتهاء؟ النظام لن ينسى. بمجرد إدخال العقد، سيبدأ النظام بمراقبته وتنبيهك تلقائياً قبل 60 يوماً من انتهائه.</p>
+                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">{{ __('website.features.card1_title') }}</h3>
+                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">{{ __('website.features.card1_desc') }}</p>
                     </div>
                     <div class="w-full md:w-1/3 aspect-square bg-gradient-to-br from-indigo-500 to-violet-600 rounded-3xl p-6 shadow-xl transform group-hover:-translate-y-4 transition-all duration-500 relative">
                         <div class="w-full h-8 bg-white/20 rounded-full mb-4"></div>
                         <div class="w-3/4 h-4 bg-white/20 rounded-full mb-2"></div>
                         <div class="w-1/2 h-4 bg-white/20 rounded-full"></div>
                         <div class="absolute bottom-6 left-6 right-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                            <div class="text-white text-sm font-bold"><i class="fas fa-bell mr-2"></i>ينتهي قريباً</div>
+                            <div class="text-white text-sm font-bold"><i class="fas fa-bell mr-2"></i>{{ __('website.features.card1_badge') }}</div>
                         </div>
                     </div>
                 </div>
@@ -197,8 +195,8 @@
                         <div class="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-inner transform group-hover:-rotate-6 transition-all duration-500">
                             <i class="fas fa-money-check"></i>
                         </div>
-                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">شيكاتك في أمان تام</h3>
-                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">لا مزيد من الشيكات المنسية أو المرتجعة. تتبع بصري مبهر لحالات الشيكات (معلق، محصل، مرتجع) مع تنبيهات استباقية صارمة.</p>
+                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">{{ __('website.features.card2_title') }}</h3>
+                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">{{ __('website.features.card2_desc') }}</p>
                     </div>
                 </div>
             </div>
@@ -211,8 +209,8 @@
                         <div class="w-20 h-20 bg-rose-500/20 text-rose-500 rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-inner transform group-hover:scale-110 transition-all duration-500">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3 class="text-4xl font-black text-white mb-4">عزل وحماية سيبرانية</h3>
-                        <p class="text-xl text-indigo-200 leading-relaxed font-light">قاعدة بياناتك معزولة كلياً (Multi-Tenancy). وشاشتك تقفل تلقائياً عند ترك المكتب لضمان سرية أرقامك المالية أمام الجميع.</p>
+                        <h3 class="text-4xl font-black text-white mb-4">{{ __('website.features.card3_title') }}</h3>
+                        <p class="text-xl text-indigo-200 leading-relaxed font-light">{{ __('website.features.card3_desc') }}</p>
                     </div>
                     <div class="w-full md:w-1/3 aspect-square bg-slate-900 rounded-3xl p-6 shadow-inner border border-slate-700 transform group-hover:rotate-3 transition-all duration-500 relative flex items-center justify-center">
                         <div class="text-rose-500 text-6xl group-hover:animate-pulse">
@@ -236,8 +234,8 @@
                         <div class="w-20 h-20 bg-white/10 text-white rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-inner transform group-hover:-translate-y-2 transition-all duration-500">
                             <i class="fas fa-comment-dots"></i>
                         </div>
-                        <h3 class="text-4xl font-black text-white mb-4">إشعارات ذكية استباقية</h3>
-                        <p class="text-xl text-indigo-200 leading-relaxed font-light">تخلص من المفكرات المزدحمة. مركز إشعارات ذكي يرصد تواريخ الاستحقاق والتجديد ويوصلها إلى متصفحك مباشرة لتعمل براحة بال مطلقة.</p>
+                        <h3 class="text-4xl font-black text-white mb-4">{{ __('website.features.card4_title') }}</h3>
+                        <p class="text-xl text-indigo-200 leading-relaxed font-light">{{ __('website.features.card4_desc') }}</p>
                     </div>
                 </div>
             </div>
@@ -250,8 +248,8 @@
                         <div class="w-20 h-20 bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-inner transform group-hover:scale-110 transition-all duration-500">
                             <i class="fas fa-chart-pie"></i>
                         </div>
-                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">إحصائيات ترسم المستقبل</h3>
-                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">لوحة تحكم (Dashboard) بانورامية تضع كل الأرقام بين يديك. راقب أرباحك، نسبة التحصيل، وحالة عقاراتك من شاشة واحدة مصممة بعناية فائقة.</p>
+                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">{{ __('website.features.card5_title') }}</h3>
+                        <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">{{ __('website.features.card5_desc') }}</p>
                     </div>
                     <div class="w-full md:w-1/3 aspect-square bg-slate-50 dark:bg-slate-800 rounded-3xl p-6 shadow-xl border border-slate-200 dark:border-slate-700 relative overflow-hidden flex items-end gap-2">
                         <div class="w-full bg-sky-400 rounded-t-lg h-[30%] group-hover:h-[60%] transition-all duration-1000"></div>
@@ -275,9 +273,9 @@
             <div class="text-center max-w-3xl mx-auto mb-24 relative">
                 <!-- Glowing accent behind title -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 bg-indigo-500/30 blur-[80px] rounded-full pointer-events-none"></div>
-                <h2 class="text-sm font-bold text-indigo-400 tracking-[0.2em] uppercase mb-4">آلية العمل الذكية</h2>
-                <h3 class="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-2xl">ثلاث خطوات للتحكم المطلق</h3>
-                <p class="text-lg text-slate-400 font-light">مسار هندسي دقيق ينقلك من الفوضى إلى الأتمتة الكاملة.</p>
+                <h2 class="text-sm font-bold text-indigo-400 tracking-[0.2em] uppercase mb-4">{{ __('website.how_it_works.badge') }}</h2>
+                <h3 class="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-2xl">{{ __('website.how_it_works.heading') }}</h3>
+                <p class="text-lg text-slate-400 font-light">{{ __('website.how_it_works.subheading') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
@@ -303,8 +301,8 @@
                         </div>
 
                         <div class="relative z-10">
-                            <h4 class="text-3xl font-bold text-white mb-4">تأسيس محفظتك</h4>
-                            <p class="text-lg text-slate-400 leading-relaxed font-light">أضف عقاراتك، وحداتك، ومستأجريك لإنشاء قاعدة بيانات مشفرة ومعزولة كلياً.</p>
+                            <h4 class="text-3xl font-bold text-white mb-4">{{ __('website.how_it_works.step1_title') }}</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed font-light">{{ __('website.how_it_works.step1_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -326,8 +324,8 @@
                         </div>
 
                         <div class="relative z-10">
-                            <h4 class="text-3xl font-bold text-white mb-4">توثيق العقود</h4>
-                            <p class="text-lg text-slate-400 leading-relaxed font-light">نقرة واحدة تصدر عقداً، وتربطه آلياً بشيكات مجدولة تصب في خزينتك بدقة متناهية.</p>
+                            <h4 class="text-3xl font-bold text-white mb-4">{{ __('website.how_it_works.step2_title') }}</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed font-light">{{ __('website.how_it_works.step2_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -349,8 +347,8 @@
                         </div>
 
                         <div class="relative z-10">
-                            <h4 class="text-3xl font-bold text-white mb-4">الطيار الآلي</h4>
-                            <p class="text-lg text-slate-400 leading-relaxed font-light">استرخِ تماماً! النظام يعمل عنك، يراقب وينبهك استباقياً قبل مواعيد الاستحقاق.</p>
+                            <h4 class="text-3xl font-bold text-white mb-4">{{ __('website.how_it_works.step3_title') }}</h4>
+                            <p class="text-lg text-slate-400 leading-relaxed font-light">{{ __('website.how_it_works.step3_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -374,10 +372,10 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                     </span>
-                    الاستثمار الذكي
+                    {{ __('website.pricing_new.header_badge') }}
                 </div>
-                <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">خطط تنمو مع <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">طموحك</span></h2>
-                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-light leading-relaxed">أدوات متكاملة لإدارة أملاكك بفعالية. اختر الخطة التي تناسب حجم أعمالك اليوم.</p>
+                <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">{{ __('website.pricing_new.header_title_1') }}<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">{{ __('website.pricing_new.header_title_2') }}</span></h2>
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-light leading-relaxed">{{ __('website.pricing_new.header_subtitle') }}</p>
             </div>
 
             <!-- Pricing Cards Grid -->
@@ -388,10 +386,10 @@
                     
                     <div class="mb-8">
                         <div class="inline-block px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold mb-6 border border-slate-200 dark:border-slate-700">
-                            الخطة الأساسية
+                            {{ __('website.pricing_new.basic_badge') }}
                         </div>
-                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">تواصل معنا</h3>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base leading-relaxed">الخيار الأمثل للمكاتب العقارية الصغيرة والناشئة. ابدأ رحلة الأتمتة بقوة وثبات.</p>
+                        <h3 class="text-4xl font-black text-slate-900 dark:text-white mb-4">{{ __('website.navbar.contact') }}</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base leading-relaxed">{{ __('website.pricing_new.basic_desc') }}</p>
                     </div>
 
                     <div class="w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent mb-8"></div>
@@ -402,8 +400,8 @@
                                 <i class="fas fa-home"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900 dark:text-white">إدارة 50 عقار</p>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">أضف حتى 50 عقار أو وحدة سكنية بكل سهولة</p>
+                                <p class="font-bold text-slate-900 dark:text-white">{{ __('website.pricing_new.basic_f1_title') }}</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('website.pricing_new.basic_f1_desc') }}</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
@@ -411,8 +409,8 @@
                                 <i class="fas fa-file-signature"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900 dark:text-white">أتمتة العقود والشيكات</p>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">إنشاء وتتبع العقود والشيكات بشكل أساسي</p>
+                                <p class="font-bold text-slate-900 dark:text-white">{{ __('website.pricing_new.basic_f2_title') }}</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('website.pricing_new.basic_f2_desc') }}</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
@@ -420,14 +418,14 @@
                                 <i class="fas fa-bell"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-slate-900 dark:text-white">إشعارات النظام</p>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">تنبيهات مدمجة لانتهاء العقود ومواعيد السداد</p>
+                                <p class="font-bold text-slate-900 dark:text-white">{{ __('website.pricing_new.basic_f3_title') }}</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('website.pricing_new.basic_f3_desc') }}</p>
                             </div>
                         </li>
                     </ul>
 
                     <a href="#" class="btn-magic relative z-10 block w-full py-4 text-center rounded-2xl !bg-slate-900 dark:!bg-indigo-600 !text-white text-lg font-bold mt-auto shadow-xl shadow-slate-900/20 dark:shadow-indigo-900/30 overflow-hidden group">
-                        اطلب عرض سعر <i class="fas fa-arrow-left mr-2 opacity-70 group-hover:-translate-x-1 transition-transform"></i>
+                        {{ __('website.pricing_new.basic_btn') }} <i class="fas {{ app()->getLocale() == 'ar' ? 'fa-arrow-left mr-2 group-hover:-translate-x-1' : 'fa-arrow-right ml-2 group-hover:translate-x-1' }} opacity-70 transition-transform inline-block"></i>
                     </a>
                 </div>
 
@@ -443,14 +441,14 @@
                     <div class="mb-8 relative z-10">
                         <div class="flex items-center justify-between mb-6">
                             <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-bold border border-indigo-500/30">
-                                <i class="fas fa-crown text-amber-400 mr-1"></i> خطة الشركات
+                                <i class="fas fa-crown text-amber-400 mr-1"></i> {{ __('website.pricing_new.business_badge') }}
                             </div>
                             <span class="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
-                                الأكثر طلباً
+                                {{ __('website.pricing_new.business_popular') }}
                             </span>
                         </div>
-                        <h3 class="text-4xl font-black text-white mb-4 drop-shadow-md">حسب التقييم</h3>
-                        <p class="text-slate-400 text-sm md:text-base leading-relaxed">القوة القصوى. مصممة للشركات العقارية الكبرى والمجمعات السكنية الضخمة التي تتطلب تحكماً كاملاً.</p>
+                        <h3 class="text-4xl font-black text-white mb-4 drop-shadow-md">{{ __('website.pricing_new.business_price') }}</h3>
+                        <p class="text-slate-400 text-sm md:text-base leading-relaxed">{{ __('website.pricing_new.business_desc') }}</p>
                     </div>
 
                     <div class="w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-8 relative z-10"></div>
@@ -461,8 +459,8 @@
                                 <i class="fas fa-infinity"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-white">غير محدود</p>
-                                <p class="text-sm text-slate-400 mt-1">عدد لا نهائي من العقارات، الوحدات، والعقود</p>
+                                <p class="font-bold text-white">{{ __('website.pricing_new.business_f1_title') }}</p>
+                                <p class="text-sm text-slate-400 mt-1">{{ __('website.pricing_new.business_f1_desc') }}</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
@@ -470,8 +468,8 @@
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-white">عزل وحماية قصوى</p>
-                                <p class="text-sm text-slate-400 mt-1">قواعد بيانات معزولة تماماً مع حماية بمستوى بنكي</p>
+                                <p class="font-bold text-white">{{ __('website.pricing_new.business_f2_title') }}</p>
+                                <p class="text-sm text-slate-400 mt-1">{{ __('website.pricing_new.business_f2_desc') }}</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
@@ -479,8 +477,8 @@
                                 <i class="fas fa-comment-dots"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-white">تنبيهات SMS وبريد</p>
-                                <p class="text-sm text-slate-400 mt-1">رسائل نصية مخصصة للمستأجرين وإشعارات بريدية</p>
+                                <p class="font-bold text-white">{{ __('website.pricing_new.business_f3_title') }}</p>
+                                <p class="text-sm text-slate-400 mt-1">{{ __('website.pricing_new.business_f3_desc') }}</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
@@ -488,14 +486,14 @@
                                 <i class="fas fa-headset"></i>
                             </div>
                             <div>
-                                <p class="font-bold text-white">دعم VIP</p>
-                                <p class="text-sm text-slate-400 mt-1">دعم فني مخصص ومهندس حسابات متاح 24/7</p>
+                                <p class="font-bold text-white">{{ __('website.pricing_new.business_f4_title') }}</p>
+                                <p class="text-sm text-slate-400 mt-1">{{ __('website.pricing_new.business_f4_desc') }}</p>
                             </div>
                         </li>
                     </ul>
 
                     <a href="#" class="btn-magic relative z-10 block w-full py-4 text-center rounded-2xl !bg-indigo-600 hover:!bg-indigo-500 !text-white text-lg font-bold mt-auto shadow-xl shadow-indigo-600/40 border border-indigo-500 overflow-hidden group">
-                        احجز نسختك الآن <i class="fas fa-rocket mr-2 text-amber-400 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                        {{ __('website.pricing_new.business_btn') }} <i class="fas fa-rocket {{ app()->getLocale() == 'ar' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1' }} text-amber-400 group-hover:-translate-y-1 transition-transform inline-block"></i>
                     </a>
                 </div>
 
@@ -539,17 +537,17 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
                         </span>
-                        أكثر من 50,000 وحدة تُدار عبر أملاك
+                        {{ __('website.cta_new.badge') }}
                     </div>
 
                     <!-- Headline with typing/reveal effect logic (simulated with CSS) -->
                     <h2 class="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight leading-[1.2] drop-shadow-lg relative inline-block">
-                        ارتقِ بأعمالك العقارية <br/>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white animate-pulse">نحو المستقبل</span>
+                        {{ __('website.cta_new.title_1') }} <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white animate-pulse">{{ __('website.cta_new.title_2') }}</span>
                     </h2>
 
                     <p class="text-xl md:text-2xl text-indigo-50 font-light mb-16 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-                        أملاك هي الأداة التي صُممت خصيصاً لتفهم احتياجاتك. حان الوقت لتترك العمل اليدوي وتبدأ رحلة الأتمتة الكاملة.
+                        {{ __('website.cta_new.desc') }}
                     </p>
 
                     <!-- Crazy Creative Interactive Button -->
@@ -566,7 +564,7 @@
                                 
                                 <!-- Text -->
                                 <span class="text-2xl font-black text-indigo-800 relative z-10 pl-8 pr-8 transition-colors group-hover:text-fuchsia-600">
-                                    انطلق مجاناً الآن
+                                    {{ __('website.cta_new.btn') }}
                                 </span>
                                 
                                 <!-- Bouncing Icon Circle -->
@@ -579,9 +577,9 @@
                     
                     <!-- Bottom trust indicators with float -->
                     <div class="mt-14 flex flex-wrap justify-center items-center gap-8 text-white/90 text-sm md:text-base font-bold drop-shadow-md">
-                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> تفعيل فوري</span>
-                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> حماية بنكية للبيانات</span>
-                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> دعم فني مخصص</span>
+                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> {{ __('website.hero.badge_1') }}</span>
+                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> {{ __('website.hero.badge_2') }}</span>
+                        <span class="flex items-center gap-2 hover:-translate-y-1 transition-transform cursor-default"><i class="fas fa-check-circle text-emerald-400 text-xl"></i> {{ __('website.hero.badge_3') }}</span>
                     </div>
 
                 </div>
@@ -595,9 +593,9 @@
 
         <div class="max-w-7xl mx-auto px-4 text-center mb-16 relative z-10">
             <h3 class="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">
-                نفتخر بشراكتنا مع أكثر من <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500">50 شركة عقارية</span> رائدة
+                {{ __('website.partners.heading_1') }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500">{{ __('website.partners.heading_2') }}</span> {{ __('website.partners.heading_3') }}
             </h3>
-            <p class="text-lg text-slate-500 dark:text-slate-400">انضم إلى النخبة الذين اختاروا أتمتة أعمالهم والارتقاء بها</p>
+            <p class="text-lg text-slate-500 dark:text-slate-400">{{ __('website.partners.subheading') }}</p>
         </div>
 
         <!-- Infinite Scrolling Marquee Container -->

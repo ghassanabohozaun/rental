@@ -16,12 +16,12 @@
         <div class="flex flex-col md:flex-row justify-between items-center mb-20 p-10 md:p-12 bg-white/[0.03] border border-white/10 rounded-[2.5rem] backdrop-blur-xl relative overflow-hidden group">
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-fuchsia-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             <div class="relative z-10 text-center md:text-right mb-8 md:mb-0">
-                <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">مستعد لبدء التحول الرقمي؟</h3>
-                <p class="text-lg text-slate-400">انضم اليوم وابدأ في إدارة أملاكك بذكاء وبدون مجهود.</p>
+                <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">{{ __('website.footer.ready_heading') }}</h3>
+                <p class="text-lg text-slate-400">{{ __('website.footer.ready_desc') }}</p>
             </div>
             <div class="relative z-10">
                 <a href="#" class="px-10 py-5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white text-lg font-bold rounded-full hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-all duration-300 hover:scale-105 inline-block text-center w-full md:w-auto">
-                    أنشئ حسابك مجاناً
+                    {{ __('website.footer.create_account') }}
                 </a>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     Amlak.
                 </a>
                 <p class="text-slate-400 text-base leading-relaxed mb-8 max-w-sm">
-                    نظام إدارة العقود والشيكات العقارية الأذكى في الشرق الأوسط. صمم خصيصاً لتسهيل أتمتة الإيجارات وضمان أمان المعاملات المالية.
+                    {{ __('website.hero.title') }} في الشرق الأوسط. {{ __('website.hero.subtitle') }}
                 </p>
                 <div class="flex space-x-4 rtl:space-x-reverse">
                     <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-[#1DA1F2] hover:text-white hover:border-[#1DA1F2] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(29,161,242,0.4)]">
@@ -52,26 +52,26 @@
 
             <!-- Quick Links -->
             <div class="md:col-span-2 md:col-start-7">
-                <h4 class="text-white font-bold mb-6 text-xl">روابط سريعة</h4>
+                <h4 class="text-white font-bold mb-6 text-xl">{{ __('website.footer.quick_links') }}</h4>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> الرئيسية</a></li>
-                    <li><a href="#features" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> المميزات</a></li>
-                    <li><a href="#pricing" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> الأسعار</a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> {{ __('website.navbar.home') }}</a></li>
+                    <li><a href="#features" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> {{ __('website.navbar.features') }}</a></li>
+                    <li><a href="#pricing" class="text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-left text-xs text-slate-600 group-hover:text-indigo-400 transition-colors"></i> {{ __('website.navbar.pricing') }}</a></li>
                 </ul>
             </div>
 
             <!-- Newsletter -->
             <div class="md:col-span-4">
-                <h4 class="text-white font-bold mb-6 text-xl">النشرة البريدية</h4>
-                <p class="text-slate-400 mb-6 leading-relaxed">اشترك ليصلك أحدث التحديثات والمميزات الخاصة بالنظام قبل الجميع.</p>
+                <h4 class="text-white font-bold mb-6 text-xl">{{ __('website.footer.newsletter') }}</h4>
+                <p class="text-slate-400 mb-6 leading-relaxed">{{ __('website.footer.newsletter_desc') }}</p>
                 <div class="relative group">
                     <!-- Glow behind input -->
                     <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
                     
                     <div class="relative flex items-center">
-                        <input type="email" placeholder="البريد الإلكتروني..." class="w-full bg-slate-900 border border-white/10 rounded-full pl-6 pr-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all duration-300">
+                        <input type="email" placeholder="{{ __('website.footer.email_placeholder') }}" class="w-full bg-slate-900 border border-white/10 rounded-full pl-6 pr-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all duration-300">
                         <button class="absolute left-1.5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white rounded-full px-6 py-2.5 font-bold hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all duration-300">
-                            اشترك
+                            {{ __('website.footer.subscribe') }}
                         </button>
                     </div>
                 </div>
@@ -81,11 +81,11 @@
         <!-- Copyright & Terms -->
         <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
             <div class="mb-4 md:mb-0 font-medium">
-                &copy; {{ date('Y') }} Amlak System. جميع الحقوق محفوظة.
+                &copy; {{ date('Y') }} Amlak System. {{ __('website.footer.copyright') }}
             </div>
             <div class="flex space-x-6 rtl:space-x-reverse font-medium">
-                <a href="#" class="hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300">سياسة الخصوصية</a>
-                <a href="#" class="hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300">الشروط والأحكام</a>
+                <a href="#" class="hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300">{{ __('website.footer.privacy') }}</a>
+                <a href="#" class="hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white hover:after:w-full after:transition-all after:duration-300">{{ __('website.footer.terms') }}</a>
             </div>
         </div>
     </div>

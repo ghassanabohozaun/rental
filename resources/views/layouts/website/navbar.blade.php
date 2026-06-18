@@ -10,9 +10,9 @@
             
             <!-- Links (Desktop) -->
             <div class="hidden md:flex space-x-8 rtl:space-x-reverse">
-                <a href="#features" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">المميزات</a>
-                <a href="#how-it-works" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">آلية العمل</a>
-                <a href="#pricing" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">الأسعار</a>
+                <a href="#features" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">{{ __('website.navbar.features') }}</a>
+                <a href="#how-it-works" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">{{ __('website.navbar.how_it_works') }}</a>
+                <a href="#pricing" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 px-3 py-2 text-sm font-medium transition-colors">{{ __('website.navbar.pricing') }}</a>
             </div>
 
             <!-- Actions -->
@@ -25,16 +25,23 @@
 
                 <!-- Language Toggle -->
                 @php
-                    $targetLocale = app()->getLocale() == 'ar' ? 'en' : 'ar';
+                    $currentLocale = app()->getLocale();
+                    $targetLocale = $currentLocale == 'ar' ? 'en' : 'ar';
                     $targetNative = LaravelLocalization::getSupportedLocales()[$targetLocale]['native'];
+                    $flagPath =
+                        $targetLocale == 'ar'
+                            ? asset('assets/dashbaord/media/svg/flags/العربية.svg')
+                            : asset('assets/dashbaord/media/svg/flags/English.svg');
                 @endphp
-                <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" class="text-sm font-bold text-slate-600 hover:text-indigo-600 dark:text-slate-300 transition">
-                    {{ $targetNative }}
+                <a href="{{ LaravelLocalization::getLocalizedURL($targetLocale, null, [], true) }}" 
+                   class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700/50">
+                    <img src="{!! $flagPath !!}" class="w-5 h-5 rounded-full object-cover shadow-sm" alt="{!! $targetNative !!}">
+                    <span class="text-sm font-bold text-slate-700 dark:text-slate-300 hidden sm:inline-block">{{ $targetNative }}</span>
                 </a>
 
                 <!-- CTA -->
                 <a href="{{ route('dashboard.index') }}" class="btn-magic px-6 py-2.5 text-sm">
-                    الدخول للنظام
+                    {{ __('website.navbar.login_system') }}
                 </a>
             </div>
         </div>
