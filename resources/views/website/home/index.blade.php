@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative pt-24 pb-32 overflow-hidden perspective-container">
+    <section id="home" class="relative pt-24 pb-32 overflow-hidden perspective-container">
         <!-- Glow Elements (Blobs) -->
         <div
             class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-400/30 dark:bg-indigo-500/20 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen animate-blob pointer-events-none">
