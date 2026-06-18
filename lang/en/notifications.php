@@ -38,4 +38,14 @@ return [
     'tab_contracts' => 'Contracts',
     'tab_system' => 'System',
     'collect_now' => 'Collect Now',
+
+    // Actions & Confirmations
+    'delete_selected' => 'Delete Selected',
+    'delete_all' => 'Delete All',
+    'view_details' => 'View Details',
+    'mark_as_read' => 'Mark as Read',
+    'confirm_delete_title' => 'Confirm Deletion',
+    'confirm_delete_selected_text' => 'Are you sure you want to delete the selected notifications? This action cannot be undone.',
+    'confirm_delete_all_text' => 'Are you sure you want to delete all notifications? This action cannot be undone.',
+    'confirm_delete_single_text' => 'Are you sure you want to delete this notification? This action cannot be undone.',
 ];

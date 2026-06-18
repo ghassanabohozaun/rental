@@ -38,4 +38,14 @@ return [
     'tab_contracts' => 'العقود',
     'tab_system' => 'النظام',
     'collect_now' => 'تحصيل الآن',
+    
+    // Actions & Confirmations
+    'delete_selected' => 'حذف المحدد',
+    'delete_all' => 'مسح الكل',
+    'view_details' => 'عرض التفاصيل',
+    'mark_as_read' => 'تحديد كمقروء',
+    'confirm_delete_title' => 'تأكيد الحذف',
+    'confirm_delete_selected_text' => 'هل أنت متأكد من مسح الإشعارات المحددة؟ لا يمكن التراجع عن هذا الإجراء.',
+    'confirm_delete_all_text' => 'هل أنت متأكد من مسح كافة الإشعارات؟ لا يمكن التراجع عن هذا الإجراء.',
+    'confirm_delete_single_text' => 'هل أنت متأكد من عملية الحذف؟ لا يمكن التراجع عن هذا الإجراء.',
 ];

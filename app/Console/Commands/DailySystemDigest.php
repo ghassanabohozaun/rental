@@ -33,9 +33,9 @@ class DailySystemDigest extends Command
                                           ->where('status', '!=', 'expired') // Assuming you have a status field
                                           ->count();
 
-        // Calculate due cheques within 7 days
+        // Calculate due cheques within 7 days (including pending and held)
         $dueChequesCount = Cheque::whereBetween('due_date', [Carbon::today(), Carbon::today()->addDays(7)])
-                                 ->where('status', 'pending')
+                                 ->whereIn('status', ['pending', 'held'])
                                  ->count();
 
         if ($expiringContractsCount > 0 || $dueChequesCount > 0) {

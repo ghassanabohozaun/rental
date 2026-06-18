@@ -14,10 +14,27 @@ class NotificationCenter extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $activeTab = 'all';
+    public $selectedNotifications = [];
+    public $selectAll = false;
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $query = Auth::user()->notifications();
+            if ($this->activeTab !== 'all') {
+                $query->where('data->category', $this->activeTab);
+            }
+            $this->selectedNotifications = $query->paginate(15)->pluck('id')->map(fn($id) => (string) $id)->toArray();
+        } else {
+            $this->selectedNotifications = [];
+        }
+    }
 
     public function setTab($tab)
     {
         $this->activeTab = $tab;
+        $this->selectedNotifications = [];
+        $this->selectAll = false;
         $this->resetPage();
     }
 
@@ -39,6 +56,22 @@ class NotificationCenter extends Component
         $notification = Auth::user()->notifications()->find($id);
         if ($notification) {
             $notification->delete();
+        }
+    }
+
+    public function deleteAllNotifications()
+    {
+        Auth::user()->notifications()->delete();
+        $this->selectedNotifications = [];
+        $this->selectAll = false;
+    }
+
+    public function deleteSelected()
+    {
+        if (!empty($this->selectedNotifications)) {
+            Auth::user()->notifications()->whereIn('id', $this->selectedNotifications)->delete();
+            $this->selectedNotifications = [];
+            $this->selectAll = false;
         }
     }
 
