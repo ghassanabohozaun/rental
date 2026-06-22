@@ -209,23 +209,20 @@
                             <span class="font-weight-bold font-15 mb-25 truncate-text text-dark-premium">
                                 {!! optional($contract->property)->name !!}
                             </span>
-                            <span class="text-muted small d-flex flex-column align-items-start font-weight-bold">
+                            <div class="mt-50 d-flex flex-column align-items-start" style="gap: 4px;">
                                 @if(optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
-                                    <span class="d-flex align-items-center mb-25" title="{!! __('companies.company') !!}">
-                                        <i class="fas fa-building mr-50 text-primary-premium"></i>
-                                        {!! optional($contract->customer)->company_name !!}
+                                    <span class="badge badge-light-primary border-0 px-2 py-1 text-left" title="{!! __('companies.company') !!}" style="font-size: 0.75rem;">
+                                        <i class="fas fa-building mr-50"></i> {!! optional($contract->customer)->company_name !!}
                                     </span>
-                                    <span class="d-flex align-items-center text-secondary" title="{!! __('customers.representative') !!}">
-                                        <i class="fas fa-user-tie mr-50"></i>
-                                        {!! optional($contract->customer)->name !!}
+                                    <span class="badge badge-light-secondary border-0 px-2 py-1 text-left" title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
+                                        <i class="fas fa-user-tie mr-50"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @else
-                                    <span class="d-flex align-items-center">
-                                        <i class="fas fa-user-circle mr-50 text-primary-premium"></i>
-                                        {!! optional($contract->customer)->name !!}
+                                    <span class="badge badge-light-info border-0 px-2 py-1 text-left" style="font-size: 0.75rem;">
+                                        <i class="fas fa-user-circle mr-50"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @endif
-                            </span>
+                            </div>
                         </div>
                     </td>
 
