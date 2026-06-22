@@ -8,28 +8,28 @@
     src: url('../fonts/Tajawal-300.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Tajawal';
     src: url('../fonts/Tajawal-400.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Tajawal';
     src: url('../fonts/Tajawal-500.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Tajawal';
     src: url('../fonts/Tajawal-700.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 
 @font-face {
@@ -37,21 +37,21 @@
     src: url('../fonts/Manrope-400.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Manrope';
     src: url('../fonts/Manrope-600.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Manrope';
     src: url('../fonts/Manrope-700.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 
 :root {
@@ -447,29 +447,47 @@ body.fixed-navbar {
 
 .lang-toggle-container {
     position: absolute;
-    top: 30px;
-    inset-inline-end: 30px;
+    top: 15px;
+    right: 15px;
+    z-index: 20;
+    width: max-content;
+}
+
+[data-textdirection="rtl"] .lang-toggle-container {
+    right: auto;
+    left: 15px;
+}
+
+@media (min-width: 992px) {
+    .lang-toggle-container {
+        top: 30px;
+        right: 30px;
+    }
+    [data-textdirection="rtl"] .lang-toggle-container {
+        right: auto;
+        left: 30px;
+    }
 }
 
 .btn-lang-toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
+    gap: 6px;
+    padding: 8px 14px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 2px;
+    border-radius: 4px;
     color: var(--accent);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 800;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .btn-lang-toggle i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--primary);
 }
 
@@ -509,8 +527,9 @@ body.fixed-navbar {
     }
 
     .login-form-box {
+        position: relative;
         background: rgba(255, 255, 255, 0.95);
-        padding: 50px 35px;
+        padding: 65px 35px 50px;
         border-radius: 2px;
         box-shadow: var(--card-shadow);
         max-width: 440px;
