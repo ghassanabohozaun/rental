@@ -143,7 +143,6 @@ body.fixed-navbar {
 .welcome-content-premium {
     position: relative;
     z-index: 3;
-    animation: fadeInUp 1s ease-out;
 }
 
 .badge-welcome {
@@ -255,9 +254,9 @@ body.fixed-navbar {
         rgba(255, 255, 255, 0) 100%
     );
     transform: rotate(25deg);
-    animation: premium-shine-auth 4s infinite;
     z-index: 2;
     pointer-events: none;
+    display: none; /* Disabled infinite shine animation to prevent lag */
 }
 
 @keyframes premium-shine-auth {
@@ -345,7 +344,6 @@ body.fixed-navbar {
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
-    animation: premiumFadeInUp 0.3s ease-out !important;
 }
 
 .error-text::before {

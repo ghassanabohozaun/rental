@@ -59,7 +59,13 @@
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{!! optional($contract->property)->name !!}</h4>
                                     <span class="modal-role-badge">
-                                        {!! optional($contract->customer)->name !!}
+                                        @if(optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
+                                            <i class="fas fa-building mr-1"></i> {!! optional($contract->customer)->company_name !!}
+                                            <span class="mx-1">|</span>
+                                            <i class="fas fa-user-tie mr-1"></i> {!! optional($contract->customer)->name !!}
+                                        @else
+                                            <i class="fas fa-user-circle mr-1"></i> {!! optional($contract->customer)->name !!}
+                                        @endif
                                     </span>
                                 </div>
 
@@ -203,9 +209,22 @@
                             <span class="font-weight-bold font-15 mb-25 truncate-text text-dark-premium">
                                 {!! optional($contract->property)->name !!}
                             </span>
-                            <span class="text-muted small d-flex align-items-center font-weight-bold">
-                                <i class="fas fa-user-circle mr-25 text-primary-premium"></i>
-                                {!! optional($contract->customer)->name !!}
+                            <span class="text-muted small d-flex flex-column align-items-start font-weight-bold">
+                                @if(optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
+                                    <span class="d-flex align-items-center mb-25" title="{!! __('companies.company') !!}">
+                                        <i class="fas fa-building mr-50 text-primary-premium"></i>
+                                        {!! optional($contract->customer)->company_name !!}
+                                    </span>
+                                    <span class="d-flex align-items-center text-secondary" title="{!! __('customers.representative') !!}">
+                                        <i class="fas fa-user-tie mr-50"></i>
+                                        {!! optional($contract->customer)->name !!}
+                                    </span>
+                                @else
+                                    <span class="d-flex align-items-center">
+                                        <i class="fas fa-user-circle mr-50 text-primary-premium"></i>
+                                        {!! optional($contract->customer)->name !!}
+                                    </span>
+                                @endif
                             </span>
                         </div>
                     </td>
