@@ -214,7 +214,7 @@
                                     <span class="badge badge-light-primary border-0 px-2 py-1 text-left" title="{!! __('companies.company') !!}" style="font-size: 0.75rem;">
                                         <i class="fas fa-building mr-50"></i> {!! optional($contract->customer)->company_name !!}
                                     </span>
-                                    <span class="badge badge-light-secondary border-0 px-2 py-1 text-left" title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
+                                    <span class="badge badge-light-dark border-0 px-2 py-1 text-left mt-25" title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
                                         <i class="fas fa-user-tie mr-50"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @else
