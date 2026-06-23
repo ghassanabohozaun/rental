@@ -158,7 +158,7 @@
                                                         <div class="position-relative has-icon-left">
                                                             <input type="text" id="conclusion_date" wire:model="conclusion_date"
                                                                 class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                                placeholder="YYYY-MM-DD" data-livewire-model="conclusion_date">
+                                                                data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" data-livewire-model="conclusion_date">
                                                             <div class="form-control-position premium-icon-centered">
                                                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                                                             </div>
@@ -172,7 +172,7 @@
                                                         <div class="position-relative has-icon-left">
                                                             <input type="text" id="start_date" wire:model.live.debounce.500ms="start_date"
                                                                 class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                                placeholder="YYYY-MM-DD" data-livewire-model="start_date">
+                                                                data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" data-livewire-model="start_date">
                                                             <div class="form-control-position premium-icon-centered">
                                                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                                                             </div>
@@ -186,7 +186,7 @@
                                                         <div class="position-relative has-icon-left">
                                                             <input type="text" id="end_date" wire:model.live.debounce.500ms="end_date"
                                                                 class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                                                                placeholder="YYYY-MM-DD" data-livewire-model="end_date">
+                                                                data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" data-livewire-model="end_date">
                                                             <div class="form-control-position premium-icon-centered">
                                                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                                                             </div>
@@ -334,7 +334,7 @@
                                                                 <div class="position-relative has-icon-left">
                                                                     <input type="text" id="deposit_issue_date" wire:model="deposit_issue_date" 
                                                                         class="form-control premium-input shadow-none ptc-datepicker" 
-                                                                        autocomplete="off" placeholder="YYYY-MM-DD" data-livewire-model="deposit_issue_date"
+                                                                        autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" data-livewire-model="deposit_issue_date"
                                                                         x-init="$( $el ).datepicker({ format: 'yyyy-mm-dd', autoclose: true, todayHighlight: true, language: '{{ app()->getLocale() }}', rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }} }).on('changeDate', function(e){ $wire.set('deposit_issue_date', $(e.target).val()); })">
                                                                     <div class="form-control-position premium-icon-centered">
                                                                         <i class="fas fa-calendar-alt text-primary fa-lg"></i>
@@ -803,24 +803,27 @@
                 });
 
                 // Datepickers
-                $('.ptc-datepicker').datepicker({
-                    format: 'yyyy-mm-dd',
-                    autoclose: true,
-                    todayHighlight: true,
-                    language: '{{ app()->getLocale() }}',
-                    rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }},
-                    orientation: "bottom auto"
-                }).on('changeDate', function(e) {
-                    let model = $(this).data('livewire-model');
-                    if(model) {
-                        @this.set(model, $(this).val());
-                    }
-                    
-                    if($(this).attr('id') === 'start_date') {
-                        $('#end_date').datepicker('setStartDate', e.date);
-                    } else if($(this).attr('id') === 'end_date') {
-                        $('#start_date').datepicker('setEndDate', e.date);
-                    }
+                $('.ptc-datepicker').each(function() {
+                    var format = $(this).data('format') || 'dd-mm-yyyy';
+                    $(this).datepicker({
+                        format: format,
+                        autoclose: true,
+                        todayHighlight: true,
+                        language: '{{ app()->getLocale() }}',
+                        rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }},
+                        orientation: "bottom auto"
+                    }).on('changeDate', function(e) {
+                        let model = $(this).data('livewire-model');
+                        if(model) {
+                            @this.set(model, $(this).val());
+                        }
+                        
+                        if($(this).attr('id') === 'start_date') {
+                            $('#end_date').datepicker('setStartDate', e.date);
+                        } else if($(this).attr('id') === 'end_date') {
+                            $('#start_date').datepicker('setEndDate', e.date);
+                        }
+                    });
                 });
             }
 

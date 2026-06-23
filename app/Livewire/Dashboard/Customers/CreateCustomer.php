@@ -52,6 +52,7 @@ class CreateCustomer extends Component
                 'max:255',
                 Rule::unique('customers', 'id_number')
                     ->where('company_id', $current_company_id)
+                    ->where('tenant_type', 'individual')
                     ->whereNull('deleted_at')
             ],
             'address' => 'nullable|string|max:255',
@@ -68,7 +69,14 @@ class CreateCustomer extends Component
         if ($this->tenant_type == 'company') {
             $rules['company_name'] = 'required|string|max:255';
             $rules['establishment_number'] = 'required|string|max:255';
-            $rules['cr_number'] = 'required|string|max:255';
+            $rules['cr_number'] = [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('customers', 'cr_number')
+                    ->where('company_id', $current_company_id)
+                    ->whereNull('deleted_at')
+            ];
             $rules['license_number'] = 'required|string|max:255';
         } else {
             $rules['company_name'] = 'nullable|string|max:255';

@@ -14,9 +14,13 @@ use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\App;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class EditContract extends Component
 {
+    use WithFileUploads;
+
     public Contract $contract;
 
     // Basic Fields
@@ -47,6 +51,10 @@ class EditContract extends Component
 
     public $contract_clauses = [];
 
+    // Contract Attachments Repeater
+    public $contract_attachments = [];
+    public $deleted_attachments = [];
+
     // UI Helpers
     public $validation_fail_nonce = 0;
 
@@ -58,9 +66,9 @@ class EditContract extends Component
         $this->company_id = $contract->company_id;
         $this->property_id = $contract->property_id;
         $this->customer_id = $contract->customer_id;
-        $this->conclusion_date = $contract->conclusion_date ? $contract->conclusion_date->format('Y-m-d') : null;
-        $this->start_date = $contract->start_date ? $contract->start_date->format('Y-m-d') : null;
-        $this->end_date = $contract->end_date ? $contract->end_date->format('Y-m-d') : null;
+        $this->conclusion_date = $contract->conclusion_date ? $contract->conclusion_date->format('d-m-Y') : null;
+        $this->start_date = $contract->start_date ? $contract->start_date->format('d-m-Y') : null;
+        $this->end_date = $contract->end_date ? $contract->end_date->format('d-m-Y') : null;
         $this->rent_amount = $contract->rent_amount;
         $this->deposit_amount = $contract->deposit_amount;
         $this->deposit_type = $contract->deposit_type;
@@ -77,7 +85,7 @@ class EditContract extends Component
             $this->deposit_cheque_number = $contract->insuranceCheque->cheque_number;
             $this->deposit_bank_name = $contract->insuranceCheque->getTranslations('bank_name') ?: ['ar' => '', 'en' => ''];
             $this->deposit_cheque_owner_name = $contract->insuranceCheque->getTranslations('cheque_owner_name') ?: ['ar' => '', 'en' => ''];
-            $this->deposit_issue_date = $contract->insuranceCheque->issue_date ? $contract->insuranceCheque->issue_date->format('Y-m-d') : null;
+            $this->deposit_issue_date = $contract->insuranceCheque->issue_date ? $contract->insuranceCheque->issue_date->format('d-m-Y') : null;
         }
 
         // Details Snapshot
@@ -127,6 +135,18 @@ class EditContract extends Component
             } elseif (is_string($clauses) && !empty($clauses)) {
                 // Legacy compatibility
                 $this->contract_clauses = [['title' => __('contracts.previous_clauses'), 'content' => $clauses]];
+            }
+        }
+
+        // Load existing attachments
+        if ($this->contract->attachments) {
+            foreach ($this->contract->attachments as $attachment) {
+                $this->contract_attachments[] = [
+                    'id' => $attachment->id,
+                    'name' => $attachment->name,
+                    'existing_file' => $attachment->file,
+                    'file' => null
+                ];
             }
         }
     }
@@ -301,6 +321,21 @@ class EditContract extends Component
         }
     }
 
+    // --- Contract Attachments ---
+    public function addAttachment()
+    {
+        $this->contract_attachments[] = ['name' => '', 'file' => null];
+    }
+
+    public function removeAttachment($index)
+    {
+        if (isset($this->contract_attachments[$index]['id'])) {
+            $this->deleted_attachments[] = $this->contract_attachments[$index]['id'];
+        }
+        unset($this->contract_attachments[$index]);
+        $this->contract_attachments = array_values($this->contract_attachments);
+    }
+
     // --- Utilities Management ---
     public function removeUtility($index)
     {
@@ -345,6 +380,11 @@ class EditContract extends Component
             'second_party_data' => 'nullable|array',
             'property_data' => 'nullable|array',
             'utilities_data' => 'nullable|array',
+
+            // Attachments Repeater
+            'contract_attachments' => 'nullable|array',
+            'contract_attachments.*.name' => 'required|string|max:255',
+            'contract_attachments.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
         ];
 
         if (user()->company_id == 1) {
@@ -389,9 +429,9 @@ class EditContract extends Component
             'company_id' => user()->company_id == 1 ? $this->company_id : user()->company_id,
             'property_id' => $this->property_id,
             'customer_id' => $this->customer_id,
-            'conclusion_date' => $this->conclusion_date,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'conclusion_date' => $this->conclusion_date ? \Carbon\Carbon::parse($this->conclusion_date)->format('Y-m-d') : null,
+            'start_date' => $this->start_date ? \Carbon\Carbon::parse($this->start_date)->format('Y-m-d') : null,
+            'end_date' => $this->end_date ? \Carbon\Carbon::parse($this->end_date)->format('Y-m-d') : null,
             'contract_duration_months' => $this->contract_duration_months,
             'rent_amount' => $this->rent_amount,
             'total_rent_amount' => $this->total_rent_amount,
@@ -407,7 +447,7 @@ class EditContract extends Component
             'deposit_cheque_number' => $this->deposit_cheque_number,
             'deposit_bank_name' => $this->deposit_bank_name,
             'deposit_cheque_owner_name' => $this->deposit_cheque_owner_name,
-            'deposit_issue_date' => $this->deposit_issue_date,
+            'deposit_issue_date' => $this->deposit_issue_date ? \Carbon\Carbon::parse($this->deposit_issue_date)->format('Y-m-d') : null,
 
             // Reconstruct nested structure for ContractService compatibility
             'contract_detail' => [
@@ -422,6 +462,43 @@ class EditContract extends Component
 
         try {
             $service->update($this->contract->id, $data);
+
+            // Handle Deleted Attachments
+            if (!empty($this->deleted_attachments)) {
+                $attachmentsToDelete = \App\Models\ContractAttachment::whereIn('id', $this->deleted_attachments)->get();
+                foreach ($attachmentsToDelete as $att) {
+                    if ($att->file && Storage::disk('contracts')->exists($att->file)) {
+                        Storage::disk('contracts')->delete($att->file);
+                    }
+                    $att->delete();
+                }
+            }
+
+            // Handle Repeater Attachments
+            foreach ($this->contract_attachments as $attachment) {
+                if (isset($attachment['id'])) {
+                    $existingAtt = \App\Models\ContractAttachment::find($attachment['id']);
+                    if ($existingAtt) {
+                        $existingAtt->name = $attachment['name'];
+                        if (!empty($attachment['file'])) {
+                            if ($existingAtt->file && Storage::disk('contracts')->exists($existingAtt->file)) {
+                                Storage::disk('contracts')->delete($existingAtt->file);
+                            }
+                            $existingAtt->file = $attachment['file']->store('/', 'contracts');
+                        }
+                        $existingAtt->save();
+                    }
+                } else {
+                    if (!empty($attachment['file']) && !empty($attachment['name'])) {
+                        $path = $attachment['file']->store('/', 'contracts');
+                        $this->contract->attachments()->create([
+                            'name' => $attachment['name'],
+                            'file' => $path,
+                        ]);
+                    }
+                }
+            }
+
             flash()->success(__('general.update_success_message'));
             return redirect()->route('dashboard.contracts.index');
         } catch (\Exception $e) {

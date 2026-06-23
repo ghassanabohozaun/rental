@@ -27,6 +27,7 @@ class Payment extends Model implements MustBelongToCompany
         'status',
         'reference_number',
         'cheque_id',
+        'company_bank_account_id',
         'notes',
         'created_by'
     ];
@@ -65,6 +66,14 @@ class Payment extends Model implements MustBelongToCompany
     public function cheque()
     {
         return $this->belongsTo(Cheque::class);
+    }
+
+    /**
+     * Get the company bank account associated with the payment.
+     */
+    public function companyBankAccount()
+    {
+        return $this->belongsTo(CompanyBankAccount::class, 'company_bank_account_id');
     }
 
     /*

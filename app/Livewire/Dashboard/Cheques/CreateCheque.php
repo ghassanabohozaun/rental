@@ -344,8 +344,16 @@ class CreateCheque extends Component
             $validatedData = $this->validate($rules);
             
             $validatedData['is_deposit'] = $this->is_deposit;
-            $validatedData['due_date'] = $validatedData['due_date'] ?: null;
-            $validatedData['issue_date'] = $validatedData['issue_date'] ?: null;
+            $validatedData['due_date'] = $validatedData['due_date'] ? \Carbon\Carbon::parse($validatedData['due_date'])->format('Y-m-d') : null;
+            $validatedData['issue_date'] = $validatedData['issue_date'] ? \Carbon\Carbon::parse($validatedData['issue_date'])->format('Y-m-d') : null;
+
+            if ($validatedData['issue_date'] && $validatedData['due_date']) {
+                if (strtotime($validatedData['due_date']) < strtotime($validatedData['issue_date'])) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'due_date' => __('cheques.due_date_before_issue_date')
+                    ]);
+                }
+            }
 
             // Prevent Duplication
             $this->validateDuplicate($validatedData);

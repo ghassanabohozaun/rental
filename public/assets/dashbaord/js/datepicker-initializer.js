@@ -18,8 +18,9 @@ $(document).ready(function () {
         // 1. Standard Date Pickers (.ptc-datepicker)
         $scope.find(".ptc-datepicker").not('.dp-initialized').each(function () {
             const $el = $(this);
+            const format = $el.data('format') || "yyyy-mm-dd";
             $el.datepicker({
-                format: "yyyy-mm-dd",
+                format: format,
                 autoclose: true,
                 todayHighlight: true,
                 language: currentLoc,

@@ -102,7 +102,7 @@
                                                 <div class="col-md-3">
                                                     <div class="premium-form-group">
                                                         <label for="date" class="premium-label">{!! __('maintenances.date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off" placeholder="YYYY-MM-DD" value="{{ $maintenance->date }}">
+                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" value="{{ $maintenance->date }}">
                                                         <span class="text-danger error-text date_error"></span>
                                                     </div>
                                                 </div>

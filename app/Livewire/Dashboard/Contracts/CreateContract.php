@@ -331,9 +331,9 @@ class CreateContract extends Component
             'company_id' => user()->company_id == 1 ? $this->company_id : user()->company_id,
             'property_id' => $this->property_id,
             'customer_id' => $this->customer_id,
-            'conclusion_date' => $this->conclusion_date,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'conclusion_date' => $this->conclusion_date ? \Carbon\Carbon::parse($this->conclusion_date)->format('Y-m-d') : null,
+            'start_date' => $this->start_date ? \Carbon\Carbon::parse($this->start_date)->format('Y-m-d') : null,
+            'end_date' => $this->end_date ? \Carbon\Carbon::parse($this->end_date)->format('Y-m-d') : null,
             'contract_duration_months' => $this->contract_duration_months,
             'rent_amount' => $this->rent_amount,
             'total_rent_amount' => $this->total_rent_amount,
@@ -349,7 +349,7 @@ class CreateContract extends Component
             'deposit_cheque_number' => $this->deposit_cheque_number,
             'deposit_bank_name' => $this->deposit_bank_name,
             'deposit_cheque_owner_name' => $this->deposit_cheque_owner_name,
-            'deposit_issue_date' => $this->deposit_issue_date,
+            'deposit_issue_date' => $this->deposit_issue_date ? \Carbon\Carbon::parse($this->deposit_issue_date)->format('Y-m-d') : null,
 
             // Reconstruct nested structure for ContractService compatibility
             'contract_detail' => [

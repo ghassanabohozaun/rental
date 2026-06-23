@@ -68,6 +68,16 @@
                                         </div>
                                     </div>
 
+                                    @if($payment->company_bank_account_id)
+                                    <div class="detail-item-modern mt-1">
+                                        <div class="icon-circle"><i class="fas fa-university"></i></div>
+                                        <div class="detail-info-box text-left">
+                                            <span class="detail-info-label">{!! __('cheques.company_bank_account') !!}</span>
+                                            <span class="detail-info-value">{!! optional($payment->companyBankAccount)->bank_name !!} ({{ optional($payment->companyBankAccount)->account_number }})</span>
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     @if($payment->reference_number)
                                     <div class="detail-item-modern mt-1">
                                         <div class="icon-circle"><i class="fas fa-hashtag"></i></div>
@@ -127,7 +137,7 @@
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-dark font-weight-bold">
                             <i class="fas fa-calendar-alt text-muted mr-1"></i>
-                            {!! $payment->payment_date ? $payment->payment_date->format('Y-m-d') : '---' !!}
+                            {!! $payment->payment_date ? $payment->payment_date->format('d-m-Y') : '---' !!}
                         </span>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
@@ -148,6 +158,13 @@
                             <div class="mt-25">
                                 <span class="badge badge-light-info border-0 font-10 px-1 py-0" title="{!! __('cheques.cashed_cheque') !!}">
                                     <i class="fas fa-money-check"></i> #{!! optional($payment->cheque)->cheque_number ?? $payment->cheque_id !!}
+                                </span>
+                            </div>
+                        @endif
+                        @if($payment->company_bank_account_id)
+                            <div class="mt-25">
+                                <span class="badge badge-light-info border-0 font-10 px-1 py-0" title="{!! __('cheques.company_bank_account') !!}">
+                                    <i class="fas fa-university"></i> {!! optional($payment->companyBankAccount)->bank_name !!}
                                 </span>
                             </div>
                         @endif

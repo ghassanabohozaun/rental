@@ -307,8 +307,9 @@
                                                             <div class="position-relative has-icon-left">
                                                                 <input type="text"
                                                                     class="form-control premium-input shadow-none ptc-datepicker"
+                                                                    data-format="dd-mm-yyyy"
                                                                     id="issue_date" wire:model="issue_date"
-                                                                    autocomplete="off" placeholder="YYYY-MM-DD"
+                                                                    autocomplete="off" placeholder="DD-MM-YYYY"
                                                                     {{ !$contract_id ? 'disabled' : '' }}>
                                                                 <div class="premium-icon-centered">
                                                                     <i class="fas fa-calendar-alt text-primary fa-lg"></i>
@@ -330,8 +331,9 @@
                                                             <div class="position-relative has-icon-left">
                                                                 <input type="text"
                                                                     class="form-control premium-input shadow-none ptc-datepicker"
+                                                                    data-format="dd-mm-yyyy"
                                                                     id="due_date" wire:model="due_date"
-                                                                    autocomplete="off" placeholder="YYYY-MM-DD"
+                                                                    autocomplete="off" placeholder="DD-MM-YYYY"
                                                                     {{ !$contract_id ? 'disabled' : '' }}>
                                                                 <div class="premium-icon-centered">
                                                                     <i class="fas fa-calendar-alt text-primary fa-lg"></i>
@@ -644,7 +646,7 @@
                                                     </div>
                                                     <div class="cheque-date">
                                                         {!! __('cheques.date') !!}: <span
-                                                            class="val">{{ $issue_date ?: 'YYYY-MM-DD' }}</span>
+                                                            class="val">{{ $issue_date ?: 'DD-MM-YYYY' }}</span>
                                                     </div>
                                                 </div>
 

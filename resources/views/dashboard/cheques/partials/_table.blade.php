@@ -91,7 +91,7 @@
                                         <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('cheques.due_date') !!}</span>
-                                            <span class="detail-info-value">{!! $cheque->due_date ? $cheque->due_date->format('Y-m-d') : '---' !!}</span>
+                                            <span class="detail-info-value">{!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}</span>
                                         </div>
                                     </div>
 
@@ -198,7 +198,7 @@
                     <td class="text-center align-middle text-nowrap">
                         <span class="text-dark font-weight-bold">
                             <i class="fas fa-calendar-alt text-muted mr-1"></i>
-                            {!! $cheque->due_date ? $cheque->due_date->format('Y-m-d') : '---' !!}
+                            {!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}
                         </span>
                     </td>
                     <td class="text-center align-middle">

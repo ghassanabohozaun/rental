@@ -26,6 +26,7 @@ class PaymentForm extends Component
     public $amount;
     public $payment_date;
     public $cheque_id;
+    public $company_bank_account_id;
     public $status;
     public $reference_number;
     public $notes;
@@ -133,8 +134,9 @@ class PaymentForm extends Component
         $this->customer_id = $payment->customer_id;
         $this->method = $payment->method;
         $this->amount = $payment->amount;
-        $this->payment_date = $payment->payment_date->format('Y-m-d');
+        $this->payment_date = $payment->payment_date->format('d-m-Y');
         $this->cheque_id = $payment->cheque_id;
+        $this->company_bank_account_id = $payment->company_bank_account_id;
         $this->status = $payment->status;
         $this->reference_number = $payment->reference_number;
         $this->notes = $payment->notes;
@@ -149,6 +151,7 @@ class PaymentForm extends Component
     public function updatedCompanyId($value)
     {
         $this->contract_id = null;
+        $this->company_bank_account_id = null;
         $this->resetFinancials();
         $this->resetPaymentFields();
         $this->loadContractsByCompany();
@@ -189,6 +192,7 @@ class PaymentForm extends Component
         $this->method = '';
         $this->amount = null;
         $this->cheque_id = null;
+        $this->company_bank_account_id = null;
         $this->status = '';
         $this->reference_number = null;
         $this->selectedChequeDetails = null;
@@ -317,6 +321,9 @@ class PaymentForm extends Component
             $this->cheque_id = null;
             $this->selectedChequeDetails = null;
             $this->status = '';
+        }
+        if ($value !== 'bank') {
+            $this->company_bank_account_id = null;
         }
         $this->calculateProjected();
         $this->calculateProgressBar();
@@ -539,7 +546,7 @@ class PaymentForm extends Component
 
         $rules = [
             'contract_id' => 'required|exists:contracts,id',
-            'method' => 'required|in:cash,cheque,online',
+            'method' => 'required|in:cash,cheque,online,bank',
             'amount' => 'required|numeric|gt:0',
             'payment_date' => 'required|date',
             'status' => 'required|in:paid,pending,failed',
@@ -551,6 +558,10 @@ class PaymentForm extends Component
             $rules['cheque_id'] = 'required|exists:cheques,id';
         }
 
+        if ($this->method === 'bank') {
+            $rules['company_bank_account_id'] = 'required|exists:company_bank_accounts,id';
+        }
+
         if (user()->company_id == 1) {
             $rules['company_id'] = 'required|exists:companies,id';
         }
@@ -558,7 +569,12 @@ class PaymentForm extends Component
         try {
             $validatedData = $this->validate($rules);
             
+            if (isset($validatedData['payment_date'])) {
+                $validatedData['payment_date'] = \Carbon\Carbon::parse($validatedData['payment_date'])->format('Y-m-d');
+            }
+
             $validatedData['customer_id'] = $this->customer_id;
+            $validatedData['company_bank_account_id'] = $this->method === 'bank' ? $this->company_bank_account_id : null;
 
             // Custom Validation
             $this->validateBalance($validatedData['amount']);
@@ -630,6 +646,14 @@ class PaymentForm extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.payments.payment-form');
+        $companyBankAccounts = collect();
+        if ($this->company_id) {
+            $companyBankAccounts = \App\Models\CompanyBankAccount::where('company_id', $this->company_id)
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+        return view('livewire.dashboard.payments.payment-form', [
+            'companyBankAccounts' => $companyBankAccounts
+        ]);
     }
 }

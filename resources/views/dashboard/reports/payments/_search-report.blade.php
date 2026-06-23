@@ -127,7 +127,7 @@
                         </label>
                         <div class="position-relative has-icon-left">
                             <input type="text" class="form-control custom-datepicker" id="payment_date_from"
-                                name="payment_date_from" placeholder="YYYY-MM-DD" autocomplete="off">
+                                name="payment_date_from" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                             </div>
@@ -141,7 +141,7 @@
                         </label>
                         <div class="position-relative has-icon-left">
                             <input type="text" class="form-control custom-datepicker" id="payment_date_to"
-                                name="payment_date_to" placeholder="YYYY-MM-DD" autocomplete="off">
+                                name="payment_date_to" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                             </div>

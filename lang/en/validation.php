@@ -179,6 +179,9 @@ return [
             'required' => 'Please verify that you are not a robot.',
             'captcha' => 'Captcha error! try again later or contact site admin.',
         ],
+        'cr_number' => [
+            'unique' => 'The Commercial Registration number is already registered for another company!',
+        ],
         'deposit_bank_name.ar' => [
             'required_if' => 'Field is required when insurance type is "Cheque".',
         ],
@@ -217,6 +220,8 @@ return [
     */
 
     'attributes' => [
+        'contract_attachments.*.file' => 'Attachment File',
+        'contract_attachments.*.name' => 'Attachment Name',
         'name.ar' => 'Arabic Name ',
         'name.en' => 'English Name',
         'role.ar' => 'Arabic Role ',
@@ -339,6 +344,7 @@ return [
 
         // Properties & Companies & Bank Accounts Attributes
         'company_id' => 'Company',
+        'company_bank_account_id' => 'company bank account',
         'bank_name.ar' => 'Bank Name (Arabic)',
         'bank_name.en' => 'Bank Name (English)',
         'account_holder_name.ar' => 'Account Holder Name (Arabic)',

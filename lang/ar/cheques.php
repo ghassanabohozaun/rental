@@ -139,6 +139,12 @@ return [
     'signature' => 'التوقيع ✍️',
     'cheque_number_label' => 'رقم الشيك',
 
+    'due_date_before_issue_date' => 'تاريخ الاستحقاق لا يمكن أن يكون قبل تاريخ الإصدار.',
+    'amount_guidance' => 'يرجى تحديد المبلغ بدقة.',
+    'is_deposit_guidance' => 'حدد إذا كان هذا الشيك للتأمين (شيك ضمان).',
+    'cheque_number_guidance' => 'أدخل رقم الشيك المطبوع.',
+    'due_date_guidance' => 'حدد تاريخ استحقاق الشيك (تاريخ الصرف).',
+
     // Smart assistant messages
     'smart_assistant' => [
         'select_contract' => 'يرجى اختيار العقد للبدء بتحليل قوة الضمان المالي.',

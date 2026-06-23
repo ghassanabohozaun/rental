@@ -69,7 +69,16 @@ class EditCustomer extends Component
             'name.en' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'nullable|email|max:255',
-            'id_number' => ['required', 'string', 'max:255', Rule::unique('customers', 'id_number')->ignore($this->customer_id)->where('company_id', $current_company_id)->whereNull('deleted_at')],
+            'id_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('customers', 'id_number')
+                    ->ignore($this->customer_id)
+                    ->where('company_id', $current_company_id)
+                    ->where('tenant_type', 'individual')
+                    ->whereNull('deleted_at')
+            ],
             'address' => 'nullable|string|max:255',
             'nationality_id' => 'required|exists:nationalities,id',
             'tenant_type' => 'required|in:individual,company',
@@ -84,7 +93,15 @@ class EditCustomer extends Component
         if ($this->tenant_type == 'company') {
             $rules['company_name'] = 'required|string|max:255';
             $rules['establishment_number'] = 'required|string|max:255';
-            $rules['cr_number'] = 'required|string|max:255';
+            $rules['cr_number'] = [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('customers', 'cr_number')
+                    ->ignore($this->customer_id)
+                    ->where('company_id', $current_company_id)
+                    ->whereNull('deleted_at')
+            ];
             $rules['license_number'] = 'required|string|max:255';
         } else {
             $rules['company_name'] = 'nullable|string|max:255';

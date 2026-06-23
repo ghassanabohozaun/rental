@@ -44,8 +44,8 @@ class EditCheque extends Component
         $this->amount = $cheque->amount;
         $this->status = $cheque->status;
         $this->is_deposit = $cheque->is_deposit;
-        $this->issue_date = $cheque->issue_date ? $cheque->issue_date->format('Y-m-d') : null;
-        $this->due_date = $cheque->due_date ? $cheque->due_date->format('Y-m-d') : null;
+        $this->issue_date = $cheque->issue_date ? $cheque->issue_date->format('d-m-Y') : null;
+        $this->due_date = $cheque->due_date ? $cheque->due_date->format('d-m-Y') : null;
         $this->bank_name = [
             'ar' => $cheque->getTranslation('bank_name', 'ar'),
             'en' => $cheque->getTranslation('bank_name', 'en'),
@@ -339,8 +339,16 @@ class EditCheque extends Component
             $validatedData = $this->validate($rules);
 
             $validatedData['is_deposit'] = $this->is_deposit;
-            $validatedData['due_date'] = $validatedData['due_date'] ?: null;
-            $validatedData['issue_date'] = $validatedData['issue_date'] ?: null;
+            $validatedData['due_date'] = $validatedData['due_date'] ? \Carbon\Carbon::parse($validatedData['due_date'])->format('Y-m-d') : null;
+            $validatedData['issue_date'] = $validatedData['issue_date'] ? \Carbon\Carbon::parse($validatedData['issue_date'])->format('Y-m-d') : null;
+
+            if ($validatedData['issue_date'] && $validatedData['due_date']) {
+                if (strtotime($validatedData['due_date']) < strtotime($validatedData['issue_date'])) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'due_date' => __('cheques.due_date_before_issue_date')
+                    ]);
+                }
+            }
 
             // Ensure amount is not less than used amount
             if ($this->currentChequeUsedAmount > 0 && (float) $this->amount < $this->currentChequeUsedAmount) {

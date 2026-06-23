@@ -50,7 +50,7 @@
                     class="text-danger">*</span></label>
                 <input type="text" id="conclusion_date" name="conclusion_date" value="{!! old('conclusion_date', isset($contract) ? $contract->conclusion_date->format('Y-m-d') : '') !!}"
                     class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                    placeholder="YYYY-MM-DD">
+                    data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text conclusion_date_error"></span>
         </div>
     </div>
@@ -60,7 +60,7 @@
                     class="text-danger">*</span></label>
                 <input type="text" id="start_date" name="start_date" value="{!! old('start_date', isset($contract) ? $contract->start_date->format('Y-m-d') : '') !!}"
                     class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                    placeholder="YYYY-MM-DD">
+                    data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text start_date_error"></span>
         </div>
     </div>
@@ -70,7 +70,7 @@
                     class="text-danger">*</span></label>
                 <input type="text" id="end_date" name="end_date" value="{!! old('end_date', isset($contract) ? $contract->end_date->format('Y-m-d') : '') !!}"
                     class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
-                    placeholder="YYYY-MM-DD">
+                    data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text end_date_error"></span>
         </div>
     </div>
@@ -203,7 +203,7 @@
                     <label for="deposit_issue_date" class="premium-label">{!! __('cheques.issue_date') !!}</label>
                     <input type="text" id="deposit_issue_date" name="deposit_issue_date"
                         value="{!! old('deposit_issue_date') !!}"
-                        class="form-control premium-input shadow-none ptc-datepicker" placeholder="YYYY-MM-DD"
+                        class="form-control premium-input shadow-none ptc-datepicker" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY"
                         autocomplete="off">
                     <span class="text-danger error-text deposit_issue_date_error"></span>
                 </div>

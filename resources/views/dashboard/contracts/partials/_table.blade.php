@@ -59,7 +59,7 @@
                                     </div>
                                     <h4 class="modal-name-title font-weight-bold">{!! optional($contract->property)->name !!}</h4>
                                     <span class="modal-role-badge">
-                                        @if(optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
+                                        @if (optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
                                             <i class="fas fa-building mr-1"></i> {!! optional($contract->customer)->company_name !!}
                                             <span class="mx-1">|</span>
                                             <i class="fas fa-user-tie mr-1"></i> {!! optional($contract->customer)->name !!}
@@ -96,7 +96,9 @@
                                         <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="detail-info-box text-left">
                                             <span class="detail-info-label">{!! __('general.duration') !!}</span>
-                                            <span class="detail-info-value text-muted">{!! $contract->duration_label !!} ({!! optional($contract->start_date)->format('Y-m-d') !!} - {!! optional($contract->end_date)->format('Y-m-d') !!})</span>
+                                            <span class="detail-info-value text-muted">{!! $contract->duration_label !!}
+                                                ({!! optional($contract->start_date)->format('d-m-Y') !!} - {!! optional($contract->end_date)->format('d-m-Y') !!})
+                                            </span>
                                         </div>
                                     </div>
 
@@ -194,13 +196,13 @@
                     </td>
 
                     <!-- Company (Super Admin Only) -->
-                    @if(isset($companies))
-                    <td class="text-center align-middle d-none d-md-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($contract->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
-                    </td>
+                    @if (isset($companies))
+                        <td class="text-center align-middle d-none d-md-table-cell">
+                            <div class="company-chip">
+                                <i class="fas fa-briefcase"></i>
+                                <span>{!! optional($contract->company)->name ?? __('general.all_companies') !!}</span>
+                            </div>
+                        </td>
                     @endif
 
                     <!-- Property & Customer Merged -->
@@ -210,15 +212,18 @@
                                 {!! optional($contract->property)->name !!}
                             </span>
                             <div class="mt-50 d-flex flex-column align-items-start" style="gap: 4px;">
-                                @if(optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
-                                    <span class="badge badge-light-primary border-0 px-2 py-1 text-left" title="{!! __('companies.company') !!}" style="font-size: 0.75rem;">
+                                @if (optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
+                                    <span class="badge badge-light-primary border-0 px-2 py-1 text-left"
+                                        title="{!! __('companies.company') !!}" style="font-size: 0.75rem;">
                                         <i class="fas fa-building mr-50"></i> {!! optional($contract->customer)->company_name !!}
                                     </span>
-                                    <span class="badge badge-light-dark border-0 px-2 py-1 text-left mt-25" title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
+                                    <span class="badge badge-light-warning border-0 px-2 py-1 text-left mt-25"
+                                        title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
                                         <i class="fas fa-user-tie mr-50"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @else
-                                    <span class="badge badge-light-info border-0 px-2 py-1 text-left" style="font-size: 0.75rem;">
+                                    <span class="badge badge-light-info border-0 px-2 py-1 text-left"
+                                        style="font-size: 0.75rem;">
                                         <i class="fas fa-user-circle mr-50"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @endif
@@ -233,9 +238,9 @@
                                 <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
                             </div>
                             <div class="date-range-badge">
-                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('Y-m-d') : '---' !!}</span>
+                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('d-m-Y') : '---' !!}</span>
                                 <i class="fas fa-long-arrow-alt-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} text-primary date-arrow"></i>
-                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('Y-m-d') : '---' !!}</span>
+                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('d-m-Y') : '---' !!}</span>
                             </div>
                         </div>
                     </td>
@@ -416,9 +421,7 @@
         </tbody>
 
     </table>
-    <div class="mt-2 text-center">
-        <div class="d-inline-block">
-            {!! $contracts->appends(request()->except('_ajax'))->links() !!}
-        </div>
+    <div class="float-right mt-2 custom-pagination">
+        {!! $contracts->appends(request()->except('_ajax'))->links() !!}
     </div>
 </div>

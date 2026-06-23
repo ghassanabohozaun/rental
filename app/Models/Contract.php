@@ -92,6 +92,14 @@ class Contract extends Model implements MustBelongToCompany
     }
 
     /**
+     * Get the attachments associated with the contract.
+     */
+    public function attachments()
+    {
+        return $this->hasMany(ContractAttachment::class);
+    }
+
+    /**
      * Get the details/snapshot for printing.
      */
     public function contractDetail()

@@ -193,7 +193,7 @@
                         <label class="premium-label mb-2">{!! __('cheques.due_date') !!}</label>
                         <div class="premium-input-wrapper">
                             <input type="text" class="form-control premium-input shadow-none ptc-datepicker" name="due_date" 
-                                placeholder="YYYY-MM-DD" autocomplete="off">
+                                data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <i class="fas fa-calendar-alt text-primary"></i>
                         </div>
                     </div>

@@ -123,6 +123,12 @@ return [
     'signature' => 'Signature ✍️',
     'cheque_number_label' => 'Cheque Number',
     
+    'due_date_before_issue_date' => 'Due date cannot be before issue date.',
+    'amount_guidance' => 'Please specify the exact amount.',
+    'is_deposit_guidance' => 'Check if this is a security deposit cheque.',
+    'cheque_number_guidance' => 'Enter the printed cheque number.',
+    'due_date_guidance' => 'Select the cheque due date (cashing date).',
+
     // Smart assistant messages
     'smart_assistant' => [
         'select_contract' => 'Please select a contract to start analyzing the financial guarantee strength.',

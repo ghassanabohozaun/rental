@@ -175,7 +175,7 @@
                                                         <label for="payment_date" class="font-weight-bold">{!! __('payments.payment_date') !!} <span class="text-danger">*</span></label>
                                                         <div wire:ignore wire:key="date-wrapper-{{ $contract_id }}">
                                                             <div class="position-relative has-icon-left">
-                                                                <input type="text" class="form-control premium-input shadow-none ptc-datepicker" id="payment_date" wire:model.live="payment_date" autocomplete="off" placeholder="YYYY-MM-DD" {{ !$contract_id ? 'disabled' : '' }}>
+                                                                <input type="text" class="form-control premium-input shadow-none ptc-datepicker" data-format="dd-mm-yyyy" id="payment_date" wire:model.live="payment_date" autocomplete="off" placeholder="DD-MM-YYYY" {{ !$contract_id ? 'disabled' : '' }}>
                                                                 <div class="premium-icon-centered">
                                                                     <i class="fas fa-calendar-alt text-primary fa-lg"></i>
                                                                 </div>
@@ -240,6 +240,25 @@
                                                                 </div>
                                                             </div>
                                                         @endif
+                                                    </div>
+                                                @endif
+
+                                                @if($method === 'bank')
+                                                    <div class="col-md-12 mb-2" wire:key="bank-select-container-{{ $validation_fail_nonce }}">
+                                                        <div class="premium-form-group @error('company_bank_account_id') is-invalid-premium @enderror">
+                                                            <label class="premium-label font-weight-bold">{!! __('cheques.company_bank_account') !!} <span class="text-danger">*</span></label>
+                                                            <div wire:ignore>
+                                                                <select id="company_bank_account_id" class="form-control premium-input shadow-none js-select2" wire:model.live="company_bank_account_id" data-placeholder="{!! __('cheques.select_bank_account') !!}">
+                                                                    <option value="">{!! __('cheques.select_bank_account') !!}</option>
+                                                                    @foreach($companyBankAccounts as $account)
+                                                                        <option value="{{ $account->id }}">
+                                                                            {{ $account->bank_name }} - {{ $account->account_holder_name }} ({{ $account->account_number }})
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('company_bank_account_id') <span class="text-danger error-text">{{ $message }}</span> @enderror
+                                                        </div>
                                                     </div>
                                                 @endif
 

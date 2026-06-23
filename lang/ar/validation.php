@@ -177,6 +177,9 @@ return [
         'id_number' => [
             'unique' => 'رقم البطاقة الشخصية / السجل التجاري مسجل مسبقاً لعميل آخر !',
         ],
+        'cr_number' => [
+            'unique' => 'رقم السجل التجاري مسجل مسبقاً لشركة أخرى !',
+        ],
         'deposit_bank_name.ar' => [
             'required_if' => 'الحقل مطلوب عندما يكون نوع التأمين "شيك".',
         ],
@@ -212,6 +215,8 @@ return [
     */
 
     'attributes' => [
+        'contract_attachments.*.file' => 'ملف المرفق',
+        'contract_attachments.*.name' => 'اسم المرفق',
         'role.ar' => 'الصلاحية بالعربي',
         'role.en' => 'الصلاحية بالانجليزي',
         'name.ar' => 'الاسم بالعربي ',
@@ -381,6 +386,7 @@ return [
 
         // Properties & Companies & Bank Accounts Attributes
         'company_id' => 'الشركة',
+        'company_bank_account_id' => 'الحساب البنكي للشركة',
         'bank_name.ar' => 'اسم البنك بالعربية',
         'bank_name.en' => 'اسم البنك بالإنجليزية',
         'account_holder_name.ar' => 'اسم صاحب الحساب بالعربية',

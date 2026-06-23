@@ -81,6 +81,15 @@ return [
             'report' => false,
         ],
 
+        'contracts' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/contracts'),
+            'url' => env('APP_URL') . '/uploads/contracts',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         'maintenances' => [
             'driver' => 'local',
             'root' => public_path('/uploads/maintenances'),
