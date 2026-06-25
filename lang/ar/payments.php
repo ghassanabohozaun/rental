@@ -77,6 +77,7 @@ return [
     'fully_consumed' => 'مستهلك بالكامل',
     'all_amounts_are_without_currency' => 'جميع الأرقام معروضة بدون عملات',
     'max_allowed_is' => 'الحد الأقصى المسموح به هو',
+    'cash_success_message' => 'تم تسييل الدفعة بنجاح وتحويلها إلى مقبوضة.',
     
     // Smart assistant messages
     'smart_assistant' => [

@@ -348,7 +348,7 @@
                                                         
                                                         <!-- Segment 2: Current Active Input (Pulsing) -->
                                                         @if($current_pct_dynamic > 0)
-                                                            <div class="financial-progress-bar-premium financial-progress-bar-current-pulse" style="width: {{ min(100 - min(100, $paid_pct_previous), $current_pct_dynamic) }}%;"></div>
+                                                            <div class="financial-progress-bar-premium financial-progress-bar-current-pulse pulse-blue" style="width: {{ min(100 - min(100, $paid_pct_previous), $current_pct_dynamic) }}%;"></div>
                                                         @endif
                                                         
                                                         <!-- Segment 3: Pending Cheques (Striped) -->
@@ -362,8 +362,8 @@
                                                         <div class="legend-item-premium text-success">
                                                             <i class="fas fa-circle legend-dot-premium"></i> {!! __('payments.paid') !!}
                                                         </div>
-                                                        <div class="legend-item-premium text-success pulse-legend-dot" style="opacity: 0.8;">
-                                                            <i class="fas fa-circle legend-dot-premium" style="color: #34d399;"></i> {!! __('payments.current_transaction') !!}
+                                                        <div class="legend-item-premium text-primary pulse-legend-dot" style="opacity: 0.8;">
+                                                            <i class="fas fa-circle legend-dot-premium" style="color: #3b82f6;"></i> {!! __('payments.current_transaction') !!}
                                                         </div>
                                                         <div class="legend-item-premium text-warning">
                                                             <i class="fas fa-circle legend-dot-premium"></i> {!! __('payments.guarantees') !!}

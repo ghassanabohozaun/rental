@@ -184,6 +184,7 @@ Route::group(
                 Route::resource('payments', PaymentsController::class);
                 Route::post('/payments/destroy', [PaymentsController::class, 'destroy'])->name('payments.destroy');
                 Route::get('/payments/contract-details/{id}', [PaymentsController::class, 'getContractDetails'])->name('payments.contract-details');
+                Route::post('/payments/{id}/cash', [PaymentsController::class, 'cashPayment'])->name('payments.cash');
             });
             // ########################################## reports routes #############################################################
             Route::group(['middleware' => 'can:reports_properties', 'prefix' => 'reports/properties', 'as' => 'reports.properties.'], function () {

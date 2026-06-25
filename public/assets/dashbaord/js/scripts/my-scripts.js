@@ -191,4 +191,127 @@ $(document).ready(function () {
             }
         });
     });
+
+    // 3. Cash Pending Payment Click Handler
+    $("body").on("click", ".cash-confirm", function (e) {
+        e.preventDefault();
+        var id = $(this).data("id");
+        var url = $(this).data("route");
+        var cashMessage = $(this).data("message") || "Are you sure you want to cash this payment?";
+        var cashTitle = $(this).data("title") || "Are you sure?";
+        var cashText = $(this).data("text") || "The payment status will be updated to paid!";
+        var confirmButtonText = $(this).data("confirm-btn") || "Yes, cash it!";
+        var cancelButtonText = $(this).data("cancel-btn") || "Cancel";
+        var successTitle = $(this).data("success-title") || "Cashed!";
+        var successText = $(this).data("success-text") || "Payment has been cashed successfully.";
+
+        swal({
+            title: cashTitle,
+            text: cashText,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: cancelButtonText,
+                    value: null,
+                    visible: true,
+                    className: "btn-premium-cancel",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: confirmButtonText,
+                    value: true,
+                    visible: true,
+                    className: "btn-premium-save",
+                    closeModal: false,
+                },
+            },
+        }).then((isConfirm) => {
+            if (isConfirm) {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        id: id,
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    beforeSend: function() {
+                        if ($('#loading-indicator').length) {
+                            $('#loading-indicator').show();
+                        }
+                    },
+                    success: function (data) {
+                        if (data.status === true) {
+                            swal({
+                                title: successTitle,
+                                text: successText,
+                                icon: "success",
+                                timer: 2000,
+                                buttons: false,
+                            });
+                            // Reload table div or datatable gracefully
+                            if (typeof window.fetch_data === 'function') {
+                                window.fetch_data(window.currentPage || 1);
+                            } else {
+                                var targetTable = $('#table_data').length ? '#table_data' : ($('#myTable').length ? '#myTable' : null);
+                                if (targetTable) {
+                                    $.ajax({
+                                        url: location.href,
+                                        type: 'GET',
+                                        beforeSend: function() {
+                                            if ($('#loading-indicator').length) {
+                                                $('#loading-indicator').show();
+                                            }
+                                        },
+                                        success: function(responseHtml) {
+                                            $(targetTable).html(responseHtml);
+                                            
+                                            if ($('#loading-indicator').length) {
+                                                $('#loading-indicator').hide();
+                                            }
+                                        },
+                                        error: function() {
+                                            if ($('#loading-indicator').length) {
+                                                $('#loading-indicator').hide();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    location.reload();
+                                }
+                            }
+                        } else {
+                            if ($('#loading-indicator').length) {
+                                $('#loading-indicator').hide();
+                            }
+                            swal({
+                                title: window.PTC_I18N.common.error,
+                                text: data.message || window.PTC_I18N.common.something_went_wrong,
+                                icon: "error",
+                                button: window.PTC_I18N.common.ok
+                            });
+                        }
+                    },
+                    error: function (xhr) {
+                        if ($('#loading-indicator').length) {
+                            $('#loading-indicator').hide();
+                        }
+                        
+                        var errorMessage = window.PTC_I18N.common.something_went_wrong;
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        swal({
+                            title: window.PTC_I18N.common.error,
+                            text: errorMessage,
+                            icon: "error",
+                            button: window.PTC_I18N.common.ok
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                });
+            }
+        });
+    });
 });

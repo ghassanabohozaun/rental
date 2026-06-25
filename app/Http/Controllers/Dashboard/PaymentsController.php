@@ -235,4 +235,31 @@ class PaymentsController extends Controller
             }
         }
     }
+
+    public function cashPayment(Request $request, string $id)
+    {
+        Gate::authorize('payments_update');
+
+        if ($request->ajax()) {
+            try {
+                $payment = $this->paymentService->getOne($id);
+                if ($payment && $payment->status === 'pending') {
+                    $this->paymentService->update($id, ['status' => 'paid']);
+                    return response()->json([
+                        'status' => true,
+                        'message' => __('payments.cash_success_message') ?? __('general.update_success_message')
+                    ], 200);
+                }
+                return response()->json([
+                    'status' => false,
+                    'message' => __('general.update_error_message')
+                ], 400);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('general.update_error_message')
+                ], 500);
+            }
+        }
+    }
 }

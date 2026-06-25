@@ -74,6 +74,7 @@ return [
     'fully_consumed' => 'Fully Consumed',
     'all_amounts_are_without_currency' => 'All amounts are displayed without currency',
     'max_allowed_is' => 'Maximum allowed is',
+    'cash_success_message' => 'Payment has been successfully cashed and set as paid.',
     
     // Smart assistant messages
     'smart_assistant' => [

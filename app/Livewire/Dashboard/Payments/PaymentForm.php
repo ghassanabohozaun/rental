@@ -279,7 +279,7 @@ class PaymentForm extends Component
         // If editing, we need to handle the case where the current payment is already part of the remaining
         if ($this->isEdit) {
             $payment = Payment::find($this->paymentId);
-            if ($payment && $payment->status === 'paid') {
+            if ($payment && in_array($payment->status, ['paid', 'pending'])) {
                 $remaining += (float)$payment->amount;
             }
         }
@@ -385,10 +385,10 @@ class PaymentForm extends Component
                         $pendingChequesVal += $p->amount;
                     }
                 } else {
-                    if ($p->method === 'cheque' && $p->status === 'pending') {
-                        $pendingChequesVal += $p->amount;
-                    } else {
+                    if ($p->status === 'paid') {
                         $realizedPaid += $p->amount;
+                    } else {
+                        $pendingChequesVal += $p->amount;
                     }
                 }
             }
@@ -435,7 +435,7 @@ class PaymentForm extends Component
         $remaining = (float)$this->financials['remaining'];
         if ($this->isEdit && $this->paymentId) {
             $oldPayment = \App\Models\Payment::find($this->paymentId);
-            if ($oldPayment && $oldPayment->status === 'paid') {
+            if ($oldPayment && in_array($oldPayment->status, ['paid', 'pending'])) {
                 $remaining += (float)$oldPayment->amount;
             }
         }
@@ -615,7 +615,7 @@ class PaymentForm extends Component
         // If editing, we add back the current payment amount to the remaining
         if ($this->isEdit) {
             $oldPayment = Payment::find($this->paymentId);
-            if ($oldPayment && $oldPayment->status === 'paid') {
+            if ($oldPayment && in_array($oldPayment->status, ['paid', 'pending'])) {
                 $remaining += (float)$oldPayment->amount;
             }
         }
