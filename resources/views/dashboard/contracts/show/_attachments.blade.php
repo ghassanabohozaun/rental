@@ -12,7 +12,7 @@
                     <thead class="bg-light">
                         <tr class="text-muted" style="font-size: 15px;">
                             <th class="border-top-0 py-2">#</th>
-                            <th class="border-top-0 py-2">{!! __('general.name') !!}</th>
+                            <th class="border-top-0 py-2">{!! __('properties.attachment_name') !!}</th>
                             <th class="border-top-0 py-2 text-center">{!! __('general.actions') !!}</th>
                         </tr>
                     </thead>
@@ -23,9 +23,8 @@
                                 <td class="py-2">{!! $attachment->name ?? __('properties.attachment') . ' ' . $loop->iteration !!}</td>
                                 <td class="py-2 text-center">
                                     <a href="{!! Storage::disk('contracts')->url($attachment->file) !!}" target="_blank"
-                                        class="btn btn-sm btn-light-info radius-10">
-                                        <i class="fas fa-external-link-alt mr-1"></i>
-                                        <span>{!! __('general.show') !!}</span>
+                                        class="btn btn-sm btn-light-info radius-10" title="{!! __('general.show') !!}">
+                                        <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </td>
                             </tr>
