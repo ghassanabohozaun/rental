@@ -115,6 +115,11 @@
                                         <i class="fas fa-users"></i> {!! __('contracts.contract_parties') !!}
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="attachments-tab" data-toggle="tab" href="#attachments" role="tab">
+                                        <i class="fas fa-paperclip"></i> {!! __('properties.attachments') !!}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -125,6 +130,7 @@
                             @include('dashboard.contracts.show._terms')
                             @include('dashboard.contracts.show._property')
                             @include('dashboard.contracts.show._customer')
+                            @include('dashboard.contracts.show._attachments')
                         </div>
                     </div>
 
