@@ -130,6 +130,7 @@ class PaymentForm extends Component
         $payment = Payment::findOrFail($id);
         
         $this->company_id = $payment->company_id;
+        $this->loadContractsByCompany();
         $this->contract_id = $payment->contract_id;
         $this->customer_id = $payment->customer_id;
         $this->method = $payment->method;
