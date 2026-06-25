@@ -456,6 +456,12 @@ class PaymentForm extends Component
         }
 
         $remaining = (float)$this->financials['remaining'];
+        if ($this->isEdit && $this->paymentId) {
+            $oldPayment = \App\Models\Payment::find($this->paymentId);
+            if ($oldPayment && in_array($oldPayment->status, ['paid', 'pending'])) {
+                $remaining += (float)$oldPayment->amount;
+            }
+        }
         if ($remaining <= 0 && !$this->isEdit) {
             $this->smart_assistant_message = __('payments.smart_assistant.contract_fully_paid');
             return;

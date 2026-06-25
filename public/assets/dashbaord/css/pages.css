@@ -24355,3 +24355,38 @@ html[dir='ltr'] .premium-error-bubble::after {
 .scrollable-table-container::-webkit-scrollbar-thumb:hover {
     background: rgba(67, 97, 238, 0.5) !important;
 }
+
+/* --- Premium Financial Progress Bar Styles (Override) --- */
+.financial-progress-bar-paid {
+    background: linear-gradient(90deg, #059669, #10b981) !important;
+    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.financial-progress-bar-cheques-striped {
+    background: repeating-linear-gradient(
+        45deg,
+        #f59e0b,
+        #f59e0b 10px,
+        #fbbf24 10px,
+        #fbbf24 20px
+    ) !important;
+    opacity: 0.95 !important;
+    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.financial-progress-bar-current-pulse.pulse-blue {
+    background: linear-gradient(90deg, #2563eb, #3b82f6) !important;
+    animation: pulse-width-blue-premium 1.5s infinite alternate !important;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.6), inset 0 -2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+@keyframes pulse-width-blue-premium {
+    0% {
+        box-shadow: 0 0 8px rgba(59, 130, 246, 0.4), inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+        filter: brightness(1);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+        filter: brightness(1.15);
+    }
+}
