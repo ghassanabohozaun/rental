@@ -295,7 +295,10 @@ class ContractsController extends Controller
                 
                 foreach ($utilities as $index => $utility) {
                     $rowIdx = $index + 1;
+                    $unitName = is_array($utility['name'] ?? null) ? ($utility['name']['ar'] ?? '') : ($utility['name'] ?? '');
+
                     $template->setValue('meter_index#' . $rowIdx, $rowIdx);
+                    $template->setValue('unit_name#' . $rowIdx, $unitName);
                     $template->setValue('electricity_number#' . $rowIdx, $utility['electricity_account_number'] ?? '');
                     $template->setValue('water_number#' . $rowIdx, $utility['water_account_number'] ?? '');
                     $template->setValue('unit_rent_amount#' . $rowIdx, $utility['unit_rent_amount'] ?: ($contract->rent_amount ?? ''));
@@ -304,6 +307,7 @@ class ContractsController extends Controller
                 
                 if (count($utilities) == 0) {
                     $template->setValue('meter_index#1', '1');
+                    $template->setValue('unit_name#1', '');
                     $template->setValue('electricity_number#1', '');
                     $template->setValue('water_number#1', '');
                     $template->setValue('unit_rent_amount#1', $contract->rent_amount ?? '');

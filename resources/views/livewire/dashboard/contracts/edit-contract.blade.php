@@ -900,7 +900,7 @@
                                                         @foreach ($utilities_data as $index => $utility)
                                                             <div
                                                                 class="row utility-row {{ !$loop->last ? 'border-bottom pb-3 mb-3' : '' }}">
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-4">
                                                                     <div class="premium-form-group">
                                                                         <label
                                                                             class="premium-label">{!! __('contracts.unit_name') !!}</label>
@@ -928,16 +928,8 @@
                                                                             class="form-control premium-input shadow-none">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2">
-                                                                    <div class="premium-form-group">
-                                                                        <label
-                                                                            class="premium-label">{!! __('contracts.unit_rent_amount') !!}</label>
-                                                                        <input type="number"
-                                                                            wire:model="utilities_data.{{ $index }}.unit_rent_amount"
-                                                                            class="form-control premium-input shadow-none">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
+
+                                                                <div class="col-md-4">
                                                                     <div class="premium-form-group">
                                                                         <label
                                                                             class="premium-label">{!! __('contracts.unit_deposit_amount') !!}</label>

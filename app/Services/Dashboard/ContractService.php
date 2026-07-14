@@ -44,9 +44,11 @@ class ContractService
 
         $contract = $this->repository->create($data);
 
-        // Automatically update property status to 'Rented'
+        // Automatically update property status to 'Rented' (includes child units)
         if ($contract && $contract->property_id) {
-            $contract->property->update(['property_status_id' => 2]);
+            \App\Models\Property::where('id', $contract->property_id)
+                ->orWhere('parent_id', $contract->property_id)
+                ->update(['property_status_id' => 2]);
         }
 
         // Handle Insurance Cheque Creation

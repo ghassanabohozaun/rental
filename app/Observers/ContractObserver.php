@@ -8,12 +8,23 @@ use App\Models\Property;
 class ContractObserver
 {
     /**
+     * Helper method to update a property and all its child units.
+     */
+    protected function setPropertyStatus($propertyId, $statusId): void
+    {
+        if ($propertyId) {
+            Property::where('id', $propertyId)
+                ->orWhere('parent_id', $propertyId)
+                ->update(['property_status_id' => $statusId]);
+        }
+    }
+    /**
      * Handle the Contract "created" event.
      */
     public function created(Contract $contract): void
     {
         if ($contract->property_id && $contract->status !== 'cancelled') {
-            Property::where('id', $contract->property_id)->update(['property_status_id' => 2]); // Rented
+            $this->setPropertyStatus($contract->property_id, 2); // Rented
         }
 
         // Notify Admins about new contract
@@ -39,18 +50,18 @@ class ContractObserver
             $newPropertyId = $contract->property_id;
 
             if ($oldPropertyId) {
-                Property::where('id', $oldPropertyId)->update(['property_status_id' => 1]); // Available
+                $this->setPropertyStatus($oldPropertyId, 1); // Available
             }
 
             if ($newPropertyId && $contract->status !== 'cancelled') {
-                Property::where('id', $newPropertyId)->update(['property_status_id' => 2]); // Rented
+                $this->setPropertyStatus($newPropertyId, 2); // Rented
             }
         }
 
         // 2. Check if the contract status changed (e.g., active -> ended or cancelled)
         if ($contract->wasChanged('status')) {
             if (in_array($contract->status, ['ended', 'cancelled']) && $contract->property_id) {
-                Property::where('id', $contract->property_id)->update(['property_status_id' => 1]); // Available
+                $this->setPropertyStatus($contract->property_id, 1); // Available
                 
                 // Notify admins about cancellation
                 if ($contract->status === 'cancelled') {
@@ -65,7 +76,7 @@ class ContractObserver
                     );
                 }
             } elseif ($contract->status === 'active' && $contract->property_id) {
-                Property::where('id', $contract->property_id)->update(['property_status_id' => 2]); // Rented
+                $this->setPropertyStatus($contract->property_id, 2); // Rented
                 
                 // Notify admins about reactivation
                 notifyAdmins(
@@ -93,7 +104,7 @@ class ContractObserver
 
         // Reset property status to Available
         if ($contract->property_id) {
-            Property::where('id', $contract->property_id)->update(['property_status_id' => 1]); // Available
+            $this->setPropertyStatus($contract->property_id, 1); // Available
         }
     }
 
@@ -103,7 +114,7 @@ class ContractObserver
     public function restored(Contract $contract): void
     {
         if ($contract->property_id && $contract->status !== 'cancelled') {
-            Property::where('id', $contract->property_id)->update(['property_status_id' => 2]); // Rented
+            $this->setPropertyStatus($contract->property_id, 2); // Rented
         }
     }
 }

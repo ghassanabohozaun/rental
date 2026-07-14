@@ -257,8 +257,7 @@
                                         <div class="col-xl-3 col-lg-6 mb-2">
                                             <div
                                                 class="premium-form-group @error('electricity_account_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.electricity_account_number') !!} <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="premium-label">{!! __('properties.electricity_account_number') !!}</label>
                                                 <input type="text" wire:model.defer="electricity_account_number"
                                                     class="form-control premium-input shadow-none" autocomplete="off"
                                                     placeholder="{!! __('properties.enter_electricity_account') !!}">
@@ -271,8 +270,7 @@
                                         <div class="col-xl-3 col-lg-6 mb-2">
                                             <div
                                                 class="premium-form-group @error('water_account_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.water_account_number') !!} <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="premium-label">{!! __('properties.water_account_number') !!}</label>
                                                 <input type="text" wire:model.defer="water_account_number"
                                                     class="form-control premium-input shadow-none" autocomplete="off"
                                                     placeholder="{!! __('properties.enter_water_account') !!}">
