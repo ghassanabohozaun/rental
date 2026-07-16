@@ -78,6 +78,9 @@ return [
     'all_amounts_are_without_currency' => 'جميع الأرقام معروضة بدون عملات',
     'max_allowed_is' => 'الحد الأقصى المسموح به هو',
     'cash_success_message' => 'تم تسييل الدفعة بنجاح وتحويلها إلى مقبوضة.',
+    'confirm_cash_title' => 'تأكيد تحصيل الدفعة',
+    'confirm_cash_text' => 'هل أنت متأكد أنك تريد تحصيل هذه الدفعة وتغيير حالتها إلى مدفوعة؟',
+    'cash_payment' => 'تحصيل الدفعة',
     
     // Smart assistant messages
     'smart_assistant' => [

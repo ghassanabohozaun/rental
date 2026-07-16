@@ -323,7 +323,7 @@ class PaymentForm extends Component
             $this->selectedChequeDetails = null;
             $this->status = '';
         }
-        if ($value !== 'bank') {
+        if (!in_array($value, ['bank', 'online'])) {
             $this->company_bank_account_id = null;
         }
         $this->calculateProjected();
@@ -565,7 +565,7 @@ class PaymentForm extends Component
             $rules['cheque_id'] = 'required|exists:cheques,id';
         }
 
-        if ($this->method === 'bank') {
+        if (in_array($this->method, ['bank', 'online'])) {
             $rules['company_bank_account_id'] = 'required|exists:company_bank_accounts,id';
         }
 
@@ -581,7 +581,7 @@ class PaymentForm extends Component
             }
 
             $validatedData['customer_id'] = $this->customer_id;
-            $validatedData['company_bank_account_id'] = $this->method === 'bank' ? $this->company_bank_account_id : null;
+            $validatedData['company_bank_account_id'] = in_array($this->method, ['bank', 'online']) ? $this->company_bank_account_id : null;
 
             // Custom Validation
             $this->validateBalance($validatedData['amount']);

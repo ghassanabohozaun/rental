@@ -184,8 +184,14 @@
                                         @forelse($actionableCheques as $cheque)
                                             <tr>
                                                 <td>
-                                                    <div class="font-weight-bold text-dark">{!! $cheque->cheque_number !!}</div>
-                                                    <small class="text-muted">{!! optional($cheque->customer)->name !!}</small>
+                                                    <div class="font-weight-bold text-dark">#{!! $cheque->cheque_number !!}</div>
+                                                    @php
+                                                        $customer = optional($cheque->customer);
+                                                    @endphp
+                                                    <small class="text-muted">
+                                                        {!! $customer->company_name ? $customer->company_name . ' - ' : '' !!}{!! $customer->name !!} 
+                                                        (<span dir="ltr">{!! $customer->phone ?? '---' !!}</span>)
+                                                    </small>
                                                 </td>
                                                 <td>
                                                     <span class="text-success font-weight-bold">{!! number_format($cheque->amount, 0) !!}
@@ -195,8 +201,7 @@
                                                     @php
                                                         $isOverdue = $cheque->due_date < now()->startOfDay();
                                                     @endphp
-                                                    <span
-                                                        class="{{ $isOverdue ? 'status-badge-urgent' : 'status-badge-upcoming' }}">
+                                                    <span class="badge {{ $isOverdue ? 'badge-light-danger' : 'badge-light-warning' }}" style="font-size: 0.8rem; padding: 5px 10px;">
                                                         {!! $cheque->due_date->format('Y-m-d') !!}
                                                     </span>
                                                 </td>
@@ -276,8 +281,11 @@
                                         @forelse($expiringContracts as $contract)
                                             <tr>
                                                 <td>
-                                                    <div class="font-weight-bold text-dark">{!! optional($contract->customer)->name !!}</div>
-                                                    <small class="text-muted">{!! optional($contract->customer)->phone !!}</small>
+                                                    @php $customer = optional($contract->customer); @endphp
+                                                    <div class="font-weight-bold text-dark">
+                                                        {!! $customer->company_name ? $customer->company_name . ' - ' : '' !!}{!! $customer->name !!}
+                                                    </div>
+                                                    <small class="text-muted"><span dir="ltr">{!! $customer->phone ?? '---' !!}</span></small>
                                                 </td>
                                                 <td>{!! optional($contract->property)->name !!}</td>
                                                 <td>
@@ -309,6 +317,81 @@
                                                     <i class="fas fa-shield-check text-success mb-2"
                                                         style="font-size: 2rem;"></i><br>
                                                     {!! __('dashboard.no_expiring_contracts') ?? 'لا يوجد عقود تنتهي خلال الـ 60 يوماً القادمة.' !!}
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actionable Payments -->
+            <div class="row animate-up mt-2">
+                <div class="col-12 mb-2">
+                    <div class="premium-glass-card h-100">
+                        <div class="alert-header-gradient d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 font-weight-bold text-dark">
+                                <i class="fas fa-hand-holding-usd text-success mr-2"></i> {!! __('dashboard.actionable_payments') ?? 'دفعات تتطلب إجراء' !!}
+                            </h5>
+                            <span class="badge badge-success badge-pill">{{ $actionablePayments->count() }}</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="scrollable-table-container">
+                                <table class="table actionable-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>{!! __('customers.customer') !!}</th>
+                                            <th>{!! __('payments.amount') !!}</th>
+                                            <th>{!! __('payments.payment_date') !!}</th>
+                                            <th class="text-center">{!! __('general.actions') !!}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($actionablePayments as $payment)
+                                            <tr>
+                                                <td>
+                                                    @php 
+                                                        $customer = optional(optional($payment->contract)->customer); 
+                                                        $property = optional(optional($payment->contract)->property);
+                                                    @endphp
+                                                    <div class="font-weight-bold text-dark">
+                                                        {!! $customer->company_name ? $customer->company_name . ' - ' : '' !!}{!! $customer->name !!}
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span dir="ltr">{!! $customer->phone ?? '---' !!}</span> | {!! $property->name ?? '---' !!}
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <span class="text-success font-weight-bold">{!! number_format($payment->amount, 0) !!} {!! currency() !!}</span>
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $isOverdue = $payment->payment_date < now()->startOfDay();
+                                                    @endphp
+                                                    <span class="badge {{ $isOverdue ? 'badge-light-danger' : 'badge-light-warning' }}" style="font-size: 0.8rem; padding: 5px 10px;">
+                                                        {!! $payment->payment_date->format('Y-m-d') !!}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        @can('payments_update')
+                                                            <a href="{!! route('dashboard.payments.edit', $payment->id) !!}"
+                                                                class="btn-premium-action btn-premium-action-edit mr-1"
+                                                                title="{!! __('general.edit') !!}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center p-5 text-muted">
+                                                    <i class="fas fa-check-circle text-success mb-2" style="font-size: 2rem;"></i><br>
+                                                    {!! __('dashboard.no_actionable_payments') ?? 'لا توجد دفعات متأخرة أو مستحقة قريباً. العمل ممتاز!' !!}
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -460,6 +543,66 @@
                         $.ajax({
                             url: "{{ route('dashboard.cheques.cash', ':id') }}".replace(
                                 ':id', chequeId),
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    swal.stopLoading();
+                                    swal.close();
+                                    if (typeof flasher !== 'undefined') {
+                                        flasher.success(response.message);
+                                    }
+                                    setTimeout(() => window.location.reload(), 1000);
+                                } else {
+                                    swal.stopLoading();
+                                    swal.close();
+                                    if (typeof flasher !== 'undefined') {
+                                        flasher.error(response.message);
+                                    }
+                                }
+                            },
+                            error: function(xhr) {
+                                swal.stopLoading();
+                                swal.close();
+                                if (typeof flasher !== 'undefined') {
+                                    flasher.error(xhr.responseJSON ? xhr.responseJSON
+                                        .message : 'Error');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Cash Payment Action
+            $(document).on('click', '.btn-cash-payment', function() {
+                let btn = $(this);
+                let paymentId = btn.attr('data-id');
+                swal({
+                    title: '{!! __('payments.confirm_cash_title') ?? 'تأكيد التحصيل' !!}',
+                    text: '{!! __('payments.confirm_cash_text') ?? 'هل أنت متأكد أنك تريد تحصيل هذه الدفعة؟' !!}',
+                    icon: 'info',
+                    buttons: {
+                        cancel: {
+                            text: '{!! __('general.no') !!}',
+                            visible: true,
+                            closeModal: true
+                        },
+                        confirm: {
+                            text: '{!! __('general.yes') !!}',
+                            value: true,
+                            visible: true,
+                            className: "btn-success",
+                            closeModal: false
+                        }
+                    }
+                }).then((isConfirm) => {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "{{ route('dashboard.payments.cash', ':id') }}".replace(
+                                ':id', paymentId),
                             type: 'POST',
                             data: {
                                 _token: '{{ csrf_token() }}'

@@ -96,6 +96,15 @@ class DashboardController extends Controller
             ->limit(50)
             ->get();
 
+        // C. Actionable Payments (Pending or Overdue or Due within 7 Days)
+        $actionablePayments = (clone $paymentsQuery)
+            ->with(['contract.customer', 'contract.property'])
+            ->where('status', 'pending')
+            ->where('payment_date', '<=', Carbon::now()->addDays(7))
+            ->orderBy('payment_date', 'asc')
+            ->limit(50)
+            ->get();
+
         return view('dashboard.home.index', compact(
             'title', 
             'stats', 
@@ -103,7 +112,8 @@ class DashboardController extends Controller
             'occupancyChart', 
             'financialChart',
             'expiringContracts',
-            'actionableCheques'
+            'actionableCheques',
+            'actionablePayments'
         ));
     }
 }

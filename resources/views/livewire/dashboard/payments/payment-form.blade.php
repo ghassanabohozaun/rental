@@ -243,7 +243,7 @@
                                                     </div>
                                                 @endif
 
-                                                @if($method === 'bank')
+                                                @if(in_array($method, ['bank', 'online']))
                                                     <div class="col-md-12 mb-2" wire:key="bank-select-container-{{ $validation_fail_nonce }}">
                                                         <div class="premium-form-group @error('company_bank_account_id') is-invalid-premium @enderror">
                                                             <label class="premium-label font-weight-bold">{!! __('cheques.company_bank_account') !!} <span class="text-danger">*</span></label>
