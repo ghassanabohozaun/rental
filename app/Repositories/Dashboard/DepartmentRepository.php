@@ -29,7 +29,7 @@ class DepartmentRepository
             ->filter(['keyword' => $keyword, 'company_id' => $company_id], ['name'], ['company_id'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination(request(), $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     // get active all

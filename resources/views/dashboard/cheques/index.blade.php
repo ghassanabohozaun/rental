@@ -194,6 +194,19 @@
             }
         }
 
+        function reloadCurrentPageAjax() {
+            let params = new URLSearchParams(window.location.search);
+            let page = params.get('page') || 1;
+            let $filterForm = $('.js-filter-form').first();
+            
+            if ($filterForm.length) {
+                // Use the built-in filter system which supports extraData.page
+                $filterForm.trigger('submit', { page: page });
+            } else {
+                window.location.reload();
+            }
+        }
+
         $(document).ready(function() {
             // Initialize AJAX Table
             if (typeof initIndexTable === "function") {
@@ -249,8 +262,7 @@
                                     if (typeof flasher !== 'undefined') {
                                         flasher.success(response.message);
                                     }
-                                    $('.js-filter-form')
-                                .submit(); // Standard reload via filter form
+                                    reloadCurrentPageAjax();
                                 } else {
                                     swal.stopLoading();
                                     swal.close();
@@ -312,8 +324,7 @@
                                     if (typeof flasher !== 'undefined') {
                                         flasher.success(response.message);
                                     }
-                                    $('.js-filter-form')
-                                .submit(); // Standard reload via filter form
+                                    reloadCurrentPageAjax();
                                 } else {
                                     swal.stopLoading();
                                     swal.close();
@@ -356,7 +367,7 @@
                                 if (response.status || response.success) {
                                     swal.stopLoading(); swal.close();
                                     if (typeof flasher !== 'undefined') flasher.success(response.message);
-                                    $('.js-filter-form').submit();
+                                    reloadCurrentPageAjax();
                                 } else {
                                     swal.stopLoading(); swal.close();
                                     if (typeof flasher !== 'undefined') flasher.error(response.message);
@@ -393,7 +404,7 @@
                                 if (response.status || response.success) {
                                     swal.stopLoading(); swal.close();
                                     if (typeof flasher !== 'undefined') flasher.success(response.message);
-                                    $('.js-filter-form').submit();
+                                    reloadCurrentPageAjax();
                                 } else {
                                     swal.stopLoading(); swal.close();
                                     if (typeof flasher !== 'undefined') flasher.error(response.message);

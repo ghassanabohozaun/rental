@@ -23,7 +23,7 @@ class MaintenanceRepository
             ->filter($request->only(['keyword', 'company_id', 'property_id', 'status']), ['description', 'cost', 'date'], ['company_id', 'property_id', 'status'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     public function find($id)

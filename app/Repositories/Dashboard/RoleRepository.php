@@ -34,7 +34,7 @@ class RoleRepository
             ->filter($request->only(['keyword', 'company_id']), ['name'], ['company_id'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     /**

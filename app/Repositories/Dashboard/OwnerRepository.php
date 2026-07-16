@@ -23,7 +23,7 @@ class OwnerRepository
             ->filter($request->only(['keyword', 'company_id']), ['name', 'phone', 'identification_number', 'address', 'type'], ['company_id'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     public function find($id)

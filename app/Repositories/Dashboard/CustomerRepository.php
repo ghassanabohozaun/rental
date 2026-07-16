@@ -23,7 +23,7 @@ class CustomerRepository
             ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type', 'id_number']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type', 'id_number'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     public function find($id)

@@ -30,7 +30,7 @@ class UserRepository
             ->filter($request->only(['keyword', 'company_id']), ['name', 'email'], ['company_id'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     // store user

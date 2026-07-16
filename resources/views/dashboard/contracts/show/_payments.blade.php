@@ -19,9 +19,9 @@
             @endif
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="scrollable-table-container" style="max-height: 350px; overflow-y: auto; overflow-x: auto;">
                 <table class="table table-hover mb-0">
-                    <thead class="bg-light">
+                    <thead class="bg-light" style="position: sticky; top: 0; z-index: 1;">
                         <tr class="text-muted" style="font-size: 15px;">
                             <th class="border-top-0 py-2">#</th>
                             <th class="border-top-0 py-2">{!! __('general.date') !!}</th>
@@ -29,10 +29,11 @@
                             <th class="border-top-0 py-2">{!! __('payments.method') !!}</th>
                             <th class="border-top-0 py-2 text-center">{!! __('payments.payment_type') !!}</th>
                             <th class="border-top-0 py-2 text-center">{!! __('payments.status') !!}</th>
+                            <th class="border-top-0 py-2" style="min-width: 150px;">{!! __('general.notes') !!}</th>
                         </tr>
                     </thead>
                     <tbody style="font-size: 15px;">
-                        @forelse($contract->payments as $payment)
+                        @forelse($contract->payments->sortByDesc('payment_date') as $payment)
                             <tr>
                                 <td class="py-2">#{!! $loop->iteration !!}</td>
                                 <td class="py-2">{!! $payment->payment_date->format('Y-m-d') !!}</td>
@@ -58,10 +59,16 @@
                                         {!! $payment->status_label !!}
                                     </span>
                                 </td>
+                                <td class="py-2">
+                                    <span class="text-muted" style="font-size: 0.85rem;"
+                                        title="{!! $payment->notes !!}">
+                                        {!! \Illuminate\Support\Str::limit($payment->notes, 60, '...') ?? '---' !!}
+                                    </span>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <i
                                         class="fas fa-money-bill-wave font-large-1 text-muted d-block mb-2 opacity-50"></i>
                                     <span class="text-muted">{!! __('general.no_data_found') !!}</span>

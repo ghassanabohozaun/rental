@@ -27,7 +27,7 @@ class CompanyBankAccountRepository
             ->filter($request->only(['keyword']), ['bank_name', 'account_holder_name', 'account_number', 'iban'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     public function find($id)

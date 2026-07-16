@@ -23,7 +23,7 @@ class GuarantorRepository
             ->filter($request->only(['keyword', 'company_id']), ['name', 'phone', 'id_number', 'address'], ['company_id'])
             ->orderByDesc('id');
 
-        return $this->applyAjaxPagination($request, $query);
+        return $this->applyAjaxPagination($request, $query, 20);
     }
 
     public function find($id)
