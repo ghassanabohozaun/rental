@@ -64,6 +64,7 @@ use Illuminate\Support\Facades\Storage;
                 'identification_number' => $owner->identification_number,
                 'phone' => $owner->phone,
                 'percentage' => $owner->pivot->ownership_percentage,
+                'shares' => round($owner->pivot->ownership_percentage * 24),
                 'is_primary' => (bool)$owner->pivot->is_primary
             ];
         }
@@ -111,6 +112,17 @@ use Illuminate\Support\Facades\Storage;
             }
         }
 
+        $currentTotal = collect($this->property_owners)->sum('percentage');
+        $remaining = max(0, 100 - $currentTotal);
+        
+        $newPercentage = $data['percentage'] ?? (count($this->property_owners) === 0 ? 100 : 0);
+        $newPercentage = is_numeric($newPercentage) ? (float)$newPercentage : 0;
+        
+        if ($newPercentage > $remaining) {
+            $newPercentage = $remaining;
+            $this->dispatch('notify', message: __('properties.percentage_must_be_100'), type: 'warning');
+        }
+
         // Add to the beginning of the array
         array_unshift($this->property_owners, [
             'owner_id' => $data['owner_id'],
@@ -122,11 +134,61 @@ use Illuminate\Support\Facades\Storage;
             'email' => $data['email'] ?? null,
             'address' => $data['address'] ?? null,
             'notes' => $data['notes'] ?? null,
-            'percentage' => $data['percentage'] ?? '',
-            'is_primary' => $data['is_primary'] ?? (count($this->property_owners) === 0)
+            'percentage' => $newPercentage,
+            'shares' => round($newPercentage * 24),
+            'is_primary' => !empty($data['is_primary']) ? true : (count($this->property_owners) === 0)
         ]);
 
         $this->dispatch('notify', message: __('properties.owner_row_added'), type: 'success');
+    }
+
+    public function updated($name, $value)
+    {
+        if (str_starts_with($name, 'property_owners.')) {
+            $parts = explode('.', $name);
+            if (count($parts) === 3) {
+                $index = $parts[1];
+                $field = $parts[2];
+
+                if ($field === 'percentage') {
+                    $val = is_numeric($value) ? (float)$value : 0;
+                    if ($val < 0) $val = 0;
+                    if ($val > 100) $val = 100;
+
+                    $otherTotal = 0;
+                    foreach ($this->property_owners as $k => $owner) {
+                        if ($k != $index) $otherTotal += (float)($owner['percentage'] ?? 0);
+                    }
+                    
+                    $maxAllowed = max(0, 100 - $otherTotal);
+                    if ($val > $maxAllowed) {
+                        $val = $maxAllowed;
+                        $this->dispatch('notify', message: __('properties.percentage_must_be_100'), type: 'warning');
+                    }
+
+                    $this->property_owners[$index]['percentage'] = $val;
+                    $this->property_owners[$index]['shares'] = round($val * 24);
+                } elseif ($field === 'shares') {
+                    $val = is_numeric($value) ? (float)$value : 0;
+                    if ($val < 0) $val = 0;
+                    if ($val > 2400) $val = 2400;
+
+                    $otherTotalShares = 0;
+                    foreach ($this->property_owners as $k => $owner) {
+                        if ($k != $index) $otherTotalShares += (float)($owner['shares'] ?? 0);
+                    }
+                    
+                    $maxAllowedShares = max(0, 2400 - $otherTotalShares);
+                    if ($val > $maxAllowedShares) {
+                        $val = $maxAllowedShares;
+                        $this->dispatch('notify', message: __('properties.percentage_must_be_100'), type: 'warning');
+                    }
+
+                    $this->property_owners[$index]['shares'] = $val;
+                    $this->property_owners[$index]['percentage'] = round($val / 24, 2);
+                }
+            }
+        }
     }
 
     public function openOwnerModal()
@@ -138,6 +200,10 @@ use Illuminate\Support\Facades\Storage;
             return;
         }
 
+        $currentTotal = collect($this->property_owners)->sum('percentage');
+        $remaining = max(0, 100 - $currentTotal);
+
+        $this->dispatch('set-quick-percentage', percentage: $remaining);
         $this->dispatch('open-modal', 'quick-owner-modal');
     }
 
@@ -245,6 +311,7 @@ use Illuminate\Support\Facades\Storage;
         if ($totalPercentage != 100) {
             $this->dispatch('rowAdded'); // Re-init Select2
             $this->addError('property_owners_total', __('properties.percentage_must_be_100'));
+            $this->dispatch('notify', message: __('properties.percentage_must_be_100'), type: 'error');
             return;
         }
 

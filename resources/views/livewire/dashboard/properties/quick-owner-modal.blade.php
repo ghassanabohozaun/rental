@@ -177,9 +177,9 @@
                             </div>
                         </div>
 
-                        <div class="row align-items-center">
+                        <div class="row align-items-center" x-data="{ perc: @entangle('quick_percentage') }" x-on:set-quick-percentage.window="perc = $event.detail.percentage" x-effect="let s = document.getElementById('quick_shares'); if(s) s.value = Math.round((parseFloat(perc) || 0) * 24)">
                             <!-- Is Primary -->
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-4 mb-2">
                                 <div class="premium-form-group">
                                     <label class="font-weight-bold d-none d-md-block" style="opacity: 0; user-select: none;">{!! __('properties.is_primary') !!}</label>
                                     <label class="d-flex align-items-center form-control premium-input shadow-none mb-0 w-100" 
@@ -196,14 +196,25 @@
                                 </div>
                             </div>
                             <!-- Ownership Percentage -->
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-4 mb-2">
                                 <div class="premium-form-group @error('quick_percentage') is-invalid-premium @enderror">
-                                    <label class="font-weight-bold">{!! __('properties.ownership_percentage') !!}</label>
-                                    <input type="number" step="0.01" min="0" max="100" wire:model.defer="quick_percentage"
-                                        class="form-control premium-input shadow-none" placeholder="0.00" autocomplete="off">
+                                    <label class="font-weight-bold">{!! __('properties.percentage') !!}</label>
+                                    <input type="number" step="0.01" min="0" max="100" wire:model.defer="quick_percentage" id="quick_perc"
+                                        oninput="if(this.value > 100) this.value = 100; if(this.value < 0) this.value = 0; let s = document.getElementById('quick_shares'); if(s) s.value = Math.round((parseFloat(this.value) || 0) * 24);"
+                                        class="form-control premium-input shadow-none text-center" placeholder="0.00" autocomplete="off">
                                     @error('quick_percentage')
                                         <span class="text-danger error-text">{{ $message }}</span>
                                     @enderror
+                                </div>
+                            </div>
+                            <!-- Shares -->
+                            <div class="col-md-4 mb-2">
+                                <div class="premium-form-group">
+                                    <label class="font-weight-bold">{!! __('properties.shares') !!}</label>
+                                    <input type="number" step="1" min="0" max="2400" id="quick_shares"
+                                        oninput="if(this.value > 2400) this.value = 2400; if(this.value < 0) this.value = 0;"
+                                        x-on:input="perc = ($event.target.value / 24).toFixed(2)"
+                                        class="form-control premium-input shadow-none text-center" placeholder="0" autocomplete="off">
                                 </div>
                             </div>
                         </div>

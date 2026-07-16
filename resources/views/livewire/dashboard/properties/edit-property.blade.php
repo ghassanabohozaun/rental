@@ -336,8 +336,7 @@
                                                 : 'badge-light-primary badge-glow-primary');
                                 @endphp
                                 <span class="mr-1 font-weight-bold text-muted small">{!! __('properties.total_percentage') !!}:</span>
-                                <span
-                                    class="badge badge-pill {{ $badgeClass }} font-14 py-1 px-2">{{ $total }}%</span>
+                                <span class="badge badge-pill {{ $badgeClass }} font-14 py-1 px-2">{{ $total }}% ({{ round($total * 24) }} حصة)</span>
                             </div>
 
                             <div class="text-center">
@@ -356,11 +355,13 @@
                                             <th class="align-middle py-3 border-top-0">{!! __('properties.owner_name_en') !!}</th>
                                             <th class="align-middle py-3 border-top-0">{!! __('properties.id_number_or_record') !!}</th>
                                             <th class="align-middle py-3 border-top-0">{!! __('properties.phone') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
+                                            <th class="align-middle py-3 border-top-0 text-center" style="width: 110px;">
                                                 {!! __('properties.percentage') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
+                                            <th class="align-middle py-3 border-top-0 text-center" style="width: 120px;">
+                                                {!! __('properties.shares') !!}</th>
+                                            <th class="align-middle py-3 border-top-0 text-center" style="width: 90px;">
                                                 {!! __('properties.is_primary') !!}</th>
-                                            <th class="align-middle py-3 border-top-0 text-center">
+                                            <th class="align-middle py-3 border-top-0 text-center" style="width: 60px;">
                                                 <i class="fas fa-trash-alt header-trash-icon"></i>
                                             </th>
                                         </tr>
@@ -389,8 +390,8 @@
                                                 <td class="align-middle text-center">
                                                     <div class="premium-form-group mb-0 mx-auto @error("property_owners.$index.percentage") is-invalid-premium @enderror"
                                                         style="max-width: 100px;">
-                                                        <input type="number" step="0.01"
-                                                            wire:model.blur="property_owners.{{ $index }}.percentage"
+                                                        <input type="number" step="0.01" id="perc_edit_{{ $index }}" min="0" max="100"
+                                                            wire:model.live.debounce.250ms="property_owners.{{ $index }}.percentage"
                                                             class="form-control premium-input shadow-none text-center compact-input"
                                                             autocomplete="off"
                                                             style="height: 32px !important; font-size: 0.9rem;"
@@ -399,6 +400,16 @@
                                                             <span class="text-danger error-text d-block mt-1"
                                                                 style="font-size: 0.7rem;">{{ $message }}</span>
                                                         @enderror
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <div class="premium-form-group mb-0 mx-auto" style="max-width: 110px;">
+                                                        <input type="number" step="1" id="shares_edit_{{ $index }}" min="0" max="2400"
+                                                            wire:model.live.debounce.250ms="property_owners.{{ $index }}.shares"
+                                                            class="form-control premium-input shadow-none text-center compact-input"
+                                                            autocomplete="off"
+                                                            style="height: 32px !important; font-size: 0.9rem;"
+                                                            placeholder="0">
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">

@@ -22,7 +22,7 @@ return [
     'no_owners_found' => 'عذراً، لم يتم العثور على أي ملاك!',
     'cannot_delete_has_properties' => 'لا يمكن حذف المالك لأنه مرتبط بعقارات حالية.',
     'owner_name' => 'اسم المالك',
-    'ownership_percentage' => 'نسبة الملكية',
+    'ownership_percentage' => 'نسبة / حصص الملكية',
     'is_primary' => 'مالك أساسي',
     'manage_owners' => 'إدارة الملاك',
     'no_owners_assigned' => 'لا يوجد ملاك مرتبطين بهذا العقار حالياً.',

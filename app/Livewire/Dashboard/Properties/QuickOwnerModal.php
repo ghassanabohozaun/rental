@@ -116,13 +116,10 @@ class QuickOwnerModal extends Component
         $this->searchTerm = '';
     }
 
-    public function updatedQuickIsPrimary($value)
+    #[On('set-quick-percentage')]
+    public function setQuickPercentage($percentage)
     {
-        if ($value) {
-            $this->quick_percentage = 100;
-        } else {
-            $this->quick_percentage = 0;
-        }
+        $this->quick_percentage = $percentage;
     }
 
     public function loadOwnerData($id)
