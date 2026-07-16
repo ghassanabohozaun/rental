@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($property->owners as $owner)
+                        @forelse($property->owners->sortByDesc('pivot.created_at') as $owner)
                             <tr>
                                 <td class="px-2 py-1">
                                     <div class="d-flex align-items-center">

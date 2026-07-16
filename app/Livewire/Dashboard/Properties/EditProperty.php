@@ -55,8 +55,9 @@ use Illuminate\Support\Facades\Storage;
         $this->floor = $property->floor;
         $this->company_id = $property->company_id;
 
-        // Load existing owners
-        foreach ($property->owners as $owner) {
+        // Load existing owners from newest to oldest
+        $owners = $property->owners()->orderByPivot('created_at', 'desc')->get();
+        foreach ($owners as $owner) {
             $this->property_owners[] = [
                 'owner_id' => $owner->id,
                 'name_ar' => $owner->getTranslation('name', 'ar', false),
