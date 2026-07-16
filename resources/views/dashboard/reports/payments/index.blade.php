@@ -155,36 +155,21 @@
                 $('#status').val(null).trigger('change');
             });
 
-            // Initialize Multi-select for Payment Methods
-            var $methodSelect = $('#method');
-            $methodSelect.select2({
-                width: '100%',
-                placeholder: "{!! __('reports.payment_method') !!}",
-                allowClear: true,
-                closeOnSelect: false,
-                scrollAfterSelect: false,
-                dir: $('html').attr('data-textdirection') == 'rtl' ? 'rtl' : 'ltr',
-                language: {
-                    noResults: function() {
-                        return "{!! __('general.noResults2') !!}";
-                    }
+            // Toggle Bank Accounts based on Payment Method
+            $('#method').on('change', function() {
+                var method = $(this).val();
+                if (method === 'bank' || method === 'online') {
+                    $('#bank_account_container').show();
+                } else {
+                    $('#bank_account_container').hide();
+                    $('#company_bank_account_id').val(null).trigger('change');
                 }
             });
 
-            $methodSelect.on('select2:select', function(e) {
-                if (e.params.originalEvent) {
-                    e.params.originalEvent.stopPropagation();
-                }
-            });
-
-            // Select All / Deselect All for Methods
-            $('#select_all_methods').on('click', function() {
-                $('#method option').prop('selected', true);
-                $('#method').trigger('change');
-            });
-            $('#deselect_all_methods').on('click', function() {
-                $('#method').val(null).trigger('change');
-            });
+            // Initial check
+            if ($('#method').val() === 'bank' || $('#method').val() === 'online') {
+                $('#bank_account_container').show();
+            }
 
             // Reset button handler
             $('#payments_reset_btn').on('click', function(e) {

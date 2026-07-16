@@ -16,9 +16,12 @@
         <div class="card-body pt-2">
 
             <div class="d-flex justify-content-start mb-3">
-                <div class="custom-control custom-switch custom-switch-info" style="margin-left: 15px; margin-right: 15px;">
-                    <input type="checkbox" class="custom-control-input" id="check_all_columns">
-                    <label class="custom-control-label font-weight-bold cursor-pointer text-nowrap px-3" for="check_all_columns" style="white-space: nowrap;">
+                <div class="d-flex align-items-center" style="margin: 0 15px; gap: 10px;">
+                    <label class="modern-switch mb-0">
+                        <input type="checkbox" id="check_all_columns">
+                        <span class="modern-slider"></span>
+                    </label>
+                    <label for="check_all_columns" class="font-weight-bold cursor-pointer mb-0" style="white-space: nowrap;">
                         {!! __('reports.select_all') !!}
                     </label>
                 </div>
@@ -32,7 +35,7 @@
                     </h5>
                 </div>
                 @foreach ($paymentColumns as $column)
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-3 mb-2 column-wrapper-{{ $column }}">
                         <div class="premium-switch-box shadow-sm">
                             <span class="premium-switch-label">
                                 {!! __('reports.' . $column) !!}
@@ -84,6 +87,31 @@
                     </h5>
                 </div>
                 @foreach ($chequeColumns as $column)
+                    <div class="col-md-3 mb-2">
+                        <div class="premium-switch-box shadow-sm">
+                            <span class="premium-switch-label">
+                                {!! __('reports.' . $column) !!}
+                            </span>
+                            <label class="modern-switch">
+                                <input type="checkbox" name="columns[]" value="{{ $column }}"
+                                    id="column_{{ $column }}" class="column-checkbox">
+                                <span class="modern-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <hr class="my-2" style="border-top: 1px dashed #E5E7EB;" />
+
+            <!-- Bank Account Columns -->
+            <div class="row" id="bank_account_columns_section">
+                <div class="col-md-12">
+                    <h5 class="premium-section-title premium-section-title-blue" style="border-left-color: #8B5CF6;">
+                        <i class="fas fa-university text-purple"></i> {!! __('bank_accounts.bank_accounts') !!}
+                    </h5>
+                </div>
+                @foreach ($bankAccountColumns as $column)
                     <div class="col-md-3 mb-2">
                         <div class="premium-switch-box shadow-sm">
                             <span class="premium-switch-label">

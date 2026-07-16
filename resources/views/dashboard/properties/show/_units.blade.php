@@ -7,9 +7,9 @@
             </h5>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive" @if($property->units->count() > 15) style="max-height: 650px; overflow-y: auto;" @endif>
+            <div class="scrollable-table-container custom-scrollbar" style="max-height: 350px; overflow-y: auto; overflow-x: auto;">
                 <table class="table table-hover mb-0">
-                    <thead class="bg-light" @if($property->units->count() > 15) style="position: sticky; top: 0; z-index: 2; background: #f8f9fa;" @endif>
+                    <thead class="bg-light" style="position: sticky; top: 0; z-index: 2; background: #f8f9fa;">
                         <tr class="text-muted" style="font-size: 14px;">
                             <th class="border-top-0">#</th>
                             <th class="border-top-0">{!! __('properties.property') !!}</th>

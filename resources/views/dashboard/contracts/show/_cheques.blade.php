@@ -19,9 +19,9 @@
             @endif
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="scrollable-table-container custom-scrollbar" style="max-height: 350px; overflow-y: auto; overflow-x: auto;">
                 <table class="table table-hover mb-0">
-                    <thead class="bg-light">
+                    <thead class="bg-light" style="position: sticky; top: 0; z-index: 2; background: #f8f9fa;">
                         <tr class="text-muted" style="font-size: 15px;">
                             <th class="border-top-0 py-2">{!! __('cheques.cheque_number') !!}</th>
                             <th class="border-top-0 py-2">{!! __('cheques.bank_name') !!}</th>

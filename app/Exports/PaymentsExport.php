@@ -42,7 +42,7 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
     {
         $locale = app()->getLocale();
 
-        return Payment::with(['contract.property', 'contract.customer', 'cheque'])
+        return Payment::with(['contract.property', 'contract.customer', 'cheque', 'companyBankAccount'])
             // Company isolation
             ->when(user()->company_id != 1, function ($query) {
                 $query->whereHas('contract', function($q) {
@@ -60,9 +60,13 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
                     $q->whereIn('customer_id', $this->filters['customer_id']);
                 });
             })
-            // Payment method multi-select
+            // Payment method single-select
             ->when(!empty($this->filters['method']), function ($query) {
-                $query->whereIn('method', $this->filters['method']);
+                $query->where('method', $this->filters['method']);
+                // Bank Account filter only applies if method is bank or online
+                if (($this->filters['method'] === 'bank' || $this->filters['method'] === 'online') && !empty($this->filters['company_bank_account_id'])) {
+                    $query->where('company_bank_account_id', $this->filters['company_bank_account_id']);
+                }
             })
             // Status multi-select
             ->when(!empty($this->filters['status']), function ($query) {
@@ -90,7 +94,6 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
     {
         $items = [];
         $locale = app()->getLocale();
-        $optionalLabel = __('general.optional');
 
         foreach ($this->columns as $column) {
             $val = null;
@@ -102,6 +105,14 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
                 $val = number_format($row->amount, 2);
             } elseif ($column == 'method') {
                 $val = __('payments.methods.' . $row->method);
+            } elseif ($column == 'company_bank_name') {
+                $val = $row->companyBankAccount ? ($row->companyBankAccount->getTranslation('bank_name', $locale) ?: $row->companyBankAccount->bank_name) : null;
+            } elseif ($column == 'company_account_number') {
+                $val = $row->companyBankAccount ? $row->companyBankAccount->account_number : null;
+            } elseif ($column == 'company_account_holder_name') {
+                $val = $row->companyBankAccount ? ($row->companyBankAccount->getTranslation('account_holder_name', $locale) ?: $row->companyBankAccount->account_holder_name) : null;
+            } elseif ($column == 'company_iban') {
+                $val = $row->companyBankAccount ? $row->companyBankAccount->iban : null;
             } elseif ($column == 'reference_number') {
                 $val = $row->reference_number;
             } elseif ($column == 'status') {
@@ -127,7 +138,7 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
             }
 
             if ($val === null || $val === '') {
-                $val = $optionalLabel;
+                $val = '-';
             }
 
             $items[] = $val;
@@ -139,7 +150,7 @@ class PaymentsExport implements WithHeadings, FromCollection, WithMapping, WithC
     public function columnFormats(): array
     {
         $formats = [];
-        $textFormatColumns = ['contract_number', 'reference_number', 'cheque_number'];
+        $textFormatColumns = ['contract_number', 'reference_number', 'cheque_number', 'company_account_number', 'company_iban'];
         
         foreach ($this->columns as $index => $column) {
             if (in_array($column, $textFormatColumns)) {

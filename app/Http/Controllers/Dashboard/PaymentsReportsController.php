@@ -44,6 +44,13 @@ class PaymentsReportsController extends Controller
             'bank_name',
         ];
 
+        $bankAccountColumns = [
+            'company_bank_name',
+            'company_account_number',
+            'company_account_holder_name',
+            'company_iban',
+        ];
+
         // Active customers/tenants with company isolation
         $customersQuery = Customer::active();
         if (user()->company_id != 1) {
@@ -57,13 +64,22 @@ class PaymentsReportsController extends Controller
             $companies = Company::active()->latest()->get();
         }
 
+        // Bank Accounts for filter
+        $bankAccountsQuery = \App\Models\CompanyBankAccount::query();
+        if (user()->company_id != 1) {
+            $bankAccountsQuery->where('company_id', user()->company_id);
+        }
+        $bankAccounts = $bankAccountsQuery->get();
+
         return view('dashboard.reports.payments.index', compact(
             'title', 
             'paymentColumns', 
             'contractColumns', 
             'chequeColumns', 
+            'bankAccountColumns',
             'customers', 
-            'companies'
+            'companies',
+            'bankAccounts'
         ));
     }
 

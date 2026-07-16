@@ -23,7 +23,7 @@
                             <label for="company_id" class="premium-label mb-0">
                                 {!! __('companies.company') !!}
                             </label>
-                            <select class="form-control js-select2" id="filter_company_id" name="company_id">
+                            <select class="form-control premium-input shadow-none js-select2" id="filter_company_id" name="company_id">
                                 <option value="">{!! __('general.all_companies') !!}</option>
                                 @foreach ($companies as $company)
                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
@@ -50,7 +50,7 @@
                                 </a>
                             </div>
                         </div>
-                        <select class="form-control select2" id="owner_id" name="owner_id[]" multiple="multiple">
+                        <select class="form-control premium-input shadow-none select2" id="owner_id" name="owner_id[]" multiple="multiple">
                             @foreach ($owners as $owner)
                                 <option value="{{ $owner->id }}">{{ $owner->name }}</option>
                             @endforeach
@@ -61,8 +61,8 @@
                 <!-- Property Type -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="property_type_id">{!! __('reports.property_type') !!}</label>
-                        <select class="form-control" id="property_type_id" name="property_type_id">
+                        <label for="property_type_id" class="premium-label mb-0">{!! __('reports.property_type') !!}</label>
+                        <select class="form-control premium-input shadow-none js-select2" id="property_type_id" name="property_type_id">
                             <option value="">{!! __('reports.all_types') !!}</option>
                             @foreach ($propertyTypes as $type)
                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -74,8 +74,8 @@
                 <!-- Property Status -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="property_status_id">{!! __('reports.property_status') !!}</label>
-                        <select class="form-control" id="property_status_id" name="property_status_id">
+                        <label for="property_status_id" class="premium-label mb-0">{!! __('reports.property_status') !!}</label>
+                        <select class="form-control premium-input shadow-none js-select2" id="property_status_id" name="property_status_id">
                             <option value="">{!! __('reports.all_statuses') !!}</option>
                             @foreach ($propertyStatuses as $status)
                                 <option value="{{ $status->id }}">{{ $status->name }}</option>

@@ -16,9 +16,12 @@
         <div class="card-body pt-2">
 
             <div class="d-flex justify-content-start mb-3">
-                <div class="custom-control custom-switch custom-switch-info" style="margin-left: 15px; margin-right: 15px;">
-                    <input type="checkbox" class="custom-control-input" id="check_all_columns">
-                    <label class="custom-control-label font-weight-bold cursor-pointer text-nowrap px-3" for="check_all_columns" style="white-space: nowrap;">
+                <div class="d-flex align-items-center" style="margin: 0 15px; gap: 10px;">
+                    <label class="modern-switch mb-0">
+                        <input type="checkbox" id="check_all_columns">
+                        <span class="modern-slider"></span>
+                    </label>
+                    <label for="check_all_columns" class="font-weight-bold cursor-pointer mb-0" style="white-space: nowrap;">
                         {!! __('reports.select_all') !!}
                     </label>
                 </div>

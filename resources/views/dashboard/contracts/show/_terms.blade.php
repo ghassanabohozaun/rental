@@ -9,38 +9,40 @@
                         <i class="fas fa-file-contract text-primary mr-1"></i> {!! __('contracts.contract_terms') !!}
                     </h6>
                 </div>
-                <div class="card-body p-3">
-                    @php
-                        $clauses = optional($contract->contractDetail)->contract_clauses;
-                    @endphp
+                <div class="card-body p-0">
+                    <div class="scrollable-table-container custom-scrollbar p-3" style="max-height: 450px; overflow-y: auto;">
+                        @php
+                            $clauses = optional($contract->contractDetail)->contract_clauses;
+                        @endphp
 
-                    @if (is_array($clauses) && count($clauses) > 0)
-                        <div class="contract-clauses-wrapper">
-                            @foreach ($clauses as $index => $clause)
-                                <div class="clause-item mb-3 p-3">
-                                    <h6 class="font-weight-bold text-dark mb-2">
-                                        <span class="badge badge-light-primary mr-1">{{ $index + 1 }}</span>
-                                        {{ $contract->replaceSmartTags($clause['title'] ?? '') }}
-                                    </h6>
-                                    <div class="clause-content text-muted font-small-3 line-height-1-6">
-                                        {!! nl2br(e($contract->replaceSmartTags(trim($clause['content'] ?? '')))) !!}</div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @elseif(is_string($clauses) && !empty($clauses))
-                        <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
-                            {!! $contract->replaceSmartTags(trim($clauses)) !!}
-                        </div>
-                    @elseif(!empty($contract->contract_text))
-                        <div class="contract-text-viewer font-small-3 text-muted line-height-1-6 p-3">
-                            {!! $contract->replaceSmartTags(trim($contract->contract_text)) !!}
-                        </div>
-                    @else
-                        <div class="text-center py-4">
-                            <i class="fas fa-file-invoice font-large-1 mb-2 d-block opacity-25"></i>
-                            {!! __('contracts.no_contract_text') !!}
-                        </div>
-                    @endif
+                        @if (is_array($clauses) && count($clauses) > 0)
+                            <div class="contract-clauses-wrapper">
+                                @foreach ($clauses as $index => $clause)
+                                    <div class="clause-item mb-2 p-2">
+                                        <h6 class="font-weight-bold text-dark mb-1">
+                                            <span class="badge badge-light-primary mr-1">{{ $index + 1 }}</span>
+                                            {{ $contract->replaceSmartTags($clause['title'] ?? '') }}
+                                        </h6>
+                                        <div class="clause-content text-muted line-height-1-6" style="font-size: 16px;">
+                                            {!! nl2br(e($contract->replaceSmartTags(trim($clause['content'] ?? '')))) !!}</div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @elseif(is_string($clauses) && !empty($clauses))
+                            <div class="contract-text-viewer text-muted line-height-1-6 p-3" style="font-size: 16px;">
+                                {!! $contract->replaceSmartTags(trim($clauses)) !!}
+                            </div>
+                        @elseif(!empty($contract->contract_text))
+                            <div class="contract-text-viewer text-muted line-height-1-6 p-3" style="font-size: 16px;">
+                                {!! $contract->replaceSmartTags(trim($contract->contract_text)) !!}
+                            </div>
+                        @else
+                            <div class="text-center py-4">
+                                <i class="fas fa-file-invoice font-large-1 mb-2 d-block opacity-25"></i>
+                                {!! __('contracts.no_contract_text') !!}
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

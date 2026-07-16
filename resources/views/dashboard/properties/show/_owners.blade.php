@@ -12,9 +12,9 @@
         </div>
         
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="scrollable-table-container custom-scrollbar" style="max-height: 350px; overflow-y: auto; overflow-x: auto;">
                 <table class="table table-hover mb-0">
-                    <thead class="bg-light">
+                    <thead class="bg-light" style="position: sticky; top: 0; z-index: 2; background: #f8f9fa;">
                         <tr>
                             <th class="border-0 px-2">{!! __('owners.owner_name') !!}</th>
                             <th class="border-0">{!! __('owners.phone') !!}</th>

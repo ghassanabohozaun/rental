@@ -23,7 +23,7 @@
                             <label for="filter_company_id" class="premium-label mb-0">
                                 {!! __('companies.company') !!}
                             </label>
-                            <select class="form-control js-select2" id="filter_company_id" name="company_id">
+                            <select class="form-control premium-input shadow-none js-select2" id="filter_company_id" name="company_id">
                                 <option value="">{!! __('general.all_companies') !!}</option>
                                 @foreach ($companies as $company)
                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
@@ -34,7 +34,7 @@
                 @endif
 
                 <!-- Select Customers / Tenants (Multi Select) -->
-                <div class="col-md-4 mb-2">
+                <div class="col-md-8 mb-2">
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-end mb-1">
                             <label for="customer_id" class="premium-label mb-0">
@@ -55,37 +55,9 @@
                                 </a>
                             </div>
                         </div>
-                        <select class="form-control select2" id="customer_id" name="customer_id[]" multiple="multiple">
+                        <select class="form-control premium-input shadow-none select2" id="customer_id" name="customer_id[]" multiple="multiple">
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Payment Method (Multi Select) -->
-                <div class="col-md-4 mb-2">
-                    <div class="form-group">
-                        <div class="d-flex justify-content-between align-items-end mb-1">
-                            <label for="method" class="premium-label mb-0">
-                                {!! __('reports.payment_method') !!}
-                            </label>
-                            <div class="d-flex align-items-center gap-2">
-                                <a href="javascript:void(0);"
-                                    class="text-primary font-small-3 font-weight-bold text-nowrap"
-                                    id="select_all_methods" style="white-space: nowrap;">
-                                    <i class="fas fa-check-double"></i> {!! __('reports.select_all') !!}
-                                </a>
-                                <a href="javascript:void(0);"
-                                    class="text-danger font-small-3 font-weight-bold text-nowrap"
-                                    id="deselect_all_methods" style="white-space: nowrap;">
-                                    <i class="fas fa-times"></i> {!! __('reports.deselect_all') !!}
-                                </a>
-                            </div>
-                        </div>
-                        <select class="form-control select2" id="method" name="method[]" multiple="multiple">
-                            @foreach (__('payments.methods') as $key => $label)
-                                <option value="{{ $key }}">{{ $label }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -111,10 +83,42 @@
                                 </a>
                             </div>
                         </div>
-                        <select class="form-control select2" id="status" name="status[]" multiple="multiple">
+                        <select class="form-control premium-input shadow-none select2" id="status" name="status[]" multiple="multiple">
                             @foreach (__('payments.statuses') as $key => $label)
                                 <option value="{{ $key }}">{{ $label }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="col-md-3 mb-2">
+                    <div class="form-group">
+                        <label for="method" class="premium-label mb-0">
+                            {!! __('reports.payment_method') !!}
+                        </label>
+                        <select class="form-control premium-input shadow-none js-select2" id="method" name="method">
+                            <option value="">{!! __('general.all') !!}</option>
+                            @foreach (__('payments.methods') as $key => $label)
+                                <option value="{{ $key }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Company Bank Account (Hidden by default) -->
+                <div class="col-md-3 mb-2" id="bank_account_container" style="display: none;">
+                    <div class="form-group">
+                        <label for="company_bank_account_id" class="premium-label mb-0">
+                            {!! __('bank_accounts.bank_accounts') !!}
+                        </label>
+                        <select class="form-control premium-input shadow-none js-select2" id="company_bank_account_id" name="company_bank_account_id">
+                            <option value="">{!! __('general.all') !!}</option>
+                            @if(isset($bankAccounts))
+                                @foreach ($bankAccounts as $account)
+                                    <option value="{{ $account->id }}">{{ $account->bank_name }} - {{ $account->account_number }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -126,7 +130,7 @@
                             {!! __('reports.payment_date_from') !!}
                         </label>
                         <div class="position-relative has-icon-left">
-                            <input type="text" class="form-control custom-datepicker" id="payment_date_from"
+                            <input type="text" class="form-control premium-input shadow-none custom-datepicker" id="payment_date_from"
                                 name="payment_date_from" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
@@ -140,7 +144,7 @@
                             {!! __('reports.payment_date_to') !!}
                         </label>
                         <div class="position-relative has-icon-left">
-                            <input type="text" class="form-control custom-datepicker" id="payment_date_to"
+                            <input type="text" class="form-control premium-input shadow-none custom-datepicker" id="payment_date_to"
                                 name="payment_date_to" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <div class="form-control-position premium-icon-centered">
                                 <i class="fas fa-calendar-alt text-primary fa-lg"></i>
@@ -155,7 +159,7 @@
                         <label for="amount_from" class="premium-label mb-0">
                             {!! __('reports.amount_from') !!}
                         </label>
-                        <input type="number" step="0.01" class="form-control" id="amount_from"
+                        <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount_from"
                             name="amount_from" placeholder="0.00">
                     </div>
                 </div>
@@ -164,7 +168,7 @@
                         <label for="amount_to" class="premium-label mb-0">
                             {!! __('reports.amount_to') !!}
                         </label>
-                        <input type="number" step="0.01" class="form-control" id="amount_to" name="amount_to"
+                        <input type="number" step="0.01" class="form-control premium-input shadow-none" id="amount_to" name="amount_to"
                             placeholder="0.00">
                     </div>
                 </div>
