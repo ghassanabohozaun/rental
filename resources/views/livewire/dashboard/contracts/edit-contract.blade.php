@@ -1192,8 +1192,13 @@
                                                                                         target="_blank"
                                                                                         class="btn-premium-action btn-premium-action-info mx-1"
                                                                                         title="{!! __('general.view') !!}">
-                                                                                        <i
-                                                                                            class="fas fa-external-link-alt"></i>
+                                                                                        <i class="fas fa-external-link-alt"></i>
+                                                                                    </a>
+                                                                                    <a href="{{ Storage::disk('contracts')->url($attachment['existing_file']) }}"
+                                                                                        download target="_blank"
+                                                                                        class="btn-premium-action btn-premium-action-success mx-1"
+                                                                                        title="{!! __('general.download') ?? 'تحميل' !!}">
+                                                                                        <i class="fas fa-download"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             @endif

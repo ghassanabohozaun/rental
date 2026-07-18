@@ -22,10 +22,16 @@
                                 <td class="py-2">#{!! $loop->iteration !!}</td>
                                 <td class="py-2">{!! $attachment->name ?? __('properties.attachment') . ' ' . $loop->iteration !!}</td>
                                 <td class="py-2 text-center">
-                                    <a href="{!! Storage::disk('contracts')->url($attachment->file) !!}" target="_blank"
-                                        class="btn btn-sm btn-light-info radius-10" title="{!! __('general.show') !!}">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a href="{!! Storage::disk('contracts')->url($attachment->file) !!}" target="_blank"
+                                            class="btn btn-sm btn-light-info radius-10 mr-1" title="{!! __('general.show') !!}">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="{!! Storage::disk('contracts')->url($attachment->file) !!}" download target="_blank"
+                                            class="btn btn-sm btn-light-success radius-10" title="{!! __('general.download') ?? 'تحميل' !!}">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

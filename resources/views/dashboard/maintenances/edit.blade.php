@@ -218,6 +218,9 @@
                                                                         <a href="{{ asset('uploads/maintenances/'.$item->attachment) }}" target="_blank" class="btn-premium-action btn-premium-action-info mx-1" title="{!! __('maintenances.view_current_attachment') !!}">
                                                                             <i class="fas fa-external-link-alt"></i>
                                                                         </a>
+                                                                        <a href="{{ asset('uploads/maintenances/'.$item->attachment) }}" download target="_blank" class="btn-premium-action btn-premium-action-success mx-1" title="{!! __('general.download') ?? 'تحميل' !!}">
+                                                                            <i class="fas fa-download"></i>
+                                                                        </a>
                                                                     @endif
                                                                     <div class="file-preview-container mx-1 d-flex align-items-center"></div>
                                                                 </div>

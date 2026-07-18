@@ -30,7 +30,10 @@
                             </td>
                             <td class="py-2 text-center">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="{!! asset('uploads/properties/' . $attachment->file) !!}" target="_blank" class="btn-premium-action btn-premium-action-info mx-1" title="{!! __('general.download') !!}">
+                                    <a href="{!! asset('uploads/properties/' . $attachment->file) !!}" target="_blank" class="btn-premium-action btn-premium-action-info mx-1" title="{!! __('general.view') ?? 'عرض' !!}">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="{!! asset('uploads/properties/' . $attachment->file) !!}" download target="_blank" class="btn-premium-action btn-premium-action-success mx-1" title="{!! __('general.download') ?? 'تحميل' !!}">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 </div>
