@@ -15,14 +15,12 @@
                 @can('guarantors_update')
                 <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">{!! __('general.status') !!}</th>
                 @endcan
-                @if(auth()->user()->can('guarantors_update') || auth()->user()->can('guarantors_delete'))
-                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($guarantors as $key=>$guarantor)
-                <tr id="row{{ $guarantor->id }}">
+                <tr id="row{{ $guarantor->id }}" class="premium-table-row pointer" data-row-title="كفيل | {!! $guarantor->name !!}">
                     <td class="text-center d-lg-none align-middle">
                         <span class="details-control pointer">
                             <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
@@ -137,6 +135,22 @@
 
                     <!-- Name -->
                     <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.guarantors.parts.actions', ['guarantor' => $guarantor])
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-phone mr-25"></i> {!! $guarantor->phone ?? '---' !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-id-card mr-25"></i> {!! $guarantor->id_number ?? '---' !!}</span>
+                            @if($guarantor->status == 1)
+                                <span class="badge badge-light-success"><i class="fas fa-check-circle mr-25"></i> {!! __('general.enable') !!}</span>
+                            @else
+                                <span class="badge badge-light-danger"><i class="fas fa-times-circle mr-25"></i> {!! __('general.disabled') !!}</span>
+                            @endif
+                        </div>
+
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! $guarantor->name !!}</span>
                         </div>
@@ -170,11 +184,7 @@
                         </td>
                     @endcan
 
-                    @if(auth()->user()->can('guarantors_update') || auth()->user()->can('guarantors_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.guarantors.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

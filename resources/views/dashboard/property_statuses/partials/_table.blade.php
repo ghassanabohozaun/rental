@@ -13,14 +13,12 @@
                 @can('property_statuses_update')
                     <th class="text-center align-middle py-3 border-top-0">{!! __('property_statuses.manage_status') !!}</th>
                 @endcan
-                @if (auth()->user()->can('property_statuses_update') || auth()->user()->can('property_statuses_delete'))
-                    <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($property_statuses as $key=>$property_status)
-                <tr id="row{{ $property_status->id }}">
+                <tr id="row{{ $property_status->id }}" class="premium-table-row pointer" data-row-title="حالة عقار | {!! $property_status->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -124,6 +122,17 @@
 
                     <!-- Name -->
                     <td class="align-middle font-weight-bold text-primary property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.property_statuses.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($property_status->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="badge badge-light-secondary"><i class="fas fa-user mr-25"></i> {!! $property_status->creator->name ?? '---' !!}</span>
+                        </div>
+
                         <div class="d-flex align-items-center justify-content-start">
                             <span class="d-inline-block rounded-circle mr-1"
                                 style="min-width: 10px; height: 10px; background-color: {!! $property_status->color ?? '#000' !!};"></span>
@@ -147,12 +156,7 @@
                         </td>
                     @endcan
 
-                    <!-- Actions -->
-                    @if (auth()->user()->can('property_statuses_update') || auth()->user()->can('property_statuses_delete'))
-                        <td class="text-center align-middle sticky-actions">
-                            @include('dashboard.property_statuses.parts.actions')
-                        </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

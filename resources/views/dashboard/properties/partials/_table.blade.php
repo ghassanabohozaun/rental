@@ -14,14 +14,12 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">{!! __('properties.file_number') !!}</th>
 
                 <th class="text-center align-middle py-3 border-top-0">{!! __('properties.status') !!}</th>
-                @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($properties as $key => $property)
-                <tr id="row{{ $property->id }}">
+                <tr id="row{{ $property->id }}" class="premium-table-row pointer" data-row-title="عقار | {!! $property->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -72,6 +70,20 @@
 
                     <!-- Property Info (Name + Address) -->
                     <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.properties.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-sitemap mr-25"></i> {!! optional($property->propertyType)->name !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-folder-open mr-25"></i> ملف: {!! $property->file_number ?? '---' !!}</span>
+                            @if($property->propertyStatus)
+                            <span class="badge badge-light-secondary"><i class="fas fa-circle mr-25 font-10" style="color: {!! $property->propertyStatus->color !!}"></i> {!! $property->propertyStatus->name !!}</span>
+                            @endif
+                        </div>
+
                         <div class="user-info-cell">
                             <span class="user-name-text">{!! $property->name !!}</span>
                             <span class="user-email-text"><i class="fas fa-map-marker-alt mr-25"></i> {!! Str::limit($property->zone_number . ' - ' . $property->street_number, 30) ?? '---' !!}</span>
@@ -121,14 +133,7 @@
                         @endif
                     </td>
 
-                    <!-- Actions -->
-                    @if(auth()->user()->can('properties_read') || auth()->user()->can('properties_update') || auth()->user()->can('properties_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        <div class="d-flex justify-content-center gap-2">
-                            @include('dashboard.properties.parts.actions')
-                        </div>
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

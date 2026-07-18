@@ -39,11 +39,6 @@
                             <i class="fas fa-plus-circle text-primary font-22"></i>
                         </span>
 
-                        <!-- Hidden Actions for Bottom Bar -->
-                        <div class="row-actions-html d-none">
-                            @include('dashboard.contracts.parts.actions')
-                        </div>
-
                         <!-- Hidden Row Details for AJAX Modal -->
                         <div class="row-details d-none">
                             <div class="modal-details-card">
@@ -206,8 +201,29 @@
                     @endif
 
                     <!-- Property & Customer Merged -->
-                    <td class="align-middle py-3 property-info-td">
-                        <div class="user-info-cell">
+                    <td class="align-middle min-w-300">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.contracts.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($contract->property)->name !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> {!! $contract->start_date !!} {!! __('general.to') !!} {!! $contract->end_date !!}</span>
+                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($contract->total_amount, 2) !!} {!! currency() !!}</span>
+                            @php
+                                $statusColor = [
+                                    'draft' => 'secondary',
+                                    'active' => 'success',
+                                    'expired' => 'danger',
+                                    'canceled' => 'warning',
+                                ][$contract->status] ?? 'secondary';
+                            @endphp
+                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('contracts.status_' . $contract->status) !!}</span>
+                        </div>
+
+                        <div class="d-flex flex-column">
                             <span class="font-weight-bold font-15 mb-25 truncate-text text-dark-premium">
                                 {!! optional($contract->property)->name !!}
                             </span>

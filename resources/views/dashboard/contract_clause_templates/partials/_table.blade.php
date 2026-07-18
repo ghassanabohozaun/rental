@@ -12,19 +12,38 @@
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.is_default_clause') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.order_num') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
-                @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($templates as $key => $template)
-                <tr id="row{{ $template->id }}" class="premium-table-row">
+                <tr id="row{{ $template->id }}" class="premium-table-row pointer" data-row-title="بند #{!! $template->id !!} | {!! Str::limit($template->title, 30) !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
                             <i class="fas fa-plus-circle text-primary font-22"></i>
                         </span>
+
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.contract_clause_templates.parts.actions', ['template' => $template])
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            @if(auth()->user()->role_id == 1)
+                                <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($template->company)->name !!}</span>
+                            @endif
+                            <span class="badge badge-light-info"><i class="fas fa-sort-numeric-down mr-25"></i> ترتيب: {!! $template->order_num !!}</span>
+                            @if($template->is_default)
+                                <span class="badge badge-light-success"><i class="fas fa-check-circle mr-25"></i> افتراضي</span>
+                            @endif
+                            @if($template->is_active)
+                                <span class="badge badge-light-success"><i class="fas fa-circle mr-25 font-10"></i> نشط</span>
+                            @else
+                                <span class="badge badge-light-danger"><i class="fas fa-circle mr-25 font-10"></i> غير نشط</span>
+                            @endif
+                        </div>
 
                         <!-- Hidden Row Details for AJAX Modal -->
                         <div class="row-details d-none">
@@ -145,11 +164,7 @@
                             <span class="badge badge-pill badge-glow premium-status-badge badge-danger border-0 px-2 py-1 font-weight-bold">{!! __('general.inactive') !!}</span>
                         @endif
                     </td>
-                    @if(auth()->user()->can('contract_clauses_update') || auth()->user()->can('contract_clauses_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.contract_clause_templates.parts.actions', ['template' => $template])
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

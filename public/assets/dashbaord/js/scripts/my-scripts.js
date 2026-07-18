@@ -91,6 +91,11 @@ $(document).ready(function () {
                                 timer: 2000,
                                 buttons: false,
                             });
+                            
+                            // Hide bottom action bar and deselect rows on delete
+                            $('#bottom-action-bar').removeClass('show');
+                            $('.premium-table-row').removeClass('selected-row-premium');
+
                             // Reload table div or datatable gracefully
                             if (typeof window.fetch_data === 'function') {
                                 window.fetch_data(window.currentPage || 1);

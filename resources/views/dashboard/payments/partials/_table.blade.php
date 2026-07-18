@@ -15,14 +15,12 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.payment_date') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('payments.method') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('payments.status') !!}</th>
-                @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-150 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse($payments as $payment)
-                <tr id="row{{ $payment->id }}">
+                <tr id="row{{ $payment->id }}" class="premium-table-row pointer" data-row-title="دفعة #{!! $payment->id !!} | العميل: {!! optional($payment->customer)->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -114,6 +112,26 @@
                     </td>
                     @endif
                     <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.payments.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($payment->contract && $payment->contract->property ? $payment->contract->property : null)->name !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> {!! $payment->payment_date ? $payment->payment_date->format('Y-m-d') : '---' !!}</span>
+                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($payment->amount, 2) !!} {!! currency() !!}</span>
+                            @php
+                                $statusColor = [
+                                    'paid' => 'success',
+                                    'pending' => 'warning',
+                                    'bounced' => 'danger',
+                                ][$payment->status] ?? 'secondary';
+                            @endphp
+                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('payments.statuses.' . $payment->status) !!}</span>
+                        </div>
+
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional(optional($payment->contract)->customer)->name ?? '---' !!}</span>
                             <span class="user-email-text text-muted small">{!! optional(optional($payment->contract)->customer)->phone ?? '---' !!}</span>
@@ -181,11 +199,7 @@
                             {!! __('payments.statuses.' . $payment->status) !!}
                         </div>
                     </td>
-                    @if(auth()->user()->can('payments_update') || auth()->user()->can('payments_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.payments.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

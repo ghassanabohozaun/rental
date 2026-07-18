@@ -14,15 +14,12 @@
                 <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">{!! __('maintenances.cost') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('maintenances.status') !!}</th>
-                @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
-                <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">{!! __('general.actions') !!}
-                </th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($maintenances as $key=>$maintenance)
-                <tr id="row{{ $maintenance->id }}">
+                <tr id="row{{ $maintenance->id }}" class="premium-table-row pointer" data-row-title="صيانة | {!! optional($maintenance->property)->name !!}">
                     <td class="text-center d-lg-none align-middle">
                         <span class="details-control pointer">
                             <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
@@ -145,6 +142,29 @@
 
                     <!-- Property -->
                     <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.maintenances.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-calendar-alt mr-25"></i> {!! $maintenance->date ?? '---' !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-money-bill-wave mr-25"></i> {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}</span>
+                            @php
+                                $statusClass = 'badge-light-warning';
+                                $statusText = __('maintenances.pending');
+                                if ($maintenance->status == 'in_progress') {
+                                    $statusClass = 'badge-light-primary';
+                                    $statusText = __('maintenances.in_progress');
+                                } elseif ($maintenance->status == 'done') {
+                                    $statusClass = 'badge-light-success';
+                                    $statusText = __('maintenances.done');
+                                }
+                            @endphp
+                            <span class="badge {{ $statusClass }}"><i class="fas fa-tools mr-25"></i> {{ $statusText }}</span>
+                        </div>
+
                         <div class="user-info-cell">
                             <span class="user-name-text font-weight-bold">{!! optional($maintenance->property)->name !!}</span>
                         </div>
@@ -179,11 +199,7 @@
                         </div>
                     </td>
 
-                    @if(auth()->user()->can('maintenances_update') || auth()->user()->can('maintenances_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.maintenances.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

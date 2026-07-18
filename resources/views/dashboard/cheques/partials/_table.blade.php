@@ -21,14 +21,12 @@
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.is_deposit') !!}</th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('cheques.status') !!}</th>
-                @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-150 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse($cheques as $cheque)
-                <tr id="row{{ $cheque->id }}">
+                <tr id="row{{ $cheque->id }}" class="premium-table-row pointer" data-row-title="شيك #{!! $cheque->cheque_number !!} | {!! optional($cheque->customer)->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -139,8 +137,30 @@
                             </div>
                         </div>
                     </td>
-                    <td class="align-middle property-info-td">
-                        <div class="user-info-cell">
+                    <td class="align-middle py-3">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.cheques.parts.actions')
+                        </div>
+                        
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($cheque->contract && $cheque->contract->property ? $cheque->contract->property : null)->name !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> مستحق في: {!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}</span>
+                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($cheque->amount, 2) !!} {!! currency() !!}</span>
+                            @php
+                                $statusColor = [
+                                    'pending' => 'warning',
+                                    'cleared' => 'success',
+                                    'returned' => 'danger',
+                                    'bounced' => 'danger',
+                                    'held' => 'info',
+                                ][$cheque->status] ?? 'secondary';
+                            @endphp
+                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('cheques.statuses.' . $cheque->status) !!}</span>
+                        </div>
+
+                        <div class="d-flex flex-column">
                             <span class="user-name-text font-weight-bold">{!! optional($cheque->customer)->name ?? '---' !!}</span>
                             <span class="user-email-text text-muted small">{!! optional($cheque->customer)->phone ?? '---' !!}</span>
                         </div>
@@ -229,11 +249,7 @@
                             <i class="{!! $statusInfo['icon'] !!}"></i> {!! __('cheques.statuses.' . $cheque->status) !!}
                         </div>
                     </td>
-                    @if(auth()->user()->can('cheques_update') || auth()->user()->can('cheques_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.cheques.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

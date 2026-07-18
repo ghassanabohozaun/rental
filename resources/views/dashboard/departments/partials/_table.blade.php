@@ -14,14 +14,12 @@
                 @can('departments_update')
                 <th class="text-center align-middle py-3 border-top-0">{!! __('departments.manage_status') !!}</th>
                 @endcan
-                @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($departments as $key=>$department)
-                <tr id="row{{ $department->id }}">
+                <tr id="row{{ $department->id }}" class="premium-table-row pointer" data-row-title="قسم | {!! $department->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -120,7 +118,20 @@
                     @endif
 
                     <!-- Name -->
-                    <td class="text-center align-middle font-weight-bold text-primary">{!! $department->name !!}</td>
+                    <td class="align-middle property-info-td font-weight-bold text-primary">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.departments.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($department->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="badge badge-light-secondary"><i class="fas fa-user mr-25"></i> {!! $department->creator->name ?? '---' !!}</span>
+                        </div>
+
+                        {!! $department->name !!}
+                    </td>
 
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="text-muted small">{!! $department->creator->name ?? '---' !!}</span>
@@ -138,12 +149,7 @@
                     </td>
                     @endcan
 
-                    <!-- Actions -->
-                    @if(auth()->user()->can('departments_update') || auth()->user()->can('departments_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.departments.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

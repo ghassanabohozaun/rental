@@ -11,14 +11,12 @@
                 </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('roles.description') !!}
                 </th>
-                @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
-                    <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($roles as $key=>$role)
-                <tr id="row{{ $role->id }}">
+                <tr id="row{{ $role->id }}" class="premium-table-row pointer" data-row-title="صلاحية | {!! $role->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -119,8 +117,19 @@
                     </td>
 
                     <!-- Name -->
-                    <td class="text-center align-middle font-weight-bold text-primary">
-                        <div class="d-flex align-items-center justify-content-center">
+                    <td class="align-middle property-info-td font-weight-bold text-primary">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.roles.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($role->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="badge badge-light-secondary"><i class="fas fa-user-plus mr-25"></i> {!! $role->creator->name ?? '---' !!}</span>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-start">
                             <i class="fas fa-shield-alt mr-1 d-none d-md-inline"></i>
                             {!! $role->name !!}
                         </div>
@@ -139,12 +148,7 @@
                         @endif
                     </td>
 
-                    <!-- Actions -->
-                    @if (auth()->user()->can('roles_update') || auth()->user()->can('roles_delete'))
-                        <td class="text-center align-middle sticky-actions">
-                            @include('dashboard.roles.parts.actions')
-                        </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

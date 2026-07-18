@@ -152,16 +152,21 @@
     <div id="bottom-action-bar" class="bottom-action-bar shadow-lg">
         <div class="bottom-action-bar-content container">
             <div class="d-flex align-items-center justify-content-between w-100 flex-column flex-md-row">
-                <div class="bottom-action-title font-weight-bold text-primary mb-1 mb-md-0 d-flex align-items-center">
-                    <div class="avatar-icon mr-1 bg-light-primary text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                        <i class="fas fa-file-signature"></i>
+                <div class="bottom-action-info d-flex align-items-center mb-1 mb-md-0 flex-grow-1">
+                    <div class="avatar-icon mr-2 bg-light-primary text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
+                        <i class="fas fa-file-signature font-18"></i>
                     </div>
-                    <span id="action-bar-title" class="font-14">{!! __('general.select_row') !!}</span>
+                    <div class="d-flex flex-column ml-2">
+                        <span id="action-bar-title" class="font-15 font-weight-bold text-dark mb-25">{!! __('general.select_row') !!}</span>
+                        <div id="action-bar-subtitle" class="font-12 text-muted d-flex align-items-center flex-wrap" style="gap: 8px;">
+                            <!-- Subtitle badges injected here -->
+                        </div>
+                    </div>
                 </div>
                 <div class="bottom-action-buttons d-flex align-items-center justify-content-center flex-wrap" id="action-bar-buttons">
                     <!-- Buttons injected here via JS -->
                 </div>
-                <div class="bottom-action-close ml-md-2 mt-1 mt-md-0 position-absolute position-md-relative" style="top: -10px; right: 10px;">
+                <div class="bottom-action-close ml-md-3 mt-1 mt-md-0 position-absolute position-md-relative" style="top: -10px; right: 10px;">
                     <button type="button" class="btn btn-sm btn-danger radius-10 shadow-sm" id="close-action-bar" title="{!! __('general.close') !!}">
                         <i class="fas fa-times"></i>
                     </button>
@@ -204,11 +209,19 @@
                 // Get row data
                 let title = $(this).attr('data-row-title');
                 let actionsHtml = $(this).find('.row-actions-html').html();
+                let subtitleHtml = $(this).find('.row-subtitle-html').html();
 
                 if(actionsHtml && actionsHtml.trim() !== '') {
                     // Populate and Show
                     $actionTitle.text(title);
                     $actionButtons.html(actionsHtml);
+                    
+                    if(subtitleHtml && subtitleHtml.trim() !== '') {
+                        $('#action-bar-subtitle').html(subtitleHtml).show();
+                    } else {
+                        $('#action-bar-subtitle').hide();
+                    }
+                    
                     $actionBar.addClass('show');
                 }
             });

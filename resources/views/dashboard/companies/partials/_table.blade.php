@@ -18,14 +18,12 @@
                 @can('companies_update')
                 <th class="text-center align-middle py-3 border-top-0">{!! __('companies.manage_status') !!}</th>
                 @endcan
-                @if(auth()->user()->can('companies_update') || auth()->user()->can('companies_delete'))
-                <th class="text-center align-middle py-3 border-top-0 min-w-140 sticky-actions">{!! __('general.actions') !!}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse($companies as $company)
-                <tr id="row{{ $company->id }}">
+                <tr id="row{{ $company->id }}" class="premium-table-row pointer" data-row-title="شركة | {!! $company->name !!}">
                     <!-- Mobile Details Control -->
                     <td class="text-center align-middle d-lg-none">
                         <span class="details-control pointer">
@@ -91,7 +89,19 @@
                     </td>
 
                     <!-- Name -->
-                    <td class="text-center align-middle">
+                    <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.companies.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-envelope mr-25"></i> {!! $company->email ?? '---' !!}</span>
+                            <span class="badge badge-light-secondary"><i class="fas fa-phone mr-25"></i> {!! $company->phone ?? '---' !!}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-user-plus mr-25"></i> {!! $company->creator->name ?? '---' !!}</span>
+                        </div>
+
                         <a href="javascript:void(0)" class="company-chip">
                             <i class="fas fa-briefcase mr-1"></i>
                             {!! $company->name !!}
@@ -119,12 +129,7 @@
                     </td>
                     @endcan
 
-                    <!-- Actions -->
-                    @if(auth()->user()->can('companies_update') || auth()->user()->can('companies_delete'))
-                    <td class="text-center align-middle sticky-actions">
-                        @include('dashboard.companies.parts.actions')
-                    </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

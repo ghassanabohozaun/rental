@@ -21,17 +21,12 @@
                     <th class="text-center align-middle py-3 border-top-0" style="min-width: 120px;">
                         {{ __('general.manage_status') }}</th>
                 @endcan
-                @if (auth()->user()->can('customers_read') ||
-                        auth()->user()->can('customers_update') ||
-                        auth()->user()->can('customers_delete'))
-                    <th class="text-center align-middle py-3 border-top-0 sticky-actions" style="min-width: 150px;">
-                        {{ __('general.actions') }}</th>
-                @endif
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($customers as $key=>$customer)
-                <tr id="row{{ $customer->id }}">
+                <tr id="row{{ $customer->id }}" class="premium-table-row pointer" data-row-title="مستأجر | {{ !empty($customer->company_name) ? $customer->company_name . ' (' . $customer->name . ')' : $customer->name }}">
                     <td class="text-center d-lg-none align-middle">
                         <span class="details-control pointer">
                             <i class="fas fa-plus-circle text-primary" style="font-size: 22px;"></i>
@@ -129,6 +124,23 @@
 
                     <!-- Name -->
                     <td class="align-middle property-info-td">
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.customers.parts.actions')
+                        </div>
+
+                        <!-- Hidden Subtitle for Bottom Bar -->
+                        <div class="row-subtitle-html d-none">
+                            <span class="badge badge-light-primary"><i class="fas fa-phone mr-25"></i> {{ $customer->phone ?? '---' }}</span>
+                            <span class="badge badge-light-info"><i class="fas fa-id-card mr-25"></i> {{ $customer->id_number ?? '---' }}</span>
+                            <span class="badge badge-light-secondary"><i class="fas fa-flag mr-25"></i> {{ optional($customer->nationality)->name ?? '---' }}</span>
+                            @if($customer->status == 1)
+                                <span class="badge badge-light-success"><i class="fas fa-check-circle mr-25"></i> {{ __('general.enable') }}</span>
+                            @else
+                                <span class="badge badge-light-danger"><i class="fas fa-times-circle mr-25"></i> {{ __('general.disabled') }}</span>
+                            @endif
+                        </div>
+
                         <div class="user-info-cell">
                             @if (!empty($customer->company_name))
                                 <span class="user-name-text font-weight-bold" title="اسم الشركة">
@@ -179,13 +191,7 @@
                         </td>
                     @endcan
 
-                    @if (auth()->user()->can('customers_read') ||
-                            auth()->user()->can('customers_update') ||
-                            auth()->user()->can('customers_delete'))
-                        <td class="text-center align-middle sticky-actions">
-                            @include('dashboard.customers.parts.actions')
-                        </td>
-                    @endif
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>
