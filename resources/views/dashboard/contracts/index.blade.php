@@ -149,6 +149,21 @@
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
     @include('dashboard.contracts.modals.details')
+
+    <!-- Custom Offcanvas Structure -->
+    <div class="offcanvas-backdrop" id="customOffcanvasBackdrop"></div>
+    <div class="custom-offcanvas" id="customOffcanvasDetails">
+        <div class="custom-offcanvas-header">
+            <h5 id="offcanvasTitle">{!! __('contracts.contract_details') ?? 'تفاصيل العقد' !!}</h5>
+            <button type="button" class="custom-offcanvas-close" id="closeOffcanvasBtn">&times;</button>
+        </div>
+        <div class="custom-offcanvas-body" id="offcanvasBody">
+            <!-- Details will be injected here -->
+        </div>
+        <div class="custom-offcanvas-footer" id="offcanvasFooter">
+            <!-- Actions will be injected here -->
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -162,6 +177,49 @@
             if (typeof initFilterSystem === "function") {
                 initFilterSystem();
             }
+
+            // --- Custom Offcanvas Logic ---
+            var $offcanvas = $('#customOffcanvasDetails');
+            var $backdrop = $('#customOffcanvasBackdrop');
+
+            function openOffcanvas() {
+                $offcanvas.addClass('show');
+                $backdrop.addClass('show');
+                $('body').css('overflow', 'hidden');
+            }
+
+            function closeOffcanvas() {
+                $offcanvas.removeClass('show');
+                $backdrop.removeClass('show');
+                $('body').css('overflow', '');
+            }
+
+            $('#closeOffcanvasBtn, #customOffcanvasBackdrop').on('click', function() {
+                closeOffcanvas();
+            });
+
+            // Handle row click (Event Delegation for AJAX loaded tables)
+            $('#myTable').on('click', 'tbody tr.premium-table-row', function(e) {
+                // Prevent opening if clicking on specific controls
+                if ($(e.target).closest('a, button, .details-control').length) {
+                    return;
+                }
+
+                var $row = $(this);
+                
+                // Extract details and actions from the hidden divs inside the row
+                var detailsHtml = $row.find('.row-details').html();
+                var actionsHtml = $row.find('.contract-actions-wrapper').html();
+
+                if (detailsHtml) {
+                    // Inject content
+                    $('#offcanvasBody').html(detailsHtml);
+                    $('#offcanvasFooter').html(actionsHtml);
+                    
+                    // Open the sidebar
+                    openOffcanvas();
+                }
+            });
         });
     </script>
 @endpush
