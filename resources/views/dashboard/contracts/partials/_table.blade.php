@@ -3,7 +3,8 @@
     <table class="table table-hover mb-0" id='myTable'>
         <thead>
             <tr>
-                <th class="text-center align-middle py-3 border-top-0">#</th>
+                <th class="text-center d-lg-none align-middle py-3 border-top-0">#</th> <!-- For Details Control -->
+                <th class="text-center d-none d-lg-table-cell align-middle py-3 border-top-0">#</th>
                 @if (isset($companies))
                     <th class="text-center align-middle py-3 border-top-0 d-none d-md-table-cell">
                         {!! __('companies.company') !!}</th>
@@ -11,9 +12,9 @@
                 <th class="align-middle py-3 border-top-0 property-info-td">{!! __('contracts.property') !!} &
                     {!! __('contracts.customer') !!}
                 </th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('general.duration') !!}
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('general.duration') !!}
                 </th>
-                <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.rent_amount') !!}
+                <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.rent_amount') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.total_rent_value') !!}
                 </th>
@@ -26,19 +27,21 @@
                 <th class="text-center align-middle py-3 border-top-0 d-none d-lg-table-cell">{!! __('contracts.deposit_amount') !!}
                 </th>
                 <th class="text-center align-middle py-3 border-top-0">{!! __('contracts.status') !!}</th>
-
+                <!-- Actions Column Removed for Bottom Action Bar -->
             </tr>
         </thead>
         <tbody>
             @forelse ($contracts as $key => $contract)
-                <tr id="row{{ $contract->id }}" class="premium-table-row pointer">
-                    <!-- ID Badge & Hidden Offcanvas Data -->
-                    <td class="text-center align-middle">
-                        <!-- Hidden actions wrapper for offcanvas -->
-                        <div class="contract-actions-wrapper d-none">
-                            @if (auth()->user()->can('contracts_read') || auth()->user()->can('contracts_update') || auth()->user()->can('contracts_delete'))
-                                @include('dashboard.contracts.parts.actions')
-                            @endif
+                <tr id="row{{ $contract->id }}" class="premium-table-row pointer" data-row-title="العقد #{!! $contract->id !!} | {!! optional($contract->customer)->name !!}">
+                    <!-- Mobile Details Control -->
+                    <td class="text-center align-middle d-lg-none">
+                        <span class="details-control pointer">
+                            <i class="fas fa-plus-circle text-primary font-22"></i>
+                        </span>
+
+                        <!-- Hidden Actions for Bottom Bar -->
+                        <div class="row-actions-html d-none">
+                            @include('dashboard.contracts.parts.actions')
                         </div>
 
                         <!-- Hidden Row Details for AJAX Modal -->
@@ -183,7 +186,10 @@
                                 </div>
                             </div>
                         </div>
+                    </td>
 
+                    <!-- Desktop ID Badge -->
+                    <td class="text-center align-middle d-none d-lg-table-cell">
                         <span class="badge badge-info badge-pill badge-glow premium-badge-circle">
                             {!! $loop->iteration + ($contracts->currentPage() - 1) * $contracts->perPage() !!}
                         </span>
@@ -226,7 +232,7 @@
                     </td>
 
                     <!-- Duration & Dates -->
-                    <td class="text-center align-middle py-3">
+                    <td class="text-center align-middle d-none d-lg-table-cell py-3">
                         <div class="contract-duration-wrapper">
                             <div class="duration-label-badge">
                                 <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
@@ -240,10 +246,11 @@
                     </td>
 
                     <!-- Rent Amount -->
-                    <td class="text-center align-middle">
-                        <div class="premium-amount-badge amount-success">
-                            <span class="amount-value">{!! number_format($contract->rent_amount, 2) !!}</span>
-                            <span class="amount-currency">{!! currency() !!}</span>
+                    <td class="text-center align-middle d-none d-lg-table-cell py-3">
+                        <div class="premium-financial-box box-primary-light shadow-none">
+                            <span class="font-weight-bolder font-16 text-dark-premium d-block">
+                                {!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}
+                            </span>
                         </div>
                     </td>
 
@@ -392,7 +399,7 @@
                         </span>
                     </td>
 
-
+                    <!-- Actions Column Removed -->
                 </tr>
             @empty
                 <tr>

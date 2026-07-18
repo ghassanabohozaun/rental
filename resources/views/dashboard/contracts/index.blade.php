@@ -148,22 +148,29 @@
             </div><!-- end: content body  -->
         </div> <!-- end: content wrapper  -->
     </div><!-- end: content app  -->
-    @include('dashboard.contracts.modals.details')
-
-    <!-- Custom Offcanvas Structure -->
-    <div class="offcanvas-backdrop" id="customOffcanvasBackdrop"></div>
-    <div class="custom-offcanvas" id="customOffcanvasDetails">
-        <div class="custom-offcanvas-header">
-            <h5 id="offcanvasTitle">{!! __('contracts.contract_details') ?? 'تفاصيل العقد' !!}</h5>
-            <button type="button" class="custom-offcanvas-close" id="closeOffcanvasBtn">&times;</button>
-        </div>
-        <div class="custom-offcanvas-body" id="offcanvasBody">
-            <!-- Details will be injected here -->
-        </div>
-        <div class="custom-offcanvas-footer" id="offcanvasFooter">
-            <!-- Actions will be injected here -->
+    <!-- Bottom Action Bar -->
+    <div id="bottom-action-bar" class="bottom-action-bar shadow-lg">
+        <div class="bottom-action-bar-content container">
+            <div class="d-flex align-items-center justify-content-between w-100 flex-column flex-md-row">
+                <div class="bottom-action-title font-weight-bold text-primary mb-1 mb-md-0 d-flex align-items-center">
+                    <div class="avatar-icon mr-1 bg-light-primary text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <span id="action-bar-title" class="font-14">{!! __('general.select_row') !!}</span>
+                </div>
+                <div class="bottom-action-buttons d-flex align-items-center justify-content-center flex-wrap" id="action-bar-buttons">
+                    <!-- Buttons injected here via JS -->
+                </div>
+                <div class="bottom-action-close ml-md-2 mt-1 mt-md-0 position-absolute position-md-relative" style="top: -10px; right: 10px;">
+                    <button type="button" class="btn btn-sm btn-danger radius-10 shadow-sm" id="close-action-bar" title="{!! __('general.close') !!}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
+    @include('dashboard.contracts.modals.details')
 @endsection
 
 @push('scripts')
@@ -178,46 +185,47 @@
                 initFilterSystem();
             }
 
-            // --- Custom Offcanvas Logic ---
-            var $offcanvas = $('#customOffcanvasDetails');
-            var $backdrop = $('#customOffcanvasBackdrop');
+            // --- Bottom Action Bar Logic ---
+            const $actionBar = $('#bottom-action-bar');
+            const $actionTitle = $('#action-bar-title');
+            const $actionButtons = $('#action-bar-buttons');
 
-            function openOffcanvas() {
-                $offcanvas.addClass('show');
-                $backdrop.addClass('show');
-                $('body').css('overflow', 'hidden');
-            }
-
-            function closeOffcanvas() {
-                $offcanvas.removeClass('show');
-                $backdrop.removeClass('show');
-                $('body').css('overflow', '');
-            }
-
-            $('#closeOffcanvasBtn, #customOffcanvasBackdrop').on('click', function() {
-                closeOffcanvas();
-            });
-
-            // Handle row click (Event Delegation for AJAX loaded tables)
-            $('#myTable').on('click', 'tbody tr.premium-table-row', function(e) {
-                // Prevent opening if clicking on specific controls
-                if ($(e.target).closest('a, button, .details-control').length) {
+            // Handle Row Click
+            $(document).on('click', '.premium-table-row', function(e) {
+                // Ignore clicks on existing links, buttons, or the details control icon
+                if ($(e.target).closest('a, button, .details-control, .select2').length) {
                     return;
                 }
 
-                var $row = $(this);
-                
-                // Extract details and actions from the hidden divs inside the row
-                var detailsHtml = $row.find('.row-details').html();
-                var actionsHtml = $row.find('.contract-actions-wrapper').html();
+                // Manage row highlight
+                $('.premium-table-row').removeClass('selected-row-premium');
+                $(this).addClass('selected-row-premium');
 
-                if (detailsHtml) {
-                    // Inject content
-                    $('#offcanvasBody').html(detailsHtml);
-                    $('#offcanvasFooter').html(actionsHtml);
-                    
-                    // Open the sidebar
-                    openOffcanvas();
+                // Get row data
+                let title = $(this).attr('data-row-title');
+                let actionsHtml = $(this).find('.row-actions-html').html();
+
+                if(actionsHtml && actionsHtml.trim() !== '') {
+                    // Populate and Show
+                    $actionTitle.text(title);
+                    $actionButtons.html(actionsHtml);
+                    $actionBar.addClass('show');
+                }
+            });
+
+            // Handle Close Bar Button
+            $('#close-action-bar').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $actionBar.removeClass('show');
+                $('.premium-table-row').removeClass('selected-row-premium');
+            });
+
+            // Hide when clicking completely outside the table and the bar
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.premium-table-row, #bottom-action-bar').length) {
+                    $actionBar.removeClass('show');
+                    $('.premium-table-row').removeClass('selected-row-premium');
                 }
             });
         });
