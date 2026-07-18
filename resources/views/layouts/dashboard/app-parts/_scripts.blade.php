@@ -147,6 +147,22 @@
                 window.location.reload();
             }
         });
+
+        // Global Privacy Mode Store
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('privacy', {
+                hidden: localStorage.getItem('privacy_mode') !== 'false',
+                toggle() {
+                    this.hidden = !this.hidden;
+                    localStorage.setItem('privacy_mode', this.hidden);
+                    if (this.hidden) {
+                        document.documentElement.classList.add('privacy-enabled');
+                    } else {
+                        document.documentElement.classList.remove('privacy-enabled');
+                    }
+                }
+            });
+        });
     </script>
     <script src="{{ asset('assets/dashbaord/js/lock-screen-modern.js') }}"></script>
     <script src="{{ asset('assets/dashbaord/js/notifications.js') }}?v=1.0"></script>

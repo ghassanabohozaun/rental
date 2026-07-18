@@ -29,8 +29,13 @@
                 <!-- end: content header left-->
 
                 <!-- begin: content header right-->
-                <div class="content-header-right col-md-6 col-12">
-                    <div class="float-md-right mb-1">
+                <div class="content-header-right col-md-6 col-12 text-md-right">
+                    <div class="mb-1 d-flex justify-content-md-end justify-content-start align-items-center" style="gap: 10px;" x-data>
+                        <button type="button" @click="$store.privacy.toggle()" class="btn btn-premium-add shadow-pulse">
+                            <span class="privacy-icon-show"><i class="fas fa-eye"></i> <span class="ml-1 font-weight-bold">إظهار المبالغ</span></span>
+                            <span class="privacy-icon-hide"><i class="fas fa-eye-slash"></i> <span class="ml-1 font-weight-bold">إخفاء المبالغ</span></span>
+                        </button>
+
                         @can('properties_create')
                         <a href="{!! route('dashboard.properties.create') !!}" class="btn btn-premium-add shadow-pulse">
                             <i class="fas fa-plus-circle"></i>
@@ -50,7 +55,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $total_count }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $total_count }}</h3>
                                 <h6 class="stat-title">{!! __('properties.properties') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -61,7 +66,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-active">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $available_count ?? 0 }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $available_count ?? 0 }}</h3>
                                 <h6 class="stat-title">{!! __('properties.available') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -72,7 +77,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-expiring">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $rented_count ?? 0 }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $rented_count ?? 0 }}</h3>
                                 <h6 class="stat-title">{!! __('properties.rented') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -83,7 +88,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-revenue">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $maintenance_count ?? 0 }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $maintenance_count ?? 0 }}</h3>
                                 <h6 class="stat-title">{!! __('properties.status_maintenance') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">

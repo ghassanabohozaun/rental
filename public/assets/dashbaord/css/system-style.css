@@ -11400,3 +11400,36 @@ html[data-textdirection='rtl'] .premium-icon-centered {
     left: 0;
     right: auto;
 }
+
+/* Privacy Blur Mode (HTML class controlled) */
+html.privacy-enabled .privacy-blur-target {
+    filter: blur(6px);
+    opacity: 0.7;
+    user-select: none;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+html.privacy-enabled .privacy-blur-target:hover {
+    filter: blur(2px);
+    opacity: 0.9;
+}
+
+/* Privacy Button Texts */
+.privacy-icon-show { display: none; }
+.privacy-icon-hide { display: inline; }
+
+html.privacy-enabled .privacy-icon-show { display: inline; }
+html.privacy-enabled .privacy-icon-hide { display: none; }
+
+.privacy-toggle-btn {
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.2s ease;
+    width: 120px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.privacy-toggle-btn:hover {
+    color: #000;
+}

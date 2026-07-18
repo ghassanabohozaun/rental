@@ -61,7 +61,11 @@
             </div>
 
             <!-- 2. Quick Actions Bar -->
-            <div class="quick-actions-bar animate-up mt-2">
+            <div class="quick-actions-bar animate-up mt-2" x-data>
+                <a href="javascript:void(0)" @click.prevent="$store.privacy.toggle()" class="btn-quick-action">
+                    <span class="privacy-icon-show"><i class="fas fa-eye" style="color: #64748b;"></i> إظهار المبالغ</span>
+                    <span class="privacy-icon-hide"><i class="fas fa-eye-slash" style="color: #64748b;"></i> إخفاء المبالغ</span>
+                </a>
                 @can('contracts_create')
                     <a href="{!! route('dashboard.contracts.create') !!}" class="btn-quick-action btn-qa-contract">
                         <i class="fas fa-file-signature"></i> {!! __('contracts.add_contract') !!}
@@ -95,7 +99,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! $stats['companies_count'] !!}</h3>
+                                <h3 class="stat-value privacy-blur-target">{!! $stats['companies_count'] !!}</h3>
                                 <h6 class="stat-title">{!! __('companies.companies') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -108,7 +112,7 @@
                 <div class="col-xl-3 col-lg-6 col-12 mb-2">
                     <div class="premium-stat-card h-100 card-active">
                         <div class="stat-content">
-                            <h3 class="stat-value">{!! $stats['properties_count'] !!}</h3>
+                            <h3 class="stat-value privacy-blur-target">{!! $stats['properties_count'] !!}</h3>
                             <h6 class="stat-title">{!! __('properties.properties') !!}</h6>
                         </div>
                         <div class="stat-icon-wrapper">
@@ -120,7 +124,7 @@
                 <div class="col-xl-3 col-lg-6 col-12 mb-2">
                     <div class="premium-stat-card h-100 card-revenue">
                         <div class="stat-content">
-                            <h3 class="stat-value">{!! $stats['active_contracts'] !!}</h3>
+                            <h3 class="stat-value privacy-blur-target">{!! $stats['active_contracts'] !!}</h3>
                             <h6 class="stat-title">{!! __('contracts.contracts') !!}</h6>
                         </div>
                         <div class="stat-icon-wrapper">
@@ -132,8 +136,10 @@
                 <div class="col-xl-3 col-lg-6 col-12 mb-2">
                     <div class="premium-stat-card h-100 card-expiring">
                         <div class="stat-content">
-                            <h3 class="stat-value">{!! number_format($stats['total_payments'], 0) !!} <span
-                                    style="font-size: 1rem;">{!! currency() !!}</span></h3>
+                            <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                                <span>{!! number_format($stats['total_payments'], 0) !!}</span>
+                                <span style="font-size: 1rem; margin-bottom: 2px;">{!! currency() !!}</span>
+                            </h3>
                             <h6 class="stat-title">{!! __('contracts.paid_amount') !!}</h6>
                         </div>
                         <div class="stat-icon-wrapper">
@@ -146,8 +152,10 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['pending_cheques_value'], 0) !!} <span
-                                        style="font-size: 1rem;">{!! currency() !!}</span></h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                                    <span>{!! number_format($stats['pending_cheques_value'], 0) !!}</span>
+                                    <span style="font-size: 1rem; margin-bottom: 2px;">{!! currency() !!}</span>
+                                </h3>
                                 <h6 class="stat-title">{!! __('cheques.pending_cheques') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -194,8 +202,10 @@
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    <span class="text-success font-weight-bold">{!! number_format($cheque->amount, 0) !!}
-                                                        {!! currency() !!}</span>
+                                                    <span class="text-success font-weight-bold privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; gap: 4px;">
+                                                        <span>{!! number_format($cheque->amount, 0) !!}</span>
+                                                        <span style="margin-bottom: 2px;">{!! currency() !!}</span>
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     @php
@@ -365,7 +375,10 @@
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    <span class="text-success font-weight-bold">{!! number_format($payment->amount, 0) !!} {!! currency() !!}</span>
+                                                    <span class="text-success font-weight-bold privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; gap: 4px;">
+                                                        <span>{!! number_format($payment->amount, 0) !!}</span>
+                                                        <span style="margin-bottom: 2px;">{!! currency() !!}</span>
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     @php

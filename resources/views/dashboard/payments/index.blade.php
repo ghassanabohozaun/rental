@@ -33,7 +33,12 @@
 
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12 text-md-right">
-                    <div class="mb-1">
+                    <div class="mb-1 d-flex justify-content-md-end justify-content-start align-items-center" style="gap: 10px;" x-data>
+                        <button type="button" @click="$store.privacy.toggle()" class="btn btn-premium-add shadow-pulse">
+                            <span class="privacy-icon-show"><i class="fas fa-eye"></i> <span class="ml-1 font-weight-bold">إظهار المبالغ</span></span>
+                            <span class="privacy-icon-hide"><i class="fas fa-eye-slash"></i> <span class="ml-1 font-weight-bold">إخفاء المبالغ</span></span>
+                        </button>
+
                         @can('payments_create')
                             <a href="{!! route('dashboard.payments.create') !!}" class="btn btn-premium-add shadow-pulse">
                                 <i class="fas fa-plus-circle"></i>
@@ -47,12 +52,20 @@
 
             <!-- begin: content body -->
             <div class="content-body">
+                <!-- begin: stats header & toggle -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0 font-weight-bold text-muted" style="font-size: 1.1rem;">
+                        <i class="fas fa-chart-line text-primary mr-1"></i> الإحصائيات المالية
+                    </h5>
+                </div>
+                <!-- end: stats header & toggle -->
+
                 <!-- begin: stats cards -->
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['total_amount'], 0) !!} {!! currency() !!}</h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><span>{!! number_format($stats['total_amount'], 0) !!}</span><span style="margin-bottom: 2px;">{!! currency() !!}</span></h3>
                                 <h6 class="stat-title">{!! __('payments.total_collected') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -63,7 +76,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-active">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['this_month'], 0) !!} {!! currency() !!}</h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><span>{!! number_format($stats['this_month'], 0) !!}</span><span style="margin-bottom: 2px;">{!! currency() !!}</span></h3>
                                 <h6 class="stat-title">{!! __('payments.collected_this_month') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -74,7 +87,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-revenue">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['cheque_total'], 0) !!} {!! currency() !!}</h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><span>{!! number_format($stats['cheque_total'], 0) !!}</span><span style="margin-bottom: 2px;">{!! currency() !!}</span></h3>
                                 <h6 class="stat-title">{!! __('payments.cheque_payments') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -85,7 +98,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-expiring">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['cash_online_total'], 0) !!} {!! currency() !!}</h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><span>{!! number_format($stats['cash_online_total'], 0) !!}</span><span style="margin-bottom: 2px;">{!! currency() !!}</span></h3>
                                 <h6 class="stat-title">{!! __('payments.cash_online_payments') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">

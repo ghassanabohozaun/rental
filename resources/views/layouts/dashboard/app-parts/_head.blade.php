@@ -104,6 +104,11 @@
         if (savedSize) {
             document.documentElement.style.setProperty('--global-base-font-size', savedSize);
         }
+        
+        // Privacy Mode Init to prevent FOUC
+        if (localStorage.getItem('privacy_mode') !== 'false') {
+            document.documentElement.classList.add('privacy-enabled');
+        }
     })();
     function setSystemFontSize(size) {
         document.documentElement.style.setProperty('--global-base-font-size', size);

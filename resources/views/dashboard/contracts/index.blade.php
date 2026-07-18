@@ -35,7 +35,12 @@
 
                 <!-- begin: content header right-->
                 <div class="content-header-right col-md-6 col-12 text-md-right">
-                    <div class="mb-1">
+                    <div class="mb-1 d-flex justify-content-md-end justify-content-start align-items-center" style="gap: 10px;" x-data>
+                        <button type="button" @click="$store.privacy.toggle()" class="btn btn-premium-add shadow-pulse">
+                            <span class="privacy-icon-show"><i class="fas fa-eye"></i> <span class="ml-1 font-weight-bold">إظهار المبالغ</span></span>
+                            <span class="privacy-icon-hide"><i class="fas fa-eye-slash"></i> <span class="ml-1 font-weight-bold">إخفاء المبالغ</span></span>
+                        </button>
+
                         @can('contracts_create')
                         <a href="{!! route('dashboard.contracts.create') !!}" class="btn btn-premium-add shadow-pulse">
                             <i class="fas fa-plus-circle"></i>
@@ -55,7 +60,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-contracts">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $stats['total_contracts'] }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $stats['total_contracts'] }}</h3>
                                 <h6 class="stat-title">{!! __('contracts.contracts') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -66,7 +71,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-active">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $stats['active_contracts'] }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $stats['active_contracts'] }}</h3>
                                 <h6 class="stat-title">{!! __('contracts.active_contracts') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -77,7 +82,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-revenue">
                             <div class="stat-content">
-                                <h3 class="stat-value">{!! number_format($stats['total_rent_value'], 0) !!} {!! currency() !!}</h3>
+                                <h3 class="stat-value privacy-blur-target" style="white-space: nowrap; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><span>{!! number_format($stats['total_rent_value'], 0) !!}</span><span style="margin-bottom: 2px;">{!! currency() !!}</span></h3>
                                 <h6 class="stat-title">{!! __('contracts.total_rent_value') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
@@ -88,7 +93,7 @@
                     <div class="col-xl-3 col-lg-6 col-12 mb-2">
                         <div class="premium-stat-card h-100 card-expiring">
                             <div class="stat-content">
-                                <h3 class="stat-value">{{ $stats['expiring_soon'] }}</h3>
+                                <h3 class="stat-value privacy-blur-target">{{ $stats['expiring_soon'] }}</h3>
                                 <h6 class="stat-title">{!! __('contracts.expiring_soon') !!}</h6>
                             </div>
                             <div class="stat-icon-wrapper">
