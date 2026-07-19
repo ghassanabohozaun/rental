@@ -32,16 +32,21 @@
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
                             @if(auth()->user()->role_id == 1)
-                                <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($template->company)->name !!}</span>
+                                <span class="text-muted"><i class="far fa-building mr-25 opacity-5"></i> {!! optional($template->company)->name !!}</span>
+                                <span class="text-muted mx-50">|</span>
                             @endif
-                            <span class="badge badge-light-info"><i class="fas fa-sort-numeric-down mr-25"></i> ترتيب: {!! $template->order_num !!}</span>
+                            <span class="text-muted"><i class="fas fa-sort-numeric-down mr-25 opacity-5"></i> {!! __('contracts.order_num') !!}: {!! $template->order_num !!}</span>
+                            
                             @if($template->is_default)
-                                <span class="badge badge-light-success"><i class="fas fa-check-circle mr-25"></i> افتراضي</span>
+                                <span class="text-muted mx-50">|</span>
+                                <span class="text-success font-weight-bold"><i class="fas fa-check-circle mr-25"></i> {!! __('general.yes') !!}</span>
                             @endif
+                            
+                            <span class="text-muted mx-50">|</span>
                             @if($template->is_active)
-                                <span class="badge badge-light-success"><i class="fas fa-circle mr-25 font-10"></i> نشط</span>
+                                <span class="text-success font-weight-bold"><i class="fas fa-circle mr-25 font-10"></i> {!! __('general.active') !!}</span>
                             @else
-                                <span class="badge badge-light-danger"><i class="fas fa-circle mr-25 font-10"></i> غير نشط</span>
+                                <span class="text-danger font-weight-bold"><i class="fas fa-circle mr-25 font-10"></i> {!! __('general.inactive') !!}</span>
                             @endif
                         </div>
 
@@ -73,7 +78,7 @@
                                                 <span class="detail-info-label">{!! __('companies.company') !!}</span>
                                                 <span class="detail-info-value">
                                                     <span
-                                                        class="badge badge-light-primary border-0">{!! optional($template->company)->name ?? __('general.all_companies') !!}</span>
+                                                        class="font-weight-bold text-dark">{!! optional($template->company)->name ?? __('general.all_companies') !!}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -93,9 +98,9 @@
                                             <span class="detail-info-label">{!! __('contracts.is_default_clause') !!}</span>
                                             <span class="detail-info-value">
                                                 @if($template->is_default)
-                                                    <span class="badge badge-pill badge-light-success border-0 px-2 py-1"><i class="fas fa-check mr-25 font-10"></i> {!! __('general.yes') !!}</span>
+                                                    <span class="text-success font-weight-bold"><i class="fas fa-check mr-25 font-10"></i> {!! __('general.yes') !!}</span>
                                                 @else
-                                                    <span class="badge badge-pill badge-secondary border-0 px-2 py-1"><i class="fas fa-minus mr-25 font-10"></i> {!! __('general.no') !!}</span>
+                                                    <span class="text-muted"><i class="fas fa-minus mr-25 font-10 opacity-5"></i> {!! __('general.no') !!}</span>
                                                 @endif
                                             </span>
                                         </div>
@@ -115,9 +120,9 @@
                                             <span class="detail-info-label">{!! __('contracts.status') !!}</span>
                                             <span class="detail-info-value">
                                                 @if($template->status)
-                                                    <span class="badge badge-pill badge-glow premium-status-badge badge-success border-0 px-2 py-1">{!! __('general.active') !!}</span>
+                                                    <span class="badge badge-pill badge-light-success border-0 px-2 py-1 shadow-none">{!! __('general.active') !!}</span>
                                                 @else
-                                                    <span class="badge badge-pill badge-glow premium-status-badge badge-danger border-0 px-2 py-1">{!! __('general.inactive') !!}</span>
+                                                    <span class="badge badge-pill badge-light-danger border-0 px-2 py-1 shadow-none">{!! __('general.inactive') !!}</span>
                                                 @endif
                                             </span>
                                         </div>
@@ -136,22 +141,21 @@
                     </td>
                     @if(auth()->user()->role_id == 1)
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($template->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
+                        <span class="font-weight-bold text-dark">
+                            {!! optional($template->company)->name ?? __('general.all_companies') !!}
+                        </span>
                     </td>
                     @endif
                     <td class="align-middle py-3">
-                        <span class="font-weight-bold font-15 mb-25 text-dark-premium">
+                        <span class="font-weight-bold font-15 mb-25 text-dark">
                             {!! $template->title !!}
                         </span>
                     </td>
                     <td class="text-center align-middle">
                         @if($template->is_default)
-                            <span class="badge badge-pill badge-light-success border-0 px-2 py-1 font-weight-bold shadow-none status-badge-min"><i class="fas fa-check mr-25 font-10"></i> {!! __('general.yes') !!}</span>
+                            <span class="text-success font-weight-bold"><i class="fas fa-check mr-25 font-10"></i> {!! __('general.yes') !!}</span>
                         @else
-                            <span class="badge badge-pill badge-secondary border-0 px-2 py-1 font-weight-bold shadow-none status-badge-min"><i class="fas fa-minus mr-25 font-10"></i> {!! __('general.no') !!}</span>
+                            <span class="text-muted"><i class="fas fa-minus mr-25 font-10 opacity-5"></i> {!! __('general.no') !!}</span>
                         @endif
                     </td>
                     <td class="text-center align-middle">
@@ -159,9 +163,9 @@
                     </td>
                     <td class="text-center align-middle">
                         @if($template->status)
-                            <span class="badge badge-pill badge-glow premium-status-badge badge-success border-0 px-2 py-1 font-weight-bold">{!! __('general.active') !!}</span>
+                            <span class="badge badge-pill badge-light-success border-0 px-2 py-1 font-weight-bold shadow-none"><i class="fas fa-circle mr-25 font-10"></i> {!! __('general.active') !!}</span>
                         @else
-                            <span class="badge badge-pill badge-glow premium-status-badge badge-danger border-0 px-2 py-1 font-weight-bold">{!! __('general.inactive') !!}</span>
+                            <span class="badge badge-pill badge-light-danger border-0 px-2 py-1 font-weight-bold shadow-none"><i class="fas fa-circle mr-25 font-10"></i> {!! __('general.inactive') !!}</span>
                         @endif
                     </td>
                     <!-- Actions Column Removed -->

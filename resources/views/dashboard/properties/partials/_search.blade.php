@@ -4,7 +4,7 @@
             <i class="fas fa-filter"></i> {!! __('general.filters') !!}:
         </span>
 
-        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data"
+        <form class="js-filter-form d-flex align-items-center flex-wrap" style="gap: 12px;" data-container="#table_data"
             data-loader=".table-loader-overlay">
 
             <!-- 1. Property Search (Keyword) -->
@@ -14,7 +14,7 @@
                     <span class="chip-text">{!! __('properties.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="property_search_popover">
+                <div class="filter-query-panel shadow-lg border-0" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property') !!}</label>
                         <div class="premium-input-wrapper">
@@ -39,7 +39,7 @@
                         <span class="chip-text">{!! __('companies.company') !!}</span>
                     </div>
 
-                    <div class="ptc-query-panel shadow-lg border-0" id="company_search_popover"
+                    <div class="filter-query-panel shadow-lg border-0" id="company_search_popover"
                         style="min-width: 280px;">
                         <div class="mb-3">
                             <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
@@ -71,7 +71,7 @@
                     <span class="chip-text">{!! __('properties.electricity_account_number') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="electricity_search_popover">
+                <div class="filter-query-panel shadow-lg border-0" id="electricity_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.electricity_account_number') !!}</label>
                         <div class="premium-input-wrapper">
@@ -95,7 +95,7 @@
                     <span class="chip-text">{!! __('properties.water_account_number') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="water_search_popover">
+                <div class="filter-query-panel shadow-lg border-0" id="water_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.water_account_number') !!}</label>
                         <div class="premium-input-wrapper">
@@ -119,7 +119,7 @@
                     <span class="chip-text">{!! __('properties.parent_property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="dependency_search_popover"
+                <div class="filter-query-panel shadow-lg border-0" id="dependency_search_popover"
                     style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.parent_property') !!}</label>
@@ -149,7 +149,7 @@
                     <span class="chip-text">{!! __('properties.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="status_search_popover" style="min-width: 280px;">
+                <div class="filter-query-panel shadow-lg border-0" id="status_search_popover" style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.status') !!}</label>
                         <div class="premium-input-wrapper">
@@ -179,7 +179,7 @@
                     <span class="chip-text">{!! __('properties.property_type') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="type_search_popover" style="min-width: 280px;">
+                <div class="filter-query-panel shadow-lg border-0" id="type_search_popover" style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property_type') !!}</label>
                         <div class="premium-input-wrapper">
@@ -211,7 +211,7 @@
                     <span class="chip-text">{!! __('properties.area') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0" id="area_search_popover" style="min-width: 280px;">
+                <div class="filter-query-panel shadow-lg border-0" id="area_search_popover" style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-1 small text-muted">{!! __('general.min') !!}</label>
                         <div class="premium-input-wrapper">

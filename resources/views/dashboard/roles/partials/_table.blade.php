@@ -105,13 +105,12 @@
                     <!-- Company -->
                     <td class="text-center align-middle">
                         @if ($role->company_id)
-                            <a href="javascript:void(0)" class="company-chip">
-                                <i class="fas fa-briefcase mr-1"></i>
+                            <span class="font-weight-bold text-dark">
                                 {!! optional($role->company)->name !!}
-                            </a>
+                            </span>
                         @else
-                            <span class="badge badge-light-warning border-0">
-                                <i class="fas fa-globe mr-1"></i> {!! __('roles.global_role') !!}
+                            <span class="text-warning font-weight-bold">
+                                {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>
@@ -125,8 +124,9 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($role->company)->name ?? __('roles.global_role') !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-user-plus mr-25"></i> {!! $role->creator->name ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-briefcase mr-25 opacity-5"></i> {!! optional($role->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-user-plus mr-25 opacity-5"></i> {!! $role->creator->name ?? '---' !!}</span>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-start">

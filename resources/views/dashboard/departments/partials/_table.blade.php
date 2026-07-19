@@ -105,13 +105,12 @@
                     @if(isset($companies))
                     <td class="text-center align-middle">
                         @if($department->company_id)
-                            <a href="javascript:void(0)" class="company-chip">
-                                <i class="fas fa-briefcase mr-1"></i>
+                            <span class="font-weight-bold text-dark">
                                 {!! optional($department->company)->name !!}
-                            </a>
+                            </span>
                         @else
-                            <span class="badge badge-light-warning border-0">
-                                <i class="fas fa-globe mr-1"></i> {!! __('roles.global_role') !!}
+                            <span class="text-warning font-weight-bold">
+                                {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>
@@ -126,8 +125,9 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($department->company)->name ?? __('roles.global_role') !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-user mr-25"></i> {!! $department->creator->name ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-briefcase mr-25 opacity-5"></i> {!! optional($department->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-user mr-25 opacity-5"></i> {!! $department->creator->name ?? '---' !!}</span>
                         </div>
 
                         {!! $department->name !!}

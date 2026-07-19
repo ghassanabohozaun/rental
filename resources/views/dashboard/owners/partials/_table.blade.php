@@ -117,24 +117,23 @@
                     <!-- Company -->
                     @if(isset($companies))
                     <td class="text-center align-middle">
-                        <a href="javascript:void(0)" class="company-chip">
-                            <i class="fas fa-briefcase mr-1"></i>
+                        <span class="font-weight-bold text-dark">
                             {!! optional($owner->company)->name ?? __('general.all_companies') !!}
-                        </a>
+                        </span>
                     </td>
                     @endif
 
                     <!-- Type -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="badge badge-pill bg-light-info text-info font-weight-bold px-3 py-1">
-                            <i class="fas fa-tag mr-1"></i> {!! isset($owner->type) ? __('owners.owner_types.' . $owner->type) : '---' !!}
+                        <span class="text-muted">
+                            {!! isset($owner->type) ? __('owners.owner_types.' . $owner->type) : '---' !!}
                         </span>
                     </td>
 
                     <!-- ID Number -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-id-card text-muted mr-1"></i> {!! $owner->identification_number ?? '---' !!}
+                        <span class="text-dark">
+                            {!! $owner->identification_number ?? '---' !!}
                         </span>
                     </td>
 
@@ -147,9 +146,11 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-phone mr-25"></i> {!! $owner->phone ?? '---' !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-id-card mr-25"></i> {!! $owner->identification_number ?? '---' !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-tag mr-25"></i> {!! isset($owner->type) ? __('owners.owner_types.' . $owner->type) : '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-phone mr-25 opacity-5"></i> {!! $owner->phone ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-id-card mr-25 opacity-5"></i> {!! $owner->identification_number ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-tag mr-25 opacity-5"></i> {!! isset($owner->type) ? __('owners.owner_types.' . $owner->type) : '---' !!}</span>
                         </div>
 
                         <div class="user-info-cell">
@@ -160,8 +161,8 @@
 
                     <!-- Phone -->
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
-                            <i class="fas fa-phone"></i> {!! $owner->phone ?? '---' !!}
+                        <span class="font-weight-bold text-dark">
+                            {!! $owner->phone ?? '---' !!}
                         </span>
                     </td>
 

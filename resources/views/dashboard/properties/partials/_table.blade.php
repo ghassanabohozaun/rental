@@ -61,10 +61,9 @@
                     <!-- Company -->
                     @if(isset($companies))
                         <td class="text-center align-middle d-none d-md-table-cell">
-                            <a href="javascript:void(0)" class="company-chip">
-                                <i class="fas fa-briefcase mr-1"></i>
+                            <span class="font-weight-bold text-dark">
                                 {!! optional($property->company)->name !!}
-                            </a>
+                            </span>
                         </td>
                     @endif
 
@@ -77,10 +76,12 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-sitemap mr-25"></i> {!! optional($property->propertyType)->name !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-folder-open mr-25"></i> ملف: {!! $property->file_number ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-sitemap mr-25 opacity-5"></i> {!! optional($property->propertyType)->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-folder-open mr-25 opacity-5"></i> ملف: {!! $property->file_number ?? '---' !!}</span>
                             @if($property->propertyStatus)
-                            <span class="badge badge-light-secondary"><i class="fas fa-circle mr-25 font-10" style="color: {!! $property->propertyStatus->color !!}"></i> {!! $property->propertyStatus->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="font-weight-bold" style="color: {!! $property->propertyStatus->color !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! $property->propertyStatus->name !!}</span>
                             @endif
                         </div>
 
@@ -92,7 +93,7 @@
 
                     <!-- Type -->
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <span class="property-type-badge">
+                        <span class="text-dark">
                             {!! optional($property->propertyType)->name !!}
                         </span>
                     </td>
@@ -100,13 +101,13 @@
                     <!-- Parent Property -->
                     <td class="text-center align-middle d-none d-md-table-cell">
                         @if($property->parent_id)
-                            <span class="badge badge-light-warning badge-pill">
-                                <i class="fas fa-link mr-1 font-11"></i>
+                            <span class="text-warning font-weight-bold">
+                                <i class="fas fa-link mr-1 opacity-5"></i>
                                 {!! optional($property->parent)->name !!}
                             </span>
                         @else
-                            <span class="badge badge-light-primary badge-pill">
-                                <i class="fas fa-sitemap mr-1 font-11"></i>
+                            <span class="text-primary">
+                                <i class="fas fa-sitemap mr-1 opacity-5"></i>
                                 {!! __('properties.standalone_property') !!}
                             </span>
                         @endif
@@ -114,7 +115,7 @@
 
                     <!-- File Number -->
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <span class="file-number-badge">
+                        <span class="text-dark">
                             {!! $property->file_number ?? '---' !!}
                         </span>
                     </td>
@@ -124,8 +125,8 @@
                     <!-- Status -->
                     <td class="text-center align-middle">
                         @if($property->propertyStatus)
-                            <span class="premium-badge" style="background-color: {!! $property->propertyStatus->color !!}15; color: {!! $property->propertyStatus->color !!};">
-                                <i class="fas fa-circle font-11 mr-1"></i>
+                            <span class="badge badge-pill border-0 shadow-none px-2 py-1 font-weight-bold" style="background-color: {!! $property->propertyStatus->color !!}15; color: {!! $property->propertyStatus->color !!};">
+                                <i class="fas fa-circle font-10 mr-1"></i>
                                 {!! $property->propertyStatus->name !!}
                             </span>
                         @else

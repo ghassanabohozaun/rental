@@ -4,7 +4,7 @@
             <i class="fas fa-filter"></i> {!! __('general.filters') !!}:
         </span>
 
-        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data"
+        <form class="js-filter-form d-flex align-items-center flex-wrap" style="gap: 12px;" data-container="#table_data"
             data-loader=".table-loader-overlay">
 
             <!-- Maintenance Search -->
@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- Search Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="maintenance_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="maintenance_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('general.search') !!}</label>
                         <div class="premium-input-wrapper">
@@ -41,7 +41,7 @@
                     </div>
 
                     <!-- Company Filter Popover -->
-                    <div class="ptc-query-panel shadow-lg border-0 radius-16" id="company_search_popover"
+                    <div class="filter-query-panel shadow-lg border-0 radius-16" id="company_search_popover"
                         style="min-width: 280px;">
                         <div class="mb-3">
                             <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
@@ -74,7 +74,7 @@
                     <span class="chip-text">{!! __('maintenances.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="property_search_popover"
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="property_search_popover"
                     style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('maintenances.property') !!}</label>
@@ -106,7 +106,7 @@
                     <span class="chip-text">{!! __('maintenances.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="status_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('maintenances.status') !!}</label>
                         <div class="premium-input-wrapper">

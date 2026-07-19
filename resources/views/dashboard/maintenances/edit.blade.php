@@ -102,7 +102,7 @@
                                                 <div class="col-md-3">
                                                     <div class="premium-form-group">
                                                         <label for="date" class="premium-label">{!! __('maintenances.date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" value="{{ $maintenance->date }}">
+                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none filter-datepicker" autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" value="{{ $maintenance->date }}">
                                                         <span class="text-danger error-text date_error"></span>
                                                     </div>
                                                 </div>
@@ -218,7 +218,7 @@
                                                                         <a href="{{ asset('uploads/maintenances/'.$item->attachment) }}" target="_blank" class="btn-premium-action btn-premium-action-info mx-1" title="{!! __('maintenances.view_current_attachment') !!}">
                                                                             <i class="fas fa-external-link-alt"></i>
                                                                         </a>
-                                                                        <a href="{{ asset('uploads/maintenances/'.$item->attachment) }}" download target="_blank" class="btn-premium-action btn-premium-action-success mx-1" title="{!! __('general.download') ?? 'تحميل' !!}">
+                                                                        <a href="{{ asset('uploads/maintenances/'.$item->attachment) }}" download target="_blank" class="btn-premium-action btn-premium-action-success mx-1" title="{!! __('general.download') ?? 'ØªØ­Ù…ÙŠÙ„' !!}">
                                                                             <i class="fas fa-download"></i>
                                                                         </a>
                                                                     @endif
@@ -229,7 +229,7 @@
                                                         </div>
                                                         <div class="col-md-1 text-center">
                                                             <div class="premium-form-group mb-0">
-                                                                <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">نوع الصيانة</label>
+                                                                <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">Ù†ÙˆØ¹ Ø§Ù„ØµÙŠØ§Ù†Ø©</label>
                                                                 <div class="d-flex align-items-center justify-content-center action-btn-wrapper">
                                                                     <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger remove-item-btn" title="{!! __('general.delete') !!}">
                                                                         <i class="fas fa-trash-alt"></i>
@@ -321,7 +321,7 @@
                     </div>
                     <div class="col-md-1 text-center">
                         <div class="premium-form-group mb-0">
-                            <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">نوع الصيانة</label>
+                            <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">Ù†ÙˆØ¹ Ø§Ù„ØµÙŠØ§Ù†Ø©</label>
                             <div class="d-flex align-items-center justify-content-center action-btn-wrapper">
                                 <a href="javascript:void(0)" class="btn-premium-action btn-premium-action-danger remove-item-btn" title="{!! __('general.delete') !!}">
                                     <i class="fas fa-trash-alt"></i>

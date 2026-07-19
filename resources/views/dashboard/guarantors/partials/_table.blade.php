@@ -126,10 +126,9 @@
                     <!-- Company -->
                     @if(isset($companies))
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($guarantor->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
+                        <span class="font-weight-bold text-dark">
+                            {!! optional($guarantor->company)->name ?? __('general.all_companies') !!}
+                        </span>
                     </td>
                     @endif
 
@@ -142,12 +141,14 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-phone mr-25"></i> {!! $guarantor->phone ?? '---' !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-id-card mr-25"></i> {!! $guarantor->id_number ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-phone mr-25 opacity-5"></i> {!! $guarantor->phone ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-id-card mr-25 opacity-5"></i> {!! $guarantor->id_number ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
                             @if($guarantor->status == 1)
-                                <span class="badge badge-light-success"><i class="fas fa-check-circle mr-25"></i> {!! __('general.enable') !!}</span>
+                                <span class="text-success font-weight-bold"><i class="fas fa-check-circle mr-25"></i> {!! __('general.enable') !!}</span>
                             @else
-                                <span class="badge badge-light-danger"><i class="fas fa-times-circle mr-25"></i> {!! __('general.disabled') !!}</span>
+                                <span class="text-danger font-weight-bold"><i class="fas fa-times-circle mr-25"></i> {!! __('general.disabled') !!}</span>
                             @endif
                         </div>
 
@@ -156,19 +157,18 @@
                         </div>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
-                            <i class="fas fa-phone"></i> {!! $guarantor->phone ?? '---' !!}
+                        <span class="font-weight-bold text-dark">
+                            {!! $guarantor->phone ?? '---' !!}
                         </span>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-credit-card text-muted mr-1"></i> {!! $guarantor->id_number ?? '---' !!}
+                        <span class="text-dark">
+                            {!! $guarantor->id_number ?? '---' !!}
                         </span>
                     </td>
 
                     <td class="text-center align-middle">
-                        <div class="badge badge-pill badge-glow guarantor_status_{!! $guarantor->id !!} {!! $guarantor->status == 1 ? 'badge-success' : 'badge-danger' !!}"
-                            style="font-size: 12px; font-weight: bold; padding: 5px 12px;">
+                        <div class="badge badge-pill border-0 shadow-none px-2 py-1 font-weight-bold guarantor_status_{!! $guarantor->id !!} {!! $guarantor->status == 1 ? 'badge-light-success' : 'badge-light-danger' !!}">
                             {!! $guarantor->status == 1 ? __('general.enable') : __('general.disabled') !!}
                         </div>
                     </td>

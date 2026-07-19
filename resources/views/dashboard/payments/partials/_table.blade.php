@@ -105,10 +105,9 @@
                     </td>
                     @if(isset($companies))
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($payment->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
+                        <span class="font-weight-bold text-dark">
+                            {!! optional($payment->company)->name ?? __('general.all_companies') !!}
+                        </span>
                     </td>
                     @endif
                     <td class="align-middle property-info-td">
@@ -119,17 +118,20 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($payment->contract && $payment->contract->property ? $payment->contract->property : null)->name !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> {!! $payment->payment_date ? $payment->payment_date->format('Y-m-d') : '---' !!}</span>
-                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($payment->amount, 2) !!} {!! currency() !!}</span>
+                            <span class="text-muted"><i class="far fa-building mr-25 opacity-5"></i> {!! optional($payment->contract && $payment->contract->property ? $payment->contract->property : null)->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-calendar-alt mr-25 opacity-5"></i> {!! $payment->payment_date ? $payment->payment_date->format('Y-m-d') : '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="font-weight-bold text-dark"><i class="fas fa-money-bill-wave mr-25 text-muted opacity-5"></i> {!! number_format($payment->amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small></span>
+                            <span class="text-muted mx-50">|</span>
                             @php
                                 $statusColor = [
-                                    'paid' => 'success',
-                                    'pending' => 'warning',
-                                    'bounced' => 'danger',
-                                ][$payment->status] ?? 'secondary';
+                                    'paid' => 'text-success',
+                                    'pending' => 'text-warning',
+                                    'bounced' => 'text-danger',
+                                ][$payment->status] ?? 'text-secondary';
                             @endphp
-                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('payments.statuses.' . $payment->status) !!}</span>
+                            <span class="{!! $statusColor !!} font-weight-bold"><i class="fas fa-circle mr-25 font-10"></i> {!! __('payments.statuses.' . $payment->status) !!}</span>
                         </div>
 
                         <div class="user-info-cell">
@@ -148,13 +150,12 @@
                         @endif
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
-                            {!! number_format($payment->amount, 2) !!} {!! currency() !!}
+                        <span class="font-weight-bold text-dark d-block mb-25">
+                            {!! number_format($payment->amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
                         </span>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-calendar-alt text-muted mr-1"></i>
+                        <span class="text-dark">
                             {!! $payment->payment_date ? $payment->payment_date->format('d-m-Y') : '---' !!}
                         </span>
                     </td>
@@ -190,12 +191,12 @@
                     <td class="text-center align-middle">
                         @php
                             $statusClass = [
-                                'paid' => 'badge-success',
-                                'pending' => 'badge-warning',
-                                'bounced' => 'badge-danger',
-                            ][$payment->status] ?? 'badge-secondary';
+                                'paid' => 'badge-light-success',
+                                'pending' => 'badge-light-warning',
+                                'bounced' => 'badge-light-danger',
+                            ][$payment->status] ?? 'badge-light-secondary';
                         @endphp
-                        <div class="badge badge-pill badge-glow {!! $statusClass !!} premium-badge">
+                        <div class="badge badge-pill {!! $statusClass !!} border-0 shadow-none px-2 py-1 font-weight-bold">
                             {!! __('payments.statuses.' . $payment->status) !!}
                         </div>
                     </td>

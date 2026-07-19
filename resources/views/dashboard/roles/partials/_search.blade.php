@@ -5,7 +5,7 @@
             <i class="fas fa-filter"></i> {!! __('general.filters') !!}:
         </span>
 
-        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data" data-loader=".table-loader-overlay">
+        <form class="js-filter-form d-flex align-items-center flex-wrap" style="gap: 12px;" data-container="#table_data" data-loader=".table-loader-overlay">
             <!-- Role Search -->
             <div class="filter-item">
                 <div class="filter-chip js-filter-chip" data-filter-target="role_search_popover">
@@ -14,7 +14,7 @@
                 </div>
 
                 <!-- Role Search Popover -->
-                <div class="ptc-query-panel shadow-lg border-0" id="role_search_popover" style="border-radius: 16px;">
+                <div class="filter-query-panel shadow-lg border-0" id="role_search_popover" style="border-radius: 16px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('roles.role') !!}</label>
                         <div class="premium-input-wrapper">
@@ -40,7 +40,7 @@
                 </div>
 
                 <!-- Company Filter Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="company_search_popover" style="min-width: 280px;">
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="company_search_popover" style="min-width: 280px;">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
                         <div class="premium-input-wrapper">

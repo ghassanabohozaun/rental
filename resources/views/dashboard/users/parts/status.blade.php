@@ -1,5 +1,4 @@
-<div class="badge badge-pill badge-glow user_status_{!! $user->id !!} {!! $user->status == 1 ? 'badge-success' : 'badge-danger' !!}"
-    style="font-size: 12px; font-weight: bold; padding: 5px 12px;">
+<div class="badge badge-pill border-0 shadow-none px-2 py-1 font-weight-bold user_status_{!! $user->id !!} {!! $user->status == 1 ? 'badge-light-success' : 'badge-light-danger' !!}">
     {!! $user->status == 1 ? __('general.enable') : __('general.disabled') !!}
 </div>
 

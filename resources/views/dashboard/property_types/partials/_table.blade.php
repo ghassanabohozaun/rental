@@ -100,12 +100,12 @@
                     <!-- Company -->
                     <td class="text-center align-middle">
                         @if($property_type->company_id)
-                            <a href="javascript:void(0)" class="company-chip">
-                                <i class="fas fa-briefcase mr-1"></i> {!! optional($property_type->company)->name !!}
-                            </a>
+                            <span class="font-weight-bold text-dark">
+                                {!! optional($property_type->company)->name !!}
+                            </span>
                         @else
-                            <span class="badge badge-light-warning border-0">
-                                <i class="fas fa-globe mr-1"></i> {!! __('roles.global_role') !!}
+                            <span class="text-warning font-weight-bold">
+                                {!! __('roles.global_role') !!}
                             </span>
                         @endif
                     </td>
@@ -119,8 +119,9 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($property_type->company)->name ?? __('roles.global_role') !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-user mr-25"></i> {!! $property_type->creator->name ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-briefcase mr-25 opacity-5"></i> {!! optional($property_type->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-user mr-25 opacity-5"></i> {!! $property_type->creator->name ?? '---' !!}</span>
                         </div>
 
                         {!! $property_type->name !!}

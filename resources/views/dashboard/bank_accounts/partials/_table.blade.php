@@ -123,10 +123,9 @@
                     <!-- Company -->
                     @if(isset($companies))
                     <td class="text-center align-middle">
-                        <a href="javascript:void(0)" class="company-chip">
-                            <i class="fas fa-briefcase mr-1"></i>
+                        <span class="font-weight-bold text-dark">
                             {!! $account->company->name ?? '---' !!}
-                        </a>
+                        </span>
                     </td>
                     @endif
 
@@ -139,9 +138,11 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! $account->company->name ?? '---' !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-user mr-25"></i> {!! $account->account_holder_name !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-hashtag mr-25"></i> {!! $account->account_number !!}</span>
+                            <span class="text-muted"><i class="fas fa-briefcase mr-25 opacity-5"></i> {!! $account->company->name ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-user mr-25 opacity-5"></i> {!! $account->account_holder_name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-hashtag mr-25 opacity-5"></i> {!! $account->account_number !!}</span>
                         </div>
 
                         {!! $account->bank_name !!}

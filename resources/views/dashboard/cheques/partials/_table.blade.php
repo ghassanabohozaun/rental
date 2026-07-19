@@ -123,10 +123,9 @@
                     </td>
                     @if(isset($companies))
                     <td class="text-center align-middle d-none d-md-table-cell">
-                        <div class="company-chip">
-                            <i class="fas fa-briefcase"></i>
-                            <span>{!! optional($cheque->company)->name ?? __('general.all_companies') !!}</span>
-                        </div>
+                        <span class="font-weight-bold text-dark">
+                            {!! optional($cheque->company)->name ?? __('general.all_companies') !!}
+                        </span>
                     </td>
                     @endif
                     <td class="align-middle property-info-td">
@@ -145,19 +144,22 @@
                         
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($cheque->contract && $cheque->contract->property ? $cheque->contract->property : null)->name !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> مستحق في: {!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}</span>
-                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($cheque->amount, 2) !!} {!! currency() !!}</span>
+                            <span class="text-muted"><i class="far fa-building mr-25 opacity-5"></i> {!! optional($cheque->contract && $cheque->contract->property ? $cheque->contract->property : null)->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-calendar-alt mr-25 opacity-5"></i> {!! __('cheques.due_date') !!}: {!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="font-weight-bold text-dark"><i class="fas fa-money-bill-wave mr-25 text-muted opacity-5"></i> {!! number_format($cheque->amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small></span>
+                            <span class="text-muted mx-50">|</span>
                             @php
                                 $statusColor = [
-                                    'pending' => 'warning',
-                                    'cleared' => 'success',
-                                    'returned' => 'danger',
-                                    'bounced' => 'danger',
-                                    'held' => 'info',
-                                ][$cheque->status] ?? 'secondary';
+                                    'pending' => 'text-warning',
+                                    'cleared' => 'text-success',
+                                    'returned' => 'text-danger',
+                                    'bounced' => 'text-danger',
+                                    'held' => 'text-info',
+                                ][$cheque->status] ?? 'text-secondary';
                             @endphp
-                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('cheques.statuses.' . $cheque->status) !!}</span>
+                            <span class="{!! $statusColor !!} font-weight-bold"><i class="fas fa-circle mr-25 font-10"></i> {!! __('cheques.statuses.' . $cheque->status) !!}</span>
                         </div>
 
                         <div class="d-flex flex-column">
@@ -188,8 +190,8 @@
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <span class="font-weight-bolder text-primary" style="font-size: 1.05rem; line-height: 1;">
-                                {!! number_format($cheque->amount, 2) !!} {!! currency() !!}
+                            <span class="font-weight-bold text-dark d-block mb-25">
+                                {!! number_format($cheque->amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
                             </span>
                             @if (!$cheque->is_deposit)
                                 @php
@@ -216,37 +218,36 @@
                         </div>
                     </td>
                     <td class="text-center align-middle text-nowrap">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-calendar-alt text-muted mr-1"></i>
+                        <span class="text-dark">
                             {!! $cheque->due_date ? $cheque->due_date->format('d-m-Y') : '---' !!}
                         </span>
                     </td>
                     <td class="text-center align-middle">
                         @if ($cheque->is_deposit)
-                            <div class="badge badge-pill badge-glow premium-badge badge-indigo-premium">
-                                <i class="fas fa-shield-alt"></i> {!! __('cheques.deposit') !!}
-                            </div>
+                            <span class="text-muted">
+                                {!! __('cheques.deposit') !!}
+                            </span>
                         @else
-                            <div class="badge badge-pill badge-glow premium-badge badge-success-premium">
-                                <i class="fas fa-money-bill-wave"></i> {!! __('cheques.rent') !!}
-                            </div>
+                            <span class="text-muted">
+                                {!! __('cheques.rent') !!}
+                            </span>
                         @endif
                     </td>
                     <td class="text-center align-middle">
                         @php
                             $statusInfo = [
-                                'pending' => ['class' => 'badge-warning-premium', 'icon' => 'fas fa-clock'],
-                                'cleared' => ['class' => 'badge-success-premium', 'icon' => 'fas fa-check-circle'],
-                                'bounced' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-times-circle'],
-                                'held' => ['class' => 'badge-info-premium', 'icon' => 'fas fa-pause-circle'],
-                                'returned' => ['class' => 'badge-danger-premium', 'icon' => 'fas fa-undo'],
+                                'pending' => ['class' => 'badge-light-warning', 'icon' => 'fas fa-clock'],
+                                'cleared' => ['class' => 'badge-light-success', 'icon' => 'fas fa-check-circle'],
+                                'bounced' => ['class' => 'badge-light-danger', 'icon' => 'fas fa-times-circle'],
+                                'held' => ['class' => 'badge-light-info', 'icon' => 'fas fa-pause-circle'],
+                                'returned' => ['class' => 'badge-light-danger', 'icon' => 'fas fa-undo'],
                             ][$cheque->status] ?? [
-                                'class' => 'badge-secondary-premium',
+                                'class' => 'badge-light-secondary',
                                 'icon' => 'fas fa-info-circle',
                             ];
                         @endphp
-                        <div class="badge badge-pill badge-glow premium-badge {!! $statusInfo['class'] !!}">
-                            <i class="{!! $statusInfo['icon'] !!}"></i> {!! __('cheques.statuses.' . $cheque->status) !!}
+                        <div class="badge badge-pill {!! $statusInfo['class'] !!} border-0 shadow-none px-2 py-1 font-weight-bold">
+                            <i class="{!! $statusInfo['icon'] !!} mr-25 font-10"></i> {!! __('cheques.statuses.' . $cheque->status) !!}
                         </div>
                     </td>
                     <!-- Actions Column Removed -->

@@ -12,7 +12,7 @@
                     <span class="chip-text">{!! __('contracts.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="property_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.property') !!}</label>
                             <select name="property_id" id="filter_property" 
@@ -40,7 +40,7 @@
                     <span class="chip-text">{!! __('contracts.customer') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="customer_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="customer_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.customer') !!}</label>
                             <select name="customer_id" id="filter_customer" 
@@ -68,7 +68,7 @@
                     <span class="chip-text">{!! __('contracts.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="status_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-200" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.status') !!}</label>
                             <select name="status" id="filter_status" class="form-control premium-input shadow-none js-select2" 
@@ -95,7 +95,7 @@
                     <span class="chip-text">{!! __('contracts.payment_cycle') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-200" id="cycle_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-200" id="cycle_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('contracts.payment_cycle') !!}</label>
                             <select name="payment_cycle" id="filter_cycle" class="form-control premium-input shadow-none js-select2" 
@@ -123,7 +123,7 @@
                     <span class="chip-text">{!! __('contracts.rent_amount') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-320" id="rent_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-320" id="rent_search_popover">
                     <div class="row">
                         <div class="col-12 mb-2">
                             <label class="premium-label mb-2">{!! __('general.min') !!}</label>
@@ -152,7 +152,7 @@
                     <span class="chip-text">{!! __('companies.company') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 min-w-280" id="company_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="company_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
                             <select name="company_id" id="filter_company_id" 

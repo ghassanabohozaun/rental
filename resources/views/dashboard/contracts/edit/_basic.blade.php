@@ -54,7 +54,7 @@
             <label for="conclusion_date" class="premium-label">{!! __('contracts.conclusion_date') !!} <span
                     class="text-danger">*</span></label>
                 <input type="text" id="conclusion_date" name="conclusion_date" value="{!! old('conclusion_date', optional($contract->conclusion_date)->format('Y-m-d')) !!}"
-                    class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                    class="form-control premium-input shadow-none filter-datepicker" autocomplete="off"
                     data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text conclusion_date_error"></span>
         </div>
@@ -64,7 +64,7 @@
             <label for="start_date" class="premium-label">{!! __('contracts.start_date') !!} <span
                     class="text-danger">*</span></label>
                 <input type="text" id="start_date" name="start_date" value="{!! old('start_date', optional($contract->start_date)->format('Y-m-d')) !!}"
-                    class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                    class="form-control premium-input shadow-none filter-datepicker" autocomplete="off"
                     data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text start_date_error"></span>
         </div>
@@ -74,7 +74,7 @@
             <label for="end_date" class="premium-label">{!! __('contracts.end_date') !!} <span
                     class="text-danger">*</span></label>
                 <input type="text" id="end_date" name="end_date" value="{!! old('end_date', optional($contract->end_date)->format('Y-m-d')) !!}"
-                    class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off"
+                    class="form-control premium-input shadow-none filter-datepicker" autocomplete="off"
                     data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
             <span class="text-danger error-text end_date_error"></span>
         </div>
@@ -223,7 +223,7 @@
                                 ? $contract->insuranceCheque->issue_date->format('Y-m-d')
                                 : '',
                         ) !!}"
-                        class="form-control premium-input shadow-none ptc-datepicker" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY"
+                        class="form-control premium-input shadow-none filter-datepicker" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY"
                         autocomplete="off" {{ $isDepositLocked ? 'disabled' : '' }}>
                     @if ($isDepositLocked)
                         <input type="hidden" name="deposit_issue_date"

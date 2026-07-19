@@ -4,7 +4,7 @@
             <i class="fas fa-filter"></i> {!! __('general.filters') !!}:
         </span>
 
-        <form class="js-filter-form d-flex align-items-center gap-2" data-container="#table_data"
+        <form class="js-filter-form d-flex align-items-center flex-wrap" style="gap: 12px;" data-container="#table_data"
             data-loader=".table-loader-overlay">
 
             <!-- Hidden Is Deposit Filter for Tab functionality -->
@@ -18,7 +18,7 @@
                 </div>
 
                 <!-- Cheque Search Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="cheque_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="cheque_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('cheques.cheques') !!}</label>
                         <div class="premium-input-wrapper">
@@ -44,7 +44,7 @@
                 </div>
 
                 <!-- Company Filter Popover -->
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="company_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16 min-w-280" id="company_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('companies.company') !!}</label>
                         <div class="premium-input-wrapper">
@@ -76,7 +76,7 @@
                     <span class="chip-text">{!! __('customers.customer') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="customer_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16 min-w-280" id="customer_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('customers.customer') !!}</label>
                         <div class="premium-input-wrapper">
@@ -106,7 +106,7 @@
                     <span class="chip-text">{!! __('properties.property') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-280" id="property_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16 min-w-280" id="property_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('properties.property') !!}</label>
                         <div class="premium-input-wrapper">
@@ -136,7 +136,7 @@
                     <span class="chip-text">{!! __('cheques.bank_name') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16" id="bank_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16" id="bank_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('cheques.bank_name') !!}</label>
                         <div class="premium-input-wrapper">
@@ -160,7 +160,7 @@
                     <span class="chip-text">{!! __('cheques.status') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-200" id="status_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16 min-w-200" id="status_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('cheques.status') !!}</label>
                         <div class="premium-input-wrapper">
@@ -188,11 +188,11 @@
                     <span class="chip-text">{!! __('cheques.due_date') !!}</span>
                 </div>
 
-                <div class="ptc-query-panel shadow-lg border-0 radius-16 min-w-250" id="due_date_search_popover">
+                <div class="filter-query-panel shadow-lg border-0 radius-16 min-w-250" id="due_date_search_popover">
                     <div class="mb-3">
                         <label class="premium-label mb-2">{!! __('cheques.due_date') !!}</label>
                         <div class="premium-input-wrapper">
-                            <input type="text" class="form-control premium-input shadow-none ptc-datepicker" name="due_date" 
+                            <input type="text" class="form-control premium-input shadow-none filter-datepicker" name="due_date" 
                                 data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" autocomplete="off">
                             <i class="fas fa-calendar-alt text-primary"></i>
                         </div>

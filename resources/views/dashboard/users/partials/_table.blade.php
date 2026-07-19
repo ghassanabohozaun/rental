@@ -119,10 +119,9 @@
                     </td>
                     @if(isset($companies))
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <a href="javascript:void(0)" class="company-chip">
-                            <i class="fas fa-briefcase mr-1"></i>
+                        <span class="font-weight-bold text-dark">
                             {!! optional($user->company)->name ?? __('general.all_companies') !!}
-                        </a>
+                        </span>
                     </td>
                     @endif
                     <td class="text-center d-none d-lg-table-cell align-middle">
@@ -138,9 +137,11 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-briefcase mr-25"></i> {!! optional($user->company)->name ?? __('roles.global_role') !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-user-shield mr-25"></i> {!! optional($user->role)->name !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-user-plus mr-25"></i> {!! $user->creator->name ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-briefcase mr-25 opacity-5"></i> {!! optional($user->company)->name ?? __('roles.global_role') !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-user-shield mr-25 opacity-5"></i> {!! optional($user->role)->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-user-plus mr-25 opacity-5"></i> {!! $user->creator->name ?? '---' !!}</span>
                         </div>
 
                         <div class="user-info-cell">
@@ -149,8 +150,7 @@
                         </div>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span
-                            class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
+                        <span class="text-primary font-weight-bold">
                             {!! optional($user->role)->name !!}
                         </span>
                     </td>

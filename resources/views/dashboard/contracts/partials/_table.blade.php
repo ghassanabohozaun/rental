@@ -193,10 +193,9 @@
                     <!-- Company (Super Admin Only) -->
                     @if (isset($companies))
                         <td class="text-center align-middle d-none d-md-table-cell">
-                            <div class="company-chip">
-                                <i class="fas fa-briefcase"></i>
-                                <span>{!! optional($contract->company)->name ?? __('general.all_companies') !!}</span>
-                            </div>
+                            <span class="font-weight-bold text-dark">
+                                {!! optional($contract->company)->name ?? __('general.all_companies') !!}
+                            </span>
                         </td>
                     @endif
 
@@ -209,38 +208,38 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-building mr-25"></i> {!! optional($contract->property)->name !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-calendar-alt mr-25"></i> {!! $contract->start_date !!} {!! __('general.to') !!} {!! $contract->end_date !!}</span>
-                            <span class="badge badge-light-success"><i class="fas fa-money-bill-wave mr-25"></i> {!! number_format($contract->total_amount, 2) !!} {!! currency() !!}</span>
+                            <span class="text-muted"><i class="far fa-building mr-25 opacity-5"></i> {!! optional($contract->property)->name !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="far fa-calendar-alt mr-25 opacity-5"></i> {!! $contract->start_date ? $contract->start_date->format('d-m-Y') : '---' !!} <i class="fas fa-arrow-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} mx-1 opacity-5"></i> {!! $contract->end_date ? $contract->end_date->format('d-m-Y') : '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="font-weight-bold text-dark"><i class="fas fa-money-bill-wave mr-25 text-muted opacity-5"></i> {!! number_format($contract->total_amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small></span>
+                            <span class="text-muted mx-50">|</span>
                             @php
                                 $statusColor = [
-                                    'draft' => 'secondary',
-                                    'active' => 'success',
-                                    'expired' => 'danger',
-                                    'canceled' => 'warning',
-                                ][$contract->status] ?? 'secondary';
+                                    'draft' => 'text-secondary',
+                                    'active' => 'text-success',
+                                    'expired' => 'text-danger',
+                                    'canceled' => 'text-warning',
+                                ][$contract->status] ?? 'text-secondary';
                             @endphp
-                            <span class="badge badge-light-{!! $statusColor !!}"><i class="fas fa-circle mr-25 font-10"></i> {!! __('contracts.status_' . $contract->status) !!}</span>
+                            <span class="{!! $statusColor !!} font-weight-bold"><i class="fas fa-circle mr-25 font-10"></i> {!! __('contracts.status_' . $contract->status) !!}</span>
                         </div>
 
                         <div class="d-flex flex-column">
-                            <span class="font-weight-bold font-15 mb-25 truncate-text text-dark-premium">
+                            <span class="font-weight-bold font-15 mb-25 truncate-text text-dark">
                                 {!! optional($contract->property)->name !!}
                             </span>
                             <div class="mt-50 d-flex flex-column align-items-start" style="gap: 4px;">
                                 @if (optional($contract->customer)->tenant_type && strtolower(optional($contract->customer)->tenant_type) == 'company')
-                                    <span class="badge badge-light-primary border-0 px-2 py-1 text-left"
-                                        title="{!! __('companies.company') !!}" style="font-size: 0.75rem;">
-                                        <i class="fas fa-building mr-50"></i> {!! optional($contract->customer)->company_name !!}
+                                    <span class="text-muted" title="{!! __('companies.company') !!}" style="font-size: 0.85rem;">
+                                        <i class="far fa-building mr-50 opacity-5"></i> {!! optional($contract->customer)->company_name !!}
                                     </span>
-                                    <span class="badge badge-light-warning border-0 px-2 py-1 text-left mt-25"
-                                        title="{!! __('customers.representative') !!}" style="font-size: 0.75rem;">
-                                        <i class="fas fa-user-tie mr-50"></i> {!! optional($contract->customer)->name !!}
+                                    <span class="text-muted mt-25" title="{!! __('customers.representative') !!}" style="font-size: 0.8rem;">
+                                        {!! optional($contract->customer)->name !!}
                                     </span>
                                 @else
-                                    <span class="badge badge-light-info border-0 px-2 py-1 text-left"
-                                        style="font-size: 0.75rem;">
-                                        <i class="fas fa-user-circle mr-50"></i> {!! optional($contract->customer)->name !!}
+                                    <span class="text-muted" style="font-size: 0.85rem;">
+                                        <i class="far fa-user mr-50 opacity-5"></i> {!! optional($contract->customer)->name !!}
                                     </span>
                                 @endif
                             </div>
@@ -249,151 +248,71 @@
 
                     <!-- Duration & Dates -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        <div class="contract-duration-wrapper">
-                            <div class="duration-label-badge">
-                                <i class="fas fa-history text-primary"></i> <span>{!! $contract->duration_label !!}</span>
-                            </div>
-                            <div class="date-range-badge">
-                                <span class="date-text">{!! $contract->start_date ? $contract->start_date->format('d-m-Y') : '---' !!}</span>
-                                <i class="fas fa-long-arrow-alt-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} text-primary date-arrow"></i>
-                                <span class="date-text">{!! $contract->end_date ? $contract->end_date->format('d-m-Y') : '---' !!}</span>
-                            </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="font-weight-bold text-dark mb-25">{!! $contract->duration_label !!}</span>
+                            <span class="text-muted" style="font-size: 0.8rem;">
+                                {!! $contract->start_date ? $contract->start_date->format('d-m-Y') : '---' !!} 
+                                <i class="fas fa-arrow-{!! app()->getLocale() == 'ar' ? 'left' : 'right' !!} mx-1 opacity-5"></i> 
+                                {!! $contract->end_date ? $contract->end_date->format('d-m-Y') : '---' !!}
+                            </span>
                         </div>
                     </td>
 
                     <!-- Rent Amount -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        <div class="premium-financial-box box-primary-light shadow-none">
-                            <span class="font-weight-bolder font-16 text-dark-premium d-block">
-                                {!! number_format($contract->rent_amount, 2) !!} {!! currency() !!}
-                            </span>
-                        </div>
+                        <span class="font-weight-bold text-dark d-block">
+                            {!! number_format($contract->rent_amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
+                        </span>
                     </td>
 
                     <!-- Total Rent Amount -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        <div class="premium-financial-box box-info-light shadow-none">
-                            <span class="font-weight-bolder font-16 text-info-premium d-block">
-                                {!! number_format($contract->total_amount, 2) !!} {!! currency() !!}
-                            </span>
-                        </div>
+                        <span class="font-weight-bold text-dark d-block">
+                            {!! number_format($contract->total_amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
+                        </span>
                     </td>
 
                     <!-- Paid Amount -->
                     <td class="text-center align-middle d-none d-xl-table-cell py-3">
-                        <div class="premium-financial-box box-success shadow-none">
-                            <span class="font-weight-bold font-15 d-block text-success-premium">
-                                {!! number_format($contract->paid_amount, 2) !!} {!! currency() !!}
-                            </span>
-                        </div>
+                        <span class="font-weight-bold text-dark d-block">
+                            {!! number_format($contract->paid_amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
+                        </span>
                     </td>
 
                     <!-- Remaining Amount -->
                     <td class="text-center align-middle d-none d-xl-table-cell py-3">
                         @php $hasDebt = $contract->remaining_amount > 0; @endphp
-                        <div class="premium-financial-box {{ $hasDebt ? 'box-danger' : 'box-success' }} shadow-none">
-                            <span
-                                class="font-weight-bold font-15 d-block {{ $hasDebt ? 'text-danger-premium' : 'text-success-premium' }}">
-                                {!! number_format($contract->remaining_amount, 2) !!} {!! currency() !!}
-                            </span>
-                        </div>
+                        <span class="font-weight-bold d-block {{ $hasDebt ? 'text-danger' : 'text-dark' }}">
+                            {!! number_format($contract->remaining_amount, 2) !!} <small class="{{ $hasDebt ? 'text-danger opacity-75' : 'text-muted' }} font-weight-normal">{!! currency() !!}</small>
+                        </span>
                     </td>
 
                     <!-- Payment Cycle -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
-                        @php
-                            $cycleColor = $contract->payment_cycle == 'monthly' ? 'info' : 'success';
-                            $cycleIcon = $contract->payment_cycle == 'monthly' ? 'fa-calendar-check' : 'fa-sync';
-                        @endphp
-                        <div class="d-inline-flex flex-column align-items-center">
-                            <span
-                                class="badge badge-light-{!! $cycleColor !!} border-0 px-2 py-1 mb-25 payment-cycle-pill">
-                                <i class="fas {!! $cycleIcon !!} mr-25"></i> {!! __('contracts.payment_cycle_' . $contract->payment_cycle) !!}
-                            </span>
-                        </div>
+                        <span class="text-dark">
+                            {!! __('contracts.payment_cycle_' . $contract->payment_cycle) !!}
+                        </span>
                     </td>
 
                     <!-- Insurance / Deposit -->
                     <td class="text-center align-middle d-none d-lg-table-cell py-3">
                         @if ($contract->deposit_amount > 0)
                             <div class="d-flex flex-column align-items-center">
-                                {{-- Deposit Type Badge --}}
-                                @php
-                                    $typeColor = $contract->deposit_type == 'cheque' ? 'primary' : 'success';
-                                    $typeIcon =
-                                        $contract->deposit_type == 'cheque' ? 'fa-money-check' : 'fa-money-bill-wave';
-                                @endphp
-                                <span
-                                    class="badge badge-light-{!! $typeColor !!} border-0 font-10 mb-25 px-1 py-0 shadow-sm badge-premium">
-                                    <i class="fas {!! $typeIcon !!} font-12"></i> {!! __('contracts.deposit_type_' . $contract->deposit_type) !!}
+                                <span class="font-weight-bold text-dark d-block">
+                                    {!! number_format($contract->deposit_amount, 2) !!} <small class="text-muted font-weight-normal">{!! currency() !!}</small>
                                 </span>
-
-                                {{-- Amount --}}
-                                <span class="font-weight-bold font-15 mb-25 text-dark-premium">
-                                    {!! number_format($contract->deposit_amount, 2) !!} {!! currency() !!}
+                                <span class="text-muted mt-25" style="font-size: 0.8rem;">
+                                    {!! __('contracts.deposit_type_' . $contract->deposit_type) !!}
                                 </span>
-
-                                {{-- Cheque Number & Status --}}
                                 @if ($contract->deposit_type == 'cheque' && $contract->insuranceCheque)
-                                    <div class="d-flex flex-column align-items-center">
-                                        <span class="text-primary-premium mb-25 cheque-num-sm"
-                                            title="{!! __('cheques.cheque_number') !!}">
-                                            <i class="fas fa-barcode"></i> {!! $contract->insuranceCheque->cheque_number !!}
-                                        </span>
-                                        @php
-                                            $dStatusInfo = [
-                                                'held' => [
-                                                    'class' => 'badge-info-premium',
-                                                    'icon' => 'fas fa-pause-circle',
-                                                ],
-                                                'returned' => [
-                                                    'class' => 'badge-danger-premium',
-                                                    'icon' => 'fas fa-undo',
-                                                ],
-                                                'used' => [
-                                                    'class' => 'badge-success-premium',
-                                                    'icon' => 'fas fa-check-circle',
-                                                ],
-                                            ][$contract->deposit_status] ?? [
-                                                'class' => 'badge-secondary',
-                                                'icon' => 'fas fa-info-circle',
-                                            ];
-                                        @endphp
-                                        <div
-                                            class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
-                                            <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i>
-                                            {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                        </div>
-                                    @else
-                                        @php
-                                            $dStatusInfo = [
-                                                'held' => [
-                                                    'class' => 'badge-info-premium',
-                                                    'icon' => 'fas fa-pause-circle',
-                                                ],
-                                                'returned' => [
-                                                    'class' => 'badge-danger-premium',
-                                                    'icon' => 'fas fa-undo',
-                                                ],
-                                                'used' => [
-                                                    'class' => 'badge-success-premium',
-                                                    'icon' => 'fas fa-check-circle',
-                                                ],
-                                            ][$contract->deposit_status] ?? [
-                                                'class' => 'badge-secondary',
-                                                'icon' => 'fas fa-info-circle',
-                                            ];
-                                        @endphp
-                                        <div
-                                            class="badge badge-pill badge-glow premium-badge-sm {!! $dStatusInfo['class'] !!} py-25 px-1 mt-25">
-                                            <i class="{!! $dStatusInfo['icon'] !!} font-10 mr-25"></i>
-                                            {!! __('contracts.deposit_status_' . $contract->deposit_status) !!}
-                                        </div>
+                                    <span class="text-muted mt-25" style="font-size: 0.75rem;">
+                                        #{!! $contract->insuranceCheque->cheque_number !!}
+                                    </span>
                                 @endif
                             </div>
                         @else
-                            <span class="badge badge-secondary border-0 px-2 py-25 no-deposit-badge">
-                                <i class="fas fa-minus-circle"></i> {!! __('contracts.no_deposit') !!}
+                            <span class="text-muted" style="font-size: 0.85rem;">
+                                ---
                             </span>
                         @endif
                     </td>

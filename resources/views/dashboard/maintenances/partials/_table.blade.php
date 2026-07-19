@@ -133,10 +133,9 @@
                     <!-- Company -->
                     @if(isset($companies))
                     <td class="text-center align-middle">
-                        <a href="javascript:void(0)" class="company-chip">
-                            <i class="fas fa-briefcase mr-1"></i>
+                        <span class="font-weight-bold text-dark">
                             {!! optional($maintenance->company)->name ?? __('general.all_companies') !!}
-                        </a>
+                        </span>
                     </td>
                     @endif
 
@@ -149,20 +148,22 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-calendar-alt mr-25"></i> {!! $maintenance->date ?? '---' !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-money-bill-wave mr-25"></i> {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}</span>
+                            <span class="text-muted"><i class="fas fa-calendar-alt mr-25 opacity-5"></i> {!! $maintenance->date ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-money-bill-wave mr-25 opacity-5"></i> {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}</span>
+                            <span class="text-muted mx-50">|</span>
                             @php
-                                $statusClass = 'badge-light-warning';
+                                $statusClass = 'text-warning';
                                 $statusText = __('maintenances.pending');
                                 if ($maintenance->status == 'in_progress') {
-                                    $statusClass = 'badge-light-primary';
+                                    $statusClass = 'text-primary';
                                     $statusText = __('maintenances.in_progress');
                                 } elseif ($maintenance->status == 'done') {
-                                    $statusClass = 'badge-light-success';
+                                    $statusClass = 'text-success';
                                     $statusText = __('maintenances.done');
                                 }
                             @endphp
-                            <span class="badge {{ $statusClass }}"><i class="fas fa-tools mr-25"></i> {{ $statusText }}</span>
+                            <span class="font-weight-bold {{ $statusClass }}"><i class="fas fa-tools mr-25 opacity-5"></i> {{ $statusText }}</span>
                         </div>
 
                         <div class="user-info-cell">
@@ -171,30 +172,28 @@
                     </td>
 
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span
-                            class="badge badge-pill badge-glow bg-light-primary text-primary font-weight-bold px-3 py-1">
-                            <i class="fas fa-calendar-alt"></i> {!! $maintenance->date ?? '---' !!}
+                        <span class="font-weight-bold text-dark">
+                            {!! $maintenance->date ?? '---' !!}
                         </span>
                     </td>
                     <td class="text-center align-middle d-none d-lg-table-cell">
-                        <span class="text-dark font-weight-bold">
-                            <i class="fas fa-money-bill-wave text-muted mr-1"></i> {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}
+                        <span class="text-dark">
+                            {!! $maintenance->cost ?? '0.00' !!} {!! currency() !!}
                         </span>
                     </td>
                     <td class="text-center align-middle">
                         @php
-                            $statusClass = 'badge-warning';
+                            $statusClass = 'badge-light-warning';
                             $statusText = __('maintenances.pending');
                             if ($maintenance->status == 'in_progress') {
-                                $statusClass = 'badge-primary';
+                                $statusClass = 'badge-light-primary';
                                 $statusText = __('maintenances.in_progress');
                             } elseif ($maintenance->status == 'done') {
-                                $statusClass = 'badge-success';
+                                $statusClass = 'badge-light-success';
                                 $statusText = __('maintenances.done');
                             }
                         @endphp
-                        <div class="badge badge-pill badge-glow maintenance_status_{!! $maintenance->id !!} {{ $statusClass }}"
-                            style="font-size: 12px; font-weight: bold; padding: 5px 12px;">
+                        <div class="badge badge-pill border-0 shadow-none px-2 py-1 font-weight-bold maintenance_status_{!! $maintenance->id !!} {{ $statusClass }}">
                             {{ $statusText }}
                         </div>
                     </td>

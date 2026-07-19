@@ -32,7 +32,7 @@ $(document).ready(function() {
 
             // Show loading state
             const $cityWrapper = $citySelect.closest('.mb-3');
-            $cityWrapper.addClass('ptc-select-loader');
+            $cityWrapper.addClass('filter-select-loader');
 
             $.ajax({
                 url: '/dashboard/governorates/get/all/cities',
@@ -57,7 +57,7 @@ $(document).ready(function() {
                     }
                 },
                 complete: function() {
-                    $cityWrapper.removeClass('ptc-select-loader');
+                    $cityWrapper.removeClass('filter-select-loader');
                 }
             });
         });
@@ -74,9 +74,9 @@ $(document).ready(function() {
             if (!$typeSelect.length && !$statusSelect.length && !$ownerSelect.length) return;
 
             // Show loading state
-            if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
-            if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
-            if ($ownerSelect.length) $ownerSelect.closest('.premium-input-wrapper, .form-group').addClass('ptc-select-loader');
+            if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').addClass('filter-select-loader');
+            if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').addClass('filter-select-loader');
+            if ($ownerSelect.length) $ownerSelect.closest('.premium-input-wrapper, .form-group').addClass('filter-select-loader');
 
             $.ajax({
                 url: '/dashboard/properties/filters-by-company',
@@ -107,8 +107,8 @@ $(document).ready(function() {
                     }
                 },
                 complete: function() {
-                    if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
-                    if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
+                    if ($typeSelect.length) $typeSelect.closest('.premium-input-wrapper, .form-group').removeClass('filter-select-loader');
+                    if ($statusSelect.length) $statusSelect.closest('.premium-input-wrapper, .form-group').removeClass('filter-select-loader');
                 }
             });
 
@@ -136,7 +136,7 @@ $(document).ready(function() {
                         }
                     },
                     complete: function() {
-                        $ownerSelect.closest('.premium-input-wrapper, .form-group').removeClass('ptc-select-loader');
+                        $ownerSelect.closest('.premium-input-wrapper, .form-group').removeClass('filter-select-loader');
                     }
                 });
             }
@@ -145,14 +145,15 @@ $(document).ready(function() {
 
     function initFilterSystem() {
         const $chips = $('.js-filter-chip');
-        const $panels = $('.ptc-query-panel');
+        const $panels = $('.filter-query-panel');
 
         initGeographicCascade();
         initPropertyFiltersCascade();
 
         const closeAll = () => {
-            $panels.removeClass('ptc-show').attr('data-is-open', 'false');
+            $panels.removeClass('filter-show').attr('data-is-open', 'false');
             $chips.removeClass('popover-open');
+            $('.query-bar-container').removeClass('filter-elevated');
         };
 
         // MutationObserver to prevent external hiding
@@ -161,8 +162,8 @@ $(document).ready(function() {
                 if (mutation.type === 'attributes') {
                     const target = mutation.target;
                     const $target = $(target);
-                    if ($target.attr('data-is-open') === 'true' && !$target.hasClass('ptc-show')) {
-                        $target.addClass('ptc-show');
+                    if ($target.attr('data-is-open') === 'true' && !$target.hasClass('filter-show')) {
+                        $target.addClass('filter-show');
                     }
                 }
             });
@@ -183,8 +184,13 @@ $(document).ready(function() {
 
             if (!isOpen) {
                 closeAll();
-                $panel.addClass('ptc-show').attr('data-is-open', 'true');
+                $panel.addClass('filter-show').attr('data-is-open', 'true');
                 $chip.addClass('popover-open');
+                $panel.closest('.query-bar-container').addClass('filter-elevated');
+
+                // إخفاء الـ Bottom Action Bar إذا كان مفتوحاً
+                $('#bottom-action-bar').removeClass('show');
+                $('.premium-table-row').removeClass('selected-row-premium');
 
                 const $select = $panel.find('.js-select2');
                 if ($select.length && !$select.hasClass("select2-hidden-accessible")) {
@@ -201,7 +207,7 @@ $(document).ready(function() {
                 
                 setTimeout(() => {
                     const $firstInput = $panel.find('input, select').filter(':visible').first();
-                    if ($firstInput.length && !$firstInput.hasClass('ptc-datepicker') && !$firstInput.hasClass('ptc-monthpicker')) {
+                    if ($firstInput.length && !$firstInput.hasClass('filter-datepicker') && !$firstInput.hasClass('filter-monthpicker')) {
                         $firstInput.focus();
                     }
                 }, 100);
@@ -214,7 +220,7 @@ $(document).ready(function() {
         $panels.off('keypress').on('keypress', 'input', function(e) {
             if (e.which === 13) { // 13 is Enter
                 e.preventDefault();
-                $(this).closest('.ptc-query-panel').find('.js-apply-filter').trigger('click');
+                $(this).closest('.filter-query-panel').find('.js-apply-filter').trigger('click');
             }
         });
 
@@ -224,7 +230,7 @@ $(document).ready(function() {
 
         $(document).off('click.filterSystem').on('click.filterSystem', function(e) {
             if (!$(e.target).closest('.js-filter-chip').length && 
-                !$(e.target).closest('.ptc-query-panel').length &&
+                !$(e.target).closest('.filter-query-panel').length &&
                 !$(e.target).closest('.select2-container').length) {
                 closeAll();
             }
@@ -232,7 +238,7 @@ $(document).ready(function() {
 
         $('.js-apply-filter').off('click').on('click', function(e) {
             e.preventDefault();
-            const $panel = $(this).closest('.ptc-query-panel');
+            const $panel = $(this).closest('.filter-query-panel');
             const targetId = $panel.attr('id');
             const $chip = $('.js-filter-chip[data-filter-target="' + targetId + '"]');
             const $form = $chip.closest('form');
@@ -337,7 +343,7 @@ $(document).ready(function() {
                 if (typeof window.initTablePlugins === 'function') {
                     window.initTablePlugins(targetContainer);
                 }
-                initFilterSystem();
+                initFilterSystem(); // Re-initialize in case new filters were injected
             },
             error: function() {
                 $(targetLoader).removeClass('active');

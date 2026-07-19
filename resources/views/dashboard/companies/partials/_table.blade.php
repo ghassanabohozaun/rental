@@ -97,15 +97,16 @@
 
                         <!-- Hidden Subtitle for Bottom Bar -->
                         <div class="row-subtitle-html d-none">
-                            <span class="badge badge-light-primary"><i class="fas fa-envelope mr-25"></i> {!! $company->email ?? '---' !!}</span>
-                            <span class="badge badge-light-secondary"><i class="fas fa-phone mr-25"></i> {!! $company->phone ?? '---' !!}</span>
-                            <span class="badge badge-light-info"><i class="fas fa-user-plus mr-25"></i> {!! $company->creator->name ?? '---' !!}</span>
+                            <span class="text-muted"><i class="fas fa-envelope mr-25 opacity-5"></i> {!! $company->email ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-phone mr-25 opacity-5"></i> {!! $company->phone ?? '---' !!}</span>
+                            <span class="text-muted mx-50">|</span>
+                            <span class="text-muted"><i class="fas fa-user-plus mr-25 opacity-5"></i> {!! $company->creator->name ?? '---' !!}</span>
                         </div>
 
-                        <a href="javascript:void(0)" class="company-chip">
-                            <i class="fas fa-briefcase mr-1"></i>
+                        <span class="font-weight-bold text-dark">
                             {!! $company->name !!}
-                        </a>
+                        </span>
                     </td>
 
                     <!-- Email -->
