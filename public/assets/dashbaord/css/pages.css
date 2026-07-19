@@ -24389,6 +24389,13 @@ html[dir='ltr'] .premium-error-bubble::after {
 /* ==========================================================================
    BOTTOM ACTION BAR (Replaces Sticky Actions)
    ========================================================================== */
+.pointer {
+    cursor: pointer !important;
+}
+
+.premium-table-row {
+    cursor: pointer;
+}
 .bottom-action-bar {
     position: fixed;
     bottom: -150px; /* Hidden by default */
