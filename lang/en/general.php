@@ -255,5 +255,8 @@ return [
 
     'ask_cash_record' => 'Are you sure you want to cash this payment?',
     'cash_warning_text' => 'The payment status will be changed to paid and this cannot be undone.',
+
+    'enter_value' => 'Enter Value',
+    'other' => 'Other',
 ];
 

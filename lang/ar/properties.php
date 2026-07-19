@@ -129,4 +129,10 @@ return [
     'attachment' => 'المرفق (ملف)',
     'enter_attachment_name' => 'أدخل اسم المرفق...',
     'no_attachments_added' => 'لم يتم إضافة أي مرفقات بعد.',
+    
+    // Additional Numbers Repeater
+    'important_additional_details' => 'التفاصيل الإضافية الهامة',
+    'number_type' => 'نوع الرقم',
+    'number_value' => 'القيمة',
+    'no_additional_numbers_added' => 'لم يتم إضافة أي تفاصيل إضافية بعد.',
 ];

@@ -467,5 +467,9 @@ return [
         'owners' => 'الملاك',
         'percentages' => 'نسب الملكية',
         'is_primary' => 'أساسي',
+        
+        // Additional Numbers
+        'additional_numbers.*.type' => 'نوع الرقم',
+        'additional_numbers.*.value' => 'القيمة',
     ],
 ];

@@ -23,13 +23,15 @@ use Illuminate\Support\Facades\Storage;
     // Property Fields
     public $name = ['ar' => '', 'en' => ''];
     public $zone_number, $street_number, $building_number, $property_type_id, $area, $property_status_id, $description;
-    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
+    public $parent_id, $file_number, $company_id, $floor;
 
     // Existing files paths for preview/info
 
-    // Property Attachments Repeater
     public $property_attachments = [];
     public $deleted_attachments = [];
+
+    // Additional Numbers Repeater (JSON)
+    public $additional_numbers = [];
 
     // Owners Repeater
     public $property_owners = [];
@@ -46,10 +48,7 @@ use Illuminate\Support\Facades\Storage;
 
         $this->property_status_id = $property->property_status_id;
         $this->description = $property->description;
-        $this->property_number = $property->property_number;
-        $this->title_deed_number = $property->title_deed_number;
-        $this->electricity_account_number = $property->electricity_account_number;
-        $this->water_account_number = $property->water_account_number;
+        $this->additional_numbers = $property->additional_numbers ?? [];
         $this->parent_id = $property->parent_id;
         $this->file_number = $property->file_number;
         $this->floor = $property->floor;
@@ -243,6 +242,17 @@ use Illuminate\Support\Facades\Storage;
         $this->property_attachments = array_values($this->property_attachments);
     }
 
+    public function addAdditionalNumber()
+    {
+        $this->additional_numbers[] = ['type' => '', 'value' => ''];
+    }
+
+    public function removeAdditionalNumber($index)
+    {
+        unset($this->additional_numbers[$index]);
+        $this->additional_numbers = array_values($this->additional_numbers);
+    }
+
 
     protected function rules()
     {
@@ -259,10 +269,6 @@ use Illuminate\Support\Facades\Storage;
 
             'property_status_id' => 'required|exists:property_statuses,id',
             'description' => 'nullable|string',
-            'property_number' => 'nullable|string|max:255',
-            'title_deed_number' => 'nullable|string|max:255',
-            'electricity_account_number' => 'nullable|string|max:255',
-            'water_account_number' => 'nullable|string|max:255',
             'file_number' => ['nullable', 'string', 'max:255', Rule::unique('properties', 'file_number')->where('company_id', $current_company_id)->ignore($this->property->id)],
             'floor' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:properties,id',
@@ -287,6 +293,11 @@ use Illuminate\Support\Facades\Storage;
             'property_attachments' => 'nullable|array',
             'property_attachments.*.name' => 'required|string|max:255',
             'property_attachments.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+
+            // Additional Numbers Repeater
+            'additional_numbers' => 'nullable|array',
+            'additional_numbers.*.type' => 'required|string|max:255',
+            'additional_numbers.*.value' => 'required|string|max:255',
         ];
     }
 
@@ -333,10 +344,6 @@ use Illuminate\Support\Facades\Storage;
 
             'property_status_id' => $this->property_status_id,
             'description' => $this->description,
-            'property_number' => $this->property_number,
-            'title_deed_number' => $this->title_deed_number,
-            'electricity_account_number' => $this->electricity_account_number,
-            'water_account_number' => $this->water_account_number,
             'file_number' => $this->file_number,
             'floor' => $this->floor,
             'parent_id' => $this->parent_id ?: null,
@@ -345,6 +352,7 @@ use Illuminate\Support\Facades\Storage;
 
         $oldStatusId = $this->property->property_status_id;
 
+        $data['additional_numbers'] = $this->additional_numbers;
         $this->property->update($data);
 
         // Check for Property Vacant Notification

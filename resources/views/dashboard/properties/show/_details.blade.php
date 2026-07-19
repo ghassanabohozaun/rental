@@ -23,19 +23,6 @@
                             </div>
                         </div>
 
-                        <!-- Property Number -->
-                        <div class="col-md-4 mb-3">
-                            <div class="data-grid-item">
-                                <div class="data-grid-icon bg-light-info-opacity">
-                                    <i class="fas fa-hashtag text-info"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.property_number') !!}</label>
-                                    <span class="data-grid-value">{!! $property->property_number !!}</span>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Property Type -->
                         <div class="col-md-4 mb-3">
                             <div class="data-grid-item">
@@ -127,73 +114,21 @@
             <div class="card border-0 shadow-sm mb-2 radius-15">
                 <div class="card-header bg-transparent border-0 pt-0 pb-0 d-flex align-items-center" style="height: 50px;">
                     <h5 class="card-title font-weight-bold mb-0" style="font-size: 1.1rem !important;">
-                        <i class="fas fa-file-invoice text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('properties.legal_utility_info') !!}
+                        <i class="fas fa-align-left text-primary mr-1" style="font-size: 1.2rem !important;"></i> {!! __('general.notes') !!}
                     </h5>
                 </div>
                 <div class="card-body pt-3 pb-3">
                     <div class="row">
-                        <!-- File Number -->
-                        <div class="col-md-3 mb-3">
-                            <div class="data-grid-item border-left-primary-3">
-                                <div class="data-grid-icon bg-light-primary-opacity">
-                                    <i class="fas fa-folder-open text-primary"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.file_number') !!}</label>
-                                    <span class="data-grid-value text-primary">{!! $property->file_number ?? '---' !!}</span>
-                                </div>
+                        <!-- Description/Notes -->
+                        <div class="col-12 mt-1">
+                            <div class="notes-area-premium p-2 rounded bg-light-blue-info border-dashed-premium">
+                                <h6 class="font-weight-bold text-muted mb-1 font-small-3">
+                                    <i class="fas fa-align-left mr-1"></i> {!! __('properties.description') !!}
+                                </h6>
+                                <p class="text-muted small mb-0">
+                                    {!! $property->description ?: __('general.no_description') !!}
+                                </p>
                             </div>
-                        </div>
-
-                        <!-- Title Deed -->
-                        <div class="col-md-3 mb-3">
-                            <div class="data-grid-item">
-                                <div class="data-grid-icon bg-light-dark-opacity">
-                                    <i class="fas fa-scroll text-dark"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.title_deed_number') !!}</label>
-                                    <span class="data-grid-value">{!! $property->title_deed_number ?? '---' !!}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Electricity -->
-                        <div class="col-md-3 mb-3">
-                            <div class="data-grid-item">
-                                <div class="data-grid-icon bg-light-warning-opacity">
-                                    <i class="fas fa-bolt text-warning"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.electricity_account_number') !!}</label>
-                                    <span class="data-grid-value">{!! $property->electricity_account_number ?? '---' !!}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Water -->
-                        <div class="col-md-3 mb-3">
-                            <div class="data-grid-item">
-                                <div class="data-grid-icon bg-light-info-opacity">
-                                    <i class="fas fa-tint text-info"></i>
-                                </div>
-                                <div class="data-grid-content">
-                                    <label class="data-grid-label">{!! __('properties.water_account_number') !!}</label>
-                                    <span class="data-grid-value">{!! $property->water_account_number ?? '---' !!}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Description/Notes -->
-                    <div class="col-12 mt-1">
-                        <div class="notes-area-premium p-2 rounded bg-light-blue-info border-dashed-premium">
-                            <h6 class="font-weight-bold text-muted mb-1 font-small-3">
-                                <i class="fas fa-align-left mr-1"></i> {!! __('properties.description') !!}
-                            </h6>
-                            <p class="text-muted small mb-0">
-                                {!! $property->description ?: __('general.no_description') !!}
-                            </p>
                         </div>
                     </div>
                 </div>

@@ -21,10 +21,12 @@ class CreateProperty extends Component
     // Property Fields
     public $name = ['ar' => '', 'en' => ''];
     public $zone_number, $street_number, $building_number, $property_type_id, $area, $property_status_id, $description;
-    public $property_number, $title_deed_number, $electricity_account_number, $water_account_number, $parent_id, $file_number, $company_id, $floor;
+    public $parent_id, $file_number, $company_id, $floor;
 
-    // Property Attachments Repeater
     public $property_attachments = [];
+
+    // Additional Numbers Repeater (JSON)
+    public $additional_numbers = [];
 
     // Owners Repeater
     public $property_owners = [];
@@ -194,6 +196,17 @@ class CreateProperty extends Component
         $this->property_attachments = array_values($this->property_attachments);
     }
 
+    public function addAdditionalNumber()
+    {
+        $this->additional_numbers[] = ['type' => '', 'value' => ''];
+    }
+
+    public function removeAdditionalNumber($index)
+    {
+        unset($this->additional_numbers[$index]);
+        $this->additional_numbers = array_values($this->additional_numbers);
+    }
+
     protected function rules()
     {
         $current_company_id = user()->company_id == 1 ? $this->company_id : user()->company_id;
@@ -209,10 +222,6 @@ class CreateProperty extends Component
 
             'property_status_id' => 'required|exists:property_statuses,id',
             'description' => 'nullable|string',
-            'property_number' => 'nullable|string|max:255',
-            'title_deed_number' => 'nullable|string|max:255',
-            'electricity_account_number' => 'nullable|string|max:255',
-            'water_account_number' => 'nullable|string|max:255',
             'file_number' => ['nullable', 'string', 'max:255', Rule::unique('properties', 'file_number')->where('company_id', $current_company_id)],
             'floor' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:properties,id',
@@ -238,6 +247,11 @@ class CreateProperty extends Component
             'property_attachments' => 'nullable|array',
             'property_attachments.*.name' => 'required|string|max:255',
             'property_attachments.*.file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
+
+            // Additional Numbers Repeater
+            'additional_numbers' => 'nullable|array',
+            'additional_numbers.*.type' => 'required|string|max:255',
+            'additional_numbers.*.value' => 'required|string|max:255',
         ];
     }
 
@@ -287,10 +301,6 @@ class CreateProperty extends Component
 
             'property_status_id' => $this->property_status_id,
             'description' => $this->description,
-            'property_number' => $this->property_number,
-            'title_deed_number' => $this->title_deed_number,
-            'electricity_account_number' => $this->electricity_account_number,
-            'water_account_number' => $this->water_account_number,
             'file_number' => $this->file_number,
             'floor' => $this->floor,
             'parent_id' => $this->parent_id ?: null,
@@ -298,6 +308,11 @@ class CreateProperty extends Component
         ];
 
         $property = Property::create($data);
+
+        // Save Additional Numbers
+        if (!empty($this->additional_numbers)) {
+            $property->update(['additional_numbers' => $this->additional_numbers]);
+        }
 
         // Handle Owners
         $syncData = [];

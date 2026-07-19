@@ -124,4 +124,10 @@ return [
     'attachment' => 'Attachment (File)',
     'enter_attachment_name' => 'Enter attachment name...',
     'no_attachments_added' => 'No attachments added yet.',
+    
+    // Additional Numbers Repeater
+    'important_additional_details' => 'Important Additional Details',
+    'number_type' => 'Number Type',
+    'number_value' => 'Value',
+    'no_additional_numbers_added' => 'No additional details added yet.',
 ];

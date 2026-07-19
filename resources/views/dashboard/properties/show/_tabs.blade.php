@@ -14,6 +14,11 @@
         </li>
         @endif
         <li class="nav-item">
+            <a class="nav-link" id="additional-numbers-tab" data-toggle="tab" href="#additional-numbers" role="tab">
+                <i class="fas fa-list-ol"></i> {!! __('properties.important_additional_details') !!}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" id="owners-tab" data-toggle="tab" href="#owners" role="tab" data-text="{!! __('owners.owners') !!}">
                 <i class="fas fa-user-tie"></i> {!! __('owners.owners') !!}
             </a>

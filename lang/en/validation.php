@@ -403,5 +403,9 @@ return [
         'owners' => 'Owners',
         'percentages' => 'Ownership Percentages',
         'is_primary' => 'Is Primary?',
+        
+        // Additional Numbers
+        'additional_numbers.*.type' => 'Number Type',
+        'additional_numbers.*.value' => 'Value',
     ],
 ];

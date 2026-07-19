@@ -22,11 +22,16 @@ class Property extends Model implements MustBelongToCompany
     ];
 
     protected $fillable = ['company_id', 'parent_id', 'name', 'location',
-     'property_type_id', 'property_status_id', 'area', 'description', 'property_number',
-     'title_deed_number', 'electricity_account_number', 'water_account_number', 'created_by',
-     'file_number', 'floor', 'zone_number', 'street_number', 'building_number', 'rental_contract_original', 'building_completion_certificate', 'other_documents'];
+     'property_type_id', 'property_status_id', 'area', 'description', 
+     'created_by', 'file_number', 'floor', 'zone_number', 'street_number', 'building_number', 
+     'rental_contract_original', 'building_completion_certificate', 'other_documents',
+     'additional_numbers'];
 
     public $translatable = ['name'];
+
+    protected $casts = [
+        'additional_numbers' => 'array',
+    ];
 
     /**
      * Get the parent property (e.g., Building).

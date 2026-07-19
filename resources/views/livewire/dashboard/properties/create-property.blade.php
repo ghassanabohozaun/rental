@@ -241,67 +241,65 @@
 
                             </div>
 
-                            <!-- Section 2: Mandatory Details (Inside same card-body) -->
-                            <div class="premium-mandatory-section">
-                                <div class="premium-mandatory-header">
+                            <!-- Section 2: Important Additional Details (Repeater) -->
+                            <div class="premium-mandatory-section mt-4 mb-3">
+                                <div class="premium-mandatory-header d-flex justify-content-between align-items-center">
                                     <div class="title-wrapper">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <span class="font-weight-bold">{!! __('properties.mandatory_details_title') !!}</span>
+                                        <i class="fas fa-list-ol"></i>
+                                        <span class="font-weight-bold">{!! __('properties.important_additional_details') !!}</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button" wire:click.prevent="addAdditionalNumber" class="btn-premium-add-guarantor" title="{!! __('general.add') !!}">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="premium-mandatory-body">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-lg-6 mb-2">
-                                            <div
-                                                class="premium-form-group @error('electricity_account_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.electricity_account_number') !!}</label>
-                                                <input type="text" wire:model.defer="electricity_account_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_electricity_account') !!}">
-                                                @error('electricity_account_number')
-                                                    <span class="text-danger error-text">{{ $message }}</span>
-                                                @enderror
+                                    <div id="additional-numbers-container">
+                                        @forelse ($additional_numbers as $index => $number)
+                                            <div class="maintenance-item-row align-all-items-row row align-items-start mb-2 pb-2 border-bottom" wire:key="additional-number-{{ $index }}">
+                                                <div class="col-md-5">
+                                                    <div class="premium-form-group mb-0 @error('additional_numbers.'.$index.'.type') is-invalid-premium @enderror">
+                                                        <label class="premium-label">{!! __('properties.number_type') !!} <span class="text-danger">*</span></label>
+                                                        <select wire:model.defer="additional_numbers.{{ $index }}.type" class="form-control premium-input shadow-none">
+                                                            <option value="">{!! __('general.select_from_list') !!}</option>
+                                                            <option value="electricity_account">{!! __('properties.electricity_account_number') !!}</option>
+                                                            <option value="water_account">{!! __('properties.water_account_number') !!}</option>
+                                                            <option value="title_deed">{!! __('properties.title_deed_number') !!}</option>
+                                                            <option value="cadastral_number">{!! __('properties.property_number') !!}</option>
+                                                            <option value="other">{!! __('general.other') !!}</option>
+                                                        </select>
+                                                        @error('additional_numbers.'.$index.'.type')
+                                                            <span class="text-danger error-text">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="premium-form-group mb-0 @error('additional_numbers.'.$index.'.value') is-invalid-premium @enderror">
+                                                        <label class="premium-label">{!! __('properties.number_value') !!} <span class="text-danger">*</span></label>
+                                                        <input type="text" wire:model.defer="additional_numbers.{{ $index }}.value" class="form-control premium-input shadow-none" placeholder="{!! __('general.enter_value') !!}">
+                                                        @error('additional_numbers.'.$index.'.value')
+                                                            <span class="text-danger error-text">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 text-center">
+                                                    <div class="premium-form-group mb-0">
+                                                        <label class="premium-label d-block text-transparent" style="opacity: 0; user-select: none;">Del</label>
+                                                        <div class="d-flex align-items-center justify-content-center action-btn-wrapper">
+                                                            <button type="button" wire:click.prevent="removeAdditionalNumber({{ $index }})" class="btn-premium-action btn-premium-action-danger remove-item-btn shadow-none" title="{!! __('general.delete') !!}">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-lg-6 mb-2">
-                                            <div
-                                                class="premium-form-group @error('water_account_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.water_account_number') !!}</label>
-                                                <input type="text" wire:model.defer="water_account_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_water_account') !!}">
-                                                @error('water_account_number')
-                                                    <span class="text-danger error-text">{{ $message }}</span>
-                                                @enderror
+                                        @empty
+                                            <div class="text-center p-3 text-dark font-weight-bold">
+                                                <i class="fas fa-info-circle mr-1 text-primary"></i>
+                                                {!! __('properties.no_additional_numbers_added') !!}
                                             </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-lg-6 mb-2">
-                                            <div
-                                                class="premium-form-group @error('title_deed_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.title_deed_number') !!}</label>
-                                                <input type="text" wire:model.defer="title_deed_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_title_deed_number') !!}">
-                                                @error('title_deed_number')
-                                                    <span class="text-danger error-text">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-lg-6 mb-2">
-                                            <div
-                                                class="premium-form-group @error('property_number') is-invalid-premium @enderror">
-                                                <label class="premium-label">{!! __('properties.property_number') !!}</label>
-                                                <input type="text" wire:model.defer="property_number"
-                                                    class="form-control premium-input shadow-none" autocomplete="off"
-                                                    placeholder="{!! __('properties.enter_property_number') !!}">
-                                                @error('property_number')
-                                                    <span class="text-danger error-text">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>

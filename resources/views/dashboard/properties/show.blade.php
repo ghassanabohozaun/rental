@@ -59,6 +59,7 @@
                         @include('dashboard.properties.show._tabs')
                         <div class="tab-content mt-1">
                             @include('dashboard.properties.show._details')
+                            @include('dashboard.properties.show._additional_numbers')
                             @include('dashboard.properties.show._owners')
                             @include('dashboard.properties.show._contracts')
                             @include('dashboard.properties.show._maintenances')
