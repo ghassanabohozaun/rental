@@ -22,7 +22,7 @@ class PropertyRepository
             ->with(['company', 'creator', 'owners', 'propertyType', 'propertyStatus'])
             ->filter(
                 $request->all(),
-                ['name', 'location', 'property_number', 'title_deed_number', 'electricity_account_number', 'water_account_number'], // Search columns
+                ['name', 'location', 'file_number', 'building_number', 'street_number', 'zone_number'], // Search columns
                 ['property_status_id', 'company_id', 'property_type_id'], // Exact matches
                 [
                     'price' => ['min' => 'price_min', 'max' => 'price_max'],
@@ -97,7 +97,8 @@ class PropertyRepository
                 // Merging native Laravel JSON search with standard columns
                 $q->where('name->en', 'like', '%' . $searchValue . '%')
                     ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
-                    ->orWhere('property_number', 'like', '%' . $searchValue . '%');
+                    ->orWhere('file_number', 'like', '%' . $searchValue . '%')
+                    ->orWhere('building_number', 'like', '%' . $searchValue . '%');
             });
         }
 
@@ -118,7 +119,7 @@ class PropertyRepository
                 return [
                     'id' => $property->id,
                     'text' => $text,
-                    'property_number' => $property->property_number,
+                    'building_number' => $property->building_number,
                     'file_number' => $property->file_number,
                     'location' => $property->location
                 ];
