@@ -41,6 +41,10 @@ class PropertyRepository
             ->when($request->filled('water_account_number'), function ($q) use ($request) {
                 return $q->whereAdditionalNumber('water_account', $request->water_account_number);
             })
+            ->when($request->filled('cadastral_number') || $request->filled('property_number'), function ($q) use ($request) {
+                $val = $request->cadastral_number ?: $request->property_number;
+                return $q->whereAdditionalNumber('cadastral_number', $val);
+            })
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query, 20);

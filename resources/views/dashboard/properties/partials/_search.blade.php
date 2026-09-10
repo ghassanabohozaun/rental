@@ -114,6 +114,31 @@
                 </div>
             </div>
 
+            <!-- 2.3 Cadastral Number Filter (الرقم المساحي) -->
+            <div class="filter-item">
+                <div class="filter-chip js-filter-chip {{ request('cadastral_number') ? 'active' : '' }}" data-filter-target="cadastral_search_popover">
+                    <i class="fas fa-hashtag text-primary"></i>
+                    <span class="chip-text">{!! __('properties.property_number') !!}</span>
+                </div>
+
+                <div class="filter-query-panel shadow-lg border-0" id="cadastral_search_popover">
+                    <div class="mb-3">
+                        <label class="premium-label mb-2">{!! __('properties.property_number') !!}</label>
+                        <div class="premium-input-wrapper">
+                            <input type="text" class="form-control premium-input shadow-none" name="cadastral_number"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('cadastral_number') }}">
+                            <i class="fas fa-hashtag text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="popover-actions mt-4 text-right">
+                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- 3. Dependency Filter (Main/Sub) -->
             <div class="filter-item">
                 <div class="filter-chip js-filter-chip" data-filter-target="dependency_search_popover">

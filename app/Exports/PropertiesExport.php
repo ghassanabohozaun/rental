@@ -64,6 +64,10 @@ class PropertiesExport implements WithHeadings, FromCollection, WithMapping, Wit
             ->when(!empty($this->filters['water_account_number']), function ($query) {
                 $query->whereAdditionalNumber('water_account', $this->filters['water_account_number']);
             })
+            ->when(!empty($this->filters['cadastral_number']) || !empty($this->filters['property_number']), function ($query) {
+                $val = !empty($this->filters['cadastral_number']) ? $this->filters['cadastral_number'] : $this->filters['property_number'];
+                $query->whereAdditionalNumber('cadastral_number', $val);
+            })
             ->latest()
             ->get();
     }
