@@ -35,6 +35,12 @@ class PropertyRepository
             ->when($request->dependency_status == 'sub', function ($q) {
                 return $q->whereNotNull('parent_id');
             })
+            ->when($request->filled('electricity_account_number'), function ($q) use ($request) {
+                return $q->whereAdditionalNumber('electricity_account', $request->electricity_account_number);
+            })
+            ->when($request->filled('water_account_number'), function ($q) use ($request) {
+                return $q->whereAdditionalNumber('water_account', $request->water_account_number);
+            })
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query, 20);

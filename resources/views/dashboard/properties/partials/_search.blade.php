@@ -66,7 +66,7 @@
 
             <!-- 2.1 Electricity Account Filter -->
             <div class="filter-item">
-                <div class="filter-chip js-filter-chip" data-filter-target="electricity_search_popover">
+                <div class="filter-chip js-filter-chip {{ request('electricity_account_number') ? 'active' : '' }}" data-filter-target="electricity_search_popover">
                     <i class="fas fa-bolt text-primary"></i>
                     <span class="chip-text">{!! __('properties.electricity_account_number') !!}</span>
                 </div>
@@ -76,7 +76,8 @@
                         <label class="premium-label mb-2">{!! __('properties.electricity_account_number') !!}</label>
                         <div class="premium-input-wrapper">
                             <input type="text" class="form-control premium-input shadow-none" name="electricity_account_number"
-                                placeholder="{!! __('general.search') !!}..." autocomplete="off">
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('electricity_account_number') }}">
                             <i class="fas fa-bolt text-primary"></i>
                         </div>
                     </div>
@@ -90,7 +91,7 @@
 
             <!-- 2.2 Water Account Filter -->
             <div class="filter-item">
-                <div class="filter-chip js-filter-chip" data-filter-target="water_search_popover">
+                <div class="filter-chip js-filter-chip {{ request('water_account_number') ? 'active' : '' }}" data-filter-target="water_search_popover">
                     <i class="fas fa-tint text-primary"></i>
                     <span class="chip-text">{!! __('properties.water_account_number') !!}</span>
                 </div>
@@ -100,7 +101,8 @@
                         <label class="premium-label mb-2">{!! __('properties.water_account_number') !!}</label>
                         <div class="premium-input-wrapper">
                             <input type="text" class="form-control premium-input shadow-none" name="water_account_number"
-                                placeholder="{!! __('general.search') !!}..." autocomplete="off">
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('water_account_number') }}">
                             <i class="fas fa-tint text-primary"></i>
                         </div>
                     </div>

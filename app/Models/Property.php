@@ -98,4 +98,107 @@ class Property extends Model implements MustBelongToCompany
     {
         return $this->hasMany(PropertyAttachment::class, 'property_id');
     }
+
+    /**
+     * Accessor for electricity account number(s) from additional_numbers JSON.
+     */
+    public function getElectricityAccountNumberAttribute()
+    {
+        if (!empty($this->additional_numbers) && is_array($this->additional_numbers)) {
+            $items = collect($this->additional_numbers)
+                ->where('type', 'electricity_account')
+                ->pluck('value')
+                ->filter()
+                ->values();
+            return $items->isNotEmpty() ? $items->implode(' - ') : null;
+        }
+        return null;
+    }
+
+    /**
+     * Accessor for water account number(s) from additional_numbers JSON.
+     */
+    public function getWaterAccountNumberAttribute()
+    {
+        if (!empty($this->additional_numbers) && is_array($this->additional_numbers)) {
+            $items = collect($this->additional_numbers)
+                ->where('type', 'water_account')
+                ->pluck('value')
+                ->filter()
+                ->values();
+            return $items->isNotEmpty() ? $items->implode(' - ') : null;
+        }
+        return null;
+    }
+
+    /**
+     * Accessor for title deed number(s) from additional_numbers JSON.
+     */
+    public function getTitleDeedNumberAttribute()
+    {
+        if (!empty($this->additional_numbers) && is_array($this->additional_numbers)) {
+            $items = collect($this->additional_numbers)
+                ->where('type', 'title_deed')
+                ->pluck('value')
+                ->filter()
+                ->values();
+            return $items->isNotEmpty() ? $items->implode(' - ') : null;
+        }
+        return null;
+    }
+
+    /**
+     * Accessor for cadastral/property number(s) from additional_numbers JSON.
+     */
+    public function getPropertyNumberAttribute()
+    {
+        if (!empty($this->additional_numbers) && is_array($this->additional_numbers)) {
+            $items = collect($this->additional_numbers)
+                ->where('type', 'cadastral_number')
+                ->pluck('value')
+                ->filter()
+                ->values();
+            return $items->isNotEmpty() ? $items->implode(' - ') : null;
+        }
+        return null;
+    }
+
+    /**
+     * Scope a query to search inside additional_numbers JSON field.
+     */
+    public function scopeWhereAdditionalNumber($query, string $type, string $value)
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($type, $value) {
+            $q->where(function ($sub) use ($type, $value) {
+                $sub->whereNotNull('properties.additional_numbers')
+                    ->whereRaw("JSON_VALID(properties.additional_numbers) AND EXISTS (
+                        SELECT 1 FROM JSON_TABLE(
+                            properties.additional_numbers,
+                            '$[*]' COLUMNS (
+                                type VARCHAR(50) PATH '$.type',
+                                val VARCHAR(100) PATH '$.value'
+                            )
+                        ) AS jt
+                        WHERE jt.type = ? AND jt.val LIKE ?
+                    )", [$type, "%{$value}%"]);
+            })->orWhereHas('units', function ($unitQ) use ($type, $value) {
+                $unitQ->whereNotNull('additional_numbers')
+                    ->whereRaw("JSON_VALID(additional_numbers) AND EXISTS (
+                        SELECT 1 FROM JSON_TABLE(
+                            additional_numbers,
+                            '$[*]' COLUMNS (
+                                type VARCHAR(50) PATH '$.type',
+                                val VARCHAR(100) PATH '$.value'
+                            )
+                        ) AS jt
+                        WHERE jt.type = ? AND jt.val LIKE ?
+                    )", [$type, "%{$value}%"]);
+            });
+        });
+    }
 }
