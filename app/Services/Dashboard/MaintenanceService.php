@@ -4,6 +4,7 @@ namespace App\Services\Dashboard;
 
 use App\Repositories\Dashboard\MaintenanceRepository;
 use App\Utils\ImageManagerUtils;
+use Carbon\Carbon;
 
 class MaintenanceService
 {
@@ -30,6 +31,10 @@ class MaintenanceService
     {
         if (!isset($data['created_by'])) {
             $data['created_by'] = auth()->id();
+        }
+
+        if (!empty($data['date'])) {
+            $data['date'] = Carbon::parse($data['date'])->format('Y-m-d');
         }
 
         if (!isset($data['company_id']) && user()->company_id != 1) {
@@ -63,6 +68,10 @@ class MaintenanceService
     {
         if (isset($data['company_id']) && $data['company_id'] === '') {
             $data['company_id'] = null;
+        }
+
+        if (!empty($data['date'])) {
+            $data['date'] = Carbon::parse($data['date'])->format('Y-m-d');
         }
 
         if (array_key_exists('cost', $data) && empty($data['cost'])) {

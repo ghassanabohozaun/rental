@@ -102,7 +102,7 @@
                                                 <div class="col-md-3">
                                                     <div class="premium-form-group">
                                                         <label for="date" class="premium-label">{!! __('maintenances.date') !!} <span class="text-danger">*</span></label>
-                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none filter-datepicker" autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" value="{{ $maintenance->date }}">
+                                                        <input type="text" id="date" name="date" class="form-control premium-input shadow-none ptc-datepicker" autocomplete="off" data-format="dd-mm-yyyy" placeholder="DD-MM-YYYY" value="{{ old('date', $maintenance->date ? \Carbon\Carbon::parse($maintenance->date)->format('d-m-Y') : '') }}">
                                                         <span class="text-danger error-text date_error"></span>
                                                     </div>
                                                 </div>
@@ -267,6 +267,23 @@
                 width: '100%',
                 dir: $('html').attr('data-textdirection') || 'ltr'
             });
+
+            // Initialize Datepicker
+            if (typeof initPTCUI === 'function') {
+                initPTCUI();
+            } else {
+                $('.ptc-datepicker').each(function() {
+                    var format = $(this).data('format') || 'dd-mm-yyyy';
+                    $(this).datepicker({
+                        format: format,
+                        autoclose: true,
+                        todayHighlight: true,
+                        language: '{{ app()->getLocale() }}',
+                        rtl: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }},
+                        orientation: "bottom auto"
+                    });
+                });
+            }
 
             // Update Custom File Label on selection
             $(document).on('change', '.file-upload-input', function (e) {

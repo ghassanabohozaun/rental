@@ -26,6 +26,10 @@ class Maintenance extends Model implements MustBelongToCompany
         'created_by'
     ];
 
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     public $translatable = ['description'];
 
     /**
