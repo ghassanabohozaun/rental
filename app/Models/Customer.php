@@ -72,4 +72,12 @@ class Customer extends Model implements MustBelongToCompany
     {
         return $this->belongsTo(Nationality::class);
     }
+
+    /**
+     * Get display name showing company name and representative/person name.
+     */
+    public function getDisplayNameAttribute()
+    {
+        return !empty($this->company_name) ? $this->company_name . ' (' . $this->name . ')' : $this->name;
+    }
 }

@@ -18,7 +18,7 @@ return [
     'personal_id' => 'Personal ID',
     'phone' => 'Phone',
     'email' => 'Email',
-    'id_number' => 'ID Number / CR Number',
+    'id_number' => 'ID Number',
     'address' => 'Address',
     'nationality' => 'Nationality',
     'relationship' => 'Relationship',

@@ -20,7 +20,7 @@ class CustomerRepository
     {
         $query = $this->model
             ->with(['company', 'creator', 'guarantors', 'nationality'])
-            ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type', 'id_number']), ['name', 'phone', 'email', 'id_number', 'address'], ['company_id', 'nationality_id', 'tenant_type', 'id_number'])
+            ->filter($request->only(['keyword', 'company_id', 'nationality_id', 'tenant_type', 'id_number']), ['name', 'phone', 'email', 'id_number', 'address', 'company_name', 'cr_number', 'establishment_number'], ['company_id', 'nationality_id', 'tenant_type', 'id_number'])
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query, 20);
@@ -81,6 +81,9 @@ class CustomerRepository
             $query->where(function ($q) use ($searchValue) {
                 $q->where('name->en', 'like', '%' . $searchValue . '%')
                   ->orWhere('name->ar', 'like', '%' . $searchValue . '%')
+                  ->orWhere('company_name', 'like', '%' . $searchValue . '%')
+                  ->orWhere('cr_number', 'like', '%' . $searchValue . '%')
+                  ->orWhere('establishment_number', 'like', '%' . $searchValue . '%')
                   ->orWhere('phone', 'like', '%' . $searchValue . '%')
                   ->orWhere('id_number', 'like', '%' . $searchValue . '%');
             });

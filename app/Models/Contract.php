@@ -222,5 +222,14 @@ class Contract extends Model implements MustBelongToCompany
         return str_replace(array_keys($replacements), array_values($replacements), $text);
     }
 
+    /**
+     * Get formatted display title for dropdowns including contract ID, company/customer name, and property.
+     */
+    public function getDisplayTitleAttribute()
+    {
+        $customerDisplay = $this->customer ? $this->customer->display_name : '';
+        $propertyName = optional($this->property)->name;
 
+        return __('contracts.contract') . ' #' . $this->id . ' - ' . ($customerDisplay ?: '---') . ($propertyName ? ' (' . $propertyName . ')' : '');
+    }
 }

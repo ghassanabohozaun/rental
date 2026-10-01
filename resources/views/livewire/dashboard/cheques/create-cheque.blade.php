@@ -123,7 +123,7 @@
                                                             </option>
                                                             @foreach ($contracts as $contract)
                                                                 <option value="{{ $contract->id }}">
-                                                                    {{ __('contracts.contract') . ' #' . $contract->id . ' - ' . optional($contract->customer)->name . ' (' . optional($contract->property)->name . ')' }}
+                                                                    {{ $contract->display_title }}
                                                                 </option>
                                                             @endforeach
                                                         </select>

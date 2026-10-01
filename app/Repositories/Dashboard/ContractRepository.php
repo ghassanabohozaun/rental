@@ -26,6 +26,37 @@ class ContractRepository
                 ['property_id', 'customer_id', 'company_id', 'status', 'payment_cycle'], // Exact matches
                 ['rent_amount' => ['min' => 'rent_min', 'max' => 'rent_max']] // Range filters
             )
+            ->when($request->filled('company_name'), function ($q) use ($request) {
+                $val = $request->company_name;
+                $q->where(function ($subQ) use ($val) {
+                    $subQ->whereHas('customer', function ($cq) use ($val) {
+                        $cq->where('company_name', 'like', '%' . $val . '%')
+                           ->orWhere('cr_number', 'like', '%' . $val . '%');
+                    })->orWhereHas('contractDetail', function ($dq) use ($val) {
+                        $dq->where('second_party_data', 'like', '%' . $val . '%');
+                    });
+                });
+            })
+            ->when($request->filled('electricity_account_number'), function ($q) use ($request) {
+                $val = $request->electricity_account_number;
+                $q->where(function ($subQ) use ($val) {
+                    $subQ->whereHas('property', function ($pq) use ($val) {
+                        $pq->whereAdditionalNumber('electricity_account', $val);
+                    })->orWhereHas('contractDetail', function ($dq) use ($val) {
+                        $dq->where('utilities_data', 'like', '%' . $val . '%');
+                    });
+                });
+            })
+            ->when($request->filled('water_account_number'), function ($q) use ($request) {
+                $val = $request->water_account_number;
+                $q->where(function ($subQ) use ($val) {
+                    $subQ->whereHas('property', function ($pq) use ($val) {
+                        $pq->whereAdditionalNumber('water_account', $val);
+                    })->orWhereHas('contractDetail', function ($dq) use ($val) {
+                        $dq->where('utilities_data', 'like', '%' . $val . '%');
+                    });
+                });
+            })
             ->orderByDesc('id');
 
         return $this->applyAjaxPagination($request, $query, 20);
@@ -62,7 +93,9 @@ class ContractRepository
             $query->where(function ($q) use ($searchValue) {
                 $q->where('id', 'like', '%' . $searchValue . '%')
                   ->orWhereHas('customer', function($subQ) use ($searchValue) {
-                      $subQ->where('name', 'like', '%' . $searchValue . '%');
+                      $subQ->where('name', 'like', '%' . $searchValue . '%')
+                           ->orWhere('company_name', 'like', '%' . $searchValue . '%')
+                           ->orWhere('cr_number', 'like', '%' . $searchValue . '%');
                   })
                   ->orWhereHas('property', function($subQ) use ($searchValue) {
                       $subQ->where('name->ar', 'like', '%' . $searchValue . '%')
@@ -77,7 +110,7 @@ class ContractRepository
             ->map(function ($contract) {
                 return [
                     'id' => $contract->id,
-                    'text' => __('contracts.contract') . ' #' . $contract->id . ' - ' . optional($contract->customer)->name . ' (' . optional($contract->property)->name . ')',
+                    'text' => $contract->display_title,
                 ];
             });
     }

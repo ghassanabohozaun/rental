@@ -61,6 +61,81 @@
                 </div>
             </div>
 
+            <!-- Customer Company Name Filter -->
+            <div class="filter-item">
+                <div class="filter-chip js-filter-chip {{ request('company_name') ? 'active' : '' }}" data-filter-target="company_name_search_popover">
+                    <i class="fas fa-landmark text-primary"></i>
+                    <span class="chip-text">{!! __('customers.customer_company_name') !!}</span>
+                </div>
+
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="company_name_search_popover">
+                    <div class="mb-3">
+                        <label class="premium-label mb-2">{!! __('customers.customer_company_name') !!}</label>
+                        <div class="premium-input-wrapper">
+                            <input type="text" class="form-control premium-input shadow-none" name="company_name"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('company_name') }}">
+                            <i class="fas fa-landmark text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="popover-actions mt-4 text-right">
+                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electricity Account Filter -->
+            <div class="filter-item">
+                <div class="filter-chip js-filter-chip {{ request('electricity_account_number') ? 'active' : '' }}" data-filter-target="electricity_search_popover">
+                    <i class="fas fa-bolt text-primary"></i>
+                    <span class="chip-text">{!! __('properties.electricity_account_number') !!}</span>
+                </div>
+
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="electricity_search_popover">
+                    <div class="mb-3">
+                        <label class="premium-label mb-2">{!! __('properties.electricity_account_number') !!}</label>
+                        <div class="premium-input-wrapper">
+                            <input type="text" class="form-control premium-input shadow-none" name="electricity_account_number"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('electricity_account_number') }}">
+                            <i class="fas fa-bolt text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="popover-actions mt-4 text-right">
+                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Water Account Filter -->
+            <div class="filter-item">
+                <div class="filter-chip js-filter-chip {{ request('water_account_number') ? 'active' : '' }}" data-filter-target="water_search_popover">
+                    <i class="fas fa-tint text-primary"></i>
+                    <span class="chip-text">{!! __('properties.water_account_number') !!}</span>
+                </div>
+
+                <div class="filter-query-panel shadow-lg border-0 min-w-280" id="water_search_popover">
+                    <div class="mb-3">
+                        <label class="premium-label mb-2">{!! __('properties.water_account_number') !!}</label>
+                        <div class="premium-input-wrapper">
+                            <input type="text" class="form-control premium-input shadow-none" name="water_account_number"
+                                placeholder="{!! __('general.search') !!}..." autocomplete="off"
+                                value="{{ request('water_account_number') }}">
+                            <i class="fas fa-tint text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="popover-actions mt-4 text-right">
+                        <button type="button" class="btn btn-premium-blue btn-sm js-apply-filter px-4">
+                            <i class="fas fa-check-circle mr-1"></i> {!! __('general.apply') !!}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Status Filter -->
             <div class="filter-item">
                 <div class="filter-chip js-filter-chip" data-filter-target="status_search_popover">
