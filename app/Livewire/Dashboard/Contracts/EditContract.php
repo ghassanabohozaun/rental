@@ -384,7 +384,7 @@ class EditContract extends Component
             // Attachments Repeater
             'contract_attachments' => 'nullable|array',
             'contract_attachments.*.name' => 'required|string|max:255',
-            'contract_attachments.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'contract_attachments.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:20480',
         ];
 
         if (user()->company_id == 1) {
